@@ -1,19 +1,19 @@
-import Multiple from "../tests/config/questions/Multiple";
-import Single from "../tests/config/questions/Single";
-import Boolean from "../tests/config/questions/Boolean";
-import Matrix from "../tests/config/questions/Matrix";
+import Multiple from "../Questionnaires/config/questions/Multiple";
+import Single from "../Questionnaires/config/questions/Single";
+import Boolean from "../Questionnaires/config/questions/Boolean";
+import Matrix from "../Questionnaires/config/questions/Matrix";
 import React from "react";
 
-export default function useQuestion(questionType) {
-  switch (questionType) {
+export default function useQuestion(question, answers, setAnswer) {
+  switch (question.questionType) {
     case 'multiple':
-      return <Multiple/>;
+      return <Multiple answers={answers} setAnswer={setAnswer} />;
     case 'single' :
-      return <Single/>;
+      return <Single answers={answers} setAnswer={setAnswer}/>;
     case 'boolean' :
-      return <Boolean/>;
+      return <Boolean answers={answers} setAnswer={setAnswer}/>;
     case 'matrix':
-      return <Matrix/>;
+      return <Matrix answers={answers} setAnswer={setAnswer}/>;
     default:
       return '';
   }

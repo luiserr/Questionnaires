@@ -1,5 +1,5 @@
-import General from '../tests/config/General';
-import SectionList from '../tests/config/SectionList';
+import General from '../Questionnaires/config/General';
+import SectionList from '../Questionnaires/config/SectionList';
 import React from "react";
 
 export default (step, test, payload, setPayload) => {

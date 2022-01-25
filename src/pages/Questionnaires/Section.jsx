@@ -7,7 +7,7 @@ import React, {useEffect, useState} from "react";
 import {useLocation, useNavigate, useParams} from "react-router-dom";
 import Button from "@mui/material/Button";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import QuestionList from "../../components/tests/config/QuestionList";
+import QuestionList from "../../components/Questionnaires/config/QuestionList";
 import CardActions from "@mui/material/CardActions";
 import SaveIcon from '@mui/icons-material/Save';
 import {findSection, saveSection} from "../../tools/testRequests";

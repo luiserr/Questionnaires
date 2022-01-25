@@ -5,7 +5,7 @@ import Step from '@mui/material/Step';
 import StepLabel from '@mui/material/StepLabel';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
-import General from '../../components/tests/config/General';
+import General from '../../components/Questionnaires/config/General';
 import Grid from "@mui/material/Grid";
 import useStepper from '../../components/hooks/stepperHook';
 import Card from "@mui/material/Card";

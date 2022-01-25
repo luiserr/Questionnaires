@@ -1,10 +1,10 @@
 import {Route, Routes} from "react-router-dom";
-import Configuration from "../pages/tests/Wizard";
+import Configuration from "../pages/Questionnaires/Wizard";
 import * as React from "react";
-import TestList from '../pages/tests/TestList';
+import TestList from '../pages/Questionnaires/TestList';
 import Home from '../pages/Home';
-import Section from '../pages/tests/Section';
-import Question from "../pages/tests/Question";
+import Section from '../pages/Questionnaires/Section';
+import Question from "../pages/Questionnaires/Question";
 
 export default function routes() {
   return (
@@ -12,7 +12,7 @@ export default function routes() {
       <Route exact name="list" path="/" element={<Home/>}>
         <Route exact name="create" path="/" element={<TestList/>}/>
         <Route exact name="create" path="/test/:testId" element={<Configuration/>}/>
-        <Route exact name="create" path="/test/presentacion/:testId" element={<Configuration/>}/>
+        <Route exact name="create" path="/test/presentation/:testId" element={<Configuration/>}/>
         <Route exact name="create" path="/test/:testId/section/:sectionId" element={<Section/>}/>
         <Route exact name="create" path="/test/:testId/section/:sectionId/question/:questionId" element={<Question/>}/>
       </Route>

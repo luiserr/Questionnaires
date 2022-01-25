@@ -20,7 +20,10 @@ import useQuestion from "../../components/hooks/questionHook";
 
 export default function Question() {
 
-  const {state: {test: currentTest = null, question: currentQuestion = null}} = useLocation();
+  const location = useLocation();
+  const currentTest = location?.state?.test;
+  const currentQuestion = location?.state?.question;
+
   const {sectionId, testId, questionId} = useParams();
   const {test} = useTest(testId, currentTest);
   const [question, setQuestion] = useState({
@@ -31,6 +34,7 @@ export default function Question() {
     ...currentQuestion
   });
   const [description, setDescription] = useState(question.description);
+  const [answers, setAnswers] = useState(question.answers || []);
   const navigate = useNavigate();
 
   useEffect(async () => {
@@ -40,7 +44,7 @@ export default function Question() {
     }
   }, []);
 
-  const QuestionComponent = useQuestion(question.questionType);
+  const QuestionComponent = useQuestion(question, answers, setAnswers);
 
   const handleBack = () => {
     navigate(`/test/${testId}/section/${sectionId}`);
@@ -89,12 +93,13 @@ export default function Question() {
               />
             </Grid>
             <Grid item xs={10}>
-              <Box component="form" sx={{'& .MuiTextField-root': {m: 1}}}>
+              <Box component="form" sx={{marginTop: '1.5em'}}>
                 <InputLabel id="questionTypeLabel">Tipo de pregunta</InputLabel>
                 <Select
                   labelId="questionTypeLabel"
                   id="questionType"
                   label="Tipo de pregunta"
+                  sx={{width: '50%'}}
                   onChange={e => handleChange(e.target.value)}
                 >
                   {questionTypes.map((question) => <MenuItem
@@ -106,7 +111,7 @@ export default function Question() {
                 </Select>
               </Box>
             </Grid>
-            <Grid item sx={12}>
+            <Grid item xs={12}>
               {QuestionComponent}
             </Grid>
           </Grid>
