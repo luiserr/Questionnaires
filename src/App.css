@@ -1,0 +1,115 @@
+
+* {
+    margin: 0;
+    box-sizing: border-box;
+}
+
+.MuiModal-root {
+    z-index: 100 !important;
+}
+
+button.MuiButton-root.MuiButton-outlined.MuiButton-outlinedPrimary.MuiButton-sizeSmall.MuiButton-outlinedSizeSmall.MuiButtonBase-root.css-1k23hlb-MuiButtonBase-root-MuiButton-root {
+    font-size: 8px;
+}
+
+table thead tr th, table tbody tr td {
+    font-size: 12px !important;
+}
+
+.css-y8ay40-MuiTableCell-root {
+    padding: 5px !important;
+}
+
+.MuiTableCell-head .MuiFormControlLabel-labelPlacementTop .MuiTypography-root{
+    font-size: 10px !important;
+}
+
+.dzu-dropzone {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    min-height: 100px;
+    overflow: scroll;
+    margin: 0 auto;
+    position: relative;
+    box-sizing: border-box;
+    transition: all 0.15s linear;
+    border: 2px solid #d9d9d9;
+    border-radius: 4px;
+}
+
+.dzu-previewContainer {
+    padding: 10px 3%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+    width: 100%;
+    min-height: 45px;
+    z-index: 1;
+    border-bottom: 1px solid #ECECEC;
+    box-sizing: border-box;
+}
+
+.dzu-previewImage {
+    width: auto;
+    max-height: 25px;
+    max-width: 140px;
+    border-radius: 4px;
+}
+
+.css-a6xn8r {
+    height: auto;
+}
+
+.container-checkbox {
+    /*position: absolute;*/
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-right: 10px;
+
+  }
+  
+  .css-label {
+    cursor: pointer;
+  }
+  
+  .css-checkbox {
+    display: none;
+  }
+  
+  .fa {
+    color: white;
+    line-height: 16px;
+    border-radius: 4px;
+  }
+  
+  .fa-plus {
+    padding-top: 2px;
+    padding-right: 2px;
+    padding-left: 2px;
+    background-color: #3AC5C9; 
+  }
+  
+  .fa-minus {
+    padding-top: 1px;
+    padding-right: 2px;
+    padding-left: 2px;
+    background-color: #E85764;
+    display: none;
+  }
+  
+  .css-checkbox:checked + .css-label .fa-minus {
+    display: inline;
+  }
+  
+  .css-checkbox:checked + .css-label .fa-plus {
+    display: none;
+  }

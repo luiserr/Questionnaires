@@ -1,0 +1,12 @@
+/* import bootstrap to set changes 
+@import "~bootstrap/scss/bootstrap";
+*/
+
+
+$labelColor: rgb(76, 87, 61);
+
+.app {
+  label {
+    color: $labelColor;
+  }
+}
