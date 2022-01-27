@@ -16,6 +16,7 @@ import {useTest} from "../../components/hooks/testHook";
 import {findSection, saveQuestion} from "../../tools/testRequests";
 import questionTypes from "../../const/questionTypes";
 import useQuestion from "../../components/hooks/questionHook";
+import validate from "../../tools/validateQuestion";
 
 
 export default function Question() {
@@ -31,10 +32,11 @@ export default function Question() {
     description: '',
     questionType: '',
     private: true,
+    answers: [],
     ...currentQuestion
   });
   const [description, setDescription] = useState(question.description);
-  const [answers, setAnswers] = useState(question.answers || []);
+  const [answers, setAnswers] = useState(question.answers);
   const navigate = useNavigate();
 
   useEffect(async () => {
@@ -57,15 +59,17 @@ export default function Question() {
     });
   };
 
-  const handleSave = async (answers) => {
+  const handleSave = async () => {
     const payload = {
       ...question,
       description,
       answers
     };
-    const newSection = await saveQuestion(testId, sectionId, payload);
-    if (newSection) {
-      navigate(`/test/${testId}/section/${newSection.id}`, {state: {section: newSection}});
+    if (validate(payload)) {
+      const newSection = await saveQuestion(testId, sectionId, payload);
+      if (newSection) {
+        navigate(`/test/${testId}/section/${newSection.id}`, {state: {section: newSection}});
+      }
     }
   };
 
@@ -116,6 +120,7 @@ export default function Question() {
             </Grid>
           </Grid>
           <CardActions>
+            <Button onClick={handleSave}>Guardar</Button>
           </CardActions>
         </CardContent>
       </Card>

@@ -13,7 +13,7 @@ export default function Multiple({answers = [], setAnswer}) {
 
   const handleNewAnswer = () => {
     const newAnswer = {
-      value: '',
+      description: '',
       id: uuid()
     };
     setAnswer([...answers, newAnswer]);
@@ -45,10 +45,10 @@ export default function Multiple({answers = [], setAnswer}) {
               <Grid sx={{marginTop: '1em'}}>
                 <TextField
                   key={answer.id || uuid()}
-                  label={`Respuesta-${index + 1}`}
-                  onChange={e => handleChange(index, 'value', e.target.value)}
+                  label={`Respuesta ${index + 1}:`}
+                  onChange={e => handleChange(index, 'description', e.target.value)}
                   variant="outlined"
-                  value={answer.value || ''}
+                  value={answer.description || ''}
                   fullWidth
                 />
               </Grid>
@@ -56,7 +56,7 @@ export default function Multiple({answers = [], setAnswer}) {
           })
           }
         </Grid>
-        <Button onClick={handleNewAnswer}>
+        <Button variant="contained" onClick={handleNewAnswer}>
           Nueva respuesta
         </Button>
       </Grid>
