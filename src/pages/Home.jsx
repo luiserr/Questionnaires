@@ -49,8 +49,8 @@ const DrawerHeader = styled('div')(({theme}) => ({
 const AppBar = styled(MuiAppBar, {
   shouldForwardProp: (prop) => prop !== 'open',
 })(({theme, open}) => ({
-  // zIndex: 999, //theme.zIndex.drawer + 1,
-  zIndex: theme.zIndex.drawer + 1,
+  zIndex: 10, //theme.zIndex.drawer + 1,
+  // zIndex: theme.zIndex.drawer + 1,
   background: '#FC7323',
   transition: theme.transitions.create(['width', 'margin'], {
     easing: theme.transitions.easing.sharp,
@@ -117,7 +117,7 @@ export default function MiniDrawer() {
           </Typography>
         </Toolbar>
       </AppBar>
-      <Drawer variant="permanent" open={open}>
+      <Drawer variant="permanent" open={open} sx={{zIndex: 9}}>
         <DrawerHeader>
           <IconButton onClick={handleDrawerClose}>
             {theme.direction === 'rtl' ? <ChevronRightIcon/> : <ChevronLeftIcon/>}

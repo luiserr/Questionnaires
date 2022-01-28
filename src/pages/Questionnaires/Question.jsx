@@ -28,6 +28,7 @@ export default function Question() {
   const {sectionId, testId, questionId} = useParams();
   const {test} = useTest(testId, currentTest);
   const [question, setQuestion] = useState({
+    id: '_',
     title: '',
     description: '',
     questionType: '',

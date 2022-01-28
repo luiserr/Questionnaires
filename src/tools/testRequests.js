@@ -2,7 +2,7 @@ import {api, get, local, post} from '../utils/ajax';
 
 const general = async (payload) => {
   const response = await post(`${api}/tests`, payload, 'POST', true);
-  return response.success ? response.data : null;
+  return response?.success ? response.data : null;
 };
 
 const question = (test) => {
@@ -39,7 +39,7 @@ export const handleSave = async (step, test, payload, setTest, setStep, navigati
 
 export const findTest = async (testId) => {
   const response = await get(`${api}/tests/${testId}`, true);
-  if (response.success) {
+  if (response && response?.success) {
     return response.data;
   }
   return {};
@@ -47,7 +47,7 @@ export const findTest = async (testId) => {
 
 export const searchTest = async () => {
   const response = await post(`${api}/tests/list`, {}, 'POST', true);
-  if (response.success) {
+  if (response && response?.success) {
     return response.data;
   }
   return {}
@@ -55,7 +55,7 @@ export const searchTest = async () => {
 
 export async function getSections(test) {
   const response = await get(`${local}/tests/${test.id}/sections`, true);
-  if (response.success) {
+  if (response && response?.success) {
     return response.data;
   }
   return [];
@@ -64,7 +64,7 @@ export async function getSections(test) {
 
 export async function findSection(testId, sectionId) {
   const response = await get(`${local}/tests/${testId}/section/${sectionId}`, true);
-  if (response.success) {
+  if (response && response?.success) {
     return response.data;
   }
   return [];
@@ -79,7 +79,7 @@ export async function saveSection(testId, section, title, description, numberQue
   };
 
   const response = await post(`${api}/tests/${testId}/section`, payload, null, true);
-  if (response.success) {
+  if (response && response?.success) {
     return response.data;
   }
   return false;
@@ -87,13 +87,16 @@ export async function saveSection(testId, section, title, description, numberQue
 
 export async function getQuestions(testId, sectionId) {
   const response = await get(`${local}/tests/${testId}/section/${sectionId}/questions`, true);
-  if (response.success) {
+  if (response && response?.success) {
     return response.data;
   }
   return [];
 }
 
-export async function saveQuestion(testId, sectionId, payload)
-{
-  return true;
+export async function saveQuestion(testId, sectionId, payload) {
+  const response = await post(`${local}/tests/${testId}/section/${sectionId}/question`, payload, null, true);
+  if (response && response?.success) {
+    return response.data;
+  }
+  return null;
 }
