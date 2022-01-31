@@ -70,14 +70,14 @@ export async function findSection(testId, sectionId) {
   return [];
 }
 
-export async function saveSection(testId, section, title, description, numberQuestions) {
+
+export async function saveSection(testId, id, title, description, numberQuestions) {
   const payload = {
-    id: section?.id || null,
+    id,
     title,
     description,
     numberQuestions
   };
-
   const response = await post(`${api}/tests/${testId}/section`, payload, null, true);
   if (response && response?.success) {
     return response.data;
@@ -87,6 +87,14 @@ export async function saveSection(testId, section, title, description, numberQue
 
 export async function getQuestions(testId, sectionId) {
   const response = await get(`${local}/tests/${testId}/section/${sectionId}/questions`, true);
+  if (response && response?.success) {
+    return response.data;
+  }
+  return [];
+}
+
+export async function findQuestion(testId, sectionId, questionId) {
+  const response = await get(`${local}/tests/${testId}/section/${sectionId}/question/${questionId}`, true);
   if (response && response?.success) {
     return response.data;
   }

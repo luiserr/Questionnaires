@@ -3,7 +3,7 @@ import CardContent from "@mui/material/CardContent";
 import Grid from "@mui/material/Grid";
 import JoditEditor from "jodit-react";
 import React, {useEffect, useState} from "react";
-import {useLocation, useNavigate, useParams} from "react-router-dom";
+import {Link, useLocation, useNavigate, useParams} from "react-router-dom";
 import Button from "@mui/material/Button";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import CardActions from "@mui/material/CardActions";
@@ -13,22 +13,27 @@ import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
 
 import {useTest} from "../../components/hooks/testHook";
-import {findSection, saveQuestion} from "../../tools/testRequests";
+import {findQuestion, saveQuestion} from "../../tools/testRequests";
 import questionTypes from "../../const/questionTypes";
 import useQuestion from "../../components/hooks/questionHook";
 import validate from "../../tools/validateQuestion";
+import Breadcrumbs from "@mui/material/Breadcrumbs";
+import Typography from "@mui/material/Typography";
+import Divider from "@mui/material/Divider";
 
 
 export default function Question() {
 
   const location = useLocation();
   const currentTest = location?.state?.test;
+  const currentSection = location?.state?.section;
   const currentQuestion = location?.state?.question;
 
   const {sectionId, testId, questionId} = useParams();
   const {test} = useTest(testId, currentTest);
+
   const [question, setQuestion] = useState({
-    id: '_',
+    id: null,
     title: '',
     description: '',
     questionType: '',
@@ -41,16 +46,17 @@ export default function Question() {
   const navigate = useNavigate();
 
   useEffect(async () => {
-    if (questionId !== '_' && !currentQuestion) {
-      const myQuestion = await findSection(questionId);
+    if (test && questionId !== '_') {
+      const myQuestion = await findQuestion(testId, sectionId, questionId);
       setQuestion(myQuestion);
+      setAnswers(myQuestion.answers);
     }
-  }, []);
+  }, [test]);
 
   const QuestionComponent = useQuestion(question, answers, setAnswers);
 
   const handleBack = () => {
-    navigate(`/test/${testId}/section/${sectionId}`);
+    navigate(`/test/${testId}/section/${sectionId}`, {state: {test, section: currentSection}});
   };
 
   const handleChange = (questionType) => {
@@ -67,18 +73,41 @@ export default function Question() {
       answers
     };
     if (validate(payload)) {
-      const newSection = await saveQuestion(testId, sectionId, payload);
-      if (newSection) {
-        navigate(`/test/${testId}/section/${newSection.id}`, {state: {section: newSection}});
+      const newQuestion = await saveQuestion(test.id, sectionId, payload);
+      if (newQuestion) {
+        navigate(`/test/${test.id}/section/${sectionId}`, {state: {test}});
       }
     }
   };
 
   return (
     <Box sx={{width: '100%'}}>
+      <Breadcrumbs
+        sx={{marginBottom: '1em', backgroundColor: '#9E9E9E', padding: '5px', borderRadius: '5px', color: '#000'}}
+        aria-label="breadcrumb">
+        <Link underline="hover" color="inherit" href="/" to="/">
+          {test?.title}
+        </Link>
+        <Link
+          underline="hover"
+          color="inherit"
+          href="/getting-started/installation/"
+          to="/"
+        >
+          {currentSection?.title}
+        </Link>
+        <Link
+          underline="hover"
+          color="inherit"
+          to="/"
+        >
+          {question?.title}
+        </Link>
+      </Breadcrumbs>
       <h4>
         Configuración de preguntas
       </h4>
+      <Divider/>
       <Card>
         <CardContent>
           <Button
@@ -105,7 +134,9 @@ export default function Question() {
                   id="questionType"
                   label="Tipo de pregunta"
                   sx={{width: '50%'}}
+                  value={question.questionType}
                   onChange={e => handleChange(e.target.value)}
+                  size="small"
                 >
                   {questionTypes.map((question) => <MenuItem
                       key={question.key}
@@ -121,7 +152,7 @@ export default function Question() {
             </Grid>
           </Grid>
           <CardActions>
-            <Button onClick={handleSave}>Guardar</Button>
+            <Button variant="contained" onClick={handleSave}>Guardar</Button>
           </CardActions>
         </CardContent>
       </Card>

@@ -10,7 +10,7 @@ export default function useQuestion(question, answers, setAnswer) {
     case MULTIPLE:
       return <Multiple answers={answers} setAnswer={setAnswer}/>;
     case SINGLE :
-      return <Single answers={answers} setAnswer={setAnswer}/>;
+      return <Multiple answers={answers} setAnswer={setAnswer}/>;
     case BOOLEAN :
       return <Boolean answers={answers} setAnswer={setAnswer}/>;
     case MATRIX:

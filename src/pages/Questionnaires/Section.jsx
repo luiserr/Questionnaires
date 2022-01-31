@@ -4,7 +4,7 @@ import Grid from "@mui/material/Grid";
 import TextField from "@mui/material/TextField";
 import JoditEditor from "jodit-react";
 import React, {useEffect, useState} from "react";
-import {useLocation, useNavigate, useParams} from "react-router-dom";
+import {Link, useLocation, useNavigate, useParams} from "react-router-dom";
 import Button from "@mui/material/Button";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import QuestionList from "../../components/Questionnaires/config/QuestionList";
@@ -12,30 +12,39 @@ import CardActions from "@mui/material/CardActions";
 import SaveIcon from '@mui/icons-material/Save';
 import {findSection, saveSection} from "../../tools/testRequests";
 import Box from "@mui/material/Box";
+import {useTest} from "../../components/hooks/testHook";
+import Breadcrumbs from "@mui/material/Breadcrumbs";
 
 export default function Section() {
 
   const location = useLocation();
-  const navigate = useNavigate();
   const {testId, sectionId} = useParams();
 
-  const [section, setSection] = useState(null);
-  const [title, setTitle] = useState('');
-  const [description, setDescription] = useState('');
-  const [numberQuestions, setNumberQuestions] = useState(0);
+  const currentTest = location?.state?.test;
+  let currentSection = location?.state?.section || null;
+  const {test} = useTest(testId, currentTest);
+
+  const navigate = useNavigate();
+
+
+  const [section, setSection] = useState({
+    id: null,
+    title: '',
+    numberQuestions: 0,
+    ...currentSection
+  });
+
+  console.log(test, currentSection);
+
+  const [description, setDescription] = useState(currentSection?.description || '');
 
   useEffect(async () => {
-    let currentSection = location?.state?.section || null;
-    if (sectionId !== '_' && !currentSection) {
-      currentSection = await findSection(sectionId);
+    if (test && sectionId !== '_' && !currentSection) {
+      const mySection = await findSection(test.id, sectionId);
+      setSection(mySection);
+      setDescription(mySection.description);
     }
-    if (currentSection) {
-      setSection(currentSection);
-      setTitle(currentSection.title || '');
-      setDescription(currentSection.description || '');
-      setNumberQuestions(currentSection.numberQuestions || 0);
-    }
-  }, []);
+  }, [test]);
 
 
   const handleBack = () => {
@@ -43,14 +52,38 @@ export default function Section() {
   };
 
   const handleSave = async () => {
-    const newSection = await saveSection(testId, section, title, description, numberQuestions);
+    const payload = {};
+    const newSection = await saveSection(testId, section.id, section.title, description, section.numberQuestions);
     if (newSection) {
       navigate(`/test/${testId}/section/${newSection.id}`, {state: {section: newSection}});
     }
   };
 
+  const setData = (key, value) => {
+    const data = {
+      ...section,
+      [key]: value
+    };
+    setSection(data);
+  };
+
   return (
     <Box sx={{width: '100%'}}>
+      <Breadcrumbs
+        aria-label="breadcrumb"
+        sx={{marginBottom: '1em', backgroundColor: '#9E9E9E', padding: '5px', borderRadius: '5px', color: '#000'}}
+      >
+        <Link underline="hover" color="inherit" href="/" to="">
+          {test?.title}
+        </Link>
+        <Link
+          underline="hover"
+          color="inherit"
+          href="/getting-started/installation/"
+          to="/">
+          {section?.title}
+        </Link>
+      </Breadcrumbs>
       <h4>
         Configuración de secciones
       </h4>
@@ -71,9 +104,10 @@ export default function Section() {
                   fullWidth
                   id="title"
                   label="Titulo"
-                  value={title}
-                  onChange={(e) => setTitle(e.target.value)}
+                  value={section.title}
+                  onChange={(e) => setData('title', e.target.value)}
                   variant="outlined"
+                  size="small"
                 />
               </Box>
 
@@ -84,9 +118,11 @@ export default function Section() {
                   fullWidth
                   id="title"
                   label="Numero de preguntas"
-                  value={numberQuestions}
-                  onChange={(e) => setNumberQuestions(e.target.value)}
+                  value={section.numberQuestions}
+                  onChange={(e) => setData('numberQuestions', e.target.value)}
                   variant="outlined"
+                  size="small"
+                  type="number"
                 />
               </Box>
             </Grid>
@@ -98,15 +134,17 @@ export default function Section() {
               />
             </Grid>
             <Grid item xs={12}>
-              {(testId !== null && section !== null) && <QuestionList testId={testId} section={section}/>}
+              {(test !== null && section.id !== null) && <QuestionList test={test} section={section}/>}
             </Grid>
           </Grid>
           <CardActions>
             <Button
+              variant="contained"
               startIcon={<SaveIcon/>}
               onClick={handleSave}
+              sx={{float: 'right'}}
             >
-              Guardar
+              Guardar sección
             </Button>
           </CardActions>
         </CardContent>

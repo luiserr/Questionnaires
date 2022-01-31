@@ -19,30 +19,27 @@ import Alert from "@mui/material/Alert";
 import Divider from "@mui/material/Divider";
 
 
-export default function QuestionList({testId, section}) {
+export default function QuestionList({test, section}) {
 
   const [questions, setQuestions] = useState([]);
 
   useEffect(async () => {
-    const response = await getQuestions(testId, section.id);
+    const response = await getQuestions(test.id, section.id);
     setQuestions(response);
   }, []);
 
   const navigate = useNavigate();
 
   const handleNewQuestion = () => {
-    navigate(`/test/${testId}/section/${section.id}/question/_`);
+    navigate(`/test/${test.id}/section/${section.id}/question/_`, {state: {test, section}});
+  };
+
+  const handleEditQuestion = (question) => {
+    navigate(`/test/${test.id}/section/${section.id}/question/${question.id}`, {state: {test, section, question}});
   };
 
   return (
     <Grid item xs={12}>
-      <Button
-        sx={{marginTop: '2em', marginBottom: '2em'}}
-        variant="contained"
-        onClick={handleNewQuestion}
-      >
-        Crear pregunta
-      </Button>
       <h4>Listado de preguntas</h4>
       <Divider/>
       <div style={{marginTop: '2em'}}>
@@ -51,11 +48,11 @@ export default function QuestionList({testId, section}) {
               <Table sx={{minWidth: 650}} aria-label="simple table">
                 <TableHead>
                   <TableRow>
-                    <TableCell align="right">Pregunta</TableCell>
-                    <TableCell align="right">Tipo</TableCell>
-                    <TableCell align="right">Cantidad de respuestas configuradas</TableCell>
-                    <TableCell align="right">Eliminar</TableCell>
-                    <TableCell align="right">Editar</TableCell>
+                    <TableCell>Pregunta</TableCell>
+                    <TableCell>Tipo</TableCell>
+                    <TableCell>Cantidad de respuestas configuradas</TableCell>
+                    <TableCell>Editar</TableCell>
+                    <TableCell>Eliminar</TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
@@ -70,13 +67,13 @@ export default function QuestionList({testId, section}) {
                       <TableCell component="th" scope="row">
                         {question.typeDescription}
                       </TableCell>
-                      <TableCell align="right">{question.answers.length}</TableCell>
-                      <TableCell align="right">
-                        <IconButton aria-label="delete">
+                      <TableCell>{question.totalAnswers}</TableCell>
+                      <TableCell>
+                        <IconButton onClick={() => handleEditQuestion(question)} aria-label="delete">
                           <EditIcon/>
                         </IconButton>
                       </TableCell>
-                      <TableCell align="right">
+                      <TableCell>
                         <IconButton aria-label="delete">
                           <DeleteIcon/>
                         </IconButton>
@@ -91,11 +88,18 @@ export default function QuestionList({testId, section}) {
           <Alert severity="warning">No hay preguntas configuradas</Alert>
         }
       </div>
+      <Button
+        sx={{marginTop: '2em', marginBottom: '2em'}}
+        variant="outlined"
+        onClick={handleNewQuestion}
+      >
+        Crear pregunta
+      </Button>
     </Grid>
   );
 }
 
 QuestionList.propTypes = {
-  testId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-  sectionId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  test: PropTypes.object.isRequired,
+  section: PropTypes.object.isRequired,
 };

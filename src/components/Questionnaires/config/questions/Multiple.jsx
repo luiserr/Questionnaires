@@ -56,7 +56,7 @@ export default function Multiple({answers = [], setAnswer}) {
           })
           }
         </Grid>
-        <Button variant="contained" onClick={handleNewAnswer}>
+        <Button sx={{marginTop: '1.5em'}} variant="outlined" onClick={handleNewAnswer}>
           Nueva respuesta
         </Button>
       </Grid>

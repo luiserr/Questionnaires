@@ -1,5 +1,5 @@
 import {toast} from "../utils/alerts";
-import {MULTIPLE, OPEN} from "../const/questionTypes";
+import {BOOLEAN, MULTIPLE, OPEN, SINGLE} from "../const/questionTypes";
 
 const general = (question) => {
   if (question.description === '') {
@@ -28,6 +28,8 @@ export default function validate(question) {
   if (general(question)) {
     switch (question.questionType) {
       case MULTIPLE:
+      case SINGLE:
+      case BOOLEAN:
         return multiple(question.answers);
       default:
         toast('Tipo de pregunta invalido', false);

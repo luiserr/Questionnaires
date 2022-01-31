@@ -3,7 +3,7 @@ import {useEffect, useState} from "react";
 import {findTest} from '../../tools/testRequests';
 
 export const useTest = (testId, currentTest) => {
-  const [test, setTest] = useState({});
+  const [test, setTest] = useState(null);
   useEffect(async () => {
     if (testId !== '_' && !currentTest) {
       const myTest = await findTest(testId);
@@ -19,5 +19,4 @@ export const useTest = (testId, currentTest) => {
     test,
     setTest
   }
-
 };
