@@ -3,7 +3,7 @@ import CardContent from "@mui/material/CardContent";
 import Grid from "@mui/material/Grid";
 import JoditEditor from "jodit-react";
 import React, {useEffect, useState} from "react";
-import {Link, useLocation, useNavigate, useParams} from "react-router-dom";
+import {useLocation, useNavigate, useParams} from "react-router-dom";
 import Button from "@mui/material/Button";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import CardActions from "@mui/material/CardActions";
@@ -20,6 +20,7 @@ import validate from "../../tools/validateQuestion";
 import Breadcrumbs from "@mui/material/Breadcrumbs";
 import Typography from "@mui/material/Typography";
 import Divider from "@mui/material/Divider";
+import Link from "@mui/material/Link";
 
 
 export default function Question() {
@@ -82,32 +83,20 @@ export default function Question() {
 
   return (
     <Box sx={{width: '100%'}}>
-      <Breadcrumbs
-        sx={{marginBottom: '1em', backgroundColor: '#9E9E9E', padding: '5px', borderRadius: '5px', color: '#000'}}
-        aria-label="breadcrumb">
-        <Link underline="hover" color="inherit" href="/" to="/">
+      <Breadcrumbs className="myBreadcrumb" aria-label="breadcrumb" sx={{marginBottom: '15px'}}>
+        <Link>
           {test?.title}
         </Link>
-        <Link
-          underline="hover"
-          color="inherit"
-          href="/getting-started/installation/"
-          to="/"
-        >
+        <Link>
           {currentSection?.title}
         </Link>
-        <Link
-          underline="hover"
-          color="inherit"
-          to="/"
-        >
+        <Link>
           {question?.title}
         </Link>
       </Breadcrumbs>
       <h4>
         Configuración de preguntas
       </h4>
-      <Divider/>
       <Card>
         <CardContent>
           <Button

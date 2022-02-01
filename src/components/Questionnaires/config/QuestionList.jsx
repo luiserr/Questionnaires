@@ -39,7 +39,7 @@ export default function QuestionList({test, section}) {
   };
 
   return (
-    <Grid item xs={12}>
+    <Grid item xs={12} sx={{marginTop: '15px'}}>
       <h4>Listado de preguntas</h4>
       <Divider/>
       <div style={{marginTop: '2em'}}>
@@ -89,7 +89,7 @@ export default function QuestionList({test, section}) {
         }
       </div>
       <Button
-        sx={{marginTop: '2em', marginBottom: '2em'}}
+        sx={{marginTop: '2em', marginBottom: '2em', float: 'right'}}
         variant="outlined"
         onClick={handleNewQuestion}
       >

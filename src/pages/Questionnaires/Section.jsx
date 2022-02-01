@@ -4,7 +4,7 @@ import Grid from "@mui/material/Grid";
 import TextField from "@mui/material/TextField";
 import JoditEditor from "jodit-react";
 import React, {useEffect, useState} from "react";
-import {Link, useLocation, useNavigate, useParams} from "react-router-dom";
+import {useLocation, useNavigate, useParams} from "react-router-dom";
 import Button from "@mui/material/Button";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import QuestionList from "../../components/Questionnaires/config/QuestionList";
@@ -14,6 +14,7 @@ import {findSection, saveSection} from "../../tools/testRequests";
 import Box from "@mui/material/Box";
 import {useTest} from "../../components/hooks/testHook";
 import Breadcrumbs from "@mui/material/Breadcrumbs";
+import Link from "@mui/material/Link";
 
 export default function Section() {
 
@@ -34,8 +35,6 @@ export default function Section() {
     ...currentSection
   });
 
-  console.log(test, currentSection);
-
   const [description, setDescription] = useState(currentSection?.description || '');
 
   useEffect(async () => {
@@ -43,8 +42,12 @@ export default function Section() {
       const mySection = await findSection(test.id, sectionId);
       setSection(mySection);
       setDescription(mySection.description);
+    } else {
+      if (currentSection) {
+        setSection(currentSection);
+      }
     }
-  }, [test]);
+  }, [test, sectionId]);
 
 
   const handleBack = () => {
@@ -69,18 +72,11 @@ export default function Section() {
 
   return (
     <Box sx={{width: '100%'}}>
-      <Breadcrumbs
-        aria-label="breadcrumb"
-        sx={{marginBottom: '1em', backgroundColor: '#9E9E9E', padding: '5px', borderRadius: '5px', color: '#000'}}
-      >
-        <Link underline="hover" color="inherit" href="/" to="">
+      <Breadcrumbs className="myBreadcrumb" sx={{marginBottom: '15px'}}>
+        <Link>
           {test?.title}
         </Link>
-        <Link
-          underline="hover"
-          color="inherit"
-          href="/getting-started/installation/"
-          to="/">
+        <Link>
           {section?.title}
         </Link>
       </Breadcrumbs>
@@ -142,7 +138,6 @@ export default function Section() {
               variant="contained"
               startIcon={<SaveIcon/>}
               onClick={handleSave}
-              sx={{float: 'right'}}
             >
               Guardar sección
             </Button>

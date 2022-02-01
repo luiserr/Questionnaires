@@ -113,3 +113,18 @@ table thead tr th, table tbody tr td {
 .css-checkbox:checked + .css-label .fa-plus {
     display: none;
 }
+
+.myBreadcrumb {
+    background: #BBBBBB;
+    margin-bottom: 10px;
+    padding: 0.2em;
+    border-radius: 4px;
+ /*sx={{marginBottom: '1em', backgroundColor: '#9E9E9E', padding: '5px', borderRadius: '5px'}}*/
+}
+
+.myBreadcrumb ol li a {
+    color: #000;
+    cursor: pointer;
+    font-size: 12px;
+    text-decoration: none;
+}
