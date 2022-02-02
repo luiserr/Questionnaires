@@ -7,7 +7,8 @@ import Grid from "@mui/material/Grid";
 import {useAnswer} from "../../components/hooks/testHook";
 import React, {useState, useEffect} from "react";
 import {useParams} from "react-router-dom";
-import {getPresentation} from "../../tools/presentationRequest";
+import {getPresentation, getQuestions} from "../../tools/presentationRequest";
+import {IN_PROGRESS} from "../../const/statuses";
 
 function a11yProps(index) {
   return {
@@ -23,16 +24,32 @@ export default function BasicTabs() {
   const {testId, presentationId} = useParams();
 
   useEffect(async () => {
-    const myPresentation = await getPresentation(testId, presentationId);
-    setPresentation(myPresentation);
-  }, []);
+    if (!presentation) {
+      const myPresentation = await getPresentation(testId, presentationId);
+      setPresentation(myPresentation);
+    } else {
+      if (presentation.status === IN_PROGRESS) {
+        handleQuestions();
+      }
+    }
+  }, [presentation]);
 
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
 
-  const TabPanel = useAnswer(presentation, value);
+  const handleQuestions = async () => {
+    const sections = await getQuestions(testId, presentationId);
+    if (sections) {
+      setPresentation({
+        ...presentation,
+        questions: sections
+      });
+    }
+  };
+
+  const TabPanel = useAnswer(presentation, setPresentation, value);
 
   return (
     <>
@@ -42,8 +59,8 @@ export default function BasicTabs() {
           <Box sx={{borderBottom: 1, borderColor: 'divider'}}>
             <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
               <Tab label="Presentación" {...a11yProps(0)} />
-              <Tab label="Preguntas" {...a11yProps(1)} />
-              <Tab label="Despedida" {...a11yProps(2)} />
+              <Tab label="Preguntas" {...a11yProps(1)} disabled={presentation?.questions}/>
+              <Tab label="Despedida" {...a11yProps(2)} disabled={presentation?.questions}/>
             </Tabs>
           </Box>
           <Grid item xs={12}>

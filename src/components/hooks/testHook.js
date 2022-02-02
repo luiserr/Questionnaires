@@ -24,10 +24,10 @@ export const useTest = (testId, currentTest) => {
   }
 };
 
-export function useAnswer(presentation, index) {
+export function useAnswer(presentation, setPresentation, index) {
   switch (index) {
     case 0:
-      return <Info presentation={presentation}/>;
+      return <Info presentation={presentation} setPresentation={setPresentation}/>;
     case 1:
       return <Section presentation={presentation}/>;
     default:
