@@ -1,8 +1,8 @@
 import {Box, Divider, Paper} from "@mui/material";
-import React from "react";
+import React, {useEffect} from "react";
 import Button from "@mui/material/Button";
 import * as PropTypes from 'prop-types';
-import {initPresentation} from "../../../tools/presentationRequest";
+import {getQuestions, initPresentation} from "../../../tools/presentationRequest";
 
 export default function Info({presentation, setPresentation}) {
 
@@ -11,9 +11,9 @@ export default function Info({presentation, setPresentation}) {
       presentationId: presentation.id,
       testId: presentation.testId
     };
-    const response = await initPresentation(payload);
-    if (response) {
-      setPresentation(response);
+    const myPresentation = await initPresentation(payload);
+    if (myPresentation) {
+      setPresentation(myPresentation);
     }
   };
 

@@ -27,26 +27,12 @@ export default function BasicTabs() {
     if (!presentation) {
       const myPresentation = await getPresentation(testId, presentationId);
       setPresentation(myPresentation);
-    } else {
-      if (presentation.status === IN_PROGRESS) {
-        handleQuestions();
-      }
     }
   }, [presentation]);
 
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
-  };
-
-  const handleQuestions = async () => {
-    const sections = await getQuestions(testId, presentationId);
-    if (sections) {
-      setPresentation({
-        ...presentation,
-        questions: sections
-      });
-    }
   };
 
   const TabPanel = useAnswer(presentation, setPresentation, value);
@@ -59,8 +45,8 @@ export default function BasicTabs() {
           <Box sx={{borderBottom: 1, borderColor: 'divider'}}>
             <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
               <Tab label="Presentación" {...a11yProps(0)} />
-              <Tab label="Preguntas" {...a11yProps(1)} disabled={presentation?.questions}/>
-              <Tab label="Despedida" {...a11yProps(2)} disabled={presentation?.questions}/>
+              <Tab label="Preguntas" {...a11yProps(1)} disabled={!presentation?.sections}/>
+              <Tab label="Despedida" {...a11yProps(2)} />
             </Tabs>
           </Box>
           <Grid item xs={12}>

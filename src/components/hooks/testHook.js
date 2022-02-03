@@ -29,7 +29,7 @@ export function useAnswer(presentation, setPresentation, index) {
     case 0:
       return <Info presentation={presentation} setPresentation={setPresentation}/>;
     case 1:
-      return <Section presentation={presentation}/>;
+      return <Section presentation={presentation} setPresentation={setPresentation}/>;
     default:
       return <h1>Hola mundo</h1>
   }
