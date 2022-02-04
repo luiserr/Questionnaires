@@ -1,14 +1,15 @@
 import * as React from 'react';
 import Box from '@mui/material/Box';
-import Stepper from '@mui/material/Stepper';
-import Step from '@mui/material/Step';
-import StepLabel from '@mui/material/StepLabel';
-import StepContent from '@mui/material/StepContent';
 import Button from '@mui/material/Button';
 import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
+import { useTheme } from '@mui/material/styles';
+import Section from "./Section";
+import MobileStepper from "@mui/material/MobileStepper";
+import {KeyboardArrowLeft, KeyboardArrowRight} from "@mui/icons-material";
 
-export default function Sections({presentation, setPresentation}) {
+export default function Sections({presentation}) {
+  const theme = useTheme();
   const [activeStep, setActiveStep] = React.useState(0);
 
   const handleNext = () => {
@@ -19,60 +20,62 @@ export default function Sections({presentation, setPresentation}) {
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
   };
 
-  const handleReset = () => {
-    setActiveStep(0);
-  };
-
-  const sections = presentation?.sections ?? [];
+  const sections = presentation?.sections;
+  const maxSteps = sections.length;
 
   return (
-    <Box sx={{maxWidth: 400}}>
-      <Stepper activeStep={activeStep} orientation="vertical">
-        {sections.map((section, index) => (
-          <Step key={section.id}>
-            <StepLabel
-              optional={
-                index === 2 ? (
-                  <Typography variant="caption">Last step</Typography>
-                ) : null
-              }
-            >
-              {section.title}
-            </StepLabel>
-            <StepContent>
-              <div dangerouslySetInnerHTML={{__html: section.description}}>
-
-              </div>
-              <Box sx={{mb: 2}}>
-                <div>
-                  <Button
-                    variant="contained"
-                    onClick={handleNext}
-                    sx={{mt: 1, mr: 1}}
-                  >
-                    {index === sections.length - 1 ? 'Finish' : 'Continue'}
-                  </Button>
-                  <Button
-                    disabled={index === 0}
-                    onClick={handleBack}
-                    sx={{mt: 1, mr: 1}}
-                  >
-                    Back
-                  </Button>
-                </div>
-              </Box>
-            </StepContent>
-          </Step>
-        ))}
-      </Stepper>
-      {activeStep === sections.length && (
-        <Paper square elevation={0} sx={{p: 3}}>
-          <Typography>All steps completed - you&apos;re finished</Typography>
-          <Button onClick={handleReset} sx={{mt: 1, mr: 1}}>
-            Reset
+    <Box component={Paper} sx={{width: '100%', flexGrow: 1}}>
+      <Paper
+        square
+        elevation={0}
+        sx={{
+          backgroundColor: '#9d9d9d',
+          display: 'flex',
+          alignItems: 'center',
+          height: 50,
+          textAlign: 'center',
+          pl: 2,
+          bgcolor: 'background.default',
+        }}
+      >
+        <Typography>{sections[activeStep]?.title}</Typography>
+      </Paper>
+      <Box sx={{
+        width: '100%', p: 2}}>
+        <div style={{marginTop: '2en'}}>
+          <Section section={sections[activeStep]}/>
+        </div>
+      </Box>
+      <MobileStepper
+        variant="text"
+        steps={maxSteps}
+        position="static"
+        activeStep={activeStep}
+        nextButton={
+          <Button
+            size="small"
+            onClick={handleNext}
+            disabled={activeStep === maxSteps - 1}
+          >
+            Next
+            {theme.direction === 'rtl' ? (
+              <KeyboardArrowLeft/>
+            ) : (
+              <KeyboardArrowRight/>
+            )}
           </Button>
-        </Paper>
-      )}
+        }
+        backButton={
+          <Button size="small" onClick={handleBack} disabled={activeStep === 0}>
+            {theme.direction === 'rtl' ? (
+              <KeyboardArrowRight/>
+            ) : (
+              <KeyboardArrowLeft/>
+            )}
+            Back
+          </Button>
+        }
+      />
     </Box>
   );
 }

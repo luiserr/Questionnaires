@@ -15,7 +15,7 @@ export default function DenseAppBar() {
             <MenuIcon/>
           </IconButton>
           <Typography variant="h6" color="inherit" component="div">
-            Photos
+            Responder encuestas
           </Typography>
         </Toolbar>
       </AppBar>

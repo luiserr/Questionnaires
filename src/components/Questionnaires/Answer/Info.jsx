@@ -3,6 +3,7 @@ import React, {useEffect} from "react";
 import Button from "@mui/material/Button";
 import * as PropTypes from 'prop-types';
 import {getQuestions, initPresentation} from "../../../tools/presentationRequest";
+import Typography from "@mui/material/Typography";
 
 export default function Info({presentation, setPresentation}) {
 
@@ -19,9 +20,9 @@ export default function Info({presentation, setPresentation}) {
 
   return (
     <>
-      <h4>Titulo: {presentation?.title}</h4>
+      <Typography variant={"h4"}>Titulo: {presentation?.title}</Typography>
       <Divider/>
-      <Box component={Paper} sx={{minHeight: '200px', marginTop: '2em', padding: '2em'}}>
+      <Box sx={{minHeight: '200px', marginTop: '2em', padding: '2em'}}>
         <div dangerouslySetInnerHTML={{__html: presentation?.description}}/>
       </Box>
       <div style={{marginTop: '2em'}}>
