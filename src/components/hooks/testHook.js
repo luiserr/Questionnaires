@@ -24,7 +24,7 @@ export const useTest = (testId, currentTest) => {
   }
 };
 
-export function useAnswer(presentation, setPresentation, index) {
+export function usePresentation(presentation, setPresentation, index) {
   switch (index) {
     case 0:
       return <Info presentation={presentation} setPresentation={setPresentation}/>;
@@ -35,10 +35,10 @@ export function useAnswer(presentation, setPresentation, index) {
   }
 }
 
-export function useQuestion(question) {
+export function useQuestion(question, setQuestion) {
   switch (question.questionType) {
     case MULTIPLE:
-      return <Multiple question={question}/>;
+      return <Multiple question={question} setQuestion={setQuestion} />;
     default:
       return '';
   }

@@ -4,7 +4,7 @@ import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
 import Header from './Header';
 import Grid from "@mui/material/Grid";
-import {useAnswer} from "../../components/hooks/testHook";
+import {usePresentation} from "../../components/hooks/testHook";
 import React, {useState, useEffect} from "react";
 import {useParams} from "react-router-dom";
 import {getPresentation, getQuestions} from "../../tools/presentationRequest";
@@ -35,7 +35,7 @@ export default function BasicTabs() {
     setValue(newValue);
   };
 
-  const TabPanel = useAnswer(presentation, setPresentation, value);
+  const TabPanel = usePresentation(presentation, setPresentation, value);
 
   return (
     <>

@@ -1,12 +1,11 @@
-import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
-import {Paper} from "@mui/material";
 import React from "react";
 import {useQuestion} from "../../hooks/testHook";
+import * as PropTypes from 'prop-types';
 
-export default function Question({question}) {
+export default function Question({question, setQuestion}) {
 
-  const Question = useQuestion(question);
+  const Question = useQuestion(question, setQuestion);
 
   return (
     <>
@@ -19,3 +18,8 @@ export default function Question({question}) {
     </>
   );
 }
+
+Question.propTypes = {
+  question: PropTypes.object,
+  setQuestion: PropTypes.func.isRequired,
+};

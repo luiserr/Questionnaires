@@ -1,13 +1,12 @@
 import Grid from "@mui/material/Grid";
 import React, {useEffect, useState} from "react";
 import Pagination from "@mui/material/Pagination";
-import {Paper} from "@mui/material";
 import Box from "@mui/material/Box";
-import Typography from "@mui/material/Typography";
 import * as PropTypes from 'prop-types';
 import Question from "./Question";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
+import Paper from "@mui/material/Paper";
 
 const SectionInfo = ({title, description}) => {
   return (
@@ -19,7 +18,6 @@ const SectionInfo = ({title, description}) => {
   );
 };
 
-
 function a11yProps(index) {
   return {
     id: `vertical-tab-${index}`,
@@ -27,7 +25,7 @@ function a11yProps(index) {
   };
 }
 
-export default function Section({section}) {
+export default function Section({section, setSection}) {
 
   const [currentQuestion, setCurrentQuestion] = useState({});
   const [tab, setTab] = useState(0);
@@ -38,21 +36,32 @@ export default function Section({section}) {
   };
 
   useEffect(() => {
+    console.log(section);
     handleChange(page);
   }, []);
 
+  const setQuestion = (newQuestion) => {
+    const questions = section.questions;
+    questions[page - 1] = {...newQuestion};
+    setSection({
+      ...section,
+      questions
+    });
+  };
 
   const handleChange = (newPage) => {
     // newPage = newPage - 1;
     const questions = section?.questions;
     setPage(newPage);
-    setCurrentQuestion(questions[newPage-1]);
+    setCurrentQuestion(questions[newPage - 1]);
   };
 
   return (
     <Grid container>
       <Grid item xs={12}>
-        <Box sx={{flexGrow: 1, bgcolor: 'background.paper', display: 'flex', minHeight: '350px'}}>
+        <Box
+          component={Paper}
+          sx={{flexGrow: 1, bgcolor: '#eee', display: 'flex', minHeight: '350px', padding: '15px'}}>
           <Tabs
             orientation="vertical"
             variant="scrollable"
@@ -66,14 +75,17 @@ export default function Section({section}) {
           </Tabs>
           <Box sx={{width: '85%', margin: '0 auto'}}>
             {tab === 0 ?
-              <SectionInfo description={section.description} title={section.title}/> :
+              <SectionInfo description={section?.description} title={section?.title}/> :
               <>
                 <Pagination
                   count={section?.questions?.length}
                   page={page}
                   onChange={(e, newPage) => handleChange(newPage)}
                 />
-                <Question question={currentQuestion}/>
+                <Question
+                  question={currentQuestion}
+                  setQuestion={setQuestion}
+                />
               </>
             }
           </Box>
@@ -86,4 +98,5 @@ export default function Section({section}) {
 
 Section.propTypes = {
   section: PropTypes.object,
+  setSection: PropTypes.func.isRequired,
 };

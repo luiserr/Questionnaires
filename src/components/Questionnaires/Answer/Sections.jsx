@@ -3,31 +3,43 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
-import { useTheme } from '@mui/material/styles';
+import {useTheme} from '@mui/material/styles';
 import Section from "./Section";
 import MobileStepper from "@mui/material/MobileStepper";
 import {KeyboardArrowLeft, KeyboardArrowRight} from "@mui/icons-material";
+import {useState} from "react";
 
-export default function Sections({presentation}) {
+export default function Sections({presentation, setPresentation}) {
   const theme = useTheme();
-  const [activeStep, setActiveStep] = React.useState(0);
+  const [activeSection, setActiveSection] = useState(0);
+  // const [sections, setSections] = useState(presentation?.sections || []);
 
   const handleNext = () => {
-    setActiveStep((prevActiveStep) => prevActiveStep + 1);
+    setActiveSection((prevActiveStep) => prevActiveStep + 1);
   };
 
   const handleBack = () => {
-    setActiveStep((prevActiveStep) => prevActiveStep - 1);
+    setActiveSection((prevActiveStep) => prevActiveStep - 1);
   };
 
-  const sections = presentation?.sections;
-  const maxSteps = sections.length;
+  const changeSection = (newSection) => {
+    const mySections = presentation?.sections;
+    mySections[activeSection] = {...newSection};
+    setPresentation({
+      ...presentation,
+      sections: mySections
+    });
+  };
+
+  const sections = presentation?.sections ?? [];
+  const maxSteps = sections?.length ?? 0;
+  const currentSection = sections[activeSection];
 
   return (
-    <Box component={Paper} sx={{width: '100%', flexGrow: 1}}>
+    <Paper elevation={3} sx={{width: '100%', flexGrow: 1}}>
       <Paper
         square
-        elevation={0}
+        elevation={1}
         sx={{
           backgroundColor: '#9d9d9d',
           display: 'flex',
@@ -38,26 +50,30 @@ export default function Sections({presentation}) {
           bgcolor: 'background.default',
         }}
       >
-        <Typography>{sections[activeStep]?.title}</Typography>
+        <Typography>{sections[activeSection]?.title}</Typography>
       </Paper>
       <Box sx={{
-        width: '100%', p: 2}}>
+        width: '100%', p: 2
+      }}>
         <div style={{marginTop: '2en'}}>
-          <Section section={sections[activeStep]}/>
+          {currentSection && <Section
+            section={currentSection}
+            setSection={changeSection}
+          />}
         </div>
       </Box>
       <MobileStepper
         variant="text"
         steps={maxSteps}
         position="static"
-        activeStep={activeStep}
+        activeStep={activeSection}
         nextButton={
           <Button
             size="small"
             onClick={handleNext}
-            disabled={activeStep === maxSteps - 1}
+            disabled={activeSection === maxSteps - 1}
           >
-            Next
+            Siguiente sección
             {theme.direction === 'rtl' ? (
               <KeyboardArrowLeft/>
             ) : (
@@ -66,16 +82,16 @@ export default function Sections({presentation}) {
           </Button>
         }
         backButton={
-          <Button size="small" onClick={handleBack} disabled={activeStep === 0}>
+          <Button size="small" onClick={handleBack} disabled={activeSection === 0}>
             {theme.direction === 'rtl' ? (
               <KeyboardArrowRight/>
             ) : (
               <KeyboardArrowLeft/>
             )}
-            Back
+            Sección anterior
           </Button>
         }
       />
-    </Box>
+    </Paper>
   );
 }
