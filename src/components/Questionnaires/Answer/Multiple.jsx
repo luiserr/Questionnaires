@@ -7,11 +7,11 @@ import React from "react";
 export default function Multiple({question, setQuestion, indexQuestion}) {
 
   const handleChange = (id, checked) => {
-    const answers = question?.attempts?.answers ?? [];
+    let answers = question?.attempts?.answers ?? [];
     if (checked) {
       answers.push(id)
     } else {
-      answers.filter((answer) => answer !== id);
+      answers = answers.filter((answer) => answer !== id);
     }
     setQuestion({
         ...question,

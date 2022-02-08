@@ -30,7 +30,6 @@ export default function BasicTabs() {
     }
   }, [presentation]);
 
-
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };

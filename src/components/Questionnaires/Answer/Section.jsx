@@ -8,6 +8,7 @@ import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Paper from "@mui/material/Paper";
 import {saveAnswer} from "../../../tools/presentationRequest";
+import validate from '../../../tools/validateAnswer';
 
 const SectionInfo = ({title, description}) => {
   return (
@@ -31,7 +32,7 @@ export default function Section({presentation, section, setSection}) {
   const [tab, setTab] = useState(0);
   const [page, setPage] = useState(1);
   const [currentQuestion, setCurrentQuestion] = useState(section.questions[0] ?? {});
-  const [lastPage, setLastPage] = useState(page);
+  // const [lastPage, setLastPage] = useState(page);
 
   const handleTabs = (e, value) => {
     setTab(value);
@@ -40,6 +41,7 @@ export default function Section({presentation, section, setSection}) {
   const setQuestion = (newQuestion, index) => {
     const questions = section.questions;
     questions[index] = {...newQuestion};
+    setCurrentQuestion({...newQuestion});
     setSection({
       ...section,
       questions
@@ -47,24 +49,25 @@ export default function Section({presentation, section, setSection}) {
   };
 
   const handleChange = async (newPage) => {
-    const indexQuestion = newPage - 1;
+    const currentIndex = newPage - 1;
+    const lastIndex = page - 1;
     const questions = section?.questions;
-    const lastQuestion = questions[lastPage - 1];
-    if (lastQuestion?.attempts?.answers) {
+    const lastQuestion = questions[lastIndex];
+    if (!lastQuestion?.attempts?.save && validate(lastQuestion)) {
       const newQuestion = await saveAnswer(
         presentation.testId,
         presentation.id,
         presentation.tryId,
         lastQuestion?.id,
-        lastQuestion?.sectionId,
+        section.id,
         lastQuestion?.attempts?.answers
       )
-      setQuestion(newQuestion, lastPage);
+      if (newQuestion) {
+        setQuestion(newQuestion, lastIndex);
+      }
     }
-    const question = questions[indexQuestion];
-    setLastPage(page);
     setPage(newPage);
-    setCurrentQuestion(question);
+    setCurrentQuestion(questions[currentIndex]);
   };
 
   return (

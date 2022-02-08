@@ -25,7 +25,7 @@ const multiple = (answers = []) => {
 };
 
 export default function validate(question) {
-  if (general(question)) {
+  if (general(question) && question.questionType !== OPEN) {
     switch (question.questionType) {
       case MULTIPLE:
       case SINGLE:
