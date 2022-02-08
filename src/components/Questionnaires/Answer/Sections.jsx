@@ -1,4 +1,5 @@
 import * as React from 'react';
+import {useState} from 'react';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Paper from '@mui/material/Paper';
@@ -7,7 +8,6 @@ import {useTheme} from '@mui/material/styles';
 import Section from "./Section";
 import MobileStepper from "@mui/material/MobileStepper";
 import {KeyboardArrowLeft, KeyboardArrowRight} from "@mui/icons-material";
-import {useState} from "react";
 
 export default function Sections({presentation, setPresentation}) {
   const theme = useTheme();
@@ -56,10 +56,12 @@ export default function Sections({presentation, setPresentation}) {
         width: '100%', p: 2
       }}>
         <div style={{marginTop: '2en'}}>
-          {currentSection && <Section
-            section={currentSection}
-            setSection={changeSection}
-          />}
+          {currentSection &&
+            <Section
+              section={currentSection}
+              setSection={changeSection}
+              presentation={presentation}
+            />}
         </div>
       </Box>
       <MobileStepper

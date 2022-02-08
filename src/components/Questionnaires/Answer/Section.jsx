@@ -1,5 +1,5 @@
 import Grid from "@mui/material/Grid";
-import React, {useEffect, useState} from "react";
+import React, {useState} from "react";
 import Pagination from "@mui/material/Pagination";
 import Box from "@mui/material/Box";
 import * as PropTypes from 'prop-types';
@@ -7,6 +7,7 @@ import Question from "./Question";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Paper from "@mui/material/Paper";
+import {saveAnswer} from "../../../tools/presentationRequest";
 
 const SectionInfo = ({title, description}) => {
   return (
@@ -25,35 +26,45 @@ function a11yProps(index) {
   };
 }
 
-export default function Section({section, setSection}) {
+export default function Section({presentation, section, setSection}) {
 
-  const [currentQuestion, setCurrentQuestion] = useState({});
   const [tab, setTab] = useState(0);
   const [page, setPage] = useState(1);
+  const [currentQuestion, setCurrentQuestion] = useState(section.questions[0] ?? {});
+  const [lastPage, setLastPage] = useState(page);
 
   const handleTabs = (e, value) => {
     setTab(value);
   };
 
-  useEffect(() => {
-    console.log(section);
-    handleChange(page);
-  }, []);
-
-  const setQuestion = (newQuestion) => {
+  const setQuestion = (newQuestion, index) => {
     const questions = section.questions;
-    questions[page - 1] = {...newQuestion};
+    questions[index] = {...newQuestion};
     setSection({
       ...section,
       questions
     });
   };
 
-  const handleChange = (newPage) => {
-    // newPage = newPage - 1;
+  const handleChange = async (newPage) => {
+    const indexQuestion = newPage - 1;
     const questions = section?.questions;
+    const lastQuestion = questions[lastPage - 1];
+    if (lastQuestion?.attempts?.answers) {
+      const newQuestion = await saveAnswer(
+        presentation.testId,
+        presentation.id,
+        presentation.tryId,
+        lastQuestion?.id,
+        lastQuestion?.sectionId,
+        lastQuestion?.attempts?.answers
+      )
+      setQuestion(newQuestion, lastPage);
+    }
+    const question = questions[indexQuestion];
+    setLastPage(page);
     setPage(newPage);
-    setCurrentQuestion(questions[newPage - 1]);
+    setCurrentQuestion(question);
   };
 
   return (
@@ -84,6 +95,7 @@ export default function Section({section, setSection}) {
                 />
                 <Question
                   question={currentQuestion}
+                  indexQuestion={page - 1}
                   setQuestion={setQuestion}
                 />
               </>
@@ -93,10 +105,10 @@ export default function Section({section, setSection}) {
       </Grid>
     </Grid>
   );
-
 }
 
 Section.propTypes = {
   section: PropTypes.object,
   setSection: PropTypes.func.isRequired,
+  presentation: PropTypes.object,
 };

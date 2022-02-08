@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import Info from '../Questionnaires/Answer/Info';
-import Section from '../Questionnaires/Answer/Sections';
+import Sections from '../Questionnaires/Answer/Sections';
 import {findTest} from '../../tools/testRequests';
 import {MULTIPLE} from "../../const/questionTypes";
 import Multiple from "../Questionnaires/Answer/Multiple";
@@ -29,16 +29,16 @@ export function usePresentation(presentation, setPresentation, index) {
     case 0:
       return <Info presentation={presentation} setPresentation={setPresentation}/>;
     case 1:
-      return <Section presentation={presentation} setPresentation={setPresentation}/>;
+      return <Sections presentation={presentation} setPresentation={setPresentation}/>;
     default:
       return <h1>Hola mundo</h1>
   }
 }
 
-export function useQuestion(question, setQuestion) {
+export function useQuestion(question, setQuestion, indexQuestion) {
   switch (question.questionType) {
     case MULTIPLE:
-      return <Multiple question={question} setQuestion={setQuestion} />;
+      return <Multiple question={question} setQuestion={setQuestion} indexQuestion={indexQuestion} />;
     default:
       return '';
   }

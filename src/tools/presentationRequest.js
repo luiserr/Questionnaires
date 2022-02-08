@@ -23,3 +23,17 @@ export async function getQuestions(testId, presentationId) {
   }
   return [];
 }
+
+export async function saveAnswer(testId, presentationId, tryId, questionId, sectionId, answers){
+  const payload = {
+    sectionId,
+    questionId,
+    tryId,
+    answers
+  };
+  const response = await post(`${api}/tests/${testId}/presentation/${presentationId}/answer`, payload, null, true);
+  if (response && response?.success) {
+    return response.data;
+  }
+  return null;
+}

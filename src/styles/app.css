@@ -20,7 +20,7 @@ table thead tr th, table tbody tr td {
     padding: 5px !important;
 }
 
-.MuiTableCell-head .MuiFormControlLabel-labelPlacementTop .MuiTypography-root{
+.MuiTableCell-head .MuiFormControlLabel-labelPlacementTop .MuiTypography-root {
     font-size: 10px !important;
 }
 
@@ -119,7 +119,7 @@ table thead tr th, table tbody tr td {
     margin-bottom: 10px;
     padding: 0.2em;
     border-radius: 4px;
- /*sx={{marginBottom: '1em', backgroundColor: '#9E9E9E', padding: '5px', borderRadius: '5px'}}*/
+    /*sx={{marginBottom: '1em', backgroundColor: '#9E9E9E', padding: '5px', borderRadius: '5px'}}*/
 }
 
 .myBreadcrumb ol li a {
@@ -127,4 +127,8 @@ table thead tr th, table tbody tr td {
     cursor: pointer;
     font-size: 12px;
     text-decoration: none;
+}
+
+p, span, h1, h2, h3, h4, label {
+    font-family: "Roboto", "Helvetica", "Arial", sans-serif
 }

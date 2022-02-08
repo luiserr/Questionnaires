@@ -3,9 +3,9 @@ import React from "react";
 import {useQuestion} from "../../hooks/testHook";
 import * as PropTypes from 'prop-types';
 
-export default function Question({question, setQuestion}) {
+export default function Question({question, setQuestion, indexQuestion}) {
 
-  const Question = useQuestion(question, setQuestion);
+  const Question = useQuestion(question, setQuestion, indexQuestion);
 
   return (
     <>
@@ -22,4 +22,5 @@ export default function Question({question, setQuestion}) {
 Question.propTypes = {
   question: PropTypes.object,
   setQuestion: PropTypes.func.isRequired,
+  indexQuestion: PropTypes.number,
 };
