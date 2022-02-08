@@ -25,16 +25,19 @@ const multiple = (answers = []) => {
 };
 
 export default function validate(question) {
-  if (general(question) && question.questionType !== OPEN) {
-    switch (question.questionType) {
-      case MULTIPLE:
-      case SINGLE:
-      case BOOLEAN:
-        return multiple(question.answers);
-      default:
-        toast('Tipo de pregunta invalido', false);
-        return false;
+  if (general(question)) {
+    if (question.questionType !== OPEN) {
+      switch (question.questionType) {
+        case MULTIPLE:
+        case SINGLE:
+        case BOOLEAN:
+          return multiple(question.answers);
+        default:
+          toast('Tipo de pregunta invalido', false);
+          return false;
+      }
     }
+    return true;
   }
   return false;
 }

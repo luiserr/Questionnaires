@@ -18,8 +18,6 @@ import questionTypes from "../../const/questionTypes";
 import useQuestion from "../../components/hooks/questionHook";
 import validate from "../../tools/validateQuestion";
 import Breadcrumbs from "@mui/material/Breadcrumbs";
-import Typography from "@mui/material/Typography";
-import Divider from "@mui/material/Divider";
 import Link from "@mui/material/Link";
 
 
@@ -50,6 +48,7 @@ export default function Question() {
     if (test && questionId !== '_') {
       const myQuestion = await findQuestion(testId, sectionId, questionId);
       setQuestion(myQuestion);
+      setDescription(myQuestion.description);
       setAnswers(myQuestion.answers);
     }
   }, [test]);
@@ -108,13 +107,6 @@ export default function Question() {
             Atrás
           </Button>
           <Grid container>
-            <Grid item xs={10} sx={{marginTop: '1em'}}>
-              <label>Descripción:</label>
-              <JoditEditor
-                value={description}
-                onBlur={(text) => setDescription(text)}
-              />
-            </Grid>
             <Grid item xs={10}>
               <Box component="form" sx={{marginTop: '1.5em'}}>
                 <InputLabel id="questionTypeLabel">Tipo de pregunta</InputLabel>
@@ -135,6 +127,13 @@ export default function Question() {
                   )}
                 </Select>
               </Box>
+            </Grid>
+            <Grid item xs={10} sx={{marginTop: '1em'}}>
+              <label>Descripción:</label>
+              <JoditEditor
+                value={description}
+                onBlur={(text) => setDescription(text)}
+              />
             </Grid>
             <Grid item xs={12}>
               {QuestionComponent}
