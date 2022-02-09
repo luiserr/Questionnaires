@@ -11,23 +11,33 @@ import Button from "@mui/material/Button";
 import CardContent from "@mui/material/CardContent";
 import Card from "@mui/material/Card";
 import Box from "@mui/material/Box";
+import Table from '../../../components/commons/table';
+
+const headers = {
+  'type': 'Tipo',
+  'title': 'Titulo',
+  'createdAt': 'Fecha de creación'
+};
 
 export default function QuestionBank() {
 
   const [title, setTitle] = useState('');
   const [questionType, setQuestionType] = useState('');
   const [section, setSection] = useState(null);
+  const [data, setData] = useState([]);
+  const [pagination, setPagination] = useState({});
 
   const {testId, sectionId} = useParams();
 
   useEffect(async () => {
-    console.log(testId, sectionId);
     const mySection = await findSection(testId, sectionId);
     setSection(mySection);
   }, []);
 
   const handleSearch = async () => {
     const questionBank = await getQuestionBank(title, questionType);
+    setData(questionBank.data);
+    setPagination(questionBank.pagination)
     console.log(questionBank);
   };
 
@@ -78,6 +88,9 @@ export default function QuestionBank() {
                 </>
               ) : <h4>Sección invalida</h4>
             }
+            <Grid item xs={12}>
+              <Table data={data} headers={headers}/>
+            </Grid>
           </Grid>
         </CardContent>
       </Card>
