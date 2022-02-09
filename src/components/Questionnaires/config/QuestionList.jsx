@@ -17,6 +17,7 @@ import {useNavigate} from "react-router-dom";
 import {getQuestions} from "../../../tools/testRequests";
 import Alert from "@mui/material/Alert";
 import Divider from "@mui/material/Divider";
+import Box from "@mui/material/Box";
 
 
 export default function QuestionList({test, section}) {
@@ -36,6 +37,10 @@ export default function QuestionList({test, section}) {
 
   const handleEditQuestion = (question) => {
     navigate(`/test/${test.id}/section/${section.id}/question/${question.id}`, {state: {test, section, question}});
+  };
+
+  const handleBank = () => {
+    navigate(`/test/${test.id}/section/${section.id}/question/bank`);
   };
 
   return (
@@ -88,13 +93,16 @@ export default function QuestionList({test, section}) {
           <Alert severity="warning">No hay preguntas configuradas</Alert>
         }
       </div>
-      <Button
-        sx={{marginTop: '2em', marginBottom: '2em', float: 'right'}}
-        variant="outlined"
-        onClick={handleNewQuestion}
-      >
-        Crear pregunta
-      </Button>
+      <Grid sx={{marginTop: '2em', marginBottom: '2em', float: 'right'}} spacing={2}>
+        <Button
+          variant="contained"
+          onClick={handleNewQuestion}
+          color={"success"}
+        >
+          Crear pregunta
+        </Button>
+        <Button sx={{marginLeft: '5px'}} variant="outlined" color={"info"} onClick={handleBank}>Banco de preguntas</Button>
+      </Grid>
     </Grid>
   );
 }

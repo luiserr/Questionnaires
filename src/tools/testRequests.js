@@ -108,3 +108,17 @@ export async function saveQuestion(testId, sectionId, payload) {
   }
   return null;
 }
+
+export async function getQuestionBank(title, type, page = 1, perPage = 10) {
+  const payload = {
+    title,
+    type,
+    page,
+    perPage
+  };
+  const response = await post(`${local}/tests/question/bank`, payload, null, true);
+  if (response && response?.success) {
+    return response.data;
+  }
+  return null;
+}

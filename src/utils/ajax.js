@@ -5,7 +5,7 @@ const domain = getDomain('tests');
 const prefixGradeCenter = 'gradeCenter';
 export const dev = 'https://sena.dev.tests.mx/api';
 // export const local = 'https://sena.pruebas.la/api';
-export const local = 'https://sena.pruebas.local.la/api';
+export const local = 'https://sena.pruebas.local/api';
 //comentar para hacer pruebas en local
 // export const api =  `${domain}api`;
 export const api = dev;
