@@ -1,10 +1,9 @@
-import AddCircleIcon from '@mui/icons-material/AddCircle';
 import ViewListIcon from '@mui/icons-material/ViewList';
-import SettingsIcon from '@mui/icons-material/Settings';
+import QuizIcon from '@mui/icons-material/Quiz';
+
 import React from "react";
 
 export default [
-  {label: 'Listado de formularios', route: '/list', icon: <ViewListIcon />},
-  {label: 'Nuevo formulario', route: '/test/_', icon: <AddCircleIcon/>},
-  {label: 'Configurar presentación', route: '/assigment', icon: <SettingsIcon/>}
+  {label: 'Cuestionarios', route: '/list', icon: <QuizIcon />},
+  {label: 'Presentaciones', route: '/assigment', icon: <ViewListIcon/>}
 ];

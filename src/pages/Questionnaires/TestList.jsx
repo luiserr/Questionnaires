@@ -15,6 +15,9 @@ import VisibilityIcon from '@mui/icons-material/Visibility';
 import AddPhotoAlternateIcon from '@mui/icons-material/AddPhotoAlternate';
 import {searchTest} from '../../tools/testRequests';
 import {useNavigate} from "react-router-dom";
+import {Fab} from "@mui/material";
+import AddIcon from '@mui/icons-material/Add';
+
 
 export default function TestList() {
   const [tests, setTests] = useState([]);
@@ -31,9 +34,10 @@ export default function TestList() {
     navigate(`/test/${testId}`);
   };
 
+
   return (
     <Grid container>
-      <h4>Listado de formularios</h4>
+      <h4>Listado de cuestionarios</h4>
       <Grid item xs={12}>
         <TableContainer component={Paper}>
           <Table sx={{minWidth: 650}} aria-label="simple table">
@@ -62,7 +66,7 @@ export default function TestList() {
                   </TableCell>
                   <TableCell align="right">
                     <IconButton aria-label="view">
-                      <AddPhotoAlternateIcon />
+                      <AddPhotoAlternateIcon/>
                     </IconButton>
                   </TableCell>
                   <TableCell align="right">
@@ -79,6 +83,16 @@ export default function TestList() {
             </TableBody>
           </Table>
         </TableContainer>
+        <Fab
+          color="primary"
+          alt={'Crear cuestionario'}
+          title={'Crear cuestionario'}
+          aria-label="add"
+          sx={{float: 'right', marginTop: '2em'}}
+          onClick={() => handleEdit('_')}
+        >
+          <AddIcon/>
+        </Fab>
       </Grid>
 
     </Grid>
