@@ -8,8 +8,10 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import {v4 as uid} from 'uuid';
+import * as PropTypes from 'prop-types';
+import {Alert} from "@mui/material";
 
-export default function MyTable({headers = [], data = [], pagination = {}}) {
+export default function MyTable({headers = [], data = [], pagination = {}, actions = null}) {
 
   const [rows, setRows] = useState([]);
 
@@ -39,26 +41,44 @@ export default function MyTable({headers = [], data = [], pagination = {}}) {
   };
 
   return (
-    <TableContainer component={Paper}>
-      <Table sx={{minWidth: 650}} aria-label="simple table">
-        <TableHead>
-          <TableRow>
-            {
-              Object.values(headers).map((header, index) => <TableCell key={index}>{header}</TableCell>)
-            }
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {rows.map((row) => (
-            <TableRow
-              key={uid}
-              sx={{'&:last-child td, &:last-child th': {border: 0}}}
-            >
-              {drawBody(row)}
-            </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </TableContainer>
+    <>
+      {
+        data.length <= 0 ?
+          <Alert severity={"warning"}>
+            No hay datos para mostrar
+          </Alert> :
+          <TableContainer component={Paper}>
+            <Table sx={{minWidth: 650}} aria-label="simple table">
+              <TableHead>
+                <TableRow>
+                  {
+                    Object.values(headers).map((header, index) => <TableCell key={index}>{header}</TableCell>)
+                  }
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {rows.map((row) => (
+                  <TableRow
+                    key={uid()}
+                    sx={{'&:last-child td, &:last-child th': {border: 0}}}
+                  >
+                    {drawBody(row)}
+                    {<TableCell>
+                      {actions(row)}
+                    </TableCell>}
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </TableContainer>
+      }
+    </>
   );
 }
+
+Table.propTypes = {
+  headers: PropTypes.object,
+  data: PropTypes.array,
+  pagination: PropTypes.object,
+  actions: PropTypes.func,
+};
