@@ -93,7 +93,7 @@ export default function QuestionList({test, section}) {
           <Alert severity="warning">No hay preguntas configuradas</Alert>
         }
       </div>
-      <Grid sx={{marginTop: '2em', marginBottom: '2em', float: 'right'}} spacing={2}>
+      <Grid sx={{marginTop: '2em', marginBottom: '2em', float: 'right'}}>
         <Button
           variant="contained"
           onClick={handleNewQuestion}

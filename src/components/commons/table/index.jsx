@@ -10,8 +10,16 @@ import Paper from '@mui/material/Paper';
 import {v4 as uid} from 'uuid';
 import * as PropTypes from 'prop-types';
 import {Alert} from "@mui/material";
+import Paginator from "./Paginator";
 
-export default function MyTable({headers = [], data = [], pagination = {}, actions = null}) {
+export default function MyTable(
+  {
+    headers = [],
+    data = [],
+    pagination,
+    actions = null,
+    handleSearch
+  }) {
 
   const [rows, setRows] = useState([]);
 
@@ -47,30 +55,38 @@ export default function MyTable({headers = [], data = [], pagination = {}, actio
           <Alert severity={"warning"}>
             No hay datos para mostrar
           </Alert> :
-          <TableContainer component={Paper}>
-            <Table sx={{minWidth: 650}} aria-label="simple table">
-              <TableHead>
-                <TableRow>
-                  {
-                    Object.values(headers).map((header, index) => <TableCell key={index}>{header}</TableCell>)
-                  }
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {rows.map((row) => (
-                  <TableRow
-                    key={uid()}
-                    sx={{'&:last-child td, &:last-child th': {border: 0}}}
-                  >
-                    {drawBody(row)}
-                    {<TableCell>
-                      {actions(row)}
-                    </TableCell>}
+          <>
+            <Paginator
+              page={pagination?.page}
+              totalPages={pagination?.totalPages ?? 1}
+              handleSearch={handleSearch}
+              perPage={pagination?.perPage}
+            />
+            <TableContainer component={Paper}>
+              <Table sx={{minWidth: 650}} aria-label="simple table">
+                <TableHead>
+                  <TableRow>
+                    {
+                      Object.values(headers).map((header, index) => <TableCell key={index}>{header}</TableCell>)
+                    }
                   </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </TableContainer>
+                </TableHead>
+                <TableBody>
+                  {rows.map((row) => (
+                    <TableRow
+                      key={uid()}
+                      sx={{'&:last-child td, &:last-child th': {border: 0}}}
+                    >
+                      {drawBody(row)}
+                      {<TableCell>
+                        {actions(row)}
+                      </TableCell>}
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </TableContainer>
+          </>
       }
     </>
   );
@@ -81,4 +97,5 @@ Table.propTypes = {
   data: PropTypes.array,
   pagination: PropTypes.object,
   actions: PropTypes.func,
+  handleSearch: PropTypes.func,
 };

@@ -4,7 +4,7 @@ import MenuItem from "@mui/material/MenuItem";
 import questionTypes from "../../../const/questionTypes";
 import React, {useEffect, useState} from "react";
 import FormControl from "@mui/material/FormControl";
-import {useParams} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 import {addQuestionBank, findSection, getQuestionBank} from "../../../tools/testRequests";
 import SearchIcon from '@mui/icons-material/Search';
 import Button from "@mui/material/Button";
@@ -13,12 +13,12 @@ import Card from "@mui/material/Card";
 import Box from "@mui/material/Box";
 import Table from '../../../components/commons/table';
 import AddTaskIcon from '@mui/icons-material/AddTask';
-import Divider from "@mui/material/Divider";
 import {v4} from "uuid";
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
 const headers = {
   'id': 'ID',
-  'type': 'Tipo',
+  'typeDescription': 'Tipo',
   'title': 'Titulo',
   'createdAt': 'Fecha de creación'
 };
@@ -34,19 +34,25 @@ export default function QuestionBank() {
 
   const {testId, sectionId} = useParams();
 
+  const navigate = useNavigate();
+
   useEffect(async () => {
     const mySection = await findSection(testId, sectionId);
     setSection(mySection);
   }, []);
 
-  const handleSearch = async () => {
-    const questionBank = await getQuestionBank(title, questionType);
+  const handleSearch = async (page = 1, perPage = 20) => {
+    const questionBank = await getQuestionBank(title, questionType, page, perPage);
     setData(questionBank.data);
-    setPagination(questionBank.pagination)
+    setPagination({...pagination, ...questionBank.pagination})
   };
 
   const handleAssign = async (row) => {
     await addQuestionBank(row.id, section.id);
+  };
+
+  const handleBack = () => {
+    navigate(`/test/${testId}/section/${section.id}`);
   };
 
   const actions = (row) => [
@@ -67,8 +73,14 @@ export default function QuestionBank() {
       </h4>
       <Card elevation={2} sx={{marginTop: '2em'}}>
         <CardContent sx={{minHeight: '350px'}}>
+          <Button
+            sx={{float: 'right'}}
+            startIcon={<ArrowBackIcon/>}
+            onClick={() => handleBack()}
+          >
+            Atrás
+          </Button>
           <h4>Seccion: {section?.title}</h4>
-          <Divider/>
           <Grid container spacing={2} sx={{marginTop: '2em'}}>
             {
               section ? (
@@ -91,8 +103,13 @@ export default function QuestionBank() {
                         onChange={(e) => setQuestionType(e.target.value)}
                       >
                         {
-                          questionTypes.map((data) => <MenuItem key={data.key}
-                                                                value={data.key}>{data.label}</MenuItem>)
+                          questionTypes.map((data) =>
+                            <MenuItem
+                              key={data.key}
+                              value={data.key}
+                            >
+                              {data.label}
+                            </MenuItem>)
                         }
                       </Select>
                     </FormControl>
@@ -103,14 +120,14 @@ export default function QuestionBank() {
                       startIcon={<SearchIcon/>}
                       size={"large"}
                       disabled={title.length < 4}
-                      onClick={handleSearch}
+                      onClick={(e) => handleSearch()}
                     >Buscar</Button>
                   </Grid>
                 </>
               ) : <h4>Sección invalida</h4>
             }
             <Grid item xs={12}>
-              <Table data={data} headers={headers} pagination={pagination} actions={actions}/>
+              <Table data={data} headers={headers} pagination={pagination} actions={actions} handleSearch={handleSearch}/>
             </Grid>
           </Grid>
         </CardContent>

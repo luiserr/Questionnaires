@@ -12,7 +12,7 @@ export default function routes() {
   return (
     <Routes>
       <Route exact name="list" path="/" element={<Home/>}>
-        <Route exact name="create" path="/" element={<TestList/>}/>
+        <Route exact name="create" path="/test" element={<TestList/>}/>
         <Route exact name="create" path="/test/:testId" element={<Configuration/>}/>
         <Route exact name="create" path="/test/presentation/:testId" element={<Configuration/>}/>
         <Route exact name="create" path="/test/:testId/section/:sectionId" element={<Section/>}/>

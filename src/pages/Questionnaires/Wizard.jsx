@@ -13,6 +13,7 @@ import CardContent from "@mui/material/CardContent";
 import {handleSave} from '../../tools/testRequests';
 import {useTest} from "../../components/hooks/testHooks";
 import {useNavigate} from "react-router-dom";
+import {ArrowBack} from "@mui/icons-material";
 
 const steps = ['General', 'Secciones', 'Despedida'];
 
@@ -31,6 +32,10 @@ export default function Wizard(props) {
 
   const Component = useStepper(activeStep, test, payload, setPayload);
 
+  const handleBackHistory = () => {
+    navigation('/test');
+  };
+
   const handleNext = () => {
     handleSave(activeStep, test, payload, setTest, setActiveStep, navigation);
   };
@@ -48,7 +53,15 @@ export default function Wizard(props) {
       <h4>Configuración de cuestionarios</h4>
       <Card>
         <CardContent>
-          <Stepper activeStep={activeStep} orientation="horizontal">
+          <Button
+            onClick={handleBackHistory}
+            startIcon={<ArrowBack/>}
+            sx={{float: 'right'}}
+          >
+            Atrás
+          </Button>
+
+          <Stepper sx={{marginTop: '2em'}} activeStep={activeStep} orientation="horizontal">
             {steps.map((label, index) => {
               return (
                 <Step key={label}>
