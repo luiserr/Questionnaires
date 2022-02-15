@@ -56,7 +56,7 @@ export default function QuestionList({test, section}) {
                     <TableCell>Pregunta</TableCell>
                     <TableCell>Tipo</TableCell>
                     <TableCell>Cantidad de respuestas configuradas</TableCell>
-                    <TableCell>Editar</TableCell>
+                    <TableCell>Ver / Editar</TableCell>
                     <TableCell>Eliminar</TableCell>
                   </TableRow>
                 </TableHead>
@@ -79,7 +79,10 @@ export default function QuestionList({test, section}) {
                         </IconButton>
                       </TableCell>
                       <TableCell>
-                        <IconButton aria-label="delete">
+                        <IconButton
+                          disabled={test.presentations > 0}
+                          aria-label="delete"
+                        >
                           <DeleteIcon/>
                         </IconButton>
                       </TableCell>

@@ -10,7 +10,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import PropTypes from 'prop-types';
 
 
-export default function Multiple({answers = [], setAnswer}) {
+export default function Multiple({answers = [], setAnswer, disabled}) {
 
   const handleNewAnswer = () => {
     const newAnswer = {
@@ -51,12 +51,14 @@ export default function Multiple({answers = [], setAnswer}) {
               <Grid sx={{marginTop: '1em'}} key={index}>
                 <TextField
                   key={answer.id || uuid()}
+                  disabled={disabled}
                   label={`Respuesta ${index + 1}:`}
                   onChange={e => handleChange(index, 'description', e.target.value)}
                   variant="outlined"
                   value={answer.description || ''}
                   InputProps={{
-                    endAdornment: <DeleteIcon onClick={() => deleteAnswer(answer.id)} sx={{cursor: 'pointer'}}/>
+                    endAdornment: !disabled &&
+                      <DeleteIcon onClick={() => deleteAnswer(answer.id)} sx={{cursor: 'pointer'}}/>
                   }}
                   fullWidth
                 />
@@ -65,7 +67,11 @@ export default function Multiple({answers = [], setAnswer}) {
           })
           }
         </Grid>
-        <Button sx={{marginTop: '1.5em'}} variant="outlined" onClick={handleNewAnswer}>
+        <Button
+          disabled={disabled}
+          sx={{marginTop: '1.5em'}}
+          variant="outlined"
+          onClick={handleNewAnswer}>
           Nueva respuesta
         </Button>
       </Grid>

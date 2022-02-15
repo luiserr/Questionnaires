@@ -29,7 +29,11 @@ export default function Question() {
   const currentQuestion = location?.state?.question;
 
   const {sectionId, testId, questionId} = useParams();
-  const {test} = useTest(testId, currentTest);
+  const {test, disabled} = useTest(testId, currentTest);
+
+  const config = {
+    readonly: disabled
+  };
 
   const [question, setQuestion] = useState({
     id: null,
@@ -53,7 +57,7 @@ export default function Question() {
     }
   }, [test]);
 
-  const QuestionComponent = useQuestion(question, answers, setAnswers);
+  const QuestionComponent = useQuestion(question, answers, setAnswers, disabled);
 
   const handleBack = () => {
     navigate(`/test/${testId}/section/${sectionId}`, {state: {test, section: currentSection}});
@@ -111,6 +115,7 @@ export default function Question() {
               <Box component="form" sx={{marginTop: '1.5em'}}>
                 <InputLabel id="questionTypeLabel">Tipo de pregunta</InputLabel>
                 <Select
+                  disabled={disabled}
                   labelId="questionTypeLabel"
                   id="questionType"
                   label="Tipo de pregunta"
@@ -131,6 +136,7 @@ export default function Question() {
             <Grid item xs={10} sx={{marginTop: '1em'}}>
               <label>Descripción:</label>
               <JoditEditor
+                config={config}
                 value={description}
                 onBlur={(text) => setDescription(text)}
               />
@@ -140,7 +146,7 @@ export default function Question() {
             </Grid>
           </Grid>
           <CardActions>
-            <Button variant="contained" onClick={handleSave}>Guardar</Button>
+            <Button disabled={disabled} variant="contained" onClick={handleSave}>Guardar</Button>
           </CardActions>
         </CardContent>
       </Card>

@@ -46,7 +46,7 @@ export default function TestList() {
                 <TableCell align="right">Titulo</TableCell>
                 <TableCell align="right">Ver presentaciones</TableCell>
                 <TableCell align="right">Crear presentación</TableCell>
-                <TableCell align="right">Editar</TableCell>
+                <TableCell align="right">Ver/Editar</TableCell>
                 <TableCell align="right">Eliminar</TableCell>
               </TableRow>
             </TableHead>

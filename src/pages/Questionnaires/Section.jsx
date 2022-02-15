@@ -23,7 +23,7 @@ export default function Section() {
 
   const currentTest = location?.state?.test;
   let currentSection = location?.state?.section || null;
-  const {test} = useTest(testId, currentTest);
+  const {test, disabled} = useTest(testId, currentTest);
 
   const navigate = useNavigate();
 
@@ -70,6 +70,10 @@ export default function Section() {
     setSection(data);
   };
 
+  const config = {
+    readonly: disabled
+  }
+
   return (
     <Box sx={{width: '100%'}}>
       <Breadcrumbs className="myBreadcrumb" sx={{marginBottom: '15px'}}>
@@ -99,6 +103,7 @@ export default function Section() {
                 <TextField
                   fullWidth
                   id="title"
+                  disabled={disabled}
                   label="Titulo"
                   value={section.title}
                   onChange={(e) => setData('title', e.target.value)}
@@ -114,6 +119,7 @@ export default function Section() {
                   fullWidth
                   id="title"
                   label="Numero de preguntas"
+                  disabled={disabled}
                   value={section.numberQuestions}
                   onChange={(e) => setData('numberQuestions', e.target.value)}
                   variant="outlined"
@@ -125,6 +131,7 @@ export default function Section() {
             <Grid item xs={10} sx={{marginTop: '1em'}}>
               <label>Descripción:</label>
               <JoditEditor
+                config={config}
                 value={description}
                 onBlur={(text) => setDescription(text)}
               />
@@ -135,6 +142,7 @@ export default function Section() {
           </Grid>
           <CardActions>
             <Button
+              disabled={disabled}
               variant="contained"
               startIcon={<SaveIcon/>}
               onClick={handleSave}

@@ -14,7 +14,7 @@ const defaultAnswer = () => {
   ];
 };
 
-export default function Boolean({answers, setAnswer}) {
+export default function Boolean({answers, setAnswer, disabled}) {
 
   useEffect(() => {
     if (!answers.length) {
@@ -36,9 +36,6 @@ export default function Boolean({answers, setAnswer}) {
     );
   };
 
-
-  console.log(answers);
-
   return (
     <Box component={Paper}>
       <Grid item xs={12} sx={{marginTop: '2em', padding: '10px'}}>
@@ -51,6 +48,7 @@ export default function Boolean({answers, setAnswer}) {
               <Grid key={index} sx={{marginTop: '1em'}}>
                 <TextField
                   fullWidth
+                  disabled={disabled}
                   label={`Respuesta ${index + 1}:`}
                   value={answer.description}
                   onChange={e => handleChange(index, 'description', e.target.value)}
@@ -69,4 +67,5 @@ export default function Boolean({answers, setAnswer}) {
 Boolean.propTypes = {
   answers: PropTypes.array.isRequired,
   setAnswer: PropTypes.func.isRequired,
+  disabled: PropTypes.bool,
 };

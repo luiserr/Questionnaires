@@ -7,9 +7,10 @@ import Divider from "@mui/material/Divider";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import DeleteIcon from '@mui/icons-material/Delete';
+import * as PropTypes from 'prop-types';
 
 
-export default function Matrix({answers, question, setAnswer}) {
+export default function Matrix({answers, question, setAnswer, disabled}) {
 
   useEffect(() => {
     const formate = formatAnswers();
@@ -97,6 +98,7 @@ export default function Matrix({answers, question, setAnswer}) {
                 <Grid container sx={{marginTop: '1em'}}>
                   <Grid sx={{marginLeft: '1em'}} key={question.id} item xs={4}>
                     <TextField
+                      disabled={disabled}
                       label={`Fila: ${index + 1}:`}
                       onChange={e => handleChange('firstColumn', index, 'title', e)}
                       variant="outlined"
@@ -106,6 +108,7 @@ export default function Matrix({answers, question, setAnswer}) {
                   </Grid>
                   <Grid sx={{marginLeft: '1em'}} item xs={4}>
                     <TextField
+                      disabled={disabled}
                       label={`Respuesta ${index + 1}:`}
                       onChange={e => handleChange('secondColumn', index, 'description', e)}
                       variant="outlined"
@@ -126,10 +129,21 @@ export default function Matrix({answers, question, setAnswer}) {
           })
           }
         </Grid>
-        <Button sx={{marginTop: '1.5em'}} variant="outlined" onClick={handleNewAnswer}>
+        <Button
+          disabled={disabled}
+          sx={{marginTop: '1.5em'}}
+          variant="outlined"
+          onClick={handleNewAnswer}>
           Nueva respuesta
         </Button>
       </Grid>
     </Box>
   );
+};
+
+Matrix.propTypes = {
+  answers: PropTypes.array,
+  question: PropTypes.object,
+  setAnswer: PropTypes.func,
+  disabled: PropTypes.bool,
 };

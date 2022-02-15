@@ -43,6 +43,7 @@ export default function SectionList({test}) {
   return (
     <Grid item xs={12}>
       <Button
+        disabled={test?.presentations > 0}
         sx={{marginTop: '2em', marginBottom: '2em'}}
         variant="contained"
         onClick={handleNewSection}
@@ -59,7 +60,7 @@ export default function SectionList({test}) {
                   <TableCell align="right">Titulo</TableCell>
                   <TableCell align="right">Cantidad de preguntas</TableCell>
                   <TableCell align="right">Cantidad de preguntas configuradas</TableCell>
-                  <TableCell align="right">Editar</TableCell>
+                  <TableCell align="right">Ver / Editar</TableCell>
                   <TableCell align="right">Eliminar</TableCell>
                 </TableRow>
               </TableHead>
@@ -80,7 +81,10 @@ export default function SectionList({test}) {
                       </IconButton>
                     </TableCell>
                     <TableCell align="right">
-                      <IconButton aria-label="Eliminar sección">
+                      <IconButton
+                        disabled={test.presentations > 0}
+                        aria-label="Eliminar sección"
+                      >
                         <DeleteIcon/>
                       </IconButton>
                     </TableCell>

@@ -24,6 +24,11 @@ export default function General({test, setPayload}) {
     });
   }, [title, description]);
 
+  const disabled = test?.presentations > 0 ?? true;
+
+  const config = {
+    readonly: disabled
+  };
 
   return (
     <>
@@ -31,6 +36,7 @@ export default function General({test, setPayload}) {
         <Grid item xs={8}>
           <FormControl fullWidth>
             <TextField
+              disabled={disabled}
               id="title"
               label="Titulo"
               variant="outlined"
@@ -42,8 +48,15 @@ export default function General({test, setPayload}) {
         <Grid item xs={10} sx={{marginTop: '1em'}}>
           <label>Descripción:</label>
           <JoditEditor
+            config={config}
             value={description}
-            onBlur={(text) => setDescription(text)}
+            onBlur={(text) => {
+              if (!disabled) {
+                setDescription(text)
+              }else {
+                setDescription(description)
+              }
+            }}
           />
         </Grid>
       </Grid>

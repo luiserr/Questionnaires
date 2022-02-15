@@ -21,9 +21,12 @@ export const useTest = (testId, currentTest) => {
     }
   }, [testId]);
 
+  const disabled = parseInt(test?.presentations) > 0 ?? true;
+
   return {
     test,
-    setTest
+    setTest,
+    disabled
   }
 };
 
