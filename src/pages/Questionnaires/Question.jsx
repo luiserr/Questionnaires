@@ -47,9 +47,9 @@ export default function Question() {
   useEffect(async () => {
     if (test && questionId !== '_') {
       const myQuestion = await findQuestion(testId, sectionId, questionId);
+      setAnswers(myQuestion.answers);
       setQuestion(myQuestion);
       setDescription(myQuestion.description);
-      setAnswers(myQuestion.answers);
     }
   }, [test]);
 
