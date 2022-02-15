@@ -48,7 +48,7 @@ export default function Matrix({answers, question, setAnswer}) {
       id: uuid()
     };
     const newQuestion = {
-      description: '',
+      title: '',
       id: uuid()
     };
     setAnswer({
@@ -57,18 +57,21 @@ export default function Matrix({answers, question, setAnswer}) {
     });
   };
 
-  const handleChange = (index, column, key, value) => {
-    setAnswer(
-      answers[column].map((answer, i) => {
+  const handleChange = (column, index, key, e) => {
+    const newValue = {
+      ...answers,
+      [column]: answers[column].map((answer, i) => {
         if (index === i) {
           return {
             ...answer,
-            [key]: value
+            [key]: e.target.value
           }
         }
         return answer;
       })
-    );
+    }
+    setAnswer(newValue);
+    e.target.focus();
   };
 
   const deleteAnswer = (index) => {
@@ -89,31 +92,28 @@ export default function Matrix({answers, question, setAnswer}) {
         <br/>
         <Grid item xs={6}>
           {firstColumn?.map((question, index) => {
-            console.log(secondColumn[index]);
             return (
-              <>
+              <div key={index}>
                 <Grid container sx={{marginTop: '1em'}}>
                   <Grid sx={{marginLeft: '1em'}} key={question.id} item xs={4}>
                     <TextField
-                      key={question.id || uuid()}
-                      label={`Pregunta: ${index + 1}:`}
-                      onChange={e => handleChange(index, 'firstColumn', 'title', e.target.value)}
+                      label={`Fila: ${index + 1}:`}
+                      onChange={e => handleChange('firstColumn', index, 'title', e)}
                       variant="outlined"
                       value={question?.title || ''}
                       fullWidth
                     />
                   </Grid>
-                  <Grid sx={{marginLeft: '1em'}} key={uuid()} item xs={4}>
+                  <Grid sx={{marginLeft: '1em'}} item xs={4}>
                     <TextField
-                      key={uuid()}
                       label={`Respuesta ${index + 1}:`}
-                      onChange={e => handleChange(index, 'secondColumn', 'description', e.target.value)}
+                      onChange={e => handleChange('secondColumn', index, 'description', e)}
                       variant="outlined"
                       value={secondColumn[index]?.description || ''}
                       fullWidth
                     />
                   </Grid>
-                  <Grid sx={{marginLeft: '1em'}} key={uuid()} item xs={2}>
+                  <Grid sx={{marginLeft: '1em'}} item xs={2}>
                     <Button
                       startIcon={<DeleteIcon/>}
                       onClick={() => deleteAnswer(index)}
@@ -121,7 +121,7 @@ export default function Matrix({answers, question, setAnswer}) {
                     </Button>
                   </Grid>
                 </Grid>
-              </>
+              </div>
             );
           })
           }
