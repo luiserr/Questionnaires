@@ -1,14 +1,12 @@
-import PropTypes from 'prop-types';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
 import Header from './Header';
 import Grid from "@mui/material/Grid";
 import {usePresentation} from "../../components/hooks/testHook";
-import React, {useState, useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import {useParams} from "react-router-dom";
-import {getPresentation, getQuestions} from "../../tools/presentationRequest";
-import {IN_PROGRESS} from "../../const/statuses";
+import {getPresentation} from "../../tools/presentationRequest";
 
 function a11yProps(index) {
   return {

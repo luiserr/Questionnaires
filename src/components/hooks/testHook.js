@@ -2,10 +2,11 @@ import React, {useEffect, useState} from "react";
 import Info from '../Questionnaires/Answer/Info';
 import Sections from '../Questionnaires/Answer/Sections';
 import {findTest} from '../../tools/testRequests';
-import {BOOLEAN, MULTIPLE, SINGLE} from "../../const/questionTypes";
+import {BOOLEAN, MATRIX, MULTIPLE, SINGLE} from "../../const/questionTypes";
 import Multiple from "../Questionnaires/Answer/Multiple";
 import Boolean from "../Questionnaires/Answer/Boolean";
 import Single from "../Questionnaires/Answer/Single";
+import Matrix from "../Questionnaires/Answer/Matrix";
 
 export const useTest = (testId, currentTest) => {
   const [test, setTest] = useState(null);
@@ -45,6 +46,8 @@ export function useQuestion(question, setQuestion, indexQuestion) {
       return <Boolean question={question} setQuestion={setQuestion} indexQuestion={indexQuestion}/>;
     case SINGLE:
       return <Single question={question} setQuestion={setQuestion} indexQuestion={indexQuestion}/>;
+      case MATRIX:
+      return <Matrix question={question} setQuestion={setQuestion} indexQuestion={indexQuestion}/>;
     default:
       return '';
   }
