@@ -10,7 +10,7 @@ import Grid from "@mui/material/Grid";
 import useStepper from '../../components/hooks/stepperHook';
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
-import {handleSave} from '../../tools/testRequests';
+import {finishTest, handleSave} from '../../tools/testRequests';
 import {useTest} from "../../components/hooks/testHooks";
 import {useNavigate} from "react-router-dom";
 import {ArrowBack} from "@mui/icons-material";
@@ -98,8 +98,12 @@ export default function Wizard(props) {
                   Anterior
                 </Button>
                 <Box sx={{flex: '1 1 auto'}}/>
-                <Button onClick={handleNext}>
-                  {activeStep === steps.length - 1 ? 'Finalizar' : 'Siguiente'}
+                <Button
+                  onClick={handleNext}
+                  disabled={activeStep === steps.length - 1}
+                >
+                  {/*{activeStep === steps.length - 1 ? 'Finalizar' : 'Siguiente'}*/}
+                  Siguiente
                 </Button>
               </Box>
             </>

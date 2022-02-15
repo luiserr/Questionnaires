@@ -58,11 +58,8 @@ export default function Matrix({question, setQuestion, indexQuestion}) {
               </TableCell>
               <TableCell align="right">
                 <FormControl fullWidth>
-                  <InputLabel id="demo-simple-select-label">Age</InputLabel>
                   <Select
-                    labelId="demo-simple-select-label"
                     id="demo-simple-select"
-                    label="Age"
                     onChange={(e) => handleChange(row.id, e.target.value)}
                     value={getSelected(row.id)}
                   >

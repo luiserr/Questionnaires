@@ -1,6 +1,6 @@
 import {api, get, local, post} from '../utils/ajax';
 
-const general = async (payload) => {
+export const general = async (payload) => {
   const response = await post(`${api}/tests`, payload, 'POST', true);
   return response?.success ? response.data : null;
 };
@@ -30,7 +30,7 @@ export const handleSave = async (step, test, payload, setTest, setStep, navigati
     }
   }
   if (step === 1) {
-    return question(test);
+    setStep(2);
   }
   if (step === 2) {
     return finish
@@ -103,6 +103,14 @@ export async function findQuestion(testId, sectionId, questionId) {
 
 export async function saveQuestion(testId, sectionId, payload) {
   const response = await post(`${api}/tests/${testId}/section/${sectionId}/question`, payload, null, true);
+  if (response && response?.success) {
+    return response.data;
+  }
+  return null;
+}
+
+export async function finishTest(testId) {
+  const response = await post(`${api}/tests/commit`, {testId}, null, true);
   if (response && response?.success) {
     return response.data;
   }
