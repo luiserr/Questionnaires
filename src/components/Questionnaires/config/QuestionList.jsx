@@ -14,10 +14,9 @@ import Grid from "@mui/material/Grid";
 import Button from "@mui/material/Button";
 import * as PropTypes from 'prop-types';
 import {useNavigate} from "react-router-dom";
-import {getQuestions} from "../../../tools/testRequests";
+import {deleteQuestion, getQuestions} from "../../../tools/testRequests";
 import Alert from "@mui/material/Alert";
 import Divider from "@mui/material/Divider";
-import Box from "@mui/material/Box";
 
 
 export default function QuestionList({test, section}) {
@@ -25,9 +24,13 @@ export default function QuestionList({test, section}) {
   const [questions, setQuestions] = useState([]);
 
   useEffect(async () => {
+    await handleSearch();
+  }, []);
+
+  const handleSearch = async () => {
     const response = await getQuestions(test.id, section.id);
     setQuestions(response);
-  }, []);
+  }
 
   const navigate = useNavigate();
 
@@ -42,6 +45,11 @@ export default function QuestionList({test, section}) {
   const handleBank = () => {
     navigate(`/test/${test.id}/section/${section.id}/question/bank`);
   };
+
+  const handleDelete = async (questionId) => {
+    await deleteQuestion(test.id, section.id, questionId);
+    await handleSearch();
+  }
 
   return (
     <Grid item xs={12} sx={{marginTop: '15px'}}>
@@ -82,6 +90,7 @@ export default function QuestionList({test, section}) {
                         <IconButton
                           disabled={test.presentations > 0}
                           aria-label="delete"
+                          onClick={()=> handleDelete(question.id)}
                         >
                           <DeleteIcon/>
                         </IconButton>
@@ -104,7 +113,8 @@ export default function QuestionList({test, section}) {
         >
           Crear pregunta
         </Button>
-        <Button sx={{marginLeft: '5px'}} variant="outlined" color={"info"} onClick={handleBank}>Banco de preguntas</Button>
+        <Button sx={{marginLeft: '5px'}} variant="outlined" color={"info"} onClick={handleBank}>Banco de
+          preguntas</Button>
       </Grid>
     </Grid>
   );

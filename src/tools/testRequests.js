@@ -45,8 +45,16 @@ export const findTest = async (testId) => {
   return {};
 };
 
-export const searchTest = async () => {
-  const response = await post(`${api}/tests/list`, {}, 'POST', true);
+export const searchTest = async (page, perPage) => {
+  const response = await post(`${api}/tests/list`, {page, perPage}, 'POST', true);
+  if (response && response?.success) {
+    return response.data;
+  }
+  return {}
+};
+
+export const deleteTest = async (testId) => {
+  const response = await post(`${api}/test/${testId}`, {}, 'DELETE', true);
   if (response && response?.success) {
     return response.data;
   }
@@ -64,6 +72,14 @@ export async function getSections(test) {
 
 export async function findSection(testId, sectionId) {
   const response = await get(`${api}/tests/${testId}/section/${sectionId}`, true);
+  if (response && response?.success) {
+    return response.data;
+  }
+  return [];
+}
+
+export async function deleteSection(testId, sectionId) {
+  const response = await post(`${api}/tests/${testId}/section/${sectionId}/delete`, true, 'DELETE', true);
   if (response && response?.success) {
     return response.data;
   }
@@ -103,6 +119,14 @@ export async function findQuestion(testId, sectionId, questionId) {
 
 export async function saveQuestion(testId, sectionId, payload) {
   const response = await post(`${api}/tests/${testId}/section/${sectionId}/question`, payload, null, true);
+  if (response && response?.success) {
+    return response.data;
+  }
+  return null;
+}
+
+export async function deleteQuestion(testId, sectionId, questionId) {
+  const response = await post(`${api}/tests/${testId}/section/${sectionId}/question/${questionId}/delete`, {}, 'DELETE', true);
   if (response && response?.success) {
     return response.data;
   }

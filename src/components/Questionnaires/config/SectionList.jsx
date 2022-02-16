@@ -14,7 +14,7 @@ import * as PropTypes from 'prop-types';
 import Grid from "@mui/material/Grid";
 import Button from "@mui/material/Button";
 import {useNavigate} from "react-router-dom";
-import {getSections} from "../../../tools/testRequests";
+import {deleteSection, getSections} from "../../../tools/testRequests";
 import Alert from "@mui/material/Alert";
 
 
@@ -26,11 +26,14 @@ export default function SectionList({test}) {
 
   useEffect(async () => {
     if (test.id) {
-      const data = await getSections(test);
-      setSections(data);
+      await handleSearch();
     }
   }, [test]);
 
+  const handleSearch = async () => {
+    const data = await getSections(test);
+    setSections(data);
+  }
 
   const handleNewSection = () => {
     navigate(`/test/${test.id}/section/_`);
@@ -39,6 +42,11 @@ export default function SectionList({test}) {
   const handleEdit = (section) => {
     navigate(`/test/${test.id}/section/${section.id}`, {state: {test, section}});
   };
+
+  const handleDelete = async (sectionId) => {
+    await deleteSection(test.id, sectionId);
+    await handleSearch();
+  }
 
   return (
     <Grid item xs={12}>
@@ -84,6 +92,7 @@ export default function SectionList({test}) {
                       <IconButton
                         disabled={test.presentations > 0}
                         aria-label="Eliminar sección"
+                        onClick={() => handleDelete(section.id)}
                       >
                         <DeleteIcon/>
                       </IconButton>

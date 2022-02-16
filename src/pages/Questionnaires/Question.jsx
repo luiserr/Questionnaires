@@ -115,7 +115,7 @@ export default function Question() {
               <Box component="form" sx={{marginTop: '1.5em'}}>
                 <InputLabel id="questionTypeLabel">Tipo de pregunta</InputLabel>
                 <Select
-                  disabled={disabled}
+                  disabled={disabled || question.id !== null}
                   labelId="questionTypeLabel"
                   id="questionType"
                   label="Tipo de pregunta"

@@ -19,7 +19,7 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 const headers = {
   'id': 'ID',
   'typeDescription': 'Tipo',
-  'title': 'Titulo',
+  'title': 'Título',
   'createdAt': 'Fecha de creación'
 };
 
@@ -55,15 +55,17 @@ export default function QuestionBank() {
     navigate(`/test/${testId}/section/${section.id}`);
   };
 
-  const actions = (row) => [
-    <Button
-      key={v4()}
-      startIcon={<AddTaskIcon/>}
-      onClick={() => handleAssign(row)}
-      size={"small"}
-    >
-      Agregar
-    </Button>
+  const actions = [
+    {
+      title: 'Agregar a la sección actual',
+      component: (row) =>
+        <Button
+          key={v4()}
+          startIcon={<AddTaskIcon/>}
+          onClick={() => handleAssign(row)}
+          size={"small"}
+        />
+    }
   ];
 
   return (
@@ -127,7 +129,8 @@ export default function QuestionBank() {
               ) : <h4>Sección invalida</h4>
             }
             <Grid item xs={12}>
-              <Table data={data} headers={headers} pagination={pagination} actions={actions} handleSearch={handleSearch}/>
+              <Table data={data} headers={headers} pagination={pagination} actions={actions}
+                     handleSearch={handleSearch}/>
             </Grid>
           </Grid>
         </CardContent>

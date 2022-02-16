@@ -24,7 +24,7 @@ export default function MyTable(
   const [rows, setRows] = useState([]);
 
   useEffect(() => {
-    const newData = data.map((row) => {
+    const newData = data?.map((row) => {
       const temp = {};
       for (const attr in headers) {
         temp[attr] = row[attr];
@@ -44,6 +44,12 @@ export default function MyTable(
             </TableCell>
           )
         }
+        {
+          actions.map((action) =>
+            <TableCell key={uid()} component="th" scope="row">
+              {action.component(row)}
+            </TableCell>
+          )}
       </>
     );
   };
@@ -51,7 +57,7 @@ export default function MyTable(
   return (
     <>
       {
-        data.length <= 0 ?
+        data?.length <= 0 ?
           <Alert severity={"warning"}>
             No hay datos para mostrar
           </Alert> :
@@ -69,18 +75,18 @@ export default function MyTable(
                     {
                       Object.values(headers).map((header, index) => <TableCell key={index}>{header}</TableCell>)
                     }
+                    {
+                      actions.map((action, index) => <TableCell key={index}>{action.title}</TableCell>)
+                    }
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {rows.map((row) => (
+                  {rows?.map((row) => (
                     <TableRow
                       key={uid()}
                       sx={{'&:last-child td, &:last-child th': {border: 0}}}
                     >
                       {drawBody(row)}
-                      {<TableCell>
-                        {actions(row)}
-                      </TableCell>}
                     </TableRow>
                   ))}
                 </TableBody>
