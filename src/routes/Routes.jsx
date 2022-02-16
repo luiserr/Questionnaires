@@ -16,8 +16,8 @@ export default function routes() {
       <Route exact name="list" path="/" element={<Home/>}>
         <Route exact name="create" path="/test" element={<TestList/>}/>
         <Route exact name="create" path="/test/:testId" element={<Configuration/>}/>
-        <Route exact name="create" path="/test/presentation/:testId" element={<ListAssign/>}/>
-        <Route exact name="create" path="/test/presentation/create" element={<Assign/>}/>
+        <Route exact name="create" path="/test/:testId/presentation/create" element={<Assign/>}/>
+        <Route exact name="create" path="/test/:testId/presentations" element={<ListAssign/>}/>
         <Route exact name="create" path="/test/:testId/section/:sectionId" element={<Section/>}/>
         <Route exact name="create" path="/test/:testId/section/:sectionId/question/:questionId" element={<Question/>}/>
         <Route exact name="create" path="/test/:testId/section/:sectionId/question/bank" element={<QuestionBank/>}/>
