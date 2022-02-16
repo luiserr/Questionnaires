@@ -2,10 +2,13 @@ import {Button, Grid} from "@mui/material";
 import JoditEditor from "jodit-react";
 import React, {useState} from "react";
 import {finishTest, general} from "../../../tools/testRequests";
+import {useNavigate} from "react-router-dom";
 
 export default function Finish({test}) {
 
   const [goodbye, setGoodbye] = useState(test?.goodbye ?? '');
+
+  const navigate = useNavigate();
 
   const handleUpdate = async () => {
     const response = await general({
@@ -13,7 +16,10 @@ export default function Finish({test}) {
       goodbye
     });
     if (response) {
-      await handleFinish()
+      await handleFinish();
+      setTimeout(() => {
+        navigate('/test');
+      }, 2000)
     }
   }
 

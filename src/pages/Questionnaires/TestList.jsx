@@ -54,14 +54,18 @@ export default function TestList() {
     {
       title: 'Ver presentaciones',
       component: (row) =>
-        <IconButton aria-label="view">
+        <IconButton
+          disabled={row.statusDescription !== 'Completado'}
+          aria-label="view">
           <VisibilityIcon/>
         </IconButton>,
     },
     {
       title: 'Añadir presentacion',
       component: (row) =>
-        <IconButton aria-label="view">
+        <IconButton
+          disabled={row.statusDescription !== 'Completado'}
+          aria-label="view">
           <AddPhotoAlternateIcon/>
         </IconButton>
     },
