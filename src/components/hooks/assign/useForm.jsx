@@ -1,8 +1,8 @@
 import React, { useState, useReducer, useEffect } from 'react'
 
-export const Form = (callback, validate) => {
+export const useForm = (callback, validate) => {
   const formReducer = (state, event) => {
-    return {
+    return {  
       ...state,
       [event.name]: event.value,
     }

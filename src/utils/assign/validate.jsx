@@ -1,4 +1,4 @@
-export default function validateInfo(formData) {
+export default function validateFormAssign(formData) {
     let errors = {}
   
     if (!formData.titulo) {

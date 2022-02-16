@@ -35,7 +35,7 @@ const AssignsListToolbar = ({ filterTitle, onFilterTitle }) => {
             <SearchStyle
                 value={filterTitle}
                 onChange={onFilterTitle}
-                placeholder="Buscar titulo..."
+                placeholder="Buscar..."
                 startAdornment={
                 <InputAdornment position="start">
                     <SearchIcon />

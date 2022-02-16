@@ -4,10 +4,10 @@ import {toast, loading} from './alerts';
 const domain = getDomain('tests');
 const prefixGradeCenter = 'gradeCenter';
 export const dev = 'https://sena.dev.tests.mx/api';
-export const local = 'https://sena.pruebas.la/api';
+export const local = 'http://sena.localhost:8000/api';
 //comentar para hacer pruebas en local
 // export const api =  `${domain}api`;
-export const api =  dev;
+export const api =  local;
 
 const myHeaders = new Headers();
 

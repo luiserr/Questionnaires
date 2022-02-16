@@ -1,23 +1,39 @@
 import { sample } from 'lodash';
 
+export const typeAssign = [
+  { id: "typeCourse", title: "Tipo de curso" },
+  { id: "modality", title: "Modalidad" },
+  { id: "regional", title: "Regional" },
+  { id: "centerTraining", title: "Centro de formación" },
+  { id: "program", title: "Código de programa" },
+  { id: "rol", title: "Rol" },
+  { id: "user", title: "Usuario registrado" },
+  { id: "anonimous", title: "Usuario no registrado" }
+]
+
+export const typeCourse = [
+  { id: "titulada", title: "Titulada" },
+  { id: "complementaria", title: "Complementaria" }
+];
+
 export const titulada = [
-  { id: "check-1", title: "AUXILIAR" },
-  { id: "check-2", title: "OPERARIO" },
-  { id: "check-3", title: "TÉCNICO" },
-  { id: "check-4", title: "TECNÓLOGO" },
-  { id: "check-5", title: "ESPECIALIZACIÓN TECNOLÓGICA" },
-  { id: "check-6", title: "PROFUNDIZACIÓN TÉCNICA" }
+  { id: "auxiliar", title: "AUXILIAR" },
+  { id: "operativo", title: "OPERARIO" },
+  { id: "técnico", title: "TÉCNICO" },
+  { id: "tecnólogo", title: "TECNÓLOGO" },
+  { id: "especialización tecnológica", title: "ESPECIALIZACIÓN TECNOLÓGICA" },
+  { id: "profundización técnica", title: "PROFUNDIZACIÓN TÉCNICA" }
 ];
 
 export const complementaria = [
-  { id: "check-11", title: "COMPLEMENTARIA VIRTUAL" },
-  { id: "check-21", title: "CURSO ESPECIAL" }
+  { id: "complementaria virtual", title: "COMPLEMENTARIA VIRTUAL" },
+  { id: "curso especial", title: "CURSO ESPECIAL" }
 ];
 
-export const modalidad = [
-  {id: "check-12", title: "PRESENCIAL"},
-  {id: "check-12", title: "VIRTUAL"},
-  {id: "check-12", title: "A DISTANCIA"}
+export const modality = [
+  {id: "presencial", title: "PRESENCIAL"},
+  {id: "virtual", title: "VIRTUAL"},
+  {id: "a distancia", title: "A DISTANCIA"}
 ];
 
 export const regional = [
@@ -54,6 +70,32 @@ export const regional = [
   {id:76,	title: "REGIONAL VALLE"},
   {id:97,	title: "REGIONAL VAUPÉS"},
   {id:99,	title: "REGIONAL VICHADA"}]
+
+export const centerTraining = [
+  {id: "1234", title: "Centro de comercio y servicio"},
+  {id: "5627", title: "Centro de mercados"},
+  {id: "3546", title: "Centro industria"}
+];
+
+export const program = [
+  {id: "452354", title: "ANÁLISIS Y DESARROLLO DE SOFTWARE"},
+  {id: "2891588", title: "ANIMACIÓN DIGITAL"},
+  {id: "15165165", title: "DESARROLLO PUBLICITARIO"}
+];
+
+export const rol = [
+  {id: "aprendiz", title: "APRENDIZ"},
+  {id: "instructor", title: "INSTRUCTOR"}
+];
+
+export const user = [
+  {id: "...", title: "..."},
+  {id: "---", title: "---"}
+];
+
+export const anonimous = [
+  {id: "no registrado", title: "NO REGISTRADO"}
+];
 
 const assigns = [...Array(26)].map((_, index) => ({
   id: index + 1,
