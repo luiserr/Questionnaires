@@ -8,6 +8,8 @@ import FormularioAssign from '../../components/Questionnaires/Assigns/Create/For
 
 const Assign = () => {
 
+  const [ info, setInfo ] = useState({});
+
   /*const [ typeCourse, setTypeCourse ] = useState({})
   const [ modality, setModality ] = useState({})
   const [ regional, setRegional ] = useState({})

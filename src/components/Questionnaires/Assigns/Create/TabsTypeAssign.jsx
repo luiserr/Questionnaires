@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { 
     Box, 
     Typography, 
@@ -18,11 +18,12 @@ import {
     Avatar
 } from '@mui/material'
 import { styled } from '@mui/material/styles'
-import CenterTrainingWrapper from './CenterTraining/CenterTrainingWrapper'
+import CenterTraining from './CenterTraining/CenterTraining'
 import Regional from './Regional/Regional'
 import Program from './Program/Program'
 import PersonIcon from '@mui/icons-material/Person'
 import FolderIcon from '@mui/icons-material/Folder'
+import { generarKey } from '../../../../utils/assign/assigns'
 
 const TabPanel = (props) => {
     const { children, value, index, ...other } = props;
@@ -46,37 +47,32 @@ const TabPanel = (props) => {
 
 const a11yProps = (index) => ({ id: `simple-tab-${index}`, 'aria-controls': `simple-tabpanel-${index}`,})
 
-const TabsTypeAssign = ({typeAssign}) => {
+const TabsTypeAssign = ({typeAssign, info, setInfo}) => {
 
     const [value, setValue] = React.useState(0);
 
-    const { tipoCourse, modality, regional, centerTraining, program, rol } = typeAssign;
-
-    console.log(tipoCourse);
-    console.log(modality);
-    console.log(regional);
-    console.log(centerTraining);
-    console.log(program);
-    console.log(rol);
+    const { typeCourse, modality, regional, centerTraining, program, rol } = typeAssign;
+    const { assignments } = info;
+    const [checked, setChecked] = useState([]);
 
     const handleChange = (event, newValue) => {
         setValue(newValue);
     };
 
-    const [checked, setChecked] = React.useState(['phone_verification']);
-
-    const handleToggle = (value) => () => {
-        const currentIndex = checked.indexOf(value);
-        const newChecked = [...checked];
-
-        if (currentIndex === -1) {
-        newChecked.push(value);
+    const handleToggle = (c) => () => {
+        const currentCategoryId = checked.indexOf(c);
+        const newCheckedCategoryId = [...checked];
+        if (currentCategoryId === -1) {
+         newCheckedCategoryId.push(c);
         } else {
-        newChecked.splice(currentIndex, 1);
+         newCheckedCategoryId.splice(currentCategoryId, 1);
         }
-
-        setChecked(newChecked);
+        console.log(newCheckedCategoryId);
+        setChecked(newCheckedCategoryId);
+        
     };
+
+    
 
     if(Object.keys(typeAssign).length === 0 ) return null;
 
@@ -112,12 +108,15 @@ const TabsTypeAssign = ({typeAssign}) => {
                                     </Typography>
 
                                     <FormGroup>
-                                        <FormControlLabel control={<Checkbox defaultChecked />} label="AUXILIAR" />
-                                        <FormControlLabel control={<Checkbox />} label="OPERARIO" />
-                                        <FormControlLabel control={<Checkbox defaultChecked />} label="TÉCNICO" />
-                                        <FormControlLabel control={<Checkbox />} label="TECNÓLOGO" />
-                                        <FormControlLabel control={<Checkbox defaultChecked />} label="ESPECIALIZACIÓN TECNOLÓGICA" />
-                                        <FormControlLabel control={<Checkbox />} label="PROFUNDIZACIÓN TÉCNICA" />
+
+                                    { typeCourse.titulada.map(item => (
+                                        <FormControlLabel key={generarKey() + item.description} control={
+                                            <Checkbox 
+                                            
+                                            />
+                                        } label={item.description} />
+                                    ))}
+
                                     </FormGroup>
 
 
@@ -127,158 +126,38 @@ const TabsTypeAssign = ({typeAssign}) => {
                                     Complementaria
                                     </Typography>
 
-                                    <FormGroup>
-                                        <FormControlLabel control={<Checkbox defaultChecked />} label="CURSO ESPECIAL" />
-                                        <FormControlLabel control={<Checkbox />} label="COMPLEMENTARIA VIRTUAL" />
-                                    </FormGroup>
+                                    { typeCourse.complementaria.map(item => (
+                                        <FormControlLabel key={generarKey() + item.description} control={<Checkbox />} label={item.description} />
+                                    ))}
+
                                 </Grid>                            
                             </Grid>
 
                             </TabPanel>
                             <TabPanel value={value} index={1}>
-                                <List sx={{ width: '100%', maxWidth: 260, bgcolor: 'background.paper' }}>
-                                    <ListItem sx={{ py: 2 }}>
-
-                                        <ListItemAvatar>
-                                            <FolderIcon fontSize="medium" />                                            
-                                        </ListItemAvatar>
-
-                                        <ListItemText
-                                        primary="Presencial"
-                                        primaryTypographyProps={{
-                                        variant: 'body1',
-                                        color: 'textPrimary',
-                                        gutterBottom: true,
-                                        noWrap: true
-                                        }}
-                                        secondaryTypographyProps={{ variant: 'body2', noWrap: true }}
-                                        />
-                                        <Switch
-                                            edge="end"
-                                            color="primary"
-                                            onChange={handleToggle('1fa')}
-                                            checked={checked.indexOf('1fa') !== -1}
-                                        />
-                                    </ListItem>
-                                    <ListItem sx={{ py: 2 }}>
-                                        <ListItemText
-                                        primary="Virtual"
-                                        primaryTypographyProps={{
-                                        variant: 'body1',
-                                        color: 'textPrimary',
-                                        gutterBottom: true,
-                                        noWrap: true
-                                        }}
-                                        secondaryTypographyProps={{ variant: 'body2', noWrap: true }}
-                                        />
-                                        <Switch
-                                            edge="end"
-                                            color="primary"
-                                            onChange={handleToggle('2fa')}
-                                            checked={checked.indexOf('2fa') !== -1}
-                                        />
-                                    </ListItem>
-                                    <ListItem sx={{ py: 2 }}>
-                                        <ListItemText
-                                        primary="A distancia"
-                                        primaryTypographyProps={{
-                                        variant: 'body1',
-                                        color: 'textPrimary',
-                                        gutterBottom: true,
-                                        noWrap: true
-                                        }}
-                                        secondaryTypographyProps={{ variant: 'body2', noWrap: true }}
-                                        />
-                                        <Switch
-                                            edge="end"
-                                            color="primary"
-                                            onChange={handleToggle('3fa')}
-                                            checked={checked.indexOf('3fa') !== -1}
-                                        />
-                                    </ListItem>
-                                </List>
+                            { modality.map(item => (
+                                <FormControlLabel key={generarKey() + item.description} control={<Checkbox />} label={item.description} />
+                            ))}
                             </TabPanel>
                             <TabPanel value={value} index={2}>
-                            <Regional />
+                                <Regional 
+                                regional={regional}
+                                />
                             </TabPanel>
                             <TabPanel value={value} index={3}>
-                             <CenterTrainingWrapper />
+                                <CenterTraining 
+                                centerTraining={centerTraining}
+                                />
                             </TabPanel>
                             <TabPanel value={value} index={4}>
-                                <Program />
+                                <Program 
+                                program={program}
+                                />
                             </TabPanel>
                             <TabPanel value={value} index={5}>
-                            <List sx={{ width: '100%', maxWidth: 260, bgcolor: 'background.paper' }}>
-                                    <ListItem sx={{ py: 2 }}>
-
-                                        <ListItemAvatar>
-                                            <PersonIcon fontSize="medium" />                                            
-                                        </ListItemAvatar>
-
-                                        <ListItemText
-                                        primary="Administrador"
-                                        primaryTypographyProps={{
-                                        variant: 'body1',
-                                        color: 'textPrimary',
-                                        gutterBottom: true,
-                                        noWrap: true
-                                        }}
-                                        secondaryTypographyProps={{ variant: 'body2', noWrap: true }}
-                                        />
-                                        <Switch
-                                            edge="end"
-                                            color="primary"
-                                            onChange={handleToggle('1fa')}
-                                            checked={checked.indexOf('1fa') !== -1}
-                                        />
-                                    </ListItem>
-                                    <ListItem sx={{ py: 2 }}>
-
-                                        <ListItemAvatar>
-                                            <PersonIcon fontSize="medium" />                                            
-                                        </ListItemAvatar>
-
-                                        <ListItemText
-                                        primary="Instructor"
-                                        primaryTypographyProps={{
-                                        variant: 'body1',
-                                        color: 'textPrimary',
-                                        gutterBottom: true,
-                                        noWrap: true
-                                        }}
-                                        secondaryTypographyProps={{ variant: 'body2', noWrap: true }}
-                                        />
-                                        <Switch
-                                            edge="end"
-                                            color="primary"
-                                            onChange={handleToggle('2fa')}
-                                            checked={checked.indexOf('2fa') !== -1}
-                                        />
-                                    </ListItem>
-                                    <ListItem sx={{ py: 2 }}>
-
-                                        <ListItemAvatar>
-                                            <PersonIcon fontSize="medium" />                                            
-                                        </ListItemAvatar>
-
-                                        <ListItemText
-                                        primary="Aprendiz"
-                                        primaryTypographyProps={{
-                                        variant: 'body1',
-                                        color: 'textPrimary',
-                                        gutterBottom: true,
-                                        noWrap: true
-                                        }}
-                                        secondaryTypographyProps={{ variant: 'body2', noWrap: true }}
-                                        />
-                                        <Switch
-                                            edge="end"
-                                            color="primary"
-                                            onChange={handleToggle('3fa')}
-                                            checked={checked.indexOf('3fa') !== -1}
-                                        />
-                                    </ListItem>
-                                </List>
+                                { rol.map(item => (
+                                    <FormControlLabel key={ generarKey() + item.description} control={<Checkbox />} label={item.nombreDeCarrera} />
+                                ))}
                             </TabPanel>
                         </Box>
                     

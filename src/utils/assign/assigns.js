@@ -1,5 +1,11 @@
 import { sample } from 'lodash';
 
+export const generarKey = () => {
+  const random = Math.random().toString(36).substring(2)
+  const fecha = Date.now().toString(36)
+  return random + fecha;
+}
+
 export const typeAssign = [
   { id: "typeCourse", title: "Tipo de curso" },
   { id: "modality", title: "Modalidad" },

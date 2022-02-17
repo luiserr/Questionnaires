@@ -27,6 +27,7 @@ import {
 } from '@mui/material'
 import SearchNotFound from '../../SearchNotFound'
 import AssignsListToolbar from '../../AssignsListToolbar'
+import { generarKey } from '../../../../../utils/assign/assigns'
 
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
@@ -52,18 +53,18 @@ function applySortFilter(array, comparator, query) {
       return a[1] - b[1];
   });
   if (query) {
-      return filter(array, (assign) => assign.rgn_nombre.toLowerCase().indexOf(query.toLowerCase()) !== -1);
+      return filter(array, (assign) => assign.sed_nombre.toLowerCase().indexOf(query.toLowerCase()) !== -1);
   }
   return stabilizedThis.map((el) => el[0]);
 }
 
-const Regional = ({regional}) => {
+const CenterTraining = ({centerTraining}) => {
 
-    console.log(regional);
+    console.log(centerTraining);
 
     const [page, setPage] = React.useState(0);
     const [order, setOrder] = React.useState('asc');
-    const [orderBy, setOrderBy] = React.useState('rgn_nombre');
+    const [orderBy, setOrderBy] = React.useState('sed_nombre');
     const [filterTitle, setFilterTitle] = React.useState('');
     const [rowsPerPage, setRowsPerPage] = React.useState(5);
 
@@ -87,14 +88,15 @@ const Regional = ({regional}) => {
     };
     
 
-    const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - regional.length) : 0;
+    const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - centerTraining.length) : 0;
 
-    const filteredAssigns = applySortFilter(regional, getComparator(order, orderBy), filterTitle);
+    const filteredAssigns = applySortFilter(centerTraining, getComparator(order, orderBy), filterTitle);
 
     const isAssignNotFound = filteredAssigns.length === 0;
 
     return (
 
+        
       <Grid
         container
         direction="row"
@@ -124,6 +126,8 @@ const Regional = ({regional}) => {
                         </TableCell>
                         <TableCell>Id</TableCell>
                         <TableCell>Regional</TableCell>
+                        <TableCell>Id</TableCell>
+                        <TableCell>Centro de formación</TableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>
@@ -131,14 +135,16 @@ const Regional = ({regional}) => {
                   .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                   .map((row) => {
                     const { 
-                      rgn_id, 
-                      rgn_nombre
+                      rgn_id,
+                      rgn_nombre,
+                      sed_id, 
+                      sed_nombre
                     } = row;
 
                       return (
                           <TableRow
                           hover
-                          key={rgn_nombre}
+                          key={ generarKey() + sed_nombre}
                           tabIndex={-1}
                           >
                               <TableCell padding="checkbox">
@@ -151,6 +157,14 @@ const Regional = ({regional}) => {
                             <Stack direction="row" alignItems="center" spacing={2}>
                               <Typography variant="subtitle2" noWrap>
                                 {rgn_nombre}
+                              </Typography>
+                            </Stack>
+                          </TableCell>
+                          <TableCell align="left">{sed_id}</TableCell>
+                          <TableCell component="th" scope="row">
+                            <Stack direction="row" alignItems="center" spacing={2}>
+                              <Typography variant="subtitle2" noWrap>
+                                {sed_nombre}
                               </Typography>
                             </Stack>
                           </TableCell>
@@ -179,7 +193,7 @@ const Regional = ({regional}) => {
         <TablePagination
           rowsPerPageOptions={[5, 10, 25]}
           component="div"
-          count={regional.length}
+          count={centerTraining.length}
           rowsPerPage={rowsPerPage}
           page={page}
           onPageChange={handleChangePage}
@@ -189,7 +203,8 @@ const Regional = ({regional}) => {
         </Card>
         </Grid>
       </Grid>
+    
     )
 }
 
-export default Regional
+export default CenterTraining

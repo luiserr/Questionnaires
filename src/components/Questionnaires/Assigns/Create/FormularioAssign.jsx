@@ -25,34 +25,58 @@ import LocalizationProvider from '@mui/lab/LocalizationProvider'
 import DatePicker from '@mui/lab/DatePicker'
 import SendIcon from '@mui/icons-material/Send'
 import TabsTypeAssign from './TabsTypeAssign'
+import { useParams } from 'react-router-dom'
+import { useTest } from '../../../hooks/testHooks'
 
-import { getTypeAssign } from '../../../../tools/assignRequests'
+import { getTypeAssign, saveAssign } from '../../../../tools/assignRequests'
 
 const FomularioAssign = () => {
 
+
+    const { testId } = useParams();
+    const { test } = useTest(testId);
+
+    //console.log(testId);
+    //console.log(test);
+
+    /*Estado que almacena la respuesta del usario*/
     const [ typeAssign, setTypeAssign ] = useState({})
 
-    const [ state, setState ] = useState({
-        title: '',
-        dateInit: null,
-        dateEnd: null,
+    /*Estado inicial*/
+    const initial = {
+        testId: testId,
+        title: "",
+        startDate: null,
+        finishDate: null,
+        presentationType: "Survey",
         tries: 1,
-        assign: '',
-        typeCourse: '',
-        modality: '',
-        regional: '',
-        program: '',
-        rol: '',
-        user: '',
-        anonimous: false,
+        anonymous: false,
+        assignments: {
+            centers: [],
+            roles: [],
+            programTraining: [],
+            courseType: {
+                titled: [],
+                complementary: []
+            },
+            modality: {
+                presencial: "",
+                virtual: "",
+                adistancia: ""
+            },
+            regional: []
+        },
         error: false, 
         loading: false
-    });
+    };
+
+    /* Estado campos del formulario */
+    const [ info, setInfo ] = useState(initial);
 
     useEffect(() => {
 
-        console.log('creando el componente');
-
+        //console.log('creando el componente');
+        //consultando la api
         const consultarApi = async () => {
             const response = await getTypeAssign();
             setTypeAssign(response);
@@ -64,21 +88,26 @@ const FomularioAssign = () => {
     const handleSubmit = e => {
         e.preventDefault();
     
-        if( [state.title, state.dateInit, state.dateEnd, state.tries, state.assign].includes('')) {
-            setState({
-                ...state,
+        if( info.title.trim() === "") {
+            setInfo({
+                ...info,
                 error: true
             });
             return;
         }
     
-        console.log(state);
-    
-        setState({
-            ...state,
+        setInfo({
+            ...info,
             error: false
         });
-    
+
+        /* Enviamos el formulario*/
+
+        /*const sendData = async () => {
+            const response = await saveAssign(info);
+            setInfo(initial);
+        }
+        sendData();*/
     }
 
     return (
@@ -91,7 +120,22 @@ const FomularioAssign = () => {
         alignItems="stretch"
         spacing={3}
         >
+            <Box
+            component='form'
+            noValidate
+            onSubmit={handleSubmit}
+            sx={{ mt: 3, mb: 3 }}
+            >
             <Grid item xs={12}>
+
+            {info.error && (
+                <Stack sx={{ width: '100%' }} spacing={2}>
+                <Alert severity="error">
+                    <AlertTitle>Error</AlertTitle>
+                    Todos los campos son <strong>obligatorios</strong>
+                </Alert>
+                </Stack>
+            )}
 
                 <Card sx={{ mt: 3, mb: 2 }}>
                     <CardHeader title="Información Básica" />
@@ -110,10 +154,10 @@ const FomularioAssign = () => {
                                     fullWidth
                                     id='title'
                                     label='Ingrese un titulo'
-                                    value={state.title}
+                                    value={info.title}
                                     onChange = {e => 
-                                        setState({
-                                            ...state,
+                                        setInfo({
+                                            ...info,
                                             title: e.target.value
                                         })
                                     }
@@ -123,7 +167,32 @@ const FomularioAssign = () => {
                             </Grid>
                             
                             <Grid item xs={12} md={6}>
+
                                 <Typography variant="h6" gutterBottom>
+                                Número de intentos
+                                </Typography>
+                                <FormControl fullWidth>
+                                    <TextField
+                                    name='tries'
+                                    fullWidth
+                                    id='tries'
+                                    type="number"
+                                    inputProps={{ min: 1}}
+                                    value={info.tries}
+                                    onChange = {e => 
+                                        setInfo({
+                                            ...info,
+                                            tries: e.target.value
+                                        })
+                                    }
+                                    />
+                                </FormControl>
+
+                            </Grid>
+
+                            <Grid item xs={12}>
+
+                            <Typography variant="h6" gutterBottom>
                                 Fechas de asignación
                                 </Typography>
 
@@ -140,11 +209,11 @@ const FomularioAssign = () => {
                                             <LocalizationProvider dateAdapter={AdapterDateFns}>
                                                 <DatePicker
                                                 label="Fecha de inicio"
-                                                value={state.dateInit}
+                                                value={info.startDate}
                                                 onChange = {newValue => 
-                                                    setState({
-                                                        ...state,
-                                                        dateInit: newValue
+                                                    setInfo({
+                                                        ...info,
+                                                        startDate: newValue
                                                     })
                                                 }
                                                 renderInput={(params) => <TextField {...params} fullWidth />}
@@ -160,11 +229,11 @@ const FomularioAssign = () => {
                                             <LocalizationProvider dateAdapter={AdapterDateFns}>
                                                 <DatePicker 
                                                 label="Fecha final"
-                                                value={state.dateEnd}
+                                                value={info.finishDate}
                                                 onChange = {newValue => 
-                                                    setState({
-                                                        ...state,
-                                                        dateEnd: newValue
+                                                    setInfo({
+                                                        ...info,
+                                                        finishDate: newValue
                                                     })
                                                 }
                                                 renderInput={(params) => <TextField {...params} fullWidth />}
@@ -174,44 +243,7 @@ const FomularioAssign = () => {
                                         </FormControl>
                                     </Grid>
                                 </Grid>
-                            </Grid>
-
-                            <Grid item xs={12} md={6}>
-                                <Typography variant="h6" gutterBottom>
-                                Número de intentos
-                                </Typography>
-                                <FormControl fullWidth>
-                                    <TextField
-                                    name='tries'
-                                    fullWidth
-                                    id='tries'
-                                    type="number"
-                                    inputProps={{ min: 1}}
-                                    value={state.tries}
-                                    onChange = {e => 
-                                        setState({
-                                            ...state,
-                                            tries: e.target.value
-                                        })
-                                    }
-                                    />
-                                </FormControl>
-                            </Grid>
-
-                            <Grid item xs={12} md={6}>
-                                <Typography variant="h6">
-                                Estado
-                                </Typography>
-
-                                <FormControl component="fieldset">
-                                    <RadioGroup row aria-label="stateAssign" name="row-radio-buttons-group">
-                                        <FormControlLabel value="Sin asignar" control={<Radio />} label="Sin asignar" />
-                                        <FormControlLabel value="Asignada" control={<Radio />} label="Asignada" />
-                                        <FormControlLabel value="Terminada" control={<Radio />} label="Terminada" />
-                                        <FormControlLabel value="Cancelada" control={<Radio />} label="Cancelada" />
-                                    </RadioGroup>
-                                </FormControl>
-
+                                
                             </Grid>
 
                         </Grid>
@@ -225,6 +257,8 @@ const FomularioAssign = () => {
                     <CardContent>
                         <TabsTypeAssign 
                             typeAssign={typeAssign}
+                            info={info}
+                            setInfo={setInfo}
                         />
                     </CardContent>
                 </Card>
@@ -241,6 +275,8 @@ const FomularioAssign = () => {
                 </Grid>
 
             </Grid>
+
+            </Box>
 
         </Grid>
 

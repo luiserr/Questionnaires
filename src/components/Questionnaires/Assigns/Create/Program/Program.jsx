@@ -25,7 +25,7 @@ import {
     CardHeader,
     Grid, Container
 } from '@mui/material'
-import { program } from '../../../../../utils/assign/assigns'
+import { generarKey } from '../../../../../utils/assign/assigns'
 import SearchNotFound from '../../SearchNotFound'
 import AssignsListToolbar from '../../AssignsListToolbar'
 
@@ -53,16 +53,18 @@ stabilizedThis.sort((a, b) => {
     return a[1] - b[1];
 });
 if (query) {
-    return filter(array, (assign) => assign.title.toLowerCase().indexOf(query.toLowerCase()) !== -1);
+    return filter(array, (assign) => assign.prf_nombre.toLowerCase().indexOf(query.toLowerCase()) !== -1);
 }
 return stabilizedThis.map((el) => el[0]);
 }
 
-const Program = () => {
+const Program = ({program}) => {
+
+    console.log(program)
 
     const [page, setPage] = React.useState(0);
     const [order, setOrder] = React.useState('asc');
-    const [orderBy, setOrderBy] = React.useState('title');
+    const [orderBy, setOrderBy] = React.useState('prf_nombre');
     const [filterTitle, setFilterTitle] = React.useState('');
     const [rowsPerPage, setRowsPerPage] = React.useState(5);
 
@@ -94,13 +96,11 @@ const Program = () => {
 
     return (
 
-        <Container maxWidth="lg">
       <Grid
         container
         direction="row"
         justifyContent="center"
         alignItems="stretch"
-        spacing={3}
       >
         <Grid item xs={12}>
 
@@ -132,14 +132,14 @@ const Program = () => {
                   .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                   .map((row) => {
                     const { 
-                      id, 
-                      title
+                      prf_codigo, 
+                      prf_nombre
                     } = row;
 
                     return (
                         <TableRow
                         hover
-                        key={id}
+                        key={generarKey() + prf_nombre}
                         tabIndex={-1}
                         >
                             <TableCell padding="checkbox">
@@ -147,11 +147,11 @@ const Program = () => {
                                 color="primary"
                                 />
                             </TableCell>
-                        <TableCell align="left">{id}</TableCell>
+                        <TableCell align="left">{prf_codigo}</TableCell>
                         <TableCell component="th" scope="row">
                           <Stack direction="row" alignItems="center" spacing={2}>
                             <Typography variant="subtitle2" noWrap>
-                              {title}
+                              {prf_nombre}
                             </Typography>
                           </Stack>
                         </TableCell>
@@ -189,7 +189,6 @@ const Program = () => {
         </Card>
         </Grid>
       </Grid>
-    </Container>
     )
 }
 
