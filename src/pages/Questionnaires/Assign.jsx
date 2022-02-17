@@ -1,14 +1,13 @@
 import React, {useState} from 'react'
 import {Grid} from '@mui/material'
 import PageTitleWrapper from '../../components/Questionnaires/Assigns/PageTitleWrapper'
-import PageTitle from '../../components/Questionnaires/Assigns/PageTitle'
 import FormularioAssign from '../../components/Questionnaires/Assigns/Create/FormularioAssign'
-import {useTest} from "../../components/hooks/testHook";
-import {useParams} from "react-router-dom";
+import Typography from "@mui/material/Typography";
+import Divider from "@mui/material/Divider";
 
 const Assign = () => {
 
-  const [ info, setInfo ] = useState({});
+  const [info, setInfo] = useState({});
 
   /*const [ typeCourse, setTypeCourse ] = useState({})
   const [ modality, setModality ] = useState({})
@@ -20,15 +19,13 @@ const Assign = () => {
   return (
     <>
       <Grid>
-
         <PageTitleWrapper>
-          <PageTitle
-            heading="Nueva asignación"
-            subHeading="Formulario encargado de crear y asignar una encuesta."
-            to="/test/presentation/1"/>
+          <h4>
+            Nueva asignación
+          </h4>
+          <Divider/>
         </PageTitleWrapper>
         <FormularioAssign/>
-
       </Grid>
 
     </>

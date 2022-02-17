@@ -64,6 +64,7 @@ export default function TestList() {
       title: 'Añadir presentacion',
       component: (row) =>
         <IconButton
+          onClick={()=> navigate(`/test/${row.id}/presentation/create`)}
           disabled={row.statusDescription !== 'Completado'}
           aria-label="view">
           <AddPhotoAlternateIcon/>
