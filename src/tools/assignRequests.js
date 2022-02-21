@@ -8,6 +8,23 @@ export const getTypeAssign = async () => {
     return {}
 };
 
+export const getRoles = async () =>{
+  const response = await get(`${api}/assignQuestionnaires/roles`, true);
+  if (response.success) {
+    return response.data;
+  }
+  return []
+}
+
+export const getRegionals = async () =>{
+  const response = await get(`${api}/assignQuestionnaires/regionals`, true);
+  if (response.success) {
+    return response.data;
+  }
+  return []
+}
+
+
 export async function saveAssign(payload){
   console.log(payload);
   const response = await post(`${api}/tests/${payload.testId}/presentation`, payload, null, true);

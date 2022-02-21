@@ -9,6 +9,7 @@ import Answer from '../pages/answer/';
 import QuestionBank from "../pages/Questionnaires/Bank/QuestionBank";
 import ListAssign from "../pages/Questionnaires/ListAssign";
 import Assign from "../pages/Questionnaires/Assign";
+import CreateAssign from "../pages/Assignments/create";
 
 export default function routes() {
   return (
@@ -17,6 +18,7 @@ export default function routes() {
         <Route exact name="create" path="/test" element={<TestList/>}/>
         <Route exact name="create" path="/test/:testId" element={<Configuration/>}/>
         <Route exact name="create" path="/test/:testId/presentation/create" element={<Assign/>}/>
+        <Route exact name="create" path="/test/:testId/presentation/create2" element={<CreateAssign/>}/>
         <Route exact name="create" path="/test/:testId/presentations" element={<ListAssign/>}/>
         <Route exact name="create" path="/test/:testId/section/:sectionId" element={<Section/>}/>
         <Route exact name="create" path="/test/:testId/section/:sectionId/question/:questionId" element={<Question/>}/>

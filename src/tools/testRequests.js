@@ -134,7 +134,7 @@ export async function deleteQuestion(testId, sectionId, questionId) {
 }
 
 export async function finishTest(testId) {
-  const response = await post(`${local}/tests/commit`, {testId}, null, true);
+  const response = await post(`${api}/tests/commit`, {testId}, null, true);
   if (response && response?.success) {
     return response.data;
   }

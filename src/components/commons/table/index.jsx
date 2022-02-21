@@ -62,12 +62,6 @@ export default function MyTable(
             No hay datos para mostrar
           </Alert> :
           <>
-            <Paginator
-              page={pagination?.page}
-              totalPages={pagination?.totalPages ?? 1}
-              handleSearch={handleSearch}
-              perPage={pagination?.perPage}
-            />
             <TableContainer component={Paper}>
               <Table sx={{minWidth: 650}} aria-label="simple table">
                 <TableHead>
@@ -92,6 +86,12 @@ export default function MyTable(
                 </TableBody>
               </Table>
             </TableContainer>
+            <Paginator
+              page={pagination?.page}
+              totalPages={pagination?.totalPages ?? 1}
+              handleSearch={handleSearch}
+              perPage={pagination?.perPage}
+            />
           </>
       }
     </>
