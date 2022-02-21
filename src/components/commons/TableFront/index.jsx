@@ -1,4 +1,5 @@
 import * as React from 'react';
+import {useState} from 'react';
 import Box from '@mui/material/Box';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -12,17 +13,11 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import Switch from '@mui/material/Switch';
 import EnhancedTableToolbar from "./EnhancedTableToolbar";
 import EnhancedTableHead from "./EnhancedTableHead";
-import {useState} from "react";
+import {v4} from "uuid";
 
-function createData(name, calories, fat, carbs, protein) {
-  return {
-    name,
-    calories,
-    fat,
-    carbs,
-    protein,
-  };
-}
+export const createHeader = (id, label) => {
+  return {id, label}
+};
 
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
@@ -54,7 +49,7 @@ function stableSort(array, comparator) {
   return stabilizedThis.map((el) => el[0]);
 }
 
-export default function TableFront({headers, rows}) {
+export default function TableFront({headers, rows, title, handleSelect, rowSelected = []}) {
   const [order, setOrder] = useState('asc');
   const [orderBy, setOrderBy] = useState('calories');
   const [selected, setSelected] = useState([]);
@@ -77,10 +72,9 @@ export default function TableFront({headers, rows}) {
     setSelected([]);
   };
 
-  const handleClick = (event, name) => {
+  const handleClick = (event, name, row) => {
     const selectedIndex = selected.indexOf(name);
     let newSelected = [];
-
     if (selectedIndex === -1) {
       newSelected = newSelected.concat(selected, name);
     } else if (selectedIndex === 0) {
@@ -93,8 +87,8 @@ export default function TableFront({headers, rows}) {
         selected.slice(selectedIndex + 1),
       );
     }
-
     setSelected(newSelected);
+    handleSelect(event.target.checked, row)
   };
 
   const handleChangePage = (event, newPage) => {
@@ -119,7 +113,7 @@ export default function TableFront({headers, rows}) {
   return (
     <Box sx={{width: '100%'}}>
       <Paper sx={{width: '100%', mb: 2}}>
-        <EnhancedTableToolbar numSelected={selected.length}/>
+        <EnhancedTableToolbar title={title} numSelected={selected.length}/>
         <TableContainer>
           <Table
             sx={{minWidth: 750}}
@@ -147,7 +141,7 @@ export default function TableFront({headers, rows}) {
                   return (
                     <TableRow
                       hover
-                      onClick={(event) => handleClick(event, row.id)}
+                      onClick={(event) => handleClick(event, row.id, row)}
                       role="checkbox"
                       aria-checked={isItemSelected}
                       tabIndex={-1}
@@ -163,7 +157,7 @@ export default function TableFront({headers, rows}) {
                           }}
                         />
                       </TableCell>
-                      {headers.map((head) => <TableCell>{row[head.id]}</TableCell>)}
+                      {headers.map((head) => <TableCell key={v4()}>{row[head.id]}</TableCell>)}
                     </TableRow>
                   );
                 })}

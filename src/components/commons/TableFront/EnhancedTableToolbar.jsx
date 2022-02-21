@@ -8,8 +8,7 @@ import FilterListIcon from "@mui/icons-material/FilterList";
 import PropTypes from "prop-types";
 import * as React from "react";
 
-export default function EnhancedTableToolbar(props) {
-  const {numSelected} = props;
+export default function EnhancedTableToolbar({numSelected, title}) {
 
   return (
     <Toolbar
@@ -38,7 +37,7 @@ export default function EnhancedTableToolbar(props) {
           id="tableTitle"
           component="div"
         >
-          Resultados
+          {title}
         </Typography>
       )}
 
@@ -61,4 +60,5 @@ export default function EnhancedTableToolbar(props) {
 
 EnhancedTableToolbar.propTypes = {
   numSelected: PropTypes.number.isRequired,
+  title: PropTypes.string,
 };

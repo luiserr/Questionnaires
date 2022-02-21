@@ -24,6 +24,14 @@ export const getRegionals = async () =>{
   return []
 }
 
+export const getAssets = async (entity) =>{
+  const response = await get(`${api}/assignQuestionnaires/${entity}`, true);
+  if (response.success) {
+    return response.data;
+  }
+  return []
+}
+
 
 export async function saveAssign(payload){
   console.log(payload);
