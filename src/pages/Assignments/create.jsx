@@ -1,5 +1,5 @@
 import Box from "@mui/material/Box";
-import {CardContent, Divider, TextField} from "@mui/material";
+import {Button, CardActions, CardContent, Divider, Paper, TextField} from "@mui/material";
 import React, {useState} from "react";
 import {useTest} from "../../components/hooks/testHook";
 import Card from "@mui/material/Card";
@@ -9,6 +9,8 @@ import AdapterDateFns from '@mui/lab/AdapterDateFns'
 import LocalizationProvider from '@mui/lab/LocalizationProvider'
 import DatePicker from '@mui/lab/DatePicker'
 import AssigmentType from "../../components/Presentations/AssigmentType";
+import SaveIcon from '@mui/icons-material/Save';
+import {buildPayload, validatePayload} from "../../utils/presentations/presentation";
 
 export default function CreateAssign() {
 
@@ -20,15 +22,45 @@ export default function CreateAssign() {
   });
 
   const [payload, setPayload] = useState({
+    title: '',
+    startDateInput: null,
+    finishDateInput: null,
+    startDate: null,
+    finishDate: null,
+    tries: 1,
     roles: [],
-    email: '',
     regionals: {},
-    programs: {}
+    programs: {},
+    emails: [],
+    complementaryDays: 7,
+    abilityDays: 5,
   });
+
+  const handleChange = (key, value) => {
+    setPayload({
+      ...payload,
+      [key]: value
+    })
+  };
 
   const {testId} = useParams();
 
   const {test} = useTest(testId);
+
+  function getFormattedDate(date) {
+    const year = date.getFullYear();
+    let month = (1 + date.getMonth()).toString();
+    month = month.length > 1 ? month : '0' + month;
+    let day = date.getDate().toString();
+    day = day.length > 1 ? day : '0' + day;
+    return month + '/' + day + '/' + year;
+  }
+
+  const handleSave = () => {
+    if (validatePayload(payload)) {
+      console.log(buildPayload(payload));
+    }
+  }
 
   return (
     <Box sx={{width: '100%'}}>
@@ -42,14 +74,20 @@ export default function CreateAssign() {
               <TextField
                 label="Título"
                 fullWidth
-                variant="outlined"/>
+                variant="outlined"
+                value={payload?.title}
+                onChange={(e) => handleChange('title', e.target.value)}
+              />
             </Grid>
             <Grid item xs={2}>
               <TextField
                 label="Número de intentos"
                 fullWidth
                 type={"number"}
-                variant="outlined"/>
+                variant="outlined"
+                value={payload?.tries}
+                onChange={(e) => handleChange('tries', e.target.value)}
+              />
             </Grid>
           </Grid>
           <Grid container sx={{mt: 2}} spacing={2}>
@@ -58,9 +96,15 @@ export default function CreateAssign() {
                 <DatePicker
                   label="Fecha inicio"
                   size={"small"}
-                  onChange={(e) => console.log(e)}
-                  date={'2022-02-03'}
+                  onChange={(e) => {
+                    setPayload({
+                      ...payload,
+                      startDate: getFormattedDate(e),
+                      startDateInput: e
+                    })
+                  }}
                   renderInput={(params) => <TextField {...params} fullWidth/>}
+                  value={payload?.startDateInput}
                 />
               </LocalizationProvider>
             </Grid>
@@ -69,10 +113,15 @@ export default function CreateAssign() {
                 <DatePicker
                   label="Fecha fin"
                   size={"small"}
-                  onChange={(e) => console.log(e)}
+                  onChange={(e) => {
+                    setPayload({
+                      ...payload,
+                      finishDate: getFormattedDate(e),
+                      finishDateInput: e
+                    })
+                  }}
                   renderInput={(params) => <TextField {...params} fullWidth/>}
-                  date={""}
-                  renderInput={(params) => <TextField {...params} fullWidth/>}
+                  value={payload?.finishDateInput}
                 />
               </LocalizationProvider>
             </Grid>
@@ -82,6 +131,8 @@ export default function CreateAssign() {
               <TextField
                 label="Dias de habilitación pos fecha de finalización"
                 fullWidth
+                value={payload?.abilityDays}
+                onChange={(e) => handleChange('abilityDays', e.target.value)}
                 type={"number"}
                 variant="outlined"/>
             </Grid>
@@ -89,11 +140,13 @@ export default function CreateAssign() {
               <TextField
                 label="Dias de activación antes de finalizacion de ficha (Solo Títuladas)"
                 fullWidth
+                value={payload?.complementaryDays}
+                onChange={(e) => handleChange('complementaryDays', e.target.value)}
                 type={"number"}
                 variant="outlined"/>
             </Grid>
           </Grid>
-          <Grid container spacing={2} sx={{mt: 2}}>
+          <Paper elevation={2} spacing={2} sx={{m: 2, p: 2, backgroundColor: '#efefef'}}>
             <Grid item xs={12}>
               <h4>Tipos de asignación</h4>
               <Divider sx={{mb: 2}}/>
@@ -104,8 +157,19 @@ export default function CreateAssign() {
                 setPayload={setPayload}
               />
             </Grid>
-          </Grid>
+          </Paper>
         </CardContent>
+        <Button
+          sx={{float: 'right', mb: 2, mr: 3}}
+          variant={'contained'}
+          color={'success'}
+          startIcon={<SaveIcon/>}
+          onClick={handleSave}
+        >
+          Guardar
+        </Button>
+        <CardActions>
+        </CardActions>
       </Card>
     </Box>
   );
