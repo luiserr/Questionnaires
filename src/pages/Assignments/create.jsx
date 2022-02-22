@@ -15,7 +15,7 @@ export default function CreateAssign() {
   const [data, setData] = useState({
     roles: [],
     regionals: [],
-    trainingCenter: [],
+    centerTrainings: [],
     email: '',
   });
 
@@ -78,14 +78,32 @@ export default function CreateAssign() {
             </Grid>
           </Grid>
           <Grid container sx={{mt: 2}} spacing={2}>
+            <Grid item xs={4}>
+              <TextField
+                label="Dias de habilitación pos fecha de finalización"
+                fullWidth
+                type={"number"}
+                variant="outlined"/>
+            </Grid>
+            <Grid item xs={5}>
+              <TextField
+                label="Dias de activación antes de finalizacion de ficha (Solo Títuladas)"
+                fullWidth
+                type={"number"}
+                variant="outlined"/>
+            </Grid>
           </Grid>
           <Grid container spacing={2} sx={{mt: 2}}>
-            <AssigmentType
-              data={data}
-              setData={setData}
-              payload={payload}
-              setPayload={setPayload}
-            />
+            <Grid item xs={12}>
+              <h4>Tipos de asignación</h4>
+              <Divider sx={{mb: 2}}/>
+              <AssigmentType
+                data={data}
+                setData={setData}
+                payload={payload}
+                setPayload={setPayload}
+              />
+            </Grid>
           </Grid>
         </CardContent>
       </Card>

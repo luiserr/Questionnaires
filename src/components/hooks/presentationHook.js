@@ -29,8 +29,7 @@ export const useManualAssign = (index, data, setData, payload, setPayload) => {
 };
 
 export const useData = (entity, data, setData) => {
-  const [resources, setResources] = useState(data['entity'] ?? []);
-
+  const [resources, setResources] = useState(data[entity] ?? []);
   useEffect(async () => {
     if (resources.length === 0) {
       const response = await getAssets(entity);
@@ -41,6 +40,5 @@ export const useData = (entity, data, setData) => {
       setResources(response);
     }
   }, []);
-
   return {resources}
 }

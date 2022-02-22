@@ -7,22 +7,22 @@ const headers = [
   createHeader('name', 'nombre')
 ];
 
-export default function Roles({data, setData, setPayload, payload}) {
+export default function CourseTypes({data, setData, setPayload, payload}) {
 
-  const {resources: roles} = useData('roles', data, setData)
+  const {resources: courseTypes} = useData('courseTypes', data, setData)
 
   const handleCheck = (checked, row) => {
-    let myRoles = payload?.regionals?.roles ?? [];
+    const myCourseTypes = payload?.regionals?.courseTypes ?? [];
     if (checked) {
-      myRoles.push(row.id);
+      myCourseTypes.push(row.id);
     } else {
-      myRoles = myRoles.filter(rol => rol.id !== row.id);
+      myCourseTypes.filter(rol => rol.id !== row.id);
     }
     setPayload({
       ...payload,
       regionals: {
         ...payload.regionals,
-        roles: myRoles
+        courseTypes: myCourseTypes
       }
     })
   };
@@ -30,7 +30,7 @@ export default function Roles({data, setData, setPayload, payload}) {
   return <TableFront
     headers={headers}
     handleSelect={handleCheck}
-    title={'Roles del sistema'}
-    rowSelected={payload?.regionals?.roles}
-    rows={roles}/>
+    title={'Tipos de cursos'}
+    rowSelected={payload?.regionals?.courseTypes}
+    rows={courseTypes}/>
 }

@@ -4,6 +4,9 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import * as PropTypes from 'prop-types';
 import {Accordion, AccordionDetails, AccordionSummary, Box, Typography} from "@mui/material";
 import Roles from "./Rol";
+import Modalities from "./Modalities";
+import CourseTypes from "./CourseTypes";
+import Regionals from "./Regionals";
 
 const headCells = [
   {
@@ -46,38 +49,65 @@ export default function Index({data, setData, payload, setPayload}) {
           <AccordionSummary
             expandIcon={<ExpandMoreIcon/>}
             aria-controls="panel1a-content"
-            id="panel1a-header"
           >
             <Typography>1. Selección de roles</Typography>
           </AccordionSummary>
           <AccordionDetails>
-            <Typography>
-              <Roles
-                data={data}
-                setPayload={setPayload}
-                setData={setData}
-                payload={payload}
-              />
-            </Typography>
+            <Roles
+              data={data}
+              setPayload={setPayload}
+              setData={setData}
+              payload={payload}
+            />
           </AccordionDetails>
         </Accordion>
         <Accordion>
           <AccordionSummary
             expandIcon={<ExpandMoreIcon/>}
             aria-controls="panel1a-content"
-            id="panel1a-header"
           >
             <Typography>2. Selección de modalidad</Typography>
           </AccordionSummary>
           <AccordionDetails>
-            <Typography>
-              <Roles
-                data={data}
-                setPayload={setPayload}
-                setData={setData}
-                payload={payload}
-              />
-            </Typography>
+
+            <Modalities
+              data={data}
+              setPayload={setPayload}
+              setData={setData}
+              payload={payload}
+            />
+          </AccordionDetails>
+        </Accordion>
+        <Accordion>
+          <AccordionSummary
+            expandIcon={<ExpandMoreIcon/>}
+            aria-controls="panel1a-content"
+          >
+            <Typography>3. Selección de tipo de curso</Typography>
+          </AccordionSummary>
+          <AccordionDetails>
+            <CourseTypes
+              data={data}
+              setPayload={setPayload}
+              setData={setData}
+              payload={payload}
+            />
+          </AccordionDetails>
+        </Accordion>
+        <Accordion expanded>
+          <AccordionSummary
+            expandIcon={<ExpandMoreIcon/>}
+            aria-controls="panel1a-content"
+          >
+            <Typography>4. Selección de regionales</Typography>
+          </AccordionSummary>
+          <AccordionDetails>
+            <Regionals
+              data={data}
+              setPayload={setPayload}
+              setData={setData}
+              payload={payload}
+            />
           </AccordionDetails>
         </Accordion>
       </Box>

@@ -7,22 +7,22 @@ const headers = [
   createHeader('name', 'nombre')
 ];
 
-export default function Roles({data, setData, setPayload, payload}) {
+export default function Modalities({data, setData, setPayload, payload}) {
 
-  const {resources: roles} = useData('roles', data, setData)
+  const {resources: modalities} = useData('modalities', data, setData)
 
   const handleCheck = (checked, row) => {
-    let myRoles = payload?.regionals?.roles ?? [];
+    let myModalities = payload?.regionals?.modalities ?? [];
     if (checked) {
-      myRoles.push(row.id);
+      myModalities.push(row.id);
     } else {
-      myRoles = myRoles.filter(rol => rol.id !== row.id);
+      myModalities = myModalities.filter(modality => modality.id !== row.id);
     }
     setPayload({
       ...payload,
       regionals: {
         ...payload.regionals,
-        roles: myRoles
+        roles: myModalities
       }
     })
   };
@@ -30,7 +30,7 @@ export default function Roles({data, setData, setPayload, payload}) {
   return <TableFront
     headers={headers}
     handleSelect={handleCheck}
-    title={'Roles del sistema'}
-    rowSelected={payload?.regionals?.roles}
-    rows={roles}/>
+    title={'Modalidades'}
+    rowSelected={payload?.regionals?.modalities}
+    rows={modalities}/>
 }
