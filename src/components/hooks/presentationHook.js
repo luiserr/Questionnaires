@@ -1,8 +1,9 @@
 import * as React from 'react';
 import {useEffect, useState} from 'react';
 import Roles from "../Presentations/Rol";
-import Index from "../Presentations/Regionals/index";
-import {getAssets, getRoles} from "../../tools/assignRequests";
+import Regionals from "../Presentations/Regionals/index";
+import {getAssets} from "../../tools/assignRequests";
+import Programs from "../Presentations/Programs/index";
 
 
 export const useManualAssign = (index, data, setData, payload, setPayload) => {
@@ -15,16 +16,21 @@ export const useManualAssign = (index, data, setData, payload, setPayload) => {
         setPayload={setPayload}
       />;
     case 1:
-      return <Index
+      return <Regionals
         data={data}
         setData={setData}
         payload={payload}
         setPayload={setPayload}
       />;
     case 2:
-      return <h1>3</h1>;
+      return <Programs
+        data={data}
+        setData={setData}
+        payload={payload}
+        setPayload={setPayload}
+      />
     default:
-      return <h1>Joder</h1>
+      return <h1>Hola mundo</h1>
   }
 };
 

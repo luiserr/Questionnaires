@@ -12,7 +12,7 @@ export default function Roles({data, setData, setPayload, payload}) {
   const {resources: roles} = useData('roles', data, setData)
 
   const handleCheck = (checked, row) => {
-    let myRoles = payload?.regionals?.roles ?? [];
+    let myRoles = payload?.programs?.roles ?? [];
     if (checked) {
       myRoles.push(row.id);
     } else {
@@ -20,8 +20,8 @@ export default function Roles({data, setData, setPayload, payload}) {
     }
     setPayload({
       ...payload,
-      regionals: {
-        ...payload.regionals,
+      programs: {
+        ...payload.programs,
         roles: myRoles
       }
     })
@@ -31,6 +31,6 @@ export default function Roles({data, setData, setPayload, payload}) {
     headers={headers}
     handleSelect={handleCheck}
     title={'Roles del sistema'}
-    rowSelected={payload?.regionals?.roles}
+    rowSelected={payload?.programs?.roles}
     rows={roles}/>
 }

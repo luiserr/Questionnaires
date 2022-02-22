@@ -5,7 +5,7 @@ import * as PropTypes from 'prop-types';
 
 export default function AssigmentType({data, setData, payload, setPayload}) {
 
-  const [value, setValue] = React.useState(1);
+  const [value, setValue] = React.useState(2);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);

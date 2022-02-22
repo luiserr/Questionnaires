@@ -4,7 +4,7 @@ import React, {useEffect, useState} from 'react';
 
 const headers = [
   createHeader('id', 'Id'),
-  createHeader('name', 'nombre'),
+  createHeader('name', 'Nombre'),
   createHeader('departament', 'Departamento'),
   createHeader('city', 'Municipio'),
 ];

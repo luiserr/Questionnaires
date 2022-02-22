@@ -6,7 +6,7 @@ import {Accordion, AccordionDetails, AccordionSummary, Box, Typography} from "@m
 import Roles from "./Rol";
 import Modalities from "./Modalities";
 import CourseTypes from "./CourseTypes";
-import Regionals from "./Regionals";
+import Programs from "./Programs";
 
 export default function Index({data, setData, payload, setPayload}) {
 
@@ -80,10 +80,10 @@ export default function Index({data, setData, payload, setPayload}) {
             expandIcon={<ExpandMoreIcon/>}
             aria-controls="panel1a-content"
           >
-            <Typography>4. Selección de regionales</Typography>
+            <Typography>4. Selección de programa</Typography>
           </AccordionSummary>
           <AccordionDetails>
-            <Regionals
+            <Programs
               data={data}
               setPayload={setPayload}
               setData={setData}

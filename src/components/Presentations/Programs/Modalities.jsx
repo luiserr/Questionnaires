@@ -12,7 +12,7 @@ export default function Modalities({data, setData, setPayload, payload}) {
   const {resources: modalities} = useData('modalities', data, setData)
 
   const handleCheck = (checked, row) => {
-    let myModalities = payload?.regionals?.modalities ?? [];
+    let myModalities = payload?.programs?.modalities ?? [];
     if (checked) {
       myModalities.push(row.id);
     } else {
@@ -20,8 +20,8 @@ export default function Modalities({data, setData, setPayload, payload}) {
     }
     setPayload({
       ...payload,
-      regionals: {
-        ...payload.regionals,
+      programs: {
+        ...payload.programs,
         roles: myModalities
       }
     })
@@ -31,6 +31,6 @@ export default function Modalities({data, setData, setPayload, payload}) {
     headers={headers}
     handleSelect={handleCheck}
     title={'Modalidades'}
-    rowSelected={payload?.regionals?.modalities}
+    rowSelected={payload?.programs?.modalities}
     rows={modalities}/>
 }

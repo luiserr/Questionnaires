@@ -12,7 +12,7 @@ export default function CourseTypes({data, setData, setPayload, payload}) {
   const {resources: courseTypes} = useData('courseTypes', data, setData)
 
   const handleCheck = (checked, row) => {
-    const myCourseTypes = payload?.regionals?.courseTypes ?? [];
+    const myCourseTypes = payload?.programs?.courseTypes ?? [];
     if (checked) {
       myCourseTypes.push(row.id);
     } else {
@@ -20,8 +20,8 @@ export default function CourseTypes({data, setData, setPayload, payload}) {
     }
     setPayload({
       ...payload,
-      regionals: {
-        ...payload.regionals,
+      programs: {
+        ...payload.programs,
         courseTypes: myCourseTypes
       }
     })
@@ -31,6 +31,6 @@ export default function CourseTypes({data, setData, setPayload, payload}) {
     headers={headers}
     handleSelect={handleCheck}
     title={'Tipos de cursos'}
-    rowSelected={payload?.regionals?.courseTypes}
+    rowSelected={payload?.programs?.courseTypes}
     rows={courseTypes}/>
 }
