@@ -1,17 +1,19 @@
 import Box from "@mui/material/Box";
 import {Button, CardActions, CardContent, Divider, Paper, TextField} from "@mui/material";
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {useTest} from "../../components/hooks/testHook";
 import Card from "@mui/material/Card";
-import {useParams} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 import Grid from "@mui/material/Grid";
 import AdapterDateFns from '@mui/lab/AdapterDateFns'
 import LocalizationProvider from '@mui/lab/LocalizationProvider'
 import DatePicker from '@mui/lab/DatePicker'
 import AssigmentType from "../../components/Presentations/AssigmentType";
 import SaveIcon from '@mui/icons-material/Save';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import {buildPayload, validatePayload} from "../../utils/presentations/presentation";
-import {saveAssign} from "../../tools/assignRequests";
+import {getPresentation, saveAssign} from "../../tools/assignRequests";
+import {myAlert} from "../../utils/alerts";
 
 export default function CreateAssign() {
 
@@ -37,16 +39,35 @@ export default function CreateAssign() {
     abilityDays: 5,
   });
 
+
+  const {testId, presentationId} = useParams();
+
+  const {test} = useTest(testId);
+
+  const navigate = useNavigate();
+
+  useEffect(async () => {
+    if (presentationId !== '_') {
+      const response = await getPresentation(presentationId);
+      if (response) {
+        const {assignments, ...others} = response;
+        setPayload({
+          ...payload,
+          ...others,
+          ...assignments
+        });
+      } else {
+        navigate('/test');
+      }
+    }
+  }, []);
+
   const handleChange = (key, value) => {
     setPayload({
       ...payload,
       [key]: value
     })
   };
-
-  const {testId} = useParams();
-
-  const {test} = useTest(testId);
 
   function getFormattedDate(date) {
     const year = date.getFullYear();
@@ -60,9 +81,14 @@ export default function CreateAssign() {
   const handleSave = async () => {
     if (validatePayload(payload)) {
       const response = await saveAssign(test.id, buildPayload(test, payload));
-      console.log(response);
+      myAlert('Operación exitosa', 'success');
+      navigate('/test');
     }
   }
+
+  const handleBack = () => {
+    navigate('/test');
+  };
 
   return (
     <Box sx={{width: '100%'}}>
@@ -71,6 +97,13 @@ export default function CreateAssign() {
         <CardContent>
           <h4>Información general</h4>
           <Divider sx={{mb: 2}}/>
+          <Button
+            sx={{float: 'right'}}
+            startIcon={<ArrowBackIcon/>}
+            onClick={handleBack}
+          >
+            Atras
+          </Button>
           <Grid container spacing={2}>
             <Grid item xs={6}>
               <TextField

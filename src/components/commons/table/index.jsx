@@ -25,7 +25,7 @@ export default function MyTable(
 
   useEffect(() => {
     const newData = data?.map((row) => {
-      const temp = {};
+      const temp = {...row};
       for (const attr in headers) {
         temp[attr] = row[attr];
       }

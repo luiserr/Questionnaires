@@ -1,5 +1,21 @@
 import {api, get, post, local} from '../utils/ajax';
 
+export const getPresentation = async (presentationId) => {
+  const response = await get(`${api}/tests/presentation/${presentationId}`, true);
+  if (response.success) {
+    return response.data;
+  }
+  return {}
+};
+
+export const getPresentations = async (testId) => {
+  const response = await get(`${api}/tests/${testId}/presentations`, true);
+  if (response.success) {
+    return response.data;
+  }
+  return {}
+};
+
 export const getTypeAssign = async () => {
   const response = await get(`${api}/assignQuestionnaires/TypeAssign`, true);
   if (response.success) {
@@ -41,7 +57,7 @@ export const getGroups = async (codes) => {
 }
 
 export async function saveAssign(testId, payload) {
-  const response = await post(`${local}/tests/${testId}/presentation`, payload, null, true);
+  const response = await post(`${api}/tests/${testId}/presentation`, payload, null, true);
   if (response && response?.success) {
     return response.data;
   }

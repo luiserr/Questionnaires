@@ -65,9 +65,10 @@ function hasKeys(payload) {
   }
 }
 
-export function buildPayload(test, payload) {
+export function buildPayload(test, presentationId, payload) {
   const keys = hasKeys(payload);
   const data = {
+    id: presentationId !== '_' ? presentationId : null,
     testId: test.id,
     title: payload.title,
     tries: payload.tries,

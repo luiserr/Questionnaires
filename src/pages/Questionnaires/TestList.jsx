@@ -55,6 +55,7 @@ export default function TestList() {
       title: 'Ver presentaciones',
       component: (row) =>
         <IconButton
+          onClick={() => navigate(`/test/${row.id}/presentations`)}
           disabled={row.statusDescription !== 'Completado'}
           aria-label="view">
           <VisibilityIcon/>
@@ -64,7 +65,7 @@ export default function TestList() {
       title: 'Añadir presentacion',
       component: (row) =>
         <IconButton
-          onClick={()=> navigate(`/test/${row.id}/presentation/create`)}
+          onClick={() => navigate(`/test/${row.id}/presentation/_`)}
           disabled={row.statusDescription !== 'Completado'}
           aria-label="view">
           <AddPhotoAlternateIcon/>
