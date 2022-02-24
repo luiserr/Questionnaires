@@ -55,6 +55,7 @@ export default function Centers({data, setData, setPayload, payload, selectedReg
     setPayload({
       ...payload,
       regionals: {
+        ...payload.regionals,
         regionals: currentRegionals.map(regional => {
           if (row.regionalId === regional.id) {
             const centers = regional.centers ?? [];

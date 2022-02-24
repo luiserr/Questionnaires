@@ -40,7 +40,7 @@ export default function Groups({selectedPrograms, payload, setPayload}) {
     setPayload({
       ...payload,
       programs: {
-        ...programs?.payload,
+        ...payload?.programs,
         programs: newPrograms
       }
     });

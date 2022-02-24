@@ -11,6 +11,7 @@ import DatePicker from '@mui/lab/DatePicker'
 import AssigmentType from "../../components/Presentations/AssigmentType";
 import SaveIcon from '@mui/icons-material/Save';
 import {buildPayload, validatePayload} from "../../utils/presentations/presentation";
+import {saveAssign} from "../../tools/assignRequests";
 
 export default function CreateAssign() {
 
@@ -56,9 +57,10 @@ export default function CreateAssign() {
     return month + '/' + day + '/' + year;
   }
 
-  const handleSave = () => {
+  const handleSave = async () => {
     if (validatePayload(payload)) {
-      console.log(buildPayload(payload));
+      const response = await saveAssign(test.id, buildPayload(test, payload));
+      console.log(response);
     }
   }
 

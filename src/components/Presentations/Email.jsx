@@ -13,7 +13,7 @@ export default function Email({payload, setPayload}) {
     if (!emails.length) {
       setPayload({
         ...payload,
-        emails: [{name: '', email: ''}]
+        emails: []
       })
     }
   }, []);

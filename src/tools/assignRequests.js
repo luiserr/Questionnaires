@@ -40,8 +40,8 @@ export const getGroups = async (codes) => {
   return []
 }
 
-export async function saveAssign(payload) {
-  const response = await post(`${api}/tests/${payload.testId}/presentation`, payload, null, true);
+export async function saveAssign(testId, payload) {
+  const response = await post(`${local}/tests/${testId}/presentation`, payload, null, true);
   if (response && response?.success) {
     return response.data;
   }

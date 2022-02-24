@@ -22,7 +22,7 @@ export default function Modalities({data, setData, setPayload, payload}) {
       ...payload,
       programs: {
         ...payload.programs,
-        roles: myModalities
+        modalities: myModalities
       }
     })
   };

@@ -61,13 +61,14 @@ function hasKeys(payload) {
     hasRegionals: payload?.regionals?.regionals !== null && payload?.regionals?.regionals?.length > 0,
     hasCenters: payload?.regionals?.centers !== null && payload?.regionals?.centers?.length > 0,
     hasPrograms: payload?.programs?.programs !== null && payload?.programs?.programs?.length > 0,
-    hasEmails: payload?.emails.length > 0,
+    hasEmails: payload?.emails?.length > 0,
   }
 }
 
-export function buildPayload(payload) {
+export function buildPayload(test, payload) {
   const keys = hasKeys(payload);
   const data = {
+    testId: test.id,
     title: payload.title,
     tries: payload.tries,
     startDate: payload.startDate,

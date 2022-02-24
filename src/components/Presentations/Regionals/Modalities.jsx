@@ -22,7 +22,7 @@ export default function Modalities({data, setData, setPayload, payload}) {
       ...payload,
       regionals: {
         ...payload.regionals,
-        roles: myModalities
+        modalities: myModalities
       }
     })
   };
