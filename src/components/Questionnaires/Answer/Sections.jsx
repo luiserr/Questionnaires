@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Paper from '@mui/material/Paper';
@@ -9,15 +9,22 @@ import Section from "./Section";
 import MobileStepper from "@mui/material/MobileStepper";
 import {KeyboardArrowLeft, KeyboardArrowRight} from "@mui/icons-material";
 import {myAlert} from "../../../utils/alerts";
+import {CircularProgress} from "@mui/material";
 
 export default function Sections({presentation, setPresentation, handleTab}) {
   const theme = useTheme();
   const [activeSection, setActiveSection] = useState(0);
-  // const [sections, setSections] = useState(presentation?.sections || []);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    setLoading(true);
+    setTimeout(() => setLoading(false), 300);
+  }, [activeSection]);
 
   const sections = presentation?.sections ?? [];
   const maxSteps = sections?.length ?? 0;
   const currentSection = sections[activeSection];
+
 
   const validateAnswers = () => {
     const questions = currentSection['questions'];
@@ -35,13 +42,13 @@ export default function Sections({presentation, setPresentation, handleTab}) {
 
   const handleNext = () => {
     // if (validateAnswers()) {
-      setActiveSection((prevActiveStep) => prevActiveStep + 1);
+    setActiveSection((prevActiveStep) => prevActiveStep + 1);
     // }
   };
 
   const handleBack = () => {
     // if (validateAnswers()) {
-      return setActiveSection((prevActiveStep) => prevActiveStep - 1);
+    return setActiveSection((prevActiveStep) => prevActiveStep - 1);
     // }
   };
 
@@ -76,15 +83,18 @@ export default function Sections({presentation, setPresentation, handleTab}) {
         width: '100%', p: 2
       }}>
         <div style={{marginTop: '2en'}}>
-          {currentSection &&
-            <Section
-              section={currentSection}
-              setSection={changeSection}
-              presentation={presentation}
-              handleNext={nextSection}
-              activeSection={activeSection}
-              handleTab={handleTab}
-            />}
+          {
+            loading ?
+              <CircularProgress/> :
+              currentSection &&
+              <Section
+                section={currentSection}
+                setSection={changeSection}
+                presentation={presentation}
+                handleNext={nextSection}
+                activeSection={activeSection}
+                handleTab={handleTab}
+              />}
         </div>
       </Box>
       <MobileStepper

@@ -1,5 +1,5 @@
 import Grid from "@mui/material/Grid";
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import Pagination from "@mui/material/Pagination";
 import Box from "@mui/material/Box";
 import * as PropTypes from 'prop-types';
@@ -9,6 +9,8 @@ import Tab from "@mui/material/Tab";
 import Paper from "@mui/material/Paper";
 import {saveAnswer} from "../../../tools/presentationRequest";
 import validate from '../../../tools/validateAnswer';
+import {CircularProgress} from "@mui/material";
+import {FINISHED, IN_PROGRESS} from "../../../const/statuses";
 
 const SectionInfo = ({title, description}) => {
   return (
@@ -32,7 +34,14 @@ export default function Section({presentation, section, setSection, activeSectio
   const [tab, setTab] = useState(0);
   const [page, setPage] = useState(1);
   const [currentQuestion, setCurrentQuestion] = useState(section.questions[0] ?? {});
-  // const [lastPage, setLastPage] = useState(page);
+  const [loading, setLoading] = useState(false);
+
+  const readOnly = presentation?.statusTry === FINISHED
+
+  useEffect(() => {
+    setLoading(true);
+    setTimeout(() => setLoading(false), 300);
+  }, [page]);
 
   const handleTabs = (e, value) => {
     setTab(value);
@@ -53,7 +62,11 @@ export default function Section({presentation, section, setSection, activeSectio
     const lastIndex = page - 1;
     const questions = section?.questions;
     const lastQuestion = questions[lastIndex];
-    if (!lastQuestion?.attempts?.save && validate(lastQuestion)) {
+    if (
+      !lastQuestion?.attempts?.save
+      && validate(lastQuestion)
+      && !readOnly
+    ) {
       const newQuestion = await saveAnswer(
         presentation.testId,
         presentation.id,
@@ -96,16 +109,20 @@ export default function Section({presentation, section, setSection, activeSectio
                   page={page}
                   onChange={(e, newPage) => handleChange(newPage)}
                 />
-                <Question
-                  question={currentQuestion}
-                  indexQuestion={page - 1}
-                  setQuestion={setQuestion}
-                  isLast={page === section.questions.length}
-                  lastSection={activeSection === presentation?.sections?.length - 1}
-                  handleSave={handleChange}
-                  handleNext={handleNext}
-                  handleTab={handleTab}
-                />
+                {
+                  loading ? <CircularProgress/> :
+                    <Question
+                      readOnly={readOnly}
+                      question={currentQuestion}
+                      indexQuestion={page - 1}
+                      setQuestion={setQuestion}
+                      isLast={page === section.questions.length}
+                      lastSection={activeSection === presentation?.sections?.length - 1}
+                      handleSave={handleChange}
+                      handleNext={handleNext}
+                      handleTab={handleTab}
+                    />
+                }
               </>
             }
           </Box>

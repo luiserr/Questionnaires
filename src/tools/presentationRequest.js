@@ -40,3 +40,19 @@ export async function saveAnswer(testId, presentationId, tryId, questionId, sect
   }
   return null;
 }
+
+export async function finishPresentation() {
+  const response = await post(`${api}/tests/presentation/finish`, {_token: sessionStorage.getItem('_token')}, null, true);
+  if (response && response?.success) {
+    return response.data;
+  }
+  return null;
+}
+
+export async function resetPresentation() {
+  const response = await post(`${api}/tests/presentation/reset`, {_token: sessionStorage.getItem('_token')}, null, true);
+  if (response && response?.success) {
+    return response.data;
+  }
+  return null;
+}

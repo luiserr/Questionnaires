@@ -12,7 +12,8 @@ export default function Question(
     lastSection,
     handleNext,
     handleSave,
-    handleTab
+    handleTab,
+    readOnly
   }) {
 
   const Question = useQuestion(question, setQuestion, indexQuestion);
@@ -36,13 +37,15 @@ export default function Question(
         {Question}
       </Box>
       <Box sx={{mt: 1}}>
-        {(!lastSection) &&
+        {(!lastSection && !readOnly) &&
           <Button
             sx={{float: 'left'}}
             onClick={() => handleSave(indexQuestion + 1)}
             variant={"outlined"}
             color={'success'}
-          >Guardar respuesta</Button>}
+          >Guardar respuesta
+          </Button>
+        }
         {(isLast && !lastSection) &&
           <Button
             sx={{float: 'right'}}
@@ -50,7 +53,7 @@ export default function Question(
             color={'info'}
             variant={'outlined'}
           >Siguiente sección</Button>}
-        {lastSection && <Button variant={'outlined'} onClick={handleAnswer} sx={{float: 'right'}}>Guardar respuesta y
+        {(lastSection && !readOnly) && <Button variant={'outlined'} onClick={handleAnswer} sx={{float: 'right'}}>Guardar respuesta y
           finalizar</Button>}
       </Box>
     </>
@@ -62,4 +65,5 @@ Question.propTypes = {
   setQuestion: PropTypes.func.isRequired,
   indexQuestion: PropTypes.number,
   isLast: PropTypes.bool,
+  readOnly: PropTypes.bool,
 };

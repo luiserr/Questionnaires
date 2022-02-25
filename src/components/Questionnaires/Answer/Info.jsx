@@ -1,9 +1,11 @@
 import {Box, Divider, Paper} from "@mui/material";
-import React, {useEffect} from "react";
+import React from "react";
 import Button from "@mui/material/Button";
 import * as PropTypes from 'prop-types';
-import {getQuestions, initPresentation} from "../../../tools/presentationRequest";
+import {initPresentation, resetPresentation} from "../../../tools/presentationRequest";
 import Typography from "@mui/material/Typography";
+import PlayCircleFilledWhiteIcon from '@mui/icons-material/PlayCircleFilledWhite';
+import RestartAltIcon from '@mui/icons-material/RestartAlt';
 
 export default function Info({presentation, setPresentation}) {
 
@@ -19,22 +21,42 @@ export default function Info({presentation, setPresentation}) {
     }
   };
 
+  const handleReset = async () => {
+    const myPresentation = await resetPresentation();
+    if (myPresentation) {
+      setPresentation(myPresentation);
+    }
+  }
+
   return (
     <>
-      <Typography variant={"h4"}>Titulo: {presentation?.title}</Typography>
-      <Divider/>
-      <Box sx={{minHeight: '200px', marginTop: '2em', padding: '2em'}}>
-        <div dangerouslySetInnerHTML={{__html: presentation?.description}}/>
-      </Box>
-      <div style={{marginTop: '2em'}}>
-        {presentation?.actions?.init &&
-        <Button
-          variant="contained"
-          onClick={() => handleInit()}
-        >
-          Iniciar prueba
-        </Button>}
-      </div>
+      <Paper elevation={2} sx={{p: 3}}>
+        <Typography variant={"h4"}>Titulo: {presentation?.title}</Typography>
+        <Divider/>
+        <Box sx={{minHeight: '200px', marginTop: '2em', padding: '2em'}}>
+          <div dangerouslySetInnerHTML={{__html: presentation?.description}}/>
+        </Box>
+        <div style={{marginTop: '2em'}}>
+          {presentation?.actions?.init &&
+            <Button
+              variant="contained"
+              color={'success'}
+              onClick={() => handleInit()}
+              startIcon={<PlayCircleFilledWhiteIcon />}
+            >
+              Iniciar encuesta
+            </Button>}
+          {presentation?.actions?.reset &&
+            <Button
+              color={'warning'}
+              variant="contained"
+              onClick={() => handleReset()}
+              startIcon={<RestartAltIcon />}
+            >
+              Reiniciar encuesta
+            </Button>}
+        </div>
+      </Paper>
     </>
   );
 }

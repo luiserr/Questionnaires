@@ -50,7 +50,7 @@ function stableSort(array, comparator) {
   return stabilizedThis.map((el) => el[0]);
 }
 
-export default function TableFront({headers, rows, title, handleSelect, rowSelected = []}) {
+export default function TableFront({headers, rows, title, handleSelect, handleSelectAll, rowSelected = []}) {
   const [order, setOrder] = useState('asc');
   const [orderBy, setOrderBy] = useState('calories');
   const [selected, setSelected] = useState(rowSelected ?? []);
@@ -66,11 +66,15 @@ export default function TableFront({headers, rows, title, handleSelect, rowSelec
 
   const handleSelectAllClick = (event) => {
     if (event.target.checked) {
-      const newSelecteds = rows.map((n) => n.id);
-      setSelected(newSelecteds);
-      return;
+      const newSelected = rows.map((row) => {
+        handleSelect(event.target.checked, row);
+        return row.id;
+      });
+      return setSelected(newSelected);
     }
-    setSelected([]);
+    handleSelect(false, {}, true);
+    return setSelected([]);
+
   };
 
   const handleClick = (event, name, row) => {

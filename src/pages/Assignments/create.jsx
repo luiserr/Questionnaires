@@ -1,5 +1,5 @@
 import Box from "@mui/material/Box";
-import {Button, CardActions, CardContent, Divider, Paper, TextField} from "@mui/material";
+import {Button, CardActions, CardContent, Divider, FormControlLabel, Paper, Switch, TextField} from "@mui/material";
 import React, {useEffect, useState} from "react";
 import {useTest} from "../../components/hooks/testHook";
 import Card from "@mui/material/Card";
@@ -31,6 +31,7 @@ export default function CreateAssign() {
     startDate: null,
     finishDate: null,
     tries: 1,
+    anonymous: false,
     roles: [],
     regionals: {},
     programs: {},
@@ -92,7 +93,7 @@ export default function CreateAssign() {
 
   return (
     <Box sx={{width: '100%'}}>
-      <h4>Creacion de asignacion cuestionario: {test?.title}</h4>
+      <h4>Creación de asignación cuestionario: {test?.title}</h4>
       <Card elevation={2} sx={{mt: 1}}>
         <CardContent>
           <h4>Información general</h4>
@@ -122,6 +123,14 @@ export default function CreateAssign() {
                 variant="outlined"
                 value={payload?.tries}
                 onChange={(e) => handleChange('tries', e.target.value)}
+              />
+            </Grid>
+            <Grid item xs={2}>
+              <FormControlLabel
+                control={<Switch
+                  checked={payload?.anonymous}
+                  onChange={(e, checked) => handleChange('anonymous', checked)}/>}
+                label={'Encuesta anonima'}
               />
             </Grid>
           </Grid>
