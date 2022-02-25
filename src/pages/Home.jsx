@@ -113,7 +113,7 @@ export default function MiniDrawer() {
             <MenuIcon/>
           </IconButton>
           <Typography variant="h6" noWrap component="div">
-            Configuración de encuestas
+            SENA - Encuestas
           </Typography>
         </Toolbar>
       </AppBar>

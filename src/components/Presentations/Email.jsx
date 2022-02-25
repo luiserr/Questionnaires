@@ -5,6 +5,7 @@ import InputAdornment from '@mui/material/InputAdornment';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import EmailIcon from '@mui/icons-material/Email';
 import DeleteIcon from '@mui/icons-material/Delete';
+import CSVReader from "../commons/CSVReader";
 
 export default function Email({payload, setPayload}) {
 
@@ -49,6 +50,20 @@ export default function Email({payload, setPayload}) {
       ...payload,
       emails
     });
+  };
+
+  const handleCSV = (rows = []) => {
+    const emails = [];
+    for (let i = 0; i < rows[0].length; i++) {
+      emails.push({
+        name: rows[0][i],
+        email: rows[1][i]
+      });
+    }
+    setPayload({
+      ...payload,
+      emails
+    })
   };
 
   return (
@@ -97,13 +112,20 @@ export default function Email({payload, setPayload}) {
           </Grid>
         ))
       }
-      <Button
-        sx={{mt: 1}}
-        variant={'outlined'}
-        onClick={() => handleNewPerson()}
-      >
-        Agregar a otra persona
-      </Button>
+      <Grid container spacing={2} sx={{mt: 2}}>
+        <Grid item xs={2}>
+          <Button
+            sx={{mt: 1, ml: 2}}
+            variant={'outlined'}
+            onClick={() => handleNewPerson()}
+          >
+            Agregar a otra persona
+          </Button>
+        </Grid>
+        <Grid item xs={3} sx={{padding: '30px'}}>
+          <CSVReader handleReader={handleCSV}/>
+        </Grid>
+      </Grid>
     </>
   );
 }

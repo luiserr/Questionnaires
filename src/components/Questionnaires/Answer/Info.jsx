@@ -10,7 +10,8 @@ export default function Info({presentation, setPresentation}) {
   const handleInit = async () => {
     const payload = {
       presentationId: presentation.id,
-      testId: presentation.testId
+      testId: presentation.testId,
+      _token: sessionStorage.getItem('_token')
     };
     const myPresentation = await initPresentation(payload);
     if (myPresentation) {

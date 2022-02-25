@@ -1,11 +1,11 @@
 import {api, get, local, post} from "../utils/ajax";
 
-export async function getPresentation(testId, presentationId) {
-  const response = await get(`${api}/tests/${testId}/presentation/${presentationId}`, true);
+export async function getPresentation(token) {
+  const response = await post(`${api}/tests/assignment`, {_token: token}, null, true);
   if (response && response?.success) {
     return response.data;
   }
-  return [];
+  return null;
 }
 
 export async function initPresentation(payload) {
@@ -17,19 +17,22 @@ export async function initPresentation(payload) {
 }
 
 export async function getQuestions(testId, presentationId) {
-  const response = await get(`${api}/tests/${testId}/presentation/${presentationId}/questions`, true);
+  const response = await get(
+    `${api}/tests/${testId}/presentation/${presentationId}/questions?_token=${sessionStorage.getItem('_token')}`,
+    true);
   if (response && response?.success) {
     return response.data;
   }
   return [];
 }
 
-export async function saveAnswer(testId, presentationId, tryId, questionId, sectionId, answers){
+export async function saveAnswer(testId, presentationId, tryId, questionId, sectionId, answers) {
   const payload = {
     sectionId,
     questionId,
     tryId,
-    answers
+    answers,
+    _token: sessionStorage.getItem('_token')
   };
   const response = await post(`${api}/tests/${testId}/presentation/${presentationId}/answer`, payload, null, true);
   if (response && response?.success) {

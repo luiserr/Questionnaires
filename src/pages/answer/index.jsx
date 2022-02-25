@@ -5,8 +5,9 @@ import Header from './Header';
 import Grid from "@mui/material/Grid";
 import {usePresentation} from "../../components/hooks/testHook";
 import React, {useEffect, useState} from "react";
-import {useParams} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 import {getPresentation} from "../../tools/presentationRequest";
+import {myAlert} from "../../utils/alerts";
 
 function a11yProps(index) {
   return {
@@ -19,11 +20,24 @@ export default function BasicTabs() {
   const [value, setValue] = React.useState(0);
   const [presentation, setPresentation] = useState(null);
 
-  const {testId, presentationId} = useParams();
+  const {token} = useParams();
+
+  const navigate = useNavigate();
+
+  const handleToken = (token) => {
+    sessionStorage.setItem('_token', token);
+  }
 
   useEffect(async () => {
     if (!presentation) {
-      const myPresentation = await getPresentation(testId, presentationId);
+      const myPresentation = await getPresentation(token);
+      if (!myPresentation) {
+        setTimeout(() => {
+          myAlert('Error al mostrar la información de la encuesta');
+          navigate('/test');
+        }, 3000);
+      }
+      handleToken(token);
       setPresentation(myPresentation);
     }
   }, [presentation]);
@@ -32,7 +46,11 @@ export default function BasicTabs() {
     setValue(newValue);
   };
 
-  const TabPanel = usePresentation(presentation, setPresentation, value);
+  const handleTab = () => {
+    handleChange(null, 2);
+  }
+
+  const TabPanel = usePresentation(presentation, setPresentation, value, handleTab);
 
   return (
     <>

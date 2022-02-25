@@ -27,7 +27,7 @@ function a11yProps(index) {
   };
 }
 
-export default function Section({presentation, section, setSection}) {
+export default function Section({presentation, section, setSection, activeSection, handleNext, handleTab}) {
 
   const [tab, setTab] = useState(0);
   const [page, setPage] = useState(1);
@@ -100,6 +100,11 @@ export default function Section({presentation, section, setSection}) {
                   question={currentQuestion}
                   indexQuestion={page - 1}
                   setQuestion={setQuestion}
+                  isLast={page === section.questions.length}
+                  lastSection={activeSection === presentation?.sections?.length - 1}
+                  handleSave={handleChange}
+                  handleNext={handleNext}
+                  handleTab={handleTab}
                 />
               </>
             }

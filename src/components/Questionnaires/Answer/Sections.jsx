@@ -8,18 +8,41 @@ import {useTheme} from '@mui/material/styles';
 import Section from "./Section";
 import MobileStepper from "@mui/material/MobileStepper";
 import {KeyboardArrowLeft, KeyboardArrowRight} from "@mui/icons-material";
+import {myAlert} from "../../../utils/alerts";
 
-export default function Sections({presentation, setPresentation}) {
+export default function Sections({presentation, setPresentation, handleTab}) {
   const theme = useTheme();
   const [activeSection, setActiveSection] = useState(0);
   // const [sections, setSections] = useState(presentation?.sections || []);
 
+  const sections = presentation?.sections ?? [];
+  const maxSteps = sections?.length ?? 0;
+  const currentSection = sections[activeSection];
+
+  const validateAnswers = () => {
+    const questions = currentSection['questions'];
+    const hasPendingAttempt = questions.findIndex(question => question?.attempts?.save === false);
+    if (hasPendingAttempt > -1) {
+      myAlert('Hay preguntas con respuestas sin guardar', 'warning');
+      return false;
+    }
+    return true;
+  };
+
+  const nextSection = () => {
+    setActiveSection(activeSection + 1);
+  };
+
   const handleNext = () => {
-    setActiveSection((prevActiveStep) => prevActiveStep + 1);
+    // if (validateAnswers()) {
+      setActiveSection((prevActiveStep) => prevActiveStep + 1);
+    // }
   };
 
   const handleBack = () => {
-    setActiveSection((prevActiveStep) => prevActiveStep - 1);
+    // if (validateAnswers()) {
+      return setActiveSection((prevActiveStep) => prevActiveStep - 1);
+    // }
   };
 
   const changeSection = (newSection) => {
@@ -31,9 +54,6 @@ export default function Sections({presentation, setPresentation}) {
     });
   };
 
-  const sections = presentation?.sections ?? [];
-  const maxSteps = sections?.length ?? 0;
-  const currentSection = sections[activeSection];
 
   return (
     <Paper elevation={3} sx={{width: '100%', flexGrow: 1}}>
@@ -61,6 +81,9 @@ export default function Sections({presentation, setPresentation}) {
               section={currentSection}
               setSection={changeSection}
               presentation={presentation}
+              handleNext={nextSection}
+              activeSection={activeSection}
+              handleTab={handleTab}
             />}
         </div>
       </Box>

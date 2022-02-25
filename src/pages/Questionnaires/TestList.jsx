@@ -18,7 +18,7 @@ const headers = {
   statusDescription: 'Estado',
   ownerName: 'Creador',
   createdAt: 'Fecha de creación',
-  presentations: 'Numero de presentaciones'
+  presentations: 'Numero de asignaciones'
 };
 
 export default function TestList() {
@@ -52,7 +52,7 @@ export default function TestList() {
 
   const actions = [
     {
-      title: 'Ver presentaciones',
+      title: 'Ver asignaciones',
       component: (row) =>
         <IconButton
           onClick={() => navigate(`/test/${row.id}/presentations`)}
@@ -62,7 +62,7 @@ export default function TestList() {
         </IconButton>,
     },
     {
-      title: 'Añadir presentacion',
+      title: 'Añadir asignación',
       component: (row) =>
         <IconButton
           onClick={() => navigate(`/test/${row.id}/presentation/_`)}
@@ -94,7 +94,7 @@ export default function TestList() {
 
   return (
     <Grid container>
-      <h4>Listado de cuestionarios</h4>
+      <h4>Listado de encuestas</h4>
       <Grid item xs={12}>
         <MyTable
           handleSearch={handleSearch}

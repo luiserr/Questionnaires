@@ -23,7 +23,7 @@ export default function routes() {
         <Route exact name="create" path="/test/:testId/section/:sectionId/question/:questionId" element={<Question/>}/>
         <Route exact name="create" path="/test/:testId/section/:sectionId/question/bank" element={<QuestionBank/>}/>
       </Route>
-      <Route exact name="answer" path="/answer/test/:testId/presentation/:presentationId" element={<Answer/>}/>
+      <Route exact name="answer" path="/answer/:token" element={<Answer/>}/>
       <Route exact path="*" element={<h1>No hay pagina</h1>}/>
     </Routes>
   );

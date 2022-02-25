@@ -7,6 +7,7 @@ import {useNavigate, useParams} from "react-router-dom";
 import {getPresentations} from "../../tools/assignRequests";
 import SaveAsIcon from '@mui/icons-material/SaveAs';
 import AvTimerIcon from '@mui/icons-material/AvTimer';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 const headers = {
   id: 'ID',
@@ -41,7 +42,7 @@ export default function List() {
             deleteIcon={<AvTimerIcon/>}
           /> :
           <Chip
-            label={'Guardado'}
+            label={'Pendiente por asignar'}
             color={'info'}
             onDelete={() => navigate(`/test/${testId}/presentation/${row.id}`)}
             deleteIcon={<SaveAsIcon/>}
@@ -55,6 +56,15 @@ export default function List() {
           disabled={row.status === 'assigned'}
           onClick={() => navigate(`/test/${testId}/presentation/${row.id}`)}
         />
+    },
+    {
+      title: 'Cancelar',
+      component: (row) =>
+        <Button
+          startIcon={<DeleteIcon/>}
+          disabled={row.status === 'assigned'}
+          onClick={() => alert('voy a eliminar la encuesta')}
+        />
     }
   ];
 
@@ -64,7 +74,7 @@ export default function List() {
 
   return (
     <Box sx={{width: '100%'}}>
-      <h4>Lista de presentaciones </h4>
+      <h4>Lista de asignaciones </h4>
       <Card elevation={2} sx={{mt: 1}}>
         <CardContent>
           {/*<h4>Listado de presentaciones activas</h4>*/}
