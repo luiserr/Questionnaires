@@ -11,12 +11,18 @@ export default function CourseTypes({data, setData, setPayload, payload}) {
 
   const {resources: courseTypes} = useData('courseTypes', data, setData)
 
-  const handleCheck = (checked, row) => {
-    const myCourseTypes = payload?.programs?.courseTypes ?? [];
+  const handleCheck = (checked, row, all) => {
+    let myCourseTypes = payload?.programs?.courseTypes ?? [];
     if (checked) {
-      myCourseTypes.push(row.id);
+      if (!myCourseTypes.find(type => type.id === row.id)) {
+        myCourseTypes.push(row.id);
+      }
     } else {
-      myCourseTypes.filter(rol => rol.id !== row.id);
+      if (all) {
+        myCourseTypes = [];
+      } else {
+        myCourseTypes.filter(rol => rol.id !== row.id);
+      }
     }
     setPayload({
       ...payload,

@@ -1,6 +1,6 @@
 import TableFront, {createHeader} from "../../commons/TableFront";
 import {useData} from '../../hooks/presentationHook';
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import Box from "@mui/material/Box";
 import Groups from "./Groups";
 
@@ -15,12 +15,18 @@ export default function Programs({data, setData, setPayload, payload}) {
   const {resources: regionals} = useData('programs', data, setData);
   const [codes, setCodes] = useState([]);
 
-  const handleCheck = (checked, row) => {
+  const handleCheck = (checked, row, all) => {
     let mySelectedPrograms = payload?.programs?.programs ?? [];
-    if(checked) {
-      mySelectedPrograms = [...mySelectedPrograms, row];
-    }else{
-      mySelectedPrograms = mySelectedPrograms.filter(program => program.id !== row.id);
+    if (checked) {
+      if (!mySelectedPrograms.find(program => program.id === row.id)) {
+        mySelectedPrograms = [...mySelectedPrograms, row];
+      }
+    } else {
+      if (all) {
+        mySelectedPrograms = []
+      } else {
+        mySelectedPrograms = mySelectedPrograms.filter(program => program.id !== row.id);
+      }
     }
     setCodes(mySelectedPrograms.map(program => program.code))
     setPayload({
@@ -47,6 +53,7 @@ export default function Programs({data, setData, setPayload, payload}) {
   return (<>
     <Box>
       <TableFront
+        selectAll={false}
         headers={headers}
         handleSelect={handleCheck}
         title={'Programas de formación'}

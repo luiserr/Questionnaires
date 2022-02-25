@@ -11,12 +11,18 @@ export default function Roles({data, setData, setPayload, payload}) {
 
   const {resources: roles} = useData('roles', data, setData)
 
-  const handleCheck = (checked, row) => {
+  const handleCheck = (checked, row, all) => {
     let myRoles = payload?.regionals?.roles ?? [];
     if (checked) {
-      myRoles.push(row.id);
+      if (!myRoles.find(rol => rol.id === row.id)) {
+        myRoles.push(row.id);
+      }
     } else {
-      myRoles = myRoles.filter(rol => rol.id !== row.id);
+      if(all) {
+        myRoles = [];
+      }else {
+        myRoles = myRoles.filter(rol => rol.id !== row.id);
+      }
     }
     setPayload({
       ...payload,

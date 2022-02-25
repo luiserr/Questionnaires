@@ -5,8 +5,7 @@ import React, {useEffect, useState} from 'react';
 const headers = [
   createHeader('id', 'Id'),
   createHeader('name', 'Nombre'),
-  createHeader('departament', 'Departamento'),
-  createHeader('city', 'Municipio'),
+  createHeader('regionalName', 'Regional')
 ];
 
 export default function Centers({data, setData, setPayload, payload, selectedRegionals = []}) {
@@ -26,20 +25,26 @@ export default function Centers({data, setData, setPayload, payload, selectedReg
     }
   }, [selectedRegionals]);
 
-  const handleCheck = (checked, row) => {
+  const handleCheck = (checked, row, all) => {
     if (selectedRegionals.length) {
-      handleRegionalCenter(checked, row);
+      handleRegionalCenter(checked, row, all);
     } else {
-      handleCenter(checked, row);
+      handleCenter(checked, row, all);
     }
   };
 
-  const handleCenter = (checked, row) => {
+  const handleCenter = (checked, row, all) => {
     let myCenters = payload?.regionals.centers ?? [];
     if (checked) {
-      myCenters.push(row);
+      if (!myCenters.find(center => center.id === row.id)) {
+        myCenters.push(row);
+      }
     } else {
-      myCenters = myCenters.filter(center => center.id !== row.id);
+      if (all) {
+        myCenters = [];
+      } else {
+        myCenters = myCenters.filter(center => center.id !== row.id);
+      }
     }
     setPayload({
       ...payload,
@@ -50,7 +55,7 @@ export default function Centers({data, setData, setPayload, payload, selectedReg
     });
   };
 
-  const handleRegionalCenter = (checked, row) => {
+  const handleRegionalCenter = (checked, row, all) => {
     const currentRegionals = payload?.regionals?.regionals;
     setPayload({
       ...payload,
@@ -60,9 +65,15 @@ export default function Centers({data, setData, setPayload, payload, selectedReg
           if (row.regionalId === regional.id) {
             const centers = regional.centers ?? [];
             if (checked) {
-              regional['centers'] = [...centers, row];
+              if (!centers.find(center => center.id === row.id)) {
+                regional['centers'] = [...centers, row];
+              }
             } else {
-              regional['centers'] = centers.filter(center => center.id !== row.id);
+              if (all) {
+                regional['centers'] = [];
+              } else {
+                regional['centers'] = centers.filter(center => center.id !== row.id);
+              }
             }
           }
           return regional;

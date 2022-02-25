@@ -11,12 +11,18 @@ export default function Modalities({data, setData, setPayload, payload}) {
 
   const {resources: modalities} = useData('modalities', data, setData)
 
-  const handleCheck = (checked, row) => {
+  const handleCheck = (checked, row, all) => {
     let myModalities = payload?.regionals?.modalities ?? [];
     if (checked) {
-      myModalities.push(row.id);
+      if (!myModalities.find(modality => modality.id === row.id)) {
+        myModalities.push(row);
+      }
     } else {
-      myModalities = myModalities.filter(modality => modality.id !== row.id);
+      if (all) {
+        myModalities = [];
+      } else {
+        myModalities = myModalities.filter(modality => modality.id !== row.id);
+      }
     }
     setPayload({
       ...payload,

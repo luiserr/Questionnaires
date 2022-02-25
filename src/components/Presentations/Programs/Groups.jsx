@@ -23,15 +23,21 @@ export default function Groups({selectedPrograms, payload, setPayload}) {
   }, [selectedPrograms]);
 
 
-  const handleCheck = (checked, row) => {
+  const handleCheck = (checked, row, all) => {
     let programs = payload?.programs?.programs ?? [];
     const newPrograms = programs.map((program) => {
       if (program.code === row.programCode) {
         let groups = program.groups ?? [];
         if (checked) {
-          groups = [...groups, row];
+          if (!groups.find(group => group.id === row.id)) {
+            groups = [...groups, row];
+          }
         } else {
-          groups = groups.filter(group => group.id !== row.id);
+          if (all) {
+            groups = [];
+          } else {
+            groups = groups.filter(group => group.id !== row.id);
+          }
         }
         program['groups'] = groups;
       }
