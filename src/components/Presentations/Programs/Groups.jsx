@@ -23,7 +23,7 @@ export default function Groups({selectedPrograms, payload, setPayload}) {
   }, [selectedPrograms]);
 
 
-  const handleCheck = (checked, row, all) => {
+  const handleCheck = (checked, row) => {
     let programs = payload?.programs?.programs ?? [];
     const newPrograms = programs.map((program) => {
       if (program.code === row.programCode) {
@@ -33,11 +33,7 @@ export default function Groups({selectedPrograms, payload, setPayload}) {
             groups = [...groups, row];
           }
         } else {
-          if (all) {
-            groups = [];
-          } else {
-            groups = groups.filter(group => group.id !== row.id);
-          }
+          groups = groups.filter(group => group.id !== row.id);
         }
         program['groups'] = groups;
       }
@@ -48,6 +44,28 @@ export default function Groups({selectedPrograms, payload, setPayload}) {
       programs: {
         ...payload?.programs,
         programs: newPrograms
+      }
+    });
+  };
+
+  const handleCheckAll = (checked) => {
+    let myPrograms = payload?.programs?.programs ?? [];
+    if (checked) {
+      myPrograms = myPrograms.map((program) => {
+        program['groups'] = groups.filter(group => group.programCode === program.code);
+        return program;
+      })
+    } else {
+      myPrograms = myPrograms.map((program) => {
+        program['groups'] = [];
+        return program;
+      });
+    }
+    setPayload({
+      ...payload,
+      programs: {
+        ...payload?.programs,
+        programs: myPrograms
       }
     });
   };
@@ -67,6 +85,7 @@ export default function Groups({selectedPrograms, payload, setPayload}) {
       headers={headers}
       rows={groups}
       rowSelected={selectedGroups()}
+      handleSelectAll={handleCheckAll}
       title={'Fichas asociadas'}
       handleSelect={handleCheck}
     />

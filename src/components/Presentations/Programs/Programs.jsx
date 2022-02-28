@@ -1,6 +1,6 @@
 import TableFront, {createHeader} from "../../commons/TableFront";
 import {useData} from '../../hooks/presentationHook';
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import Box from "@mui/material/Box";
 import Groups from "./Groups";
 
@@ -12,8 +12,13 @@ const headers = [
 
 export default function Programs({data, setData, setPayload, payload}) {
 
-  const {resources: regionals} = useData('programs', data, setData);
+  const {resources: programs} = useData('programs', data, setData);
   const [codes, setCodes] = useState([]);
+
+  // useEffect(() => {
+  //   setCodes(programCodes());
+  // }, [payload?.programs?.programs]);
+
 
   const handleCheck = (checked, row, all) => {
     let mySelectedPrograms = payload?.programs?.programs ?? [];
@@ -22,11 +27,7 @@ export default function Programs({data, setData, setPayload, payload}) {
         mySelectedPrograms = [...mySelectedPrograms, row];
       }
     } else {
-      if (all) {
-        mySelectedPrograms = []
-      } else {
-        mySelectedPrograms = mySelectedPrograms.filter(program => program.id !== row.id);
-      }
+      mySelectedPrograms = mySelectedPrograms.filter(program => program.id !== row.id);
     }
     setCodes(mySelectedPrograms.map(program => program.code))
     setPayload({
@@ -34,6 +35,20 @@ export default function Programs({data, setData, setPayload, payload}) {
       programs: {
         ...payload.programs,
         programs: mySelectedPrograms
+      }
+    });
+  };
+
+  const handleCheckAll = (checked) => {
+    let myPrograms = [];
+    if (checked) {
+      myPrograms = programs;
+    }
+    setPayload({
+      ...payload,
+      programs: {
+        ...payload.programs,
+        programs: myPrograms
       }
     });
   };
@@ -50,21 +65,24 @@ export default function Programs({data, setData, setPayload, payload}) {
 
   const selectedProgramsArray = selectedProgramsIds();
 
+  const myCodes = programCodes();
+
   return (<>
     <Box>
       <TableFront
         selectAll={false}
         headers={headers}
         handleSelect={handleCheck}
+        handleSelectAll={handleCheckAll}
         title={'Programas de formación'}
         rowSelected={selectedProgramsArray}
-        rows={regionals}/>
+        rows={programs}/>
     </Box>
     <Box>
       <Groups
         payload={payload}
         setPayload={setPayload}
-        selectedPrograms={codes}
+        selectedPrograms={myCodes}
       />
     </Box>
   </>)

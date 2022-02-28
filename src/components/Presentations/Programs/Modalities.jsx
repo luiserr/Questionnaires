@@ -11,18 +11,14 @@ export default function Modalities({data, setData, setPayload, payload}) {
 
   const {resources: modalities} = useData('modalities', data, setData)
 
-  const handleCheck = (checked, row, all) => {
+  const handleCheck = (checked, row) => {
     let myModalities = payload?.programs?.modalities ?? [];
     if (checked) {
       if (!myModalities.find(modality => modality.id === row.id)) {
         myModalities.push(row);
       }
     } else {
-      if (all) {
-        myModalities = [];
-      } else {
         myModalities = myModalities.filter(modality => modality.id !== row.id);
-      }
     }
     setPayload({
       ...payload,
@@ -30,12 +26,27 @@ export default function Modalities({data, setData, setPayload, payload}) {
         ...payload.programs,
         modalities: myModalities
       }
-    })
+    });
   };
+
+  const handleCheckAll = (checked) => {
+    let myModalities = [];
+    if (checked) {
+      myModalities = modalities;
+    }
+    setPayload({
+      ...payload,
+      programs: {
+        ...payload.programs,
+        modalities: myModalities
+      }
+    });
+  }
 
   return <TableFront
     headers={headers}
     handleSelect={handleCheck}
+    handleSelectAll={handleCheckAll}
     title={'Modalidades'}
     rowSelected={payload?.programs?.modalities}
     rows={modalities}/>

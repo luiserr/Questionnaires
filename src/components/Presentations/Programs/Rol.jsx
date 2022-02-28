@@ -11,36 +11,42 @@ export default function Roles({data, setData, setPayload, payload}) {
 
   const {resources: roles} = useData('roles', data, setData)
 
-  const handleCheck = (checked, row, all) => {
+  const handleCheck = (checked, row) => {
     let myRoles = payload?.programs?.roles ?? [];
     if (checked) {
-      if(all) {
-
-      }else{
       if (!myRoles.find(rol => rol.id === row.id)) {
         myRoles.push(row.id);
       }
-      }
     } else {
-      if (all) {
-        myRoles = [];
-      } else {
-        myRoles = myRoles.filter(rol => rol.id !== row.id);
-      }
+      myRoles = myRoles.filter(rol => rol.id !== row.id);
     }
-    console.log("myRoles", myRoles);
     setPayload({
       ...payload,
       programs: {
         ...payload.programs,
         roles: myRoles
       }
-    })
+    });
+  };
+
+  const handleCheckAll = (checked) => {
+    let myRoles = [];
+    if (checked) {
+      myRoles = roles;
+    }
+    setPayload({
+      ...payload,
+      programs: {
+        ...payload.programs,
+        roles: myRoles
+      }
+    });
   };
 
   return <TableFront
     headers={headers}
     handleSelect={handleCheck}
+    handleSelectAll={handleCheckAll}
     title={'Roles del sistema'}
     rowSelected={payload?.programs?.roles}
     rows={roles}/>
