@@ -40,11 +40,7 @@ export default function Centers({data, setData, setPayload, payload, selectedReg
         myCenters.push(row);
       }
     } else {
-      if (all) {
-        myCenters = [];
-      } else {
-        myCenters = myCenters.filter(center => center.id !== row.id);
-      }
+      myCenters = myCenters.filter(center => center.id !== row.id);
     }
     setPayload({
       ...payload,
@@ -69,11 +65,7 @@ export default function Centers({data, setData, setPayload, payload, selectedReg
                 regional['centers'] = [...centers, row];
               }
             } else {
-              if (all) {
-                regional['centers'] = [];
-              } else {
-                regional['centers'] = centers.filter(center => center.id !== row.id);
-              }
+              regional['centers'] = centers.filter(center => center.id !== row.id);
             }
           }
           return regional;
@@ -86,16 +78,64 @@ export default function Centers({data, setData, setPayload, payload, selectedReg
     let centers = [];
     if (selectedRegionals.length) {
       const regionals = payload?.regionals?.regionals ?? [];
-      regionals.map((regional) => centers = [...centers, ...regional.centers]);
+      regionals.map((regional) => {
+        if (regional?.centers?.length) {
+          centers = [...centers, ...regional?.centers];
+        }
+      });
     } else {
       centers = payload?.regionals?.centers ?? [];
     }
     return centers.map(center => center.id);
   }
 
+  const handleCheckAll = (checked) => {
+    if (payload?.regionals?.regionals?.length > 0) {
+      let currentRegionals = payload?.regionals?.regionals;
+      if (checked) {
+        currentRegionals = currentRegionals.map((regional) => {
+          regional['centers'] = centers.filter(center => center.regionalId === regional.id);
+          return regional;
+        });
+      } else {
+        currentRegionals = currentRegionals.map((regional) => {
+          regional['centers'] = [];
+        });
+      }
+
+      setPayload({
+        ...payload,
+        regionals: {
+          ...payload.regionals,
+          regionals: currentRegionals
+        }
+      });
+
+    } else {
+      if (checked) {
+        setPayload({
+          ...payload,
+          regionals: {
+            ...payload.regionals,
+            centers
+          }
+        });
+      } else {
+        setPayload({
+          ...payload,
+          regionals: {
+            ...payload.regionals,
+            centers: []
+          }
+        });
+      }
+    }
+  }
+
   return <TableFront
     headers={headers}
     handleSelect={handleCheck}
+    handleSelectAll={handleCheckAll}
     title={'Centros de formación'}
     rowSelected={selectedCenters()}
     rows={trainingCenters}/>

@@ -1,7 +1,7 @@
 import {api, get, post, local} from '../utils/ajax';
 
 export const getPresentation = async (presentationId) => {
-  const response = await get(`${api}/tests/presentation/${presentationId}`, true);
+  const response = await get(`${local}/tests/presentation/${presentationId}`, true);
   if (response.success) {
     return response.data;
   }

@@ -18,11 +18,7 @@ export default function Modalities({data, setData, setPayload, payload}) {
         myModalities.push(row);
       }
     } else {
-      if (all) {
-        myModalities = [];
-      } else {
-        myModalities = myModalities.filter(modality => modality.id !== row.id);
-      }
+      myModalities = myModalities.filter(modality => modality.id !== row.id);
     }
     setPayload({
       ...payload,
@@ -30,12 +26,27 @@ export default function Modalities({data, setData, setPayload, payload}) {
         ...payload.regionals,
         modalities: myModalities
       }
-    })
+    });
   };
+
+  const handleCheckAll = (checked) => {
+    let myModalities = [];
+    if (checked) {
+      myModalities = modalities;
+    }
+    setPayload({
+      ...payload,
+      regionals: {
+        ...payload.regionals,
+        modalities: myModalities
+      }
+    });
+  }
 
   return <TableFront
     headers={headers}
     handleSelect={handleCheck}
+    handleSelectAll={handleCheckAll}
     title={'Modalidades'}
     rowSelected={payload?.regionals?.modalities}
     rows={modalities}/>

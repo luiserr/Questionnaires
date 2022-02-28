@@ -14,9 +14,12 @@ export default function Roles({data, setData, setPayload, payload}) {
   const handleCheck = (checked, row, all) => {
     let myRoles = payload?.programs?.roles ?? [];
     if (checked) {
+      if(all) {
+
+      }else{
       if (!myRoles.find(rol => rol.id === row.id)) {
-        console.log(payload?.programs);
         myRoles.push(row.id);
+      }
       }
     } else {
       if (all) {
@@ -25,6 +28,7 @@ export default function Roles({data, setData, setPayload, payload}) {
         myRoles = myRoles.filter(rol => rol.id !== row.id);
       }
     }
+    console.log("myRoles", myRoles);
     setPayload({
       ...payload,
       programs: {

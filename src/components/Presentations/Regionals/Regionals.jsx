@@ -18,16 +18,27 @@ export default function Regionals({data, setData, setPayload, payload}) {
   const handleCheck = (checked, row, all) => {
     let myRegionals = payload?.regionals?.regionals ?? [];
     if (checked) {
-      row['centers'] = handleCenters([...myRegionals, row])
+      row['centers'] = handleCenters([...myRegionals, row]);
       if (!myRegionals.find(regional => regional.id === row.id)) {
         myRegionals.push(row);
       }
     } else {
-      if (all) {
-        myRegionals = [];
-      } else {
-        myRegionals = myRegionals.filter(regional => regional.id !== row.id);
+      myRegionals = myRegionals.filter(regional => regional.id !== row.id);
+    }
+    setPayload({
+      ...payload,
+      regionals: {
+        ...payload.regionals,
+        regionals: myRegionals,
+        centers: []
       }
+    });
+  };
+
+  const handleCheckAll = (checked) => {
+    let myRegionals = [];
+    if (checked) {
+      myRegionals = regionals;
     }
     setPayload({
       ...payload,
@@ -62,6 +73,7 @@ export default function Regionals({data, setData, setPayload, payload}) {
       <TableFront
         headers={headers}
         handleSelect={handleCheck}
+        handleSelectAll={handleCheckAll}
         title={'Regionales'}
         rowSelected={mySelectedRegionals}
         rows={regionals}/>

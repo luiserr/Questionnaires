@@ -18,11 +18,7 @@ export default function CourseTypes({data, setData, setPayload, payload}) {
         myCourseTypes.push(row.id);
       }
     } else {
-      if (all) {
-        myCourseTypes = [];
-      } else {
-        myCourseTypes.filter(rol => rol.id !== row.id);
-      }
+      myCourseTypes.filter(rol => rol.id !== row.id);
     }
     setPayload({
       ...payload,
@@ -30,12 +26,27 @@ export default function CourseTypes({data, setData, setPayload, payload}) {
         ...payload.regionals,
         courseTypes: myCourseTypes
       }
-    })
+    });
+  };
+
+  const handleCheckAll = (checked) => {
+    let myCourseTypes = [];
+    if (checked) {
+      myCourseTypes = courseTypes;
+    }
+    setPayload({
+      ...payload,
+      regionals: {
+        ...payload.regionals,
+        courseTypes: myCourseTypes
+      }
+    });
   };
 
   return <TableFront
     headers={headers}
     handleSelect={handleCheck}
+    handleSelectAll={handleCheckAll}
     title={'Tipos de cursos'}
     rowSelected={payload?.regionals?.courseTypes}
     rows={courseTypes}/>
