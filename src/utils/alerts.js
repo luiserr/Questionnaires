@@ -12,7 +12,7 @@ export const toast = async (message, success = true) => {
     icon: success ? 'success' : 'error',
     title: message,
     showConfirmButton: false,
-    timer: 6000,
+    timer: 8000,
     timerProgressBar: true,
     toast: true,
   });

@@ -4,7 +4,7 @@ import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import MyTable from "../../components/commons/table";
 import EditIcon from '@mui/icons-material/Edit';
 import {useNavigate, useParams} from "react-router-dom";
-import {getPresentations} from "../../tools/assignRequests";
+import {deleteAssign, getPresentations} from "../../tools/assignRequests";
 import SaveAsIcon from '@mui/icons-material/SaveAs';
 import AvTimerIcon from '@mui/icons-material/AvTimer';
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -29,6 +29,13 @@ export default function List() {
     setPresentations(response);
   }, []);
 
+  const handleDelete = async (presentationId) => {
+    if (await deleteAssign(presentationId)) {
+      const response = await getPresentations(testId);
+      setPresentations(response);
+    }
+  };
+
   const actions = [
     {
       title: 'Estado',
@@ -39,21 +46,33 @@ export default function List() {
             color={'warning'}
             onDelete={() => {
             }}
+            disabled
             deleteIcon={<AvTimerIcon/>}
           /> :
-          <Chip
-            label={'Pendiente por asignar'}
-            color={'info'}
-            onDelete={() => navigate(`/test/${testId}/presentation/${row.id}`)}
-            deleteIcon={<SaveAsIcon/>}
-          />
+          row.status === 'canceled' ?
+            <Chip
+              label={'Cancelada'}
+              color={'error'}
+              disabled
+              deleteIcon={<DeleteIcon/>}
+              onDelete={() => {
+              }}
+            />
+            :
+            <Chip
+              label={'Pendiente por asignar'}
+              color={'info'}
+              onDelete={() => navigate(`/test/${testId}/presentation/${row.id}`)}
+              deleteIcon={<SaveAsIcon/>}
+            />
     },
     {
       title: 'Editar',
       component: (row) =>
         <Button
+          color={'secondary'}
           startIcon={<EditIcon/>}
-          disabled={row.status === 'assigned'}
+          disabled={row.status !== 'inProgress'}
           onClick={() => navigate(`/test/${testId}/presentation/${row.id}`)}
         />
     },
@@ -62,8 +81,9 @@ export default function List() {
       component: (row) =>
         <Button
           startIcon={<DeleteIcon/>}
-          disabled={row.status === 'assigned'}
-          onClick={() => alert('voy a eliminar la encuesta')}
+          color={'error'}
+          disabled={row.status !== 'inProgress'}
+          onClick={() => handleDelete(row.id)}
         />
     }
   ];

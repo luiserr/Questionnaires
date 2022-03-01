@@ -142,7 +142,7 @@ export default function Matrix({answers, question, setAnswer, disabled}) {
 };
 
 Matrix.propTypes = {
-  answers: PropTypes.array,
+  answers: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
   question: PropTypes.object,
   setAnswer: PropTypes.func,
   disabled: PropTypes.bool,

@@ -110,11 +110,19 @@ export default function QuestionList({test, section}) {
           variant="contained"
           onClick={handleNewQuestion}
           color={"success"}
+          disabled={test.presentations > 0}
         >
           Crear pregunta
         </Button>
-        <Button sx={{marginLeft: '5px'}} variant="outlined" color={"info"} onClick={handleBank}>Banco de
-          preguntas</Button>
+        <Button
+          sx={{marginLeft: '5px'}}
+          variant="outlined"
+          color={"info"}
+          onClick={handleBank}
+          disabled={test.presentations > 0}
+        >
+          Banco de preguntas
+        </Button>
       </Grid>
     </Grid>
   );

@@ -16,15 +16,16 @@ export default function Finish({test}) {
       goodbye
     });
     if (response) {
-      await handleFinish();
-      setTimeout(() => {
-        navigate('/test');
-      }, 2000)
+      if (await handleFinish()) {
+        setTimeout(() => {
+          navigate('/test');
+        }, 2000);
+      }
     }
   }
 
   const handleFinish = async () => {
-    await finishTest(test.id);
+    return await finishTest(test.id);
   };
 
   return (
@@ -35,7 +36,11 @@ export default function Finish({test}) {
         onBlur={(text) => setGoodbye(text)}
       />
       <div style={{marginTop: '2em'}}>
-        <Button variant={"contained"} onClick={handleUpdate}>
+        <Button
+          variant={"contained"}
+          onClick={handleUpdate}
+          disabled={test?.presentations > 0}
+        >
           Finalizar la configuración
         </Button>
       </div>

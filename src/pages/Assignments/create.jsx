@@ -55,7 +55,9 @@ export default function CreateAssign() {
         setPayload({
           ...payload,
           ...others,
-          ...assignments
+          ...assignments,
+          startDateInput: new Date(others?.startDate),
+          finishDateInput: new Date(others?.finishDate)
         });
       } else {
         navigate('/test');
@@ -93,7 +95,7 @@ export default function CreateAssign() {
 
   return (
     <Box sx={{width: '100%'}}>
-      <h4>Creación de asignación cuestionario: {test?.title}</h4>
+      <h4>Creación de asignación encuesta: {test?.title}</h4>
       <Card elevation={2} sx={{mt: 1}}>
         <CardContent>
           <h4>Información general</h4>

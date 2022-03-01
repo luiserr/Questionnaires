@@ -1,7 +1,7 @@
 import {api, get, post, local} from '../utils/ajax';
 
 export const getPresentation = async (presentationId) => {
-  const response = await get(`${local}/tests/presentation/${presentationId}`, true);
+  const response = await get(`${api}/tests/presentation/${presentationId}`, true);
   if (response.success) {
     return response.data;
   }
@@ -58,6 +58,14 @@ export const getGroups = async (codes) => {
 
 export async function saveAssign(testId, payload) {
   const response = await post(`${api}/tests/${testId}/presentation`, payload, null, true);
+  if (response && response?.success) {
+    return response.data;
+  }
+  return false;
+}
+
+export async function deleteAssign(presentationId) {
+  const response = await post(`${api}/tests/presentation/${presentationId}/delete`, {}, 'DELETE', true);
   if (response && response?.success) {
     return response.data;
   }
