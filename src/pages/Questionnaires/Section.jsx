@@ -51,14 +51,14 @@ export default function Section() {
 
 
   const handleBack = () => {
-    navigate(`/test/${testId}`, {state: {step: 1}});
+    navigate(`/admin/surveys/test/${testId}`, {state: {step: 1}});
   };
 
   const handleSave = async () => {
     const payload = {};
     const newSection = await saveSection(testId, section.id, section.title, description, section.numberQuestions);
     if (newSection) {
-      navigate(`/test/${testId}/section/${newSection.id}`, {state: {section: newSection}});
+      navigate(`/admin/surveys/test/${testId}/section/${newSection.id}`, {state: {section: newSection}});
     }
   };
 
@@ -77,11 +77,11 @@ export default function Section() {
   return (
     <Box sx={{width: '100%'}}>
       <Breadcrumbs className="myBreadcrumb" sx={{marginBottom: '15px'}}>
-        <Link>
-          {test?.title}
+        <Link alt={test?.title} title={test?.title}>
+          {test?.title?.length > 30 ? `${test?.title?.substring(0, 30)} ...` : test?.title}
         </Link>
-        <Link>
-          {section?.title}
+        <Link alt={section?.title} title={section?.title}>
+          {section?.title?.length > 30 ? `${section?.title?.substring(0, 30)} ...` : section?.title}
         </Link>
       </Breadcrumbs>
       <h4>
@@ -95,12 +95,15 @@ export default function Section() {
             onClick={() => handleBack()}
             sx={{float: 'right'}}
           >
-            Atrás
+            Regresar
           </Button>
           <Grid container>
             <Grid item xs={10}>
               <Box component="form" sx={{'& .MuiTextField-root': {m: 1}}}>
                 <TextField
+                  inputProps={{
+                    maxLength: 150
+                  }}
                   fullWidth
                   id="title"
                   disabled={disabled}

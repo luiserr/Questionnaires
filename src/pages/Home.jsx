@@ -11,8 +11,10 @@ import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
-import {Outlet} from 'react-router-dom'
+import {Outlet, useNavigate} from 'react-router-dom'
 import Menu from "./Menu";
+import {useEffect} from "react";
+import {$_get} from "../utils/tools";
 
 const drawerWidth = 300;
 
@@ -83,7 +85,7 @@ const Drawer = styled(MuiDrawer, {shouldForwardProp: (prop) => prop !== 'open'})
   }),
 );
 
-export default function MiniDrawer() {
+export default function Home() {
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
 
@@ -94,6 +96,16 @@ export default function MiniDrawer() {
   const handleDrawerClose = () => {
     setOpen(false);
   };
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const params = $_get();
+    if (params.token) {
+      navigate(`/admin/surveys/answer/${params.token}`);
+    }
+  }, []);
+
 
   return (
     <Box sx={{display: 'flex'}}>

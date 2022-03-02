@@ -5,12 +5,12 @@ import EditIcon from "@mui/icons-material/Edit";
 import IconButton from "@mui/material/IconButton";
 import DeleteIcon from "@mui/icons-material/Delete";
 import VisibilityIcon from '@mui/icons-material/Visibility';
-import AddPhotoAlternateIcon from '@mui/icons-material/AddPhotoAlternate';
 import {deleteTest, searchTest} from '../../tools/testRequests';
 import {useNavigate} from "react-router-dom";
 import {Fab} from "@mui/material";
 import AddIcon from '@mui/icons-material/Add';
 import MyTable from "../../components/commons/table";
+import AddTaskIcon from '@mui/icons-material/AddTask';
 
 const headers = {
   title: 'Título',
@@ -35,19 +35,25 @@ export default function TestList() {
   }, []);
 
   const handleEdit = (testId) => {
-    navigate(`/test/${testId}`);
+    navigate(`/admin/surveys/test/${testId}`);
   };
 
   const handleSearch = async (page, perPage) => {
     const response = await searchTest(page, perPage);
     const {data: myTests, pagination} = response;
-    await setTests(myTests);
+    await setTests(myTests?.map(test => {
+      test['title'] = test.title.length > 50 ? `${test.title?.substring(0, 50)} ...` : test.title;
+      return test;
+    }));
     await setPagination(pagination);
   };
 
   const handleDelete = async (testId) => {
-    await deleteTest(testId);
-    await handleSearch(pagination.page, pagination.perPage);
+    // eslint-disable-next-line no-restricted-globals
+    if (confirm('¿Esta seguro de eliminar esta encuesta?')) {
+      await deleteTest(testId);
+      await handleSearch(pagination.page, pagination.perPage);
+    }
   };
 
   const actions = [
@@ -55,7 +61,7 @@ export default function TestList() {
       title: 'Ver asignaciones',
       component: (row) =>
         <IconButton
-          onClick={() => navigate(`/test/${row.id}/presentations`)}
+          onClick={() => navigate(`/admin/surveys/test/${row.id}/presentations`)}
           disabled={row.statusDescription !== 'Completado'}
           aria-label="view">
           <VisibilityIcon/>
@@ -65,10 +71,10 @@ export default function TestList() {
       title: 'Añadir asignación',
       component: (row) =>
         <IconButton
-          onClick={() => navigate(`/test/${row.id}/presentation/_`)}
+          onClick={() => navigate(`/admin/surveys/test/${row.id}/presentation/_`)}
           disabled={row.statusDescription !== 'Completado'}
           aria-label="view">
-          <AddPhotoAlternateIcon/>
+          <AddTaskIcon/>
         </IconButton>
     },
     {
@@ -105,8 +111,8 @@ export default function TestList() {
         />
         <Fab
           color="primary"
-          alt={'Crear cuestionario'}
-          title={'Crear cuestionario'}
+          alt={'Crear encuesta'}
+          title={'Crear encuesta'}
           aria-label="add"
           sx={{float: 'right', marginTop: '2em'}}
           onClick={() => handleEdit('_')}

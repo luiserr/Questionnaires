@@ -8,7 +8,6 @@ const headers = [
   createHeader('id', 'Id'),
   createHeader('name', 'Nombre'),
   createHeader('departament', 'Departamento'),
-  createHeader('city', 'Municipio'),
 ];
 
 export default function Regionals({data, setData, setPayload, payload}) {

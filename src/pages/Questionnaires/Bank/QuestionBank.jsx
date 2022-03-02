@@ -43,7 +43,10 @@ export default function QuestionBank() {
 
   const handleSearch = async (page = 1, perPage = 20) => {
     const questionBank = await getQuestionBank(title, questionType, page, perPage);
-    setData(questionBank.data);
+    setData(questionBank?.data?.map(question => {
+      question['title'] = question?.title.length > 50 ? `${question?.title?.substring(0, 50)} ...` : question?.title;
+      return question;
+    }));
     setPagination({...pagination, ...questionBank.pagination})
   };
 
@@ -52,7 +55,7 @@ export default function QuestionBank() {
   };
 
   const handleBack = () => {
-    navigate(`/test/${testId}/section/${section.id}`);
+    navigate(`/admin/surveys/test/${testId}/section/${section.id}`);
   };
 
   const actions = [
@@ -80,7 +83,7 @@ export default function QuestionBank() {
             startIcon={<ArrowBackIcon/>}
             onClick={() => handleBack()}
           >
-            Atrás
+            Regresar
           </Button>
           <h4>Seccion: {section?.title}</h4>
           <Grid container spacing={2} sx={{marginTop: '2em'}}>

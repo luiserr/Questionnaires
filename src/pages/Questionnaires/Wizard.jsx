@@ -33,7 +33,7 @@ export default function Wizard(props) {
   const Component = useStepper(activeStep, test, payload, setPayload);
 
   const handleBackHistory = () => {
-    navigation('/test');
+    navigation('/admin/surveys/test');
   };
 
   const handleNext = () => {
@@ -58,7 +58,7 @@ export default function Wizard(props) {
             startIcon={<ArrowBack/>}
             sx={{float: 'right'}}
           >
-            Atrás
+            Regresar
           </Button>
 
           <Stepper sx={{marginTop: '2em'}} activeStep={activeStep} orientation="horizontal">

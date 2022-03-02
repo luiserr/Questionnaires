@@ -18,7 +18,7 @@ export default function Finish({test}) {
     if (response) {
       if (await handleFinish()) {
         setTimeout(() => {
-          navigate('/test');
+          navigate('/admin/surveys/test');
         }, 2000);
       }
     }

@@ -35,15 +35,15 @@ export default function QuestionList({test, section}) {
   const navigate = useNavigate();
 
   const handleNewQuestion = () => {
-    navigate(`/test/${test.id}/section/${section.id}/question/_`, {state: {test, section}});
+    navigate(`/admin/surveys/test/${test.id}/section/${section.id}/question/_`, {state: {test, section}});
   };
 
   const handleEditQuestion = (question) => {
-    navigate(`/test/${test.id}/section/${section.id}/question/${question.id}`, {state: {test, section, question}});
+    navigate(`/admin/surveys/test/${test.id}/section/${section.id}/question/${question.id}`, {state: {test, section, question}});
   };
 
   const handleBank = () => {
-    navigate(`/test/${test.id}/section/${section.id}/question/bank`);
+    navigate(`/admin/surveys/test/${test.id}/section/${section.id}/question/bank`);
   };
 
   const handleDelete = async (questionId) => {
@@ -74,8 +74,8 @@ export default function QuestionList({test, section}) {
                       key={question.id}
                       sx={{'&:last-child td, &:last-child th': {border: 0}}}
                     >
-                      <TableCell component="th" scope="row">
-                        {question.title}
+                      <TableCell alt={question?.title} title={question?.title} component="th" scope="row">
+                        {question?.title.length > 50 ? `${question?.title?.substring(0, 50)}...` : question?.title}
                       </TableCell>
                       <TableCell component="th" scope="row">
                         {question.typeDescription}

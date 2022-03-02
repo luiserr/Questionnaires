@@ -34,7 +34,6 @@ export default function BasicTabs() {
       if (!myPresentation) {
         setTimeout(() => {
           myAlert('Error al mostrar la información de la encuesta');
-          navigate('/test');
         }, 3000);
       }
       handleToken(token);

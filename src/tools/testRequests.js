@@ -25,7 +25,7 @@ export const handleSave = async (step, test, payload, setTest, setStep, navigati
         await setStep(1);
         return true;
       }
-      await navigation(`/test/${result.id}`, {state: {step: 1, test: result}});
+      await navigation(`/admin/surveys/test/${result.id}`, {state: {step: 1, test: result}});
       return true;
     }
   }

@@ -60,7 +60,7 @@ export default function CreateAssign() {
           finishDateInput: new Date(others?.finishDate)
         });
       } else {
-        navigate('/test');
+        navigate('/admin/surveys/test');
       }
     }
   }, []);
@@ -85,12 +85,12 @@ export default function CreateAssign() {
     if (validatePayload(payload)) {
       const response = await saveAssign(test.id, buildPayload(test, presentationId, payload));
       myAlert('Operación exitosa', 'success');
-      navigate('/test');
+      navigate('/admin/surveys/test');
     }
   }
 
   const handleBack = () => {
-    navigate('/test');
+    navigate('/admin/surveys/test');
   };
 
   return (
@@ -105,13 +105,16 @@ export default function CreateAssign() {
             startIcon={<ArrowBackIcon/>}
             onClick={handleBack}
           >
-            Atras
+            Regresar
           </Button>
           <Grid container spacing={2}>
             <Grid item xs={6}>
               <TextField
                 label="Título"
                 fullWidth
+                inputProps={{
+                  maxLength: 150
+                }}
                 variant="outlined"
                 value={payload?.title}
                 onChange={(e) => handleChange('title', e.target.value)}
@@ -142,6 +145,7 @@ export default function CreateAssign() {
                 <DatePicker
                   label="Fecha inicio"
                   size={"small"}
+                  minDate={new Date()}
                   onChange={(e) => {
                     setPayload({
                       ...payload,
@@ -184,7 +188,7 @@ export default function CreateAssign() {
             </Grid>
             <Grid item xs={5}>
               <TextField
-                label="Dias de activación antes de finalizacion de ficha (Solo Títuladas)"
+                label="Dias de activación antes de finalizacion de ficha (Solo formación complementaria)"
                 fullWidth
                 value={payload?.complementaryDays}
                 onChange={(e) => handleChange('complementaryDays', e.target.value)}

@@ -26,7 +26,10 @@ export default function List() {
 
   useEffect(async () => {
     const response = await getPresentations(testId);
-    setPresentations(response);
+    setPresentations(response?.map(presentation => {
+      presentation['title'] = presentation?.title?.length > 50 ? `${presentation.title?.substring(0, 50)} ...` : presentation?.title;
+      return presentation;
+    }));
   }, []);
 
   const handleDelete = async (presentationId) => {
@@ -62,7 +65,7 @@ export default function List() {
             <Chip
               label={'Pendiente por asignar'}
               color={'info'}
-              onDelete={() => navigate(`/test/${testId}/presentation/${row.id}`)}
+              onDelete={() => navigate(`/admin/surveys/test/${testId}/presentation/${row.id}`)}
               deleteIcon={<SaveAsIcon/>}
             />
     },
@@ -73,7 +76,7 @@ export default function List() {
           color={'secondary'}
           startIcon={<EditIcon/>}
           disabled={row.status !== 'inProgress'}
-          onClick={() => navigate(`/test/${testId}/presentation/${row.id}`)}
+          onClick={() => navigate(`/admin/surveys/test/${testId}/presentation/${row.id}`)}
         />
     },
     {
@@ -89,7 +92,7 @@ export default function List() {
   ];
 
   const handleBack = () => {
-    navigate('/test');
+    navigate('/admin/surveys/');
   };
 
   return (
@@ -104,7 +107,7 @@ export default function List() {
             startIcon={<ArrowBackIcon/>}
             onClick={handleBack}
           >
-            Atras
+            Regresar
           </Button>
           <Grid container spacing={2}>
             <Grid item xs={12}>

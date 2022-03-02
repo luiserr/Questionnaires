@@ -36,11 +36,11 @@ export default function SectionList({test}) {
   }
 
   const handleNewSection = () => {
-    navigate(`/test/${test.id}/section/_`);
+    navigate(`/admin/surveys/test/${test.id}/section/_`);
   };
 
   const handleEdit = (section) => {
-    navigate(`/test/${test.id}/section/${section.id}`, {state: {test, section}});
+    navigate(`/admin/surveys/test/${test.id}/section/${section.id}`, {state: {test, section}});
   };
 
   const handleDelete = async (sectionId) => {
@@ -78,8 +78,8 @@ export default function SectionList({test}) {
                     key={section.id}
                     sx={{'&:last-child td, &:last-child th': {border: 0}}}
                   >
-                    <TableCell component="th" scope="row">
-                      {section.title}
+                    <TableCell alt={section?.title} title={section?.title} component="th" scope="row">
+                      {section?.title.length > 50 ? `${section?.title?.substring(0, 50)}...` : section?.title}
                     </TableCell>
                     <TableCell align="right">{section.numberQuestions}</TableCell>
                     <TableCell align="right">{section.savedQuestions}</TableCell>

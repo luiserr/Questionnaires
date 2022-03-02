@@ -38,6 +38,9 @@ export default function General({test, setPayload}) {
             <TextField
               disabled={disabled}
               id="title"
+              inputProps={{
+                maxLength: 150
+              }}
               label="Titulo"
               variant="outlined"
               value={title}

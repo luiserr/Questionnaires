@@ -19,6 +19,7 @@ import useQuestion from "../../components/hooks/questionHook";
 import validate from "../../tools/validateQuestion";
 import Breadcrumbs from "@mui/material/Breadcrumbs";
 import Link from "@mui/material/Link";
+import {FormControlLabel, Switch} from "@mui/material";
 
 
 export default function Question() {
@@ -40,7 +41,7 @@ export default function Question() {
     title: '',
     description: '',
     questionType: '',
-    private: true,
+    private: false,
     answers: [],
     ...currentQuestion
   });
@@ -60,7 +61,7 @@ export default function Question() {
   const QuestionComponent = useQuestion(question, answers, setAnswers, disabled);
 
   const handleBack = () => {
-    navigate(`/test/${testId}/section/${sectionId}`, {state: {test, section: currentSection}});
+    navigate(`/admin/surveys/test/${testId}/section/${sectionId}`, {state: {test, section: currentSection}});
   };
 
   const handleChange = (questionType) => {
@@ -79,7 +80,7 @@ export default function Question() {
     if (validate(payload)) {
       const newQuestion = await saveQuestion(test.id, sectionId, payload);
       if (newQuestion) {
-        navigate(`/test/${test.id}/section/${sectionId}`, {state: {test}});
+        navigate(`/admin/surveys/test/${test.id}/section/${sectionId}`, {state: {test}});
       }
     }
   };
@@ -87,14 +88,14 @@ export default function Question() {
   return (
     <Box sx={{width: '100%'}}>
       <Breadcrumbs className="myBreadcrumb" aria-label="breadcrumb" sx={{marginBottom: '15px'}}>
-        <Link>
-          {test?.title}
+        <Link alt={test?.title} title={test?.title}>
+          {test?.title?.length > 30 ? `${test?.title?.substring(0, 30)} ...` : test?.title}
         </Link>
-        <Link>
-          {currentSection?.title}
+        <Link alt={currentSection?.title} title={currentSection?.title}>
+          {currentSection?.title?.length > 30 ? `${currentSection?.title?.substring(0, 30)} ...` : currentSection?.title}
         </Link>
-        <Link>
-          {question?.title}
+        <Link alt={question?.title} title={question?.title}>
+          {question?.title?.length > 30 ? `${question?.title?.substring(0, 30)} ...` : question?.title}
         </Link>
       </Breadcrumbs>
       <h4>
@@ -108,7 +109,7 @@ export default function Question() {
             onClick={() => handleBack()}
             sx={{float: 'right'}}
           >
-            Atrás
+            Regresar
           </Button>
           <Grid container>
             <Grid item xs={10}>
@@ -132,6 +133,15 @@ export default function Question() {
                   )}
                 </Select>
               </Box>
+            </Grid>
+            <Grid item xs={10}>
+              <FormControlLabel control={<Switch
+                checked={question?.private === 1}
+                onChange={() => setQuestion({
+                  ...question,
+                  private: !question.private
+                })}
+              />} label="¿pertenece al banco de preguntas?"/>
             </Grid>
             <Grid item xs={10} sx={{marginTop: '1em'}}>
               <label>Descripción:</label>
