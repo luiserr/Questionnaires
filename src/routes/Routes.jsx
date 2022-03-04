@@ -10,6 +10,7 @@ import QuestionBank from "../pages/Questionnaires/Bank/QuestionBank";
 import CreateAssign from "../pages/Assignments/create";
 import List from "../pages/Assignments/List";
 import NotFound from "../pages/NotFound";
+import Categories from "../pages/Questionnaires/Categories";
 
 export default function routes() {
   return (
@@ -24,6 +25,7 @@ export default function routes() {
         <Route exact name="create" path="/admin/surveys/test/:testId/section/:sectionId" element={<Section/>}/>
         <Route exact name="create" path="/admin/surveys/test/:testId/section/:sectionId/question/:questionId" element={<Question/>}/>
         <Route exact name="create" path="/admin/surveys/test/:testId/section/:sectionId/question/bank" element={<QuestionBank/>}/>
+        <Route exact name="create" path="/admin/surveys/categories" element={<Categories />}/>
       </Route>
       <Route exact name="answer" path="/admin/surveys/answer/:token" element={<Answer/>}/>
       <Route exact path="*" element={<NotFound />}/>

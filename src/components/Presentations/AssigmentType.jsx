@@ -21,6 +21,9 @@ export default function AssigmentType({data, setData, payload, setPayload}) {
           <Tab label="Regionales y centros"/>
           <Tab label="Programas de formación"/>
           <Tab label="Correo electroníco"/>
+          <Tab label="Tipo de programa"/>
+          <Tab label="Modalidad"/>
+          <Tab label="Fichas manuales"/>
         </Tabs>
       </Box>
       <Box sx={{width: '100%'}}>

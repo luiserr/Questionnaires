@@ -62,6 +62,7 @@ export default function SectionList({test}) {
         sections.length > 0 ?
 
           <TableContainer component={Paper}>
+            <h4>Listado de secciones</h4>
             <Table sx={{minWidth: 650}} aria-label="simple table">
               <TableHead>
                 <TableRow>

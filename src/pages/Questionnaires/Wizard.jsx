@@ -15,7 +15,7 @@ import {useTest} from "../../components/hooks/testHooks";
 import {useNavigate} from "react-router-dom";
 import {ArrowBack} from "@mui/icons-material";
 
-const steps = ['General', 'Secciones', 'Despedida'];
+const steps = ['General', 'Categoría', 'Secciones y preguntas', 'Despedida'];
 
 export default function Wizard(props) {
 
@@ -64,7 +64,7 @@ export default function Wizard(props) {
           <Stepper sx={{marginTop: '2em'}} activeStep={activeStep} orientation="horizontal">
             {steps.map((label, index) => {
               return (
-                <Step key={label}>
+                <Step completed={false} key={label}>
                   <StepLabel>{label}</StepLabel>
                 </Step>
               );
