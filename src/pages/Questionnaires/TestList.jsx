@@ -63,7 +63,9 @@ export default function TestList() {
         <IconButton
           onClick={() => navigate(`/admin/surveys/test/${row.id}/presentations`)}
           disabled={row.statusDescription !== 'Completado'}
-          aria-label="view">
+          alt={'Ver asignaciones'}
+          title={'Ver asignaciones'}
+          aria-label="ver">
           <VisibilityIcon/>
         </IconButton>,
     },
@@ -73,14 +75,20 @@ export default function TestList() {
         <IconButton
           onClick={() => navigate(`/admin/surveys/test/${row.id}/presentation/_`)}
           disabled={row.statusDescription !== 'Completado'}
-          aria-label="view">
+          alt={'Añadir asignación'}
+          title={'Añadir asignación'}
+          aria-label="Añadir asignación">
           <AddTaskIcon/>
         </IconButton>
     },
     {
       title: 'Ver / Editar',
       component: (row) =>
-        <IconButton aria-label="Editar" onClick={() => handleEdit(row.id)}>
+        <IconButton
+          aria-label="Editar"
+          alt={'Ver / Editar'}
+          title={'Ver / Editar'}
+          onClick={() => handleEdit(row.id)}>
           <EditIcon/>
         </IconButton>
     },
@@ -90,6 +98,8 @@ export default function TestList() {
         <IconButton
           disabled={parseInt(row.presentations) > 0}
           aria-label="Eliminar"
+          alt={'Eliminar'}
+          title={'Eliminar'}
           onClick={() => handleDelete(row.id)}
         >
           <DeleteIcon/>

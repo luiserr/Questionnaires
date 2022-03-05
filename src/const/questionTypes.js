@@ -7,8 +7,8 @@ export const MATRIX = 'matrix';
 
 export default [
   {key: OPEN, label: 'Abierta'},
-  {key: MULTIPLE, label: 'Selección multiple con multiples repuestas'},
-  {key: SINGLE, label: 'Selección multiple con única respuesta'},
-  {key: BOOLEAN, label: 'Falso o verdadero'},
-  {key: MATRIX, label: 'Matriz / Relacionar columnas'},
+  {key: MULTIPLE, label: 'Opción multiple'},
+  {key: SINGLE, label: 'Opción unica'},
+  {key: BOOLEAN, label: 'Falso y verdadero'},
+  {key: MATRIX, label: 'Tabla Matriz'},
 ];

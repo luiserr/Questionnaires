@@ -50,7 +50,7 @@ export default function Wizard(props) {
 
   return (
     <Box sx={{width: '100%'}}>
-      <h4>Configuración de cuestionarios</h4>
+      <h4>Configuración de encuesta</h4>
       <Card>
         <CardContent>
           <Button

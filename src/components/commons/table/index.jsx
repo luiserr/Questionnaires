@@ -62,15 +62,25 @@ export default function MyTable(
             No hay datos para mostrar
           </Alert> :
           <>
-            <TableContainer sx={{mt:2}} component={Paper}>
+            <TableContainer sx={{mt: 2}} component={Paper}>
               <Table sx={{minWidth: 650}} aria-label="simple table">
                 <TableHead>
                   <TableRow>
                     {
-                      Object.values(headers).map((header, index) => <TableCell key={index}>{header}</TableCell>)
+                      Object.values(headers).map((header, index) =>
+                        <TableCell
+                          sx={{textAlign: 'center'}}
+                          key={index}>
+                          {header}
+                        </TableCell>)
                     }
                     {
-                      actions.map((action, index) => <TableCell key={index}>{action.title}</TableCell>)
+                      actions.map((action, index) =>
+                        <TableCell
+                          sx={{textAlign: 'center'}}
+                          key={index}>
+                          {action.title}
+                        </TableCell>)
                     }
                   </TableRow>
                 </TableHead>

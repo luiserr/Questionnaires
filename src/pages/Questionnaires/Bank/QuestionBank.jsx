@@ -93,7 +93,7 @@ export default function QuestionBank() {
                   <Grid item xs={4}>
                     <TextField
                       fullWidth
-                      label="Buscar por coincidencia de nombre"
+                      label="Buscar por coincidencia de nombre(Digitar al menos 4 caracteres)"
                       variant="outlined"
                       value={title}
                       onChange={(e) => setTitle(e.target.value)}

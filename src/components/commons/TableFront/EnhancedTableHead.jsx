@@ -34,6 +34,7 @@ export default function EnhancedTableHead(props) {
           <TableCell
             key={headCell.id}
             align={'left'}
+            sx={{textAlign: 'center'}}
             padding={headCell.disablePadding ? 'none' : 'normal'}
             sortDirection={orderBy === headCell.id ? order : false}
           >

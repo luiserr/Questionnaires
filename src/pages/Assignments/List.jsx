@@ -74,6 +74,8 @@ export default function List() {
       component: (row) =>
         <Button
           color={'secondary'}
+          alt={'Editar'}
+          title={'Editar'}
           startIcon={<EditIcon/>}
           disabled={row.status !== 'inProgress'}
           onClick={() => navigate(`/admin/surveys/test/${testId}/presentation/${row.id}`)}
@@ -83,6 +85,8 @@ export default function List() {
       title: 'Cancelar',
       component: (row) =>
         <Button
+          alt={'Cancelar'}
+          title={'Cancelar'}
           startIcon={<DeleteIcon/>}
           color={'error'}
           disabled={row.status !== 'inProgress'}

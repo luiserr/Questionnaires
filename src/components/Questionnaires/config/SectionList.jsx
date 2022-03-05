@@ -85,13 +85,19 @@ export default function SectionList({test}) {
                     <TableCell align="right">{section.numberQuestions}</TableCell>
                     <TableCell align="right">{section.savedQuestions}</TableCell>
                     <TableCell align="right">
-                      <IconButton aria-label="Modificar sección" onClick={() => handleEdit(section)}>
+                      <IconButton
+                        aria-label="Modificar sección"
+                        alt={'Editar'}
+                        title={'Editar'}
+                        onClick={() => handleEdit(section)}>
                         <EditIcon/>
                       </IconButton>
                     </TableCell>
                     <TableCell align="right">
                       <IconButton
                         disabled={test.presentations > 0}
+                        alt={'Eliminar'}
+                        title={'Eliminar'}
                         aria-label="Eliminar sección"
                         onClick={() => handleDelete(section.id)}
                       >

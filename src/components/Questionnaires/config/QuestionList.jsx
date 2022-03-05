@@ -82,14 +82,20 @@ export default function QuestionList({test, section}) {
                       </TableCell>
                       <TableCell>{question.totalAnswers}</TableCell>
                       <TableCell>
-                        <IconButton onClick={() => handleEditQuestion(question)} aria-label="delete">
+                        <IconButton
+                          alt={'Ver / Editar'}
+                          title={'Ver / Editar'}
+                          onClick={() => handleEditQuestion(question)}
+                          aria-label="delete">
                           <EditIcon/>
                         </IconButton>
                       </TableCell>
                       <TableCell>
                         <IconButton
                           disabled={test.presentations > 0}
-                          aria-label="delete"
+                          aria-label="Eliminar"
+                          alt={'Eliminar'}
+                          title={'Eliminar'}
                           onClick={()=> handleDelete(question.id)}
                         >
                           <DeleteIcon/>
