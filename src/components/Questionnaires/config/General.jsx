@@ -38,6 +38,7 @@ export default function General({test, setPayload}) {
             <TextField
               disabled={disabled}
               id="title"
+              required
               inputProps={{
                 maxLength: 150
               }}
@@ -49,7 +50,7 @@ export default function General({test, setPayload}) {
           </FormControl>
         </Grid>
         <Grid item xs={10} sx={{marginTop: '1em'}}>
-          <label>Descripción:</label>
+          <label>Descripción*</label>
           <JoditEditor
             config={config}
             value={description}

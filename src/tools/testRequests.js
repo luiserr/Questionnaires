@@ -1,8 +1,21 @@
-import {api, get, local, post} from '../utils/ajax';
+import {api, get, post} from '../utils/ajax';
+import {toast} from "../utils/alerts";
 
 export const general = async (payload) => {
   const response = await post(`${api}/tests`, payload, 'POST', true);
   return response?.success ? response.data : null;
+};
+
+const validate = (payload) => {
+  if (payload.title === '') {
+    toast('Título requerido', false);
+    return false;
+  }
+  if (payload.description === '') {
+    toast('Descripción requerido', false);
+    return false;
+  }
+  return true;
 };
 
 const question = (test) => {
@@ -16,17 +29,19 @@ const finish = (test) => {
 export const handleSave = async (step, test, payload, setTest, setStep, navigation) => {
   let result = test;
   if (step === 0) {
-    if (payload.wasEdit) {
-      result = await general(payload);
-    }
-    if (result) {
-      if (test.id) {
-        await setTest(result);
-        await setStep(1);
+    if (validate(payload)) {
+      if (payload.wasEdit) {
+        result = await general(payload);
+      }
+      if (result) {
+        if (test.id) {
+          await setTest(result);
+          await setStep(1);
+          return true;
+        }
+        await navigation(`/admin/surveys/test/${result.id}`, {state: {step: 1, test: result}});
         return true;
       }
-      await navigation(`/admin/surveys/test/${result.id}`, {state: {step: 1, test: result}});
-      return true;
     }
   }
   if (step === 1) {
