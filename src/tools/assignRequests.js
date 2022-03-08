@@ -57,7 +57,7 @@ export const getGroups = async (codes) => {
 }
 
 export async function saveAssign(testId, payload) {
-  const response = await post(`${api}/tests/${testId}/presentation`, payload, null, true);
+  const response = await post(`${api}/tests/${testId}/presentation`, payload, null, true, true);
   if (response && response?.success) {
     return response.data;
   }
@@ -65,7 +65,7 @@ export async function saveAssign(testId, payload) {
 }
 
 export async function deleteAssign(presentationId) {
-  const response = await post(`${api}/tests/presentation/${presentationId}/delete`, {}, 'DELETE', true);
+  const response = await post(`${api}/tests/presentation/${presentationId}/delete`, {}, 'DELETE', true, true);
   if (response && response?.success) {
     return response.data;
   }

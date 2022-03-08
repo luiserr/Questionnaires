@@ -15,6 +15,7 @@ import Box from "@mui/material/Box";
 import {useTest} from "../../components/hooks/testHook";
 import Breadcrumbs from "@mui/material/Breadcrumbs";
 import Link from "@mui/material/Link";
+import {toast} from "../../utils/alerts";
 
 export default function Section() {
 
@@ -51,12 +52,14 @@ export default function Section() {
 
 
   const handleBack = () => {
-    navigate(`/admin/surveys/test/${testId}`, {state: {step: 1}});
+    navigate(`/admin/surveys/test/${testId}`, {state: {step: 2}});
   };
 
   const handleSave = async () => {
-    const payload = {};
-    const newSection = await saveSection(testId, section.id, section.title, description, section.numberQuestions);
+    if(description === '' || description === '<p></p>') {
+      toast('Descripción requerida', false);
+    }
+    const newSection = await saveSection(testId, section.id, section.title, description, 0);
     if (newSection) {
       navigate(`/admin/surveys/test/${testId}/section/${newSection.id}`, {state: {section: newSection}});
     }
@@ -107,7 +110,7 @@ export default function Section() {
                   fullWidth
                   id="title"
                   disabled={disabled}
-                  label="Titulo"
+                  label="Título"
                   value={section.title}
                   onChange={(e) => setData('title', e.target.value)}
                   variant="outlined"
@@ -116,23 +119,23 @@ export default function Section() {
               </Box>
 
             </Grid>
-            <Grid item xs={6}>
-              <Box component="form" sx={{'& .MuiTextField-root': {m: 1}}}>
-                <TextField
-                  fullWidth
-                  id="title"
-                  label="Numero de preguntas"
-                  disabled={disabled}
-                  value={section.numberQuestions}
-                  onChange={(e) => setData('numberQuestions', e.target.value)}
-                  variant="outlined"
-                  size="small"
-                  type="number"
-                />
-              </Box>
-            </Grid>
+            {/*<Grid item xs={6}>*/}
+            {/*  <Box component="form" sx={{'& .MuiTextField-root': {m: 1}}}>*/}
+            {/*    <TextField*/}
+            {/*      fullWidth*/}
+            {/*      id="title"*/}
+            {/*      label="Número de preguntas"*/}
+            {/*      disabled={disabled}*/}
+            {/*      value={section.numberQuestions}*/}
+            {/*      onChange={(e) => setData('numberQuestions', e.target.value)}*/}
+            {/*      variant="outlined"*/}
+            {/*      size="small"*/}
+            {/*      type="number"*/}
+            {/*    />*/}
+            {/*  </Box>*/}
+            {/*</Grid>*/}
             <Grid item xs={10} sx={{marginTop: '1em'}}>
-              <label>Descripción:</label>
+              <label>Descripción *</label>
               <JoditEditor
                 config={config}
                 value={description}

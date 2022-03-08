@@ -9,7 +9,7 @@ export async function getPresentation(token) {
 }
 
 export async function initPresentation(payload) {
-  const response = await post(`${api}/tests/presentation`, payload, null, true);
+  const response = await post(`${api}/tests/presentation`, payload, null, true, true);
   if (response && response?.success) {
     return response.data;
   }
@@ -34,7 +34,7 @@ export async function saveAnswer(testId, presentationId, tryId, questionId, sect
     answers,
     _token: sessionStorage.getItem('_token')
   };
-  const response = await post(`${api}/tests/${testId}/presentation/${presentationId}/answer`, payload, null, true);
+  const response = await post(`${api}/tests/${testId}/presentation/${presentationId}/answer`, payload, null, true, true);
   if (response && response?.success) {
     return response.data;
   }
@@ -42,7 +42,7 @@ export async function saveAnswer(testId, presentationId, tryId, questionId, sect
 }
 
 export async function finishPresentation() {
-  const response = await post(`${api}/tests/presentation/finish`, {_token: sessionStorage.getItem('_token')}, null, true);
+  const response = await post(`${api}/tests/presentation/finish`, {_token: sessionStorage.getItem('_token')}, null, true, true);
   if (response && response?.success) {
     return response.data;
   }
@@ -50,7 +50,7 @@ export async function finishPresentation() {
 }
 
 export async function resetPresentation() {
-  const response = await post(`${api}/tests/presentation/reset`, {_token: sessionStorage.getItem('_token')}, null, true);
+  const response = await post(`${api}/tests/presentation/reset`, {_token: sessionStorage.getItem('_token')}, null, true, true);
   if (response && response?.success) {
     return response.data;
   }

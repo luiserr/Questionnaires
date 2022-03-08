@@ -11,8 +11,8 @@ const validate = (payload) => {
     toast('Título requerido', false);
     return false;
   }
-  if (payload.description === '') {
-    toast('Descripción requerido', false);
+  if (payload.description === '' || payload.description === '<p></p>') {
+    toast('Descripción requerida', false);
     return false;
   }
   return true;
@@ -32,6 +32,7 @@ export const handleSave = async (step, test, payload, setTest, setStep, navigati
     if (validate(payload)) {
       if (payload.wasEdit) {
         result = await general(payload);
+        toast('Encuesta creada en borrador', true);
       }
       if (result) {
         if (test.id) {
@@ -48,7 +49,10 @@ export const handleSave = async (step, test, payload, setTest, setStep, navigati
     setStep(2);
   }
   if (step === 2) {
-    return finish
+    setStep(3);
+  }
+  if (step === 3) {
+    return finish(test);
   }
 };
 
@@ -69,7 +73,7 @@ export const searchTest = async (page, perPage) => {
 };
 
 export const deleteTest = async (testId) => {
-  const response = await post(`${api}/test/${testId}`, {}, 'DELETE', true);
+  const response = await post(`${api}/test/${testId}`, {}, 'DELETE', true, true);
   if (response && response?.success) {
     return response.data;
   }
@@ -94,7 +98,7 @@ export async function findSection(testId, sectionId) {
 }
 
 export async function deleteSection(testId, sectionId) {
-  const response = await post(`${api}/tests/${testId}/section/${sectionId}/delete`, true, 'DELETE', true);
+  const response = await post(`${api}/tests/${testId}/section/${sectionId}/delete`, true, 'DELETE', true, true);
   if (response && response?.success) {
     return response.data;
   }
@@ -109,7 +113,7 @@ export async function saveSection(testId, id, title, description, numberQuestion
     description,
     numberQuestions
   };
-  const response = await post(`${api}/tests/${testId}/section`, payload, null, true);
+  const response = await post(`${api}/tests/${testId}/section`, payload, null, true, true);
   if (response && response?.success) {
     return response.data;
   }
@@ -133,7 +137,7 @@ export async function findQuestion(testId, sectionId, questionId) {
 }
 
 export async function saveQuestion(testId, sectionId, payload) {
-  const response = await post(`${api}/tests/${testId}/section/${sectionId}/question`, payload, null, true);
+  const response = await post(`${api}/tests/${testId}/section/${sectionId}/question`, payload, null, true, true);
   if (response && response?.success) {
     return response.data;
   }
@@ -141,7 +145,7 @@ export async function saveQuestion(testId, sectionId, payload) {
 }
 
 export async function deleteQuestion(testId, sectionId, questionId) {
-  const response = await post(`${api}/tests/${testId}/section/${sectionId}/question/${questionId}/delete`, {}, 'DELETE', true);
+  const response = await post(`${api}/tests/${testId}/section/${sectionId}/question/${questionId}/delete`, {}, 'DELETE', true, true);
   if (response && response?.success) {
     return response.data;
   }
@@ -175,7 +179,7 @@ export async function addQuestionBank(questionId, sectionId) {
     questionId,
     sectionId
   };
-  const response = await post(`${api}/tests/newQuestion/bank`, payload, null, true);
+  const response = await post(`${api}/tests/newQuestion/bank`, payload, null, true, true);
   if (response && response?.success) {
     return response.data;
   }

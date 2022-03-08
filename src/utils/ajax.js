@@ -1,5 +1,5 @@
 import {getDomain} from './tools';
-import {toast, loading} from './alerts';
+import {loading, toast} from './alerts';
 
 const domain = getDomain('tests');
 const prefixGradeCenter = 'gradeCenter';
@@ -18,13 +18,24 @@ myHeaders.append("Access-Control-Request-Headers", "*");
 myHeaders.append("Access-Control-Request-Method", "*");
 
 
-export const get = async (url, replaceAPI = false, prefix = prefixGradeCenter) => {
+/**
+ *
+ * @param url
+ * @param replaceAPI
+ * @param showMessage
+ * @returns {Promise<any|null>}
+ */
+export const get = async (url, replaceAPI = false, showMessage = false) => {
   loading();
-  const urlAPI = replaceAPI ? url : `${api}/${prefix}/${url}`;
+  // const urlAPI = replaceAPI ? url : `${api}/${prefix}/${url}`;
+  const urlAPI = replaceAPI ? url : `${api}/`;
   try {
     const response = await fetch(urlAPI);
+    loading(false);
     const data = await response.json();
-    toast(data.message, data.success);
+    if (showMessage) {
+      toast(data.message, data.success);
+    }
     return data ?? null;
   } catch (e) {
     toast('Error al realizar la consulta', false);
@@ -40,13 +51,14 @@ export const get = async (url, replaceAPI = false, prefix = prefixGradeCenter) =
  * @param payload: JSON
  * @param method: string
  * @param replaceAPI
- * @param prefix
+ * @param showMessage
  * @returns {Promise<*>}
  */
-export const post = async (url, payload = {}, method = 'POST', replaceAPI = false, prefix = prefixGradeCenter) => {
+export const post = async (url, payload = {}, method = 'POST', replaceAPI = false, showMessage = false) => {
   const body = JSON.stringify(payload);
   loading();
-  const urlAPI = replaceAPI ? url : `${api}/${prefix}/${url}`;
+  // const urlAPI = replaceAPI ? url : `${api}/${prefix}/${url}`;
+  const urlAPI = replaceAPI ? url : `${api}/`;
   const options = {
     headers: myHeaders,
     method: method ? method : 'POST',
@@ -55,7 +67,10 @@ export const post = async (url, payload = {}, method = 'POST', replaceAPI = fals
   try {
     const response = await fetch(urlAPI, options);
     const data = await response.json();
-    toast(data.message, data.success);
+    loading(false);
+    if (showMessage) {
+      toast(data.message, data.success);
+    }
     return await data;
   } catch (e) {
     toast('Error al realizar la consulta', false);

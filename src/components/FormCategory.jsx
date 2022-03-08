@@ -1,6 +1,7 @@
 import {Button, Grid, TextField} from "@mui/material";
 import React, {useState} from "react";
 import {saveCategory} from "../tools/categoryRequest";
+import {toast} from "../utils/alerts";
 
 export default function FormCategory({currentCategory, setVisible}) {
   const [category, setCategory] = useState({
@@ -17,9 +18,17 @@ export default function FormCategory({currentCategory, setVisible}) {
   };
 
   const handleSave = async () => {
+    if (category.name === '') {
+      return toast('Nombre requerido', false);
+    }
+    if (category.description === '') {
+      return toast('Descripción requerida', false);
+    }
     const response = await saveCategory(category.id, category.name, category.description);
     if (response) {
-      setVisible(false);
+      setTimeout(() => {
+        setVisible(false);
+      }, 3000);
     }
   }
 
@@ -32,6 +41,7 @@ export default function FormCategory({currentCategory, setVisible}) {
           }}
           label={'Nombre de la categoría'}
           fullWidth
+          required
           value={category.name}
           onChange={(e) => handleChange('name', e.target.value)}
         />
@@ -39,6 +49,7 @@ export default function FormCategory({currentCategory, setVisible}) {
       <Grid item xs={6}>
         <TextField
           rows={3}
+          required
           label={'Descripción de la categoría'}
           fullWidth
           value={category.description}

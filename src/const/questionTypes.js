@@ -3,6 +3,7 @@ export const MULTIPLE = 'multiple';
 export const SINGLE = 'single';
 export const BOOLEAN = 'boolean';
 export const MATRIX = 'matrix';
+export const NUMERIC = 'numeric';
 
 
 export default [
@@ -11,4 +12,5 @@ export default [
   {key: SINGLE, label: 'Opción unica'},
   {key: BOOLEAN, label: 'Falso y verdadero'},
   {key: MATRIX, label: 'Tabla Matriz'},
+  {key: NUMERIC, label: 'Númerica'}
 ];

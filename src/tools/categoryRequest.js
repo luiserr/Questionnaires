@@ -14,7 +14,7 @@ export const attachCategory = async (testId, categoryId, attach) => {
     categoryId,
     attach
   }
-  const response = await post(`${api}/tests/category/attach`, payload, null, true);
+  const response = await post(`${api}/tests/category/attach`, payload, null, true, true);
   if (response.success) {
     return response.data;
   }
@@ -26,14 +26,14 @@ export const saveCategory = async (categoryId, name, description) => {
     name,
     description
   };
-  const response = await post(`${api}/tests/category`, payload, null, true);
+  const response = await post(`${api}/tests/category`, payload, null, true, true);
   if (response.success) {
     return response.data;
   }
   return []
 }
 export const deleteCategory = async (categoryId) => {
-  const response = await post(`${api}/tests/category/${categoryId}`, {}, 'DELETE', true);
+  const response = await post(`${api}/tests/category/${categoryId}`, {}, 'DELETE', true, true);
   if (response.success) {
     return response.data;
   }

@@ -5,17 +5,16 @@ import Step from '@mui/material/Step';
 import StepLabel from '@mui/material/StepLabel';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
-import General from '../../components/Questionnaires/config/General';
 import Grid from "@mui/material/Grid";
 import useStepper from '../../components/hooks/stepperHook';
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
-import {finishTest, handleSave} from '../../tools/testRequests';
+import {handleSave} from '../../tools/testRequests';
 import {useTest} from "../../components/hooks/testHooks";
 import {useNavigate} from "react-router-dom";
 import {ArrowBack} from "@mui/icons-material";
 
-const steps = ['General', 'Categoría', 'Secciones y preguntas', 'Despedida'];
+const steps = ['Datos generales', 'Categoría', 'Secciones y preguntas', 'Despedida'];
 
 export default function Wizard(props) {
 
@@ -99,6 +98,7 @@ export default function Wizard(props) {
                 </Button>
                 <Box sx={{flex: '1 1 auto'}}/>
                 <Button
+                  color="inherit"
                   onClick={handleNext}
                   disabled={activeStep === steps.length - 1}
                 >

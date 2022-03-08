@@ -3,7 +3,7 @@ import {BOOLEAN, MATRIX, MULTIPLE, OPEN, SINGLE} from "../const/questionTypes";
 
 const general = (question) => {
   if (question.description === '') {
-    toast('Descripción de la pregunta es requerido', false);
+    toast('Descripción de la pregunta es requerida', false);
     return false;
   }
   if (question.answers.length <= 0 && question.questionType !== OPEN) {
@@ -26,15 +26,15 @@ const multiple = (answers = []) => {
 
 const matrix = (answers) => {
   if (!answers.firstColumn || !answers.secondColumn) {
-    toast('Respuesta mal configuradas', false);
+    toast('Respuestas mal configuradas', false);
     return false;
   }
   if (answers.firstColumn.length <= 0 || answers.secondColumn.length <= 0) {
-    toast('Respuesta mal configuradas', false);
+    toast('Respuestas mal configuradas', false);
     return false;
   }
   if (answers.firstColumn.length != answers.secondColumn.length) {
-    toast('Respuesta mal configuradas', false);
+    toast('Respuestas mal configuradas', false);
     return false;
   }
   for (let i = 0; i < answers.firstColumn.length; i++) {
@@ -61,7 +61,7 @@ export default function validate(question) {
         case MATRIX:
           return matrix(question.answers);
         default:
-          toast('Tipo de pregunta invalido', false);
+          toast('Debe seleccionar un tipo de pregunta', false);
           return false;
       }
     }

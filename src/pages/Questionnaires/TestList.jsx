@@ -7,7 +7,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import {deleteTest, searchTest} from '../../tools/testRequests';
 import {useNavigate} from "react-router-dom";
-import {Fab} from "@mui/material";
+import {Button} from "@mui/material";
 import AddIcon from '@mui/icons-material/Add';
 import MyTable from "../../components/commons/table";
 import AddTaskIcon from '@mui/icons-material/AddTask';
@@ -112,6 +112,16 @@ export default function TestList() {
     <Grid container>
       <h4>Listado de encuestas</h4>
       <Grid item xs={12}>
+        <Button
+          color="primary"
+          startIcon={<AddIcon/>}
+          variant={'contained'}
+          aria-label="add"
+          sx={{float: 'right', mt: 2, mb: 2}}
+          onClick={() => handleEdit('_')}
+        >
+          Crear encuesta
+        </Button>
         <MyTable
           handleSearch={handleSearch}
           actions={actions}
@@ -119,16 +129,6 @@ export default function TestList() {
           data={tests}
           headers={headers}
         />
-        <Fab
-          color="primary"
-          alt={'Crear encuesta'}
-          title={'Crear encuesta'}
-          aria-label="add"
-          sx={{float: 'right', marginTop: '2em'}}
-          onClick={() => handleEdit('_')}
-        >
-          <AddIcon/>
-        </Fab>
       </Grid>
 
     </Grid>

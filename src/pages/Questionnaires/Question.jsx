@@ -136,7 +136,7 @@ export default function Question() {
             </Grid>
             <Grid item xs={10}>
               <FormControlLabel control={<Switch
-                checked={question?.private === 1}
+                checked={question?.private === 1 || question?.private}
                 onChange={() => setQuestion({
                   ...question,
                   private: !question.private
@@ -144,7 +144,7 @@ export default function Question() {
               />} label="¿pertenece al banco de preguntas?"/>
             </Grid>
             <Grid item xs={10} sx={{marginTop: '1em'}}>
-              <label>Descripción:</label>
+              <label>Descripción *</label>
               <JoditEditor
                 config={config}
                 value={description}

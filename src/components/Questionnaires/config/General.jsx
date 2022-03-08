@@ -42,7 +42,7 @@ export default function General({test, setPayload}) {
               inputProps={{
                 maxLength: 150
               }}
-              label="Titulo"
+              label="Título"
               variant="outlined"
               value={title}
               onChange={(event) => setTitle(event.target.value)}

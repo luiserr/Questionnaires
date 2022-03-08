@@ -29,11 +29,15 @@ export const myAlert = (title, icon = 'error') => {
   Swal.fire(options);
 };
 
-export const loading = () => {
-  Swal.fire({
-    title: 'Cargando ...',
-    allowEscapeKey: false,
-    allowOutsideClick: false,
-    showConfirmButton: false
-  });
+export const loading = (load = true) => {
+  if (load) {
+    Swal.fire({
+      title: 'Cargando ...',
+      allowEscapeKey: false,
+      allowOutsideClick: false,
+      showConfirmButton: false
+    });
+  } else {
+    Swal.close();
+  }
 };

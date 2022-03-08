@@ -6,7 +6,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import FormCategory from "../../components/FormCategory";
 import {deleteCategory} from "../../tools/categoryRequest";
-import {useNavigate} from "react-router-dom";
+import {useLocation, useNavigate} from "react-router-dom";
 
 export default function Categories() {
   const [visible, setVisible] = useState(false);
@@ -14,6 +14,7 @@ export default function Categories() {
   const [category, setCategory] = useState({});
 
   const navigation = useNavigate();
+  const location = useLocation();
 
   const handleForm = (row = {}) => {
     setVisible(true);
@@ -26,8 +27,16 @@ export default function Categories() {
       setLoading(true);
       setTimeout(() => {
         setLoading(false);
-      }, 200);
+      }, 2000);
     }
+  };
+
+  const handleBack = () => {
+    const test = location?.state?.test;
+    if (test) {
+      return navigation(`/admin/surveys/test/${test.id}`, {state: {step: 1}});
+    }
+    return navigation(-1);
   };
 
   const actions = [
@@ -45,6 +54,7 @@ export default function Categories() {
       title: 'Eliminar',
       component: (row) =>
         <Button
+          disabled={row.tests > 0}
           alt={'Eliminar'}
           title={'Eliminar'}
           startIcon={<DeleteIcon/>}
@@ -58,7 +68,7 @@ export default function Categories() {
       <Button
         sx={{float: 'right'}}
         startIcon={<ArrowBackIcon/>}
-        onClick={() => navigation(-1)}
+        onClick={handleBack}
       >
         Regresar
       </Button>
@@ -68,7 +78,7 @@ export default function Categories() {
           {
             visible ? <FormCategory currentCategory={category} setVisible={setVisible}/> :
               <>
-                <Button onClick={() => setVisible(true)}>Crear categoría</Button>
+                <Button onClick={() => handleForm()}>Crear categoría</Button>
                 {
                   !loading && <CategoriesList actions={actions}/>
                 }

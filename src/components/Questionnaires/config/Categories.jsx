@@ -31,7 +31,7 @@ export default function Categories({test}) {
 
   const actions = [
     {
-      title: 'Seleccionar categoria',
+      title: 'Seleccionar categoría',
       component: (row) => <Button
         startIcon={<AddTaskIcon/>}
         alt={'Seleccionar'}
@@ -53,10 +53,10 @@ export default function Categories({test}) {
           <>
             <Button
               sx={{float: 'right'}}
-              onClick={()=>navigation(`/admin/surveys/categories`)}>
-              Gestionar categorias
+              onClick={() => navigation(`/admin/surveys/categories`, {state: {test}})}>
+              Gestionar categorías
             </Button>
-            <h4>Seleccione una categoria</h4>
+            <h4>Seleccione una categoría</h4>
             <CategoriesList actions={actions}/>
           </>
 
