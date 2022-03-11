@@ -212,9 +212,10 @@ export async function addDependency(
     questionId,
     dependsOfSection,
     dependsOperator,
+    dependsOfQuestion,
     answerId
   };
-  const response = await post(`${local}/tests/${testId}/section/${sectionId}/conditional`, payload, null);
+  const response = await post(`${local}/tests/${testId}/section/${sectionId}/conditional`, payload, null, true, true);
   if (response && response?.success) {
     return response.data;
   }
