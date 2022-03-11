@@ -43,6 +43,7 @@ export default function Question() {
     questionType: '',
     private: false,
     answers: [],
+    conditional: false,
     ...currentQuestion
   });
   const [description, setDescription] = useState(question.description);
@@ -142,6 +143,15 @@ export default function Question() {
                   private: !question.private
                 })}
               />} label="¿pertenece al banco de preguntas?"/>
+            </Grid>
+            <Grid item xs={10}>
+              <FormControlLabel control={<Switch
+                checked={question?.conditional === 1 || question?.conditional}
+                onChange={() => setQuestion({
+                  ...question,
+                  conditional: !question.conditional
+                })}
+              />} label="¿Esta pregunta es condicional para otra pregunta?"/>
             </Grid>
             <Grid item xs={10} sx={{marginTop: '1em'}}>
               <label>Descripción *</label>

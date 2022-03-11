@@ -54,7 +54,7 @@ export const get = async (url, replaceAPI = false, showMessage = false) => {
  * @param showMessage
  * @returns {Promise<*>}
  */
-export const post = async (url, payload = {}, method = 'POST', replaceAPI = false, showMessage = false) => {
+export const post = async (url, payload = {}, method = 'POST', replaceAPI = true, showMessage = false) => {
   const body = JSON.stringify(payload);
   loading();
   // const urlAPI = replaceAPI ? url : `${api}/${prefix}/${url}`;

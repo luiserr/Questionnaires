@@ -17,6 +17,7 @@ import {useNavigate} from "react-router-dom";
 import {deleteQuestion, getQuestions} from "../../../tools/testRequests";
 import Alert from "@mui/material/Alert";
 import Divider from "@mui/material/Divider";
+import AddLinkIcon from '@mui/icons-material/AddLink';
 
 
 export default function QuestionList({test, section}) {
@@ -40,6 +41,10 @@ export default function QuestionList({test, section}) {
 
   const handleEditQuestion = (question) => {
     navigate(`/admin/surveys/test/${test.id}/section/${section.id}/question/${question.id}`, {state: {test, section, question}});
+  }
+
+  const handleDependency = (question) => {
+    navigate(`/admin/surveys/test/${test.id}/section/${section.id}/question/${question.id}/dependency`, {state: {test, section, question}});
   };
 
   const handleBank = () => {
@@ -63,7 +68,10 @@ export default function QuestionList({test, section}) {
                   <TableRow>
                     <TableCell>Pregunta</TableCell>
                     <TableCell>Tipo</TableCell>
-                    <TableCell>Cantidad de respuestas configuradas</TableCell>
+                    <TableCell>Respuestas configuradas</TableCell>
+                    <TableCell>Es condición</TableCell>
+                    <TableCell>Depende de:</TableCell>
+                    <TableCell>Añadir dependencia</TableCell>
                     <TableCell>Ver / Editar</TableCell>
                     <TableCell>Eliminar</TableCell>
                   </TableRow>
@@ -81,6 +89,17 @@ export default function QuestionList({test, section}) {
                         {question.typeDescription}
                       </TableCell>
                       <TableCell>{question.totalAnswers}</TableCell>
+                      <TableCell>{question.conditional ? 'Si' : 'No'}</TableCell>
+                      <TableCell>{question.dependency ? question.dependency : 'No tiene dependencias'}</TableCell>
+                      <TableCell>
+                        <IconButton
+                          alt={'Añadir dependencia'}
+                          title={'Añadir dependencia'}
+                          onClick={() => handleDependency(question)}
+                          aria-label="dependency">
+                          <AddLinkIcon/>
+                        </IconButton>
+                      </TableCell>
                       <TableCell>
                         <IconButton
                           alt={'Ver / Editar'}

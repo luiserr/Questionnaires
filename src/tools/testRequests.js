@@ -1,4 +1,4 @@
-import {api, get, post} from '../utils/ajax';
+import {api, get, post, local} from '../utils/ajax';
 import {toast} from "../utils/alerts";
 
 export const general = async (payload) => {
@@ -180,6 +180,41 @@ export async function addQuestionBank(questionId, sectionId) {
     sectionId
   };
   const response = await post(`${api}/tests/newQuestion/bank`, payload, null, true, true);
+  if (response && response?.success) {
+    return response.data;
+  }
+  return null;
+}
+
+export async function getDependencies(questionId, sectionId, testId) {
+  const payload = {
+    questionId,
+    sectionId,
+    testId
+  };
+  const response = await post(`${api}/tests/conditionals`, payload, null);
+  if (response && response?.success) {
+    return response.data;
+  }
+  return null;
+}
+
+export async function addDependency(
+  questionId,
+  sectionId,
+  testId,
+  dependsOfSection,
+  dependsOfQuestion,
+  dependsOperator,
+  answerId
+) {
+  const payload = {
+    questionId,
+    dependsOfSection,
+    dependsOperator,
+    answerId
+  };
+  const response = await post(`${local}/tests/${testId}/section/${sectionId}/conditional`, payload, null);
   if (response && response?.success) {
     return response.data;
   }
