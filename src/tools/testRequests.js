@@ -234,7 +234,7 @@ export async function deleteDependency(questionId, sectionId, testId,) {
 }
 
 export async function preview(testId) {
-  const response = await get(`${local}/tests/${testId}/preview`, true);
+  const response = await get(`${api}/tests/${testId}/preview`, true);
   if (response && response?.success) {
     return response.data;
   }

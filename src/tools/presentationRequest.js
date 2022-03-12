@@ -1,7 +1,7 @@
 import {api, get, local, post} from "../utils/ajax";
 
 export async function getPresentation(token) {
-  const response = await post(`${local}/tests/assignment`, {_token: token}, null, true);
+  const response = await post(`${api}/tests/assignment`, {_token: token}, null, true);
   if (response && response?.success) {
     return response.data;
   }
