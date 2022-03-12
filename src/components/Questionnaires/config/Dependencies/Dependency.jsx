@@ -4,7 +4,7 @@ import {useOperator} from "../../../hooks/dependencyHook";
 import {v4} from "uuid";
 import {addDependency} from "../../../../tools/testRequests";
 
-export default function Dependency({question, testId, dependsOfSection, currentSection, currentQuestion}) {
+export default function Dependency({question, testId, dependsOfSection, currentSection, currentQuestion, setVisible}) {
 
   const operators = useOperator(question.type);
 
@@ -21,6 +21,7 @@ export default function Dependency({question, testId, dependsOfSection, currentS
       operator,
       answer
     );
+    setVisible(false);
   }
 
   return (

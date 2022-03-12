@@ -3,13 +3,15 @@ import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import React, {useEffect, useState} from "react";
 import {Alert, Box, Card, CardContent, Grid} from "@mui/material";
 import {getDependencies} from "../../tools/testRequests";
-import {useLocation, useParams} from "react-router-dom";
+import {useLocation, useNavigate, useParams} from "react-router-dom";
 import Dependencies from "../../components/Questionnaires/config/Dependencies/Dependencies";
 
 export default function Dependency() {
   const [dependencies, setDependencies] = useState([]);
 
   const location = useLocation();
+
+  const navigation = useNavigate();
 
   const question = location.state.question;
 
@@ -21,7 +23,7 @@ export default function Dependency() {
   }, []);
 
   const handleBack = () => {
-
+    navigation(-1);
   };
 
   return (

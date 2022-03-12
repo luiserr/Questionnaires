@@ -4,6 +4,7 @@ import {v4} from "uuid";
 import CustomModal from "../../../commons/Modal";
 import Dependency from "./Dependency";
 import AddLinkIcon from '@mui/icons-material/AddLink';
+import LinkOffIcon from '@mui/icons-material/LinkOff';
 
 const center = {
   sx: {textAlign: 'center'}
@@ -35,7 +36,7 @@ export default function QuestionList(
               <TableCell align={'center'}>Id</TableCell>
               <TableCell align="center">Título</TableCell>
               <TableCell align="center">Tipo</TableCell>
-              <TableCell align="center">Añadir como dependencia</TableCell>
+              <TableCell align="center">Gestionar dependencia</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -48,12 +49,19 @@ export default function QuestionList(
                 <TableCell {...center} component="th" scope="row">{question.title}</TableCell>
                 <TableCell {...center} component="th" scope="row">{question.typeDescription}</TableCell>
                 <TableCell {...center} component="th" scope="row">
-                  <Button
-                    alt={'Añadir como dependencia'}
-                    title={'Añadir como dependencia'}
-                    startIcon={<AddLinkIcon/>}
-                    onClick={() => handleClick(question)}
-                  />
+                  {currentQuestion.dependsOfQuestion === question.id ?
+                    <Button
+                      alt={'Eliminar dependencia'}
+                      title={'Eliminar dependencia'}
+                      startIcon={<LinkOffIcon/>}
+                    />
+                    :
+                    <Button
+                      alt={'Añadir como dependencia'}
+                      title={'Añadir como dependencia'}
+                      startIcon={<AddLinkIcon/>}
+                      onClick={() => handleClick(question)}
+                    />}
                 </TableCell>
               </TableRow>
             ))}
@@ -67,6 +75,7 @@ export default function QuestionList(
           currentSection={currentSection}
           currentQuestion={currentQuestion}
           dependsOfSection={dependsOfSection}
+          setVisible={setVisible}
         />
       </CustomModal>
     </Grid>

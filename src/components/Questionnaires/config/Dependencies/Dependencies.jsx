@@ -15,6 +15,10 @@ export default function Dependencies({dependencies, testId, currentSection, curr
             id="panel1a-header"
           >
             <Typography>{dependency.title}</Typography>
+            {
+              currentSection === dependency.id &&
+              <Typography sx={{color: 'text.secondary'}}>Dependencia esta enesta sección</Typography>
+            }
           </AccordionSummary>
           <AccordionDetails>
             <QuestionList
