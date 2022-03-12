@@ -4,7 +4,7 @@ import React from "react";
 import FormControl from "@mui/material/FormControl";
 import {FormControlLabel, Radio, RadioGroup} from "@mui/material";
 
-export default function Boolean({question, setQuestion, indexQuestion}) {
+export default function Boolean({question, setQuestion, indexQuestion, preview}) {
 
   const handleChange = (id) => {
     let answers = [id];
@@ -37,6 +37,7 @@ export default function Boolean({question, setQuestion, indexQuestion}) {
                 <FormControlLabel
                   key={answer.id}
                   value="female"
+                  disabled={preview}
                   control={<Radio checked={isChecked(answer.id)} onChange={(e, checked) => handleChange(answer.id)}/>}
                   label={answer?.description}/>
               )

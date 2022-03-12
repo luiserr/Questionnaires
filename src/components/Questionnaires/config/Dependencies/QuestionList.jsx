@@ -4,7 +4,9 @@ import {v4} from "uuid";
 import CustomModal from "../../../commons/Modal";
 import Dependency from "./Dependency";
 import AddLinkIcon from '@mui/icons-material/AddLink';
-import LinkOffIcon from '@mui/icons-material/LinkOff';
+import DeleteIcon from '@mui/icons-material/Delete';
+import {deleteDependency} from "../../../../tools/testRequests";
+import {useNavigate} from "react-router-dom";
 
 const center = {
   sx: {textAlign: 'center'}
@@ -21,11 +23,21 @@ export default function QuestionList(
 
   const [visible, setVisible] = useState(false);
   const [question, setQuestion] = useState({});
+  const navigate = useNavigate();
 
   const handleClick = (currentQuestion) => {
     setQuestion(currentQuestion);
     setVisible(true);
   }
+
+  const handleDelete = async () => {
+    const response = await deleteDependency(currentQuestion.id, currentSection, testId);
+    if (response) {
+      setTimeout(() => {
+        navigate(-1);
+      }, 3000);
+    }
+  };
 
   return (
     <Grid item xs={12}>
@@ -43,7 +55,10 @@ export default function QuestionList(
             {questions.map((question) => (
               <TableRow
                 key={v4()}
-                sx={{'&:last-child td, &:last-child th': {border: 0}}}
+                sx={{
+                  '&:last-child td, &:last-child th': {border: 0},
+                  backgroundColor: currentQuestion.dependsOfQuestion === question.id ? '#C9E9F5' : '#fff'
+                }}
               >
                 <TableCell {...center} component="th" scope="row">{question.id}</TableCell>
                 <TableCell {...center} component="th" scope="row">{question.title}</TableCell>
@@ -53,7 +68,8 @@ export default function QuestionList(
                     <Button
                       alt={'Eliminar dependencia'}
                       title={'Eliminar dependencia'}
-                      startIcon={<LinkOffIcon/>}
+                      startIcon={<DeleteIcon/>}
+                      onClick={handleDelete}
                     />
                     :
                     <Button

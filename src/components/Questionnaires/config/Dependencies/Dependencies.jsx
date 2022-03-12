@@ -14,10 +14,10 @@ export default function Dependencies({dependencies, testId, currentSection, curr
             aria-controls="panel1a-content"
             id="panel1a-header"
           >
-            <Typography>{dependency.title}</Typography>
+            <Typography sx={{width: '33%'}}>{dependency.title}</Typography>
             {
-              currentSection === dependency.id &&
-              <Typography sx={{color: 'text.secondary'}}>Dependencia esta enesta sección</Typography>
+              currentQuestion.dependsOfSection === dependency.id &&
+              <Typography sx={{color: 'text.secondary'}}>Dependencia esta en esta sección</Typography>
             }
           </AccordionSummary>
           <AccordionDetails>

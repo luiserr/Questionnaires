@@ -29,7 +29,7 @@ function a11yProps(index) {
   };
 }
 
-export default function Section({presentation, section, setSection, activeSection, handleNext, handleTab}) {
+export default function Section({presentation, section, setSection, activeSection, handleNext, handleTab, preview}) {
 
   const [tab, setTab] = useState(0);
   const [page, setPage] = useState(1);
@@ -63,7 +63,8 @@ export default function Section({presentation, section, setSection, activeSectio
     const questions = section?.questions;
     const lastQuestion = questions[lastIndex];
     if (
-      !lastQuestion?.attempts?.save
+      !preview
+      && !lastQuestion?.attempts?.save
       && validate(lastQuestion)
       && !readOnly
     ) {
@@ -121,6 +122,7 @@ export default function Section({presentation, section, setSection, activeSectio
                       handleSave={handleChange}
                       handleNext={handleNext}
                       handleTab={handleTab}
+                      preview={preview}
                     />
                 }
               </>

@@ -1,4 +1,4 @@
-import {api, get, post, local} from '../utils/ajax';
+import {api, get, local, post} from '../utils/ajax';
 import {toast} from "../utils/alerts";
 
 export const general = async (payload) => {
@@ -215,9 +215,28 @@ export async function addDependency(
     dependsOfQuestion,
     answerId
   };
-  const response = await post(`${local}/tests/${testId}/section/${sectionId}/conditional`, payload, null, true, true);
+  const response = await post(`${api}/tests/${testId}/section/${sectionId}/conditional`, payload, null, true, true);
   if (response && response?.success) {
     return response.data;
   }
   return null;
+}
+
+export async function deleteDependency(questionId, sectionId, testId,) {
+  const payload = {
+    questionId
+  };
+  const response = await post(`${api}/tests/${testId}/section/${sectionId}/conditional/delete`, payload, 'DELETE', true, true);
+  if (response && response?.success) {
+    return response.data;
+  }
+  return null;
+}
+
+export async function preview(testId) {
+  const response = await get(`${local}/tests/${testId}/preview`, true);
+  if (response && response?.success) {
+    return response.data;
+  }
+  return [];
 }

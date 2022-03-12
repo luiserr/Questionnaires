@@ -19,7 +19,9 @@ import useQuestion from "../../components/hooks/questionHook";
 import validate from "../../tools/validateQuestion";
 import Breadcrumbs from "@mui/material/Breadcrumbs";
 import Link from "@mui/material/Link";
-import {FormControlLabel, Switch} from "@mui/material";
+import {FormControl, FormControlLabel, Switch} from "@mui/material";
+import {v4} from "uuid";
+import {validations} from "../../const/validations";
 
 
 export default function Question() {
@@ -44,6 +46,7 @@ export default function Question() {
     private: false,
     answers: [],
     conditional: false,
+    validation: 'none',
     ...currentQuestion
   });
   const [description, setDescription] = useState(question.description);
@@ -112,7 +115,7 @@ export default function Question() {
           >
             Regresar
           </Button>
-          <Grid container>
+          <Grid container spacing={2}>
             <Grid item xs={10}>
               <Box component="form" sx={{marginTop: '1.5em'}}>
                 <InputLabel id="questionTypeLabel">Tipo de pregunta</InputLabel>
@@ -151,7 +154,27 @@ export default function Question() {
                   ...question,
                   conditional: !question.conditional
                 })}
-              />} label="¿Esta pregunta es condicional para otra pregunta?"/>
+              />} label="¿Esta pregunta es condición para otra pregunta?"/>
+            </Grid>
+            <Grid item xs={4}>
+              <FormControl fullWidth>
+                <InputLabel id="operator">Tipo de validación</InputLabel>
+                <Select
+                  labelId="answer"
+                  id="demo-simple-select"
+                  label="Tipo de validación"
+                  fullWidth
+                  value={question?.validation ? question?.validation : 'none'}
+                  onChange={(e) => setQuestion({...question, validation: e.target.value})}
+                >
+
+                  {
+                    validations?.map((validation) =>
+                      <MenuItem key={v4()} value={ validation.id}>{validation.label}</MenuItem>
+                    )
+                  }
+                < /Select>
+              </FormControl>
             </Grid>
             <Grid item xs={10} sx={{marginTop: '1em'}}>
               <label>Descripción *</label>

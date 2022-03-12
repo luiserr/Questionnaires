@@ -11,7 +11,7 @@ import {KeyboardArrowLeft, KeyboardArrowRight} from "@mui/icons-material";
 import {myAlert} from "../../../utils/alerts";
 import {CircularProgress} from "@mui/material";
 
-export default function Sections({presentation, setPresentation, handleTab}) {
+export default function Sections({presentation, setPresentation, handleTab, preview}) {
   const theme = useTheme();
   const [activeSection, setActiveSection] = useState(0);
   const [loading, setLoading] = useState(true);
@@ -94,6 +94,7 @@ export default function Sections({presentation, setPresentation, handleTab}) {
                 handleNext={nextSection}
                 activeSection={activeSection}
                 handleTab={handleTab}
+                preview={preview}
               />}
         </div>
       </Box>

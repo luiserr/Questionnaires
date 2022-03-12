@@ -3,6 +3,8 @@ import {Button, FormControl, Grid, InputLabel, MenuItem, Select} from "@mui/mate
 import {useOperator} from "../../../hooks/dependencyHook";
 import {v4} from "uuid";
 import {addDependency} from "../../../../tools/testRequests";
+import {toast} from "../../../../utils/alerts";
+import {useNavigate} from "react-router-dom";
 
 export default function Dependency({question, testId, dependsOfSection, currentSection, currentQuestion, setVisible}) {
 
@@ -11,7 +13,12 @@ export default function Dependency({question, testId, dependsOfSection, currentS
   const [operator, setOperator] = useState('');
   const [answer, setAnswer] = useState(null);
 
+  const navigate = useNavigate();
+
   const handleSave = async () => {
+    if (operator === '' || answer === null) {
+      toast('Debe seleccionar el operador y la respuesta', false);
+    }
     const response = await addDependency(
       currentQuestion.id,
       currentSection,
@@ -22,6 +29,9 @@ export default function Dependency({question, testId, dependsOfSection, currentS
       answer
     );
     setVisible(false);
+    setTimeout(() => {
+      navigate(-1);
+    }, 3000);
   }
 
   return (
@@ -31,8 +41,7 @@ export default function Dependency({question, testId, dependsOfSection, currentS
           <InputLabel id="operator">Sí la respuesta es</InputLabel>
           <Select
             labelId="operator"
-            id="demo-simple-select"
-            label="Operador"
+            label="Sí la respuesta es"
             fullWidth
             value={operator}
             onChange={(e) => setOperator(e.target.value)}
@@ -52,8 +61,7 @@ export default function Dependency({question, testId, dependsOfSection, currentS
           <InputLabel id="operator">Seleccione la respuesta</InputLabel>
           <Select
             labelId="answer"
-            id="demo-simple-select"
-            label="Respuesta"
+            label="Seleccione la respuesta"
             fullWidth
             value={answer}
             onChange={(e) => setAnswer(e.target.value)}

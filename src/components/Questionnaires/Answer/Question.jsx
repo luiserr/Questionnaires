@@ -13,10 +13,11 @@ export default function Question(
     handleNext,
     handleSave,
     handleTab,
-    readOnly
+    readOnly,
+    preview
   }) {
 
-  const Question = useQuestion(question, setQuestion, indexQuestion);
+  const Question = useQuestion(question, setQuestion, indexQuestion, preview);
 
   const handleNextSection = async () => {
     await handleSave(indexQuestion);
@@ -37,7 +38,7 @@ export default function Question(
         {Question}
       </Box>
       <Box sx={{mt: 1}}>
-        {(!lastSection && !readOnly) &&
+        {(!lastSection && !readOnly && !preview) &&
           <Button
             sx={{float: 'left'}}
             onClick={() => handleSave(indexQuestion + 1)}
@@ -53,7 +54,7 @@ export default function Question(
             color={'info'}
             variant={'outlined'}
           >Siguiente sección</Button>}
-        {(lastSection && !readOnly) && <Button variant={'outlined'} onClick={handleAnswer} sx={{float: 'right'}}>Guardar respuesta y
+        {(lastSection && !readOnly && !preview) && <Button variant={'outlined'} onClick={handleAnswer} sx={{float: 'right'}}>Guardar respuesta y
           finalizar</Button>}
       </Box>
     </>

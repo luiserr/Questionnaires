@@ -49,7 +49,7 @@ export default function BasicTabs() {
     handleChange(null, 2);
   }
 
-  const TabPanel = usePresentation(presentation, setPresentation, value, handleTab);
+  const TabPanel = usePresentation(presentation, setPresentation, value, handleTab, presentation?.preview);
 
   return (
     <>

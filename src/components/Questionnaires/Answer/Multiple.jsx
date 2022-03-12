@@ -4,7 +4,7 @@ import Checkbox from "@mui/material/Checkbox";
 import * as PropTypes from 'prop-types';
 import React from "react";
 
-export default function Multiple({question, setQuestion, indexQuestion}) {
+export default function Multiple({question, setQuestion, indexQuestion, preview}) {
 
   const handleChange = (id, checked) => {
     let answers = question?.attempts?.answers ?? [];
@@ -36,6 +36,7 @@ export default function Multiple({question, setQuestion, indexQuestion}) {
               key={answer.id}
               control={
                 <Checkbox
+                  disabled={preview}
                   checked={isChecked(answer.id)}
                   onChange={(e) => handleChange(answer.id, e.target.checked)}
                 />
