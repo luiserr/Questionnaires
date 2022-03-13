@@ -129,7 +129,7 @@ export async function getQuestions(testId, sectionId) {
 }
 
 export async function findQuestion(testId, sectionId, questionId) {
-  const response = await get(`${api}/tests/${testId}/section/${sectionId}/question/${questionId}`, true);
+  const response = await get(`${local}/tests/${testId}/section/${sectionId}/question/${questionId}`, true);
   if (response && response?.success) {
     return response.data;
   }
@@ -137,7 +137,7 @@ export async function findQuestion(testId, sectionId, questionId) {
 }
 
 export async function saveQuestion(testId, sectionId, payload) {
-  const response = await post(`${api}/tests/${testId}/section/${sectionId}/question`, payload, null, true, true);
+  const response = await post(`${local}/tests/${testId}/section/${sectionId}/question`, payload, null, true, true);
   if (response && response?.success) {
     return response.data;
   }

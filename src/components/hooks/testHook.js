@@ -2,7 +2,7 @@ import React, {useEffect, useState} from "react";
 import Info from '../Questionnaires/Answer/Info';
 import Sections from '../Questionnaires/Answer/Sections';
 import {findTest} from '../../tools/testRequests';
-import {BOOLEAN, MATRIX, MULTIPLE, OPEN, SINGLE} from "../../const/questionTypes";
+import {BOOLEAN, MATRIX, MULTIPLE, NUMERIC, OPEN, SINGLE} from "../../const/questionTypes";
 import Multiple from "../Questionnaires/Answer/Multiple";
 import Boolean from "../Questionnaires/Answer/Boolean";
 import Single from "../Questionnaires/Answer/Single";
@@ -52,6 +52,7 @@ export function useQuestion(question, setQuestion, indexQuestion, preview) {
     case BOOLEAN:
       return <Boolean question={question} setQuestion={setQuestion} indexQuestion={indexQuestion} preview={preview}/>;
     case SINGLE:
+    case NUMERIC:
       return <Single question={question} setQuestion={setQuestion} indexQuestion={indexQuestion} preview={preview}/>;
     case MATRIX:
       return <Matrix question={question} setQuestion={setQuestion} indexQuestion={indexQuestion} preview={preview}/>;

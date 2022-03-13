@@ -1,5 +1,5 @@
 import {toast} from "../utils/alerts";
-import {BOOLEAN, MATRIX, MULTIPLE, OPEN, SINGLE} from "../const/questionTypes";
+import {BOOLEAN, MATRIX, MULTIPLE, NUMERIC, OPEN, SINGLE} from "../const/questionTypes";
 
 const general = (question) => {
   if (question.description === '') {
@@ -57,6 +57,7 @@ export default function validate(question) {
         case MULTIPLE:
         case SINGLE:
         case BOOLEAN:
+        case NUMERIC:
           return multiple(question.answers);
         case MATRIX:
           return matrix(question.answers);

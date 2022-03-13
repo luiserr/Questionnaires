@@ -2,24 +2,31 @@ import React, {useEffect, useState} from "react";
 import {Grid, TextField} from "@mui/material";
 import PropTypes from 'prop-types';
 import {toast} from "../../../../utils/alerts";
+import {v4} from "uuid";
 
-export default function Numeric({question, answers = [], setAnswer, disabled}) {
+export default function Numeric({question, answers: range = [], setAnswer: setRange, disabled}) {
 
-  const [min, setMin] = useState(1);
-  const [max, setMax] = useState(5);
-  const [range, setRange] = useState([]);
+  const [min, setMin] = useState(range[0]?.value ?? 1);
+  const [max, setMax] = useState(range[range.length - 1]?.value ?? 3);
 
   useEffect(() => {
     let newRange = [];
     for (let i = min; i <= max; i++) {
-      const oldValue = range.find(item => parseInt(item.id) === i);
+      const oldValue = range.find(item => parseInt(item.value) === i);
       newRange = [...newRange, {
-        id: parseInt(oldValue?.id ?? i),
+        id: oldValue?.id ?? v4(),
+        value: parseInt(oldValue?.value ?? i),
         description: oldValue?.description ?? ''
       }];
     }
     setRange(newRange);
   }, [min, max]);
+
+  useEffect(() => {
+    if (range?.length) {
+      setMax(range[range.length - 1]?.value);
+    }
+  }, [range])
 
 
   const handleMin = (value) => {
@@ -36,9 +43,9 @@ export default function Numeric({question, answers = [], setAnswer, disabled}) {
     setMax(value);
   }
 
-  const changeValue = (id, value) => {
+  const changeValue = (index, value) => {
     const newRange = range.map((item) => {
-      if (item.id === id) {
+      if (item.value === index) {
         item = {
           ...item,
           description: value
@@ -50,12 +57,13 @@ export default function Numeric({question, answers = [], setAnswer, disabled}) {
   }
 
   const paintInputs = () => {
-    return range.map((item) =>
-      <Grid key={item.id} item xs={12}>
+    return range?.map((item) =>
+      <Grid key={item.value} item xs={12}>
         <TextField
-          label={`Número ${item.id}`}
+          label={`Número ${item.value}`}
           value={item.description}
-          onChange={(e) => changeValue(item.id, e.target.value)}
+          disabled={disabled}
+          onChange={(e) => changeValue(item.value, e.target.value)}
         />
       </Grid>
     )
@@ -68,6 +76,7 @@ export default function Numeric({question, answers = [], setAnswer, disabled}) {
           label={'Número inicial'}
           value={min}
           type={'number'}
+          disabled={disabled}
           inputProps={{
             min: 1
           }}
@@ -80,6 +89,7 @@ export default function Numeric({question, answers = [], setAnswer, disabled}) {
           label={'Número final'}
           value={max}
           type={'number'}
+          disabled={disabled}
           inputProps={{
             min: 2
           }}

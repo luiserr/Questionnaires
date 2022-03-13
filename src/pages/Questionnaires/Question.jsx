@@ -14,7 +14,7 @@ import MenuItem from "@mui/material/MenuItem";
 
 import {useTest} from "../../components/hooks/testHook";
 import {findQuestion, saveQuestion} from "../../tools/testRequests";
-import questionTypes from "../../const/questionTypes";
+import questionTypes, {MATRIX, MULTIPLE, OPEN} from "../../const/questionTypes";
 import useQuestion from "../../components/hooks/questionHook";
 import validate from "../../tools/validateQuestion";
 import Breadcrumbs from "@mui/material/Breadcrumbs";
@@ -117,7 +117,7 @@ export default function Question() {
           </Button>
           <Grid container spacing={1}>
             <Grid item xs={10}>
-              <Box component="form" sx={{marginTop: '1.5em'}}>
+              <Box component="form" sx={{mt: 1}}>
                 <InputLabel id="questionTypeLabel">Tipo de pregunta</InputLabel>
                 <Select
                   disabled={disabled || question.id !== null}
@@ -147,15 +147,17 @@ export default function Question() {
                 })}
               />} label="¿pertenece al banco de preguntas?"/>
             </Grid>
-            <Grid item xs={10}>
-              <FormControlLabel control={<Switch
-                checked={question?.conditional === 1 || question?.conditional}
-                onChange={() => setQuestion({
-                  ...question,
-                  conditional: !question.conditional
-                })}
-              />} label="¿Esta pregunta es condición para otra pregunta?"/>
-            </Grid>
+            {![OPEN, MULTIPLE, MATRIX].includes(question.questionType) &&
+              <Grid item xs={10}>
+                <FormControlLabel control={<Switch
+                  checked={question?.conditional === 1 || question?.conditional}
+                  onChange={() => setQuestion({
+                    ...question,
+                    conditional: !question.conditional
+                  })}
+                />} label="¿Esta pregunta es condición para otra pregunta?"/>
+              </Grid>
+            }
             <Grid item xs={4}>
               <FormControl fullWidth>
                 <InputLabel id="operator">Tipo de validación</InputLabel>
@@ -170,7 +172,7 @@ export default function Question() {
 
                   {
                     validations?.map((validation) =>
-                      <MenuItem key={v4()} value={ validation.id}>{validation.label}</MenuItem>
+                      <MenuItem key={v4()} value={validation.id}>{validation.label}</MenuItem>
                     )
                   }
                 < /Select>
