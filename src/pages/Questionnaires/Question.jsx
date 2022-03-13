@@ -115,7 +115,7 @@ export default function Question() {
           >
             Regresar
           </Button>
-          <Grid container spacing={2}>
+          <Grid container spacing={1}>
             <Grid item xs={10}>
               <Box component="form" sx={{marginTop: '1.5em'}}>
                 <InputLabel id="questionTypeLabel">Tipo de pregunta</InputLabel>
