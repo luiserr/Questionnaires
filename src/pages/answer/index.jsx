@@ -8,6 +8,8 @@ import React, {useEffect, useState} from "react";
 import {useNavigate, useParams} from "react-router-dom";
 import {getPresentation} from "../../tools/presentationRequest";
 import {myAlert} from "../../utils/alerts";
+import {Button} from "@mui/material";
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
 function a11yProps(index) {
   return {
@@ -24,8 +26,9 @@ export default function BasicTabs() {
 
   const navigate = useNavigate();
 
-  const handleToken = (token) => {
-    sessionStorage.setItem('_token', token);
+  const handleToken = (decodeToken) => {
+    // const decodeToken = atob(token);
+    sessionStorage.setItem('_token', decodeToken);
   }
 
   useEffect(async () => {
@@ -35,9 +38,10 @@ export default function BasicTabs() {
         setTimeout(() => {
           myAlert('Error al mostrar la información de la encuesta');
         }, 3000);
+      } else {
+        handleToken(token);
+        setPresentation(myPresentation);
       }
-      handleToken(token);
-      setPresentation(myPresentation);
     }
   }, [presentation]);
 
@@ -49,6 +53,10 @@ export default function BasicTabs() {
     handleChange(null, 2);
   }
 
+  const handleBack = () => {
+    navigate(`/admin/surveys/test/${presentation?.id}`, {state: {step: 3}});
+  }
+
   const TabPanel = usePresentation(presentation, setPresentation, value, handleTab, presentation?.preview);
 
   return (
@@ -56,6 +64,13 @@ export default function BasicTabs() {
       <Header/>
       <Grid container>
         <Box sx={{width: '90%', margin: '0 auto', marginTop: '2em'}}>
+          {presentation?.preview && <Button
+            startIcon={<ArrowBackIcon/>}
+            sx={{float: 'right'}}
+            onClick={handleBack}
+          >
+            Regresar
+          </Button>}
           <Box sx={{borderBottom: 1, borderColor: 'divider'}}>
             <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
               <Tab label="Presentación" {...a11yProps(0)} />
@@ -72,5 +87,4 @@ export default function BasicTabs() {
       </Grid>
     </>
   )
-
 }

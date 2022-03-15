@@ -15,7 +15,7 @@ export default function Roles({data, setData, setPayload, payload}) {
     let myRoles = payload?.regionals?.roles ?? [];
     if (checked) {
       if (!myRoles.find(rol => rol.id === row.id)) {
-        myRoles.push(row.id);
+        myRoles.push(row);
       }
     } else {
       myRoles = myRoles.filter(rol => rol.id !== row.id);

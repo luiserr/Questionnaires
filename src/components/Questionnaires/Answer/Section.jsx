@@ -123,6 +123,7 @@ export default function Section({presentation, section, setSection, activeSectio
                       handleNext={handleNext}
                       handleTab={handleTab}
                       preview={preview}
+                      presentation={presentation}
                     />
                 }
               </>

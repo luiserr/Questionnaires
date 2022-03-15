@@ -4,7 +4,8 @@ import React from 'react';
 
 const headers = [
   createHeader('id', 'Id'),
-  createHeader('name', 'Nombre')
+  createHeader('name', 'Nivel de formación'),
+  createHeader('type', 'Tipo de programa'),
 ];
 
 export default function CourseTypes({data, setData, setPayload, payload}) {

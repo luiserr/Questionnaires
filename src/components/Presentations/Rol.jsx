@@ -19,11 +19,12 @@ export default function Roles({data, setData, payload, setPayload}) {
   }, []);
 
   const handleCheck = (checked, row) => {
-    const myRoles = [...payload?.roles];
+    let myRoles = [...payload?.roles];
+    console.log(myRoles);
     if (checked) {
       myRoles.push(row);
     } else {
-      myRoles.filter(rol => rol.id !== row.id);
+      myRoles = myRoles.filter(rol => parseInt(rol.id) !== parseInt(row.id));
     }
     setPayload({
       ...payload,
@@ -32,7 +33,9 @@ export default function Roles({data, setData, payload, setPayload}) {
   };
 
   const isChecked = (id) => {
-    return payload?.roles?.find(rol => rol.id === id) !== undefined;
+    const x = typeof  payload?.roles?.find(rol => rol.id === id) !== 'undefined';
+    console.log(x);
+    return x;
   };
 
   return (

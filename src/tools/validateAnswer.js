@@ -1,4 +1,4 @@
-import {BOOLEAN, MATRIX, MULTIPLE, OPEN, SINGLE} from "../const/questionTypes";
+import {BOOLEAN, MATRIX, MULTIPLE, NUMERIC, OPEN, SINGLE} from "../const/questionTypes";
 import {toast} from "../utils/alerts";
 
 const multiple = (answers) => {
@@ -36,6 +36,7 @@ export default function validate(question) {
     case MULTIPLE:
     case SINGLE:
     case BOOLEAN:
+    case NUMERIC:
       return multiple(question.attempts.answers);
     case OPEN:
       return open(question.attempts.answers);

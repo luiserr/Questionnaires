@@ -85,7 +85,9 @@ export default function CreateAssign() {
     if (validatePayload(payload)) {
       const response = await saveAssign(test.id, buildPayload(test, presentationId, payload));
       myAlert('Operación exitosa', 'success');
-      navigate('/admin/surveys/test');
+      setTimeout(() => {
+        navigate('/admin/surveys/test');
+      }, 3000);
     }
   }
 

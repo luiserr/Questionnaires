@@ -50,6 +50,9 @@ function stableSort(array, comparator) {
   return stabilizedThis.map((el) => el[0]);
 }
 
+const center = {
+  sx: {textAlign: 'center'}
+};
 export default function TableFront(
   {
     headers,
@@ -172,7 +175,7 @@ export default function TableFront(
                               }}
                             />
                           </TableCell>
-                          {headers.map((head) => <TableCell key={v4()}>{row[head.id]}</TableCell>)}
+                          {headers.map((head) => <TableCell {...center} key={v4()}>{row[head.id]}</TableCell>)}
                         </TableRow>
                       );
                     })}
