@@ -41,9 +41,7 @@ export default function MyTable(
           Object.keys(headers).map(header =>
             <TableCell
               key={uid()}
-              component="th"
               sx={{textAlign: 'center'}}
-              scope="row"
             >
               {row[header]}
             </TableCell>
@@ -53,8 +51,6 @@ export default function MyTable(
           actions.map((action) =>
             <TableCell
               key={uid()}
-              component="th"
-              scope="row"
               sx={{textAlign: 'center'}}
             >
               {action.component(row)}

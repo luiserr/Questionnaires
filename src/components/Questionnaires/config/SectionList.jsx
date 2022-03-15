@@ -79,7 +79,7 @@ export default function SectionList({test}) {
                     key={section.id}
                     sx={{'&:last-child td, &:last-child th': {border: 0}}}
                   >
-                    <TableCell alt={section?.title} title={section?.title} component="th" scope="row">
+                    <TableCell alt={section?.title} title={section?.title}>
                       {section?.title.length > 50 ? `${section?.title?.substring(0, 50)}...` : section?.title}
                     </TableCell>
                     <TableCell align="right">{section.numberQuestions}</TableCell>

@@ -82,10 +82,10 @@ export default function QuestionList({test, section}) {
                       key={question.id}
                       sx={{'&:last-child td, &:last-child th': {border: 0}}}
                     >
-                      <TableCell alt={question?.title} title={question?.title} component="th" scope="row">
+                      <TableCell alt={question?.title} title={question?.title}>
                         {question?.title.length > 50 ? `${question?.title?.substring(0, 50)}...` : question?.title}
                       </TableCell>
-                      <TableCell component="th" scope="row">
+                      <TableCell scope="row">
                         {question.typeDescription}
                       </TableCell>
                       <TableCell>{question.totalAnswers}</TableCell>
@@ -93,6 +93,7 @@ export default function QuestionList({test, section}) {
                       <TableCell>{question.dependency ? question.dependency : 'No tiene dependencias'}</TableCell>
                       <TableCell>
                         <IconButton
+                          disabled={test.presentations > 0}
                           alt={'Añadir dependencia'}
                           title={'Añadir dependencia'}
                           onClick={() => handleDependency(question)}
