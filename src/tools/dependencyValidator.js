@@ -12,11 +12,9 @@ export function hasDependency(sections, question = {}, dependencies = []) {
     } = dependency;
     const tryUser = searchAttempt(sections, sectionId, questionId);
     if (tryUser) {
-      console.log(tryUser);
       const {attempt, answers} = tryUser;
       const questionValue = getDependencyAnswer(questionType, answers, attempt[0]);
       const dependencyValue = getDependencyAnswer(questionType, answers, answerId);
-      console.log(dependencyValue, operator, questionValue)
       if (dependencyValue && questionValue) {
         return compareAnswer(questionValue, operator, dependencyValue);
       }
@@ -60,7 +58,6 @@ function getDependencyAnswer(type, answers = [], id) {
 function compareAnswer(valueAnswer, operator, valueDependency) {
   switch (operator) {
     case '=':
-      console.log(valueAnswer, operator, valueDependency, valueAnswer == valueDependency, valueAnswer === valueDependency)
       return valueAnswer == valueDependency;
     case '>':
       return valueAnswer > valueDependency;

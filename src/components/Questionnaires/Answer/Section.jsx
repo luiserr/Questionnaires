@@ -8,9 +8,9 @@ import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Paper from "@mui/material/Paper";
 import {saveAnswer} from "../../../tools/presentationRequest";
-import validate from '../../../tools/validateAnswer';
+import {canPass, validateAnswer} from '../../../tools/validateAnswer';
 import {CircularProgress} from "@mui/material";
-import {FINISHED, IN_PROGRESS} from "../../../const/statuses";
+import {FINISHED} from "../../../const/statuses";
 
 const SectionInfo = ({title, description}) => {
   return (
@@ -62,10 +62,11 @@ export default function Section({presentation, section, setSection, activeSectio
     const lastIndex = page - 1;
     const questions = section?.questions;
     const lastQuestion = questions[lastIndex];
+    const hasAnswer = validateAnswer(lastQuestion);
     if (
       !preview
       && !lastQuestion?.attempts?.save
-      && validate(lastQuestion)
+      && hasAnswer
       && !readOnly
     ) {
       const newQuestion = await saveAnswer(
@@ -80,8 +81,10 @@ export default function Section({presentation, section, setSection, activeSectio
         setQuestion(newQuestion, lastIndex);
       }
     }
-    setPage(newPage);
-    setCurrentQuestion(questions[currentIndex]);
+    if (canPass(hasAnswer, lastQuestion)) {
+      setPage(newPage);
+      setCurrentQuestion(questions[currentIndex]);
+    }
   };
 
   return (

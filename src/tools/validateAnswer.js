@@ -2,48 +2,50 @@ import {BOOLEAN, MATRIX, MULTIPLE, NUMERIC, OPEN, SINGLE} from "../const/questio
 import {toast} from "../utils/alerts";
 
 const multiple = (answers) => {
-  if (answers.length === 0) {
-    toast('Error!, no ha seleccionado respuesta', false);
-    return false;
-  }
-  return true;
+  return answers.length !== 0;
 };
 
 const open = (answers) => {
-  if (answers === '') {
-    toast('Error, la respuesta esta vacia', false);
-    return false;
-  }
-  return true;
+  return answers !== '';
 };
 
 const matrix = (answers) => {
   if (answers.length === 0) {
-    toast('Error!, no ha seleccionado respuesta', false);
     return false;
   }
   for (let i = 0; i < answers.length; i++) {
     if (!answers[i]['questionId'] || !answers[i]['answerId']) {
-      toast('Error!, no ha seleccionado respuesta', false);
       return false;
     }
   }
   return true;
 };
 
-export default function validate(question) {
+export function validateAnswer(question) {
   switch (question.questionType) {
     case MULTIPLE:
     case SINGLE:
     case BOOLEAN:
     case NUMERIC:
-      return multiple(question.attempts.answers);
+      return multiple(question.attempts.answers ?? []);
     case OPEN:
-      return open(question.attempts.answers);
+      return open(question.attempts.answers ?? '');
     case MATRIX:
-      return matrix(question.attempts.answers);
+      return matrix(question.attempts.answers ?? []);
     default:
       toast('Tipo de pregunta invalido', false);
       return false;
   }
+}
+
+export function canPass(hasAnswer, question) {
+  if (!hasAnswer) {
+    if (question.validation === 'required') {
+      toast('Esta pregunta es requerida', false);
+      return false;
+    } else if (question.validation === 'warning') {
+      toast('No ha escogido ninguna respuesta', false, 'warning');
+    }
+  }
+  return true;
 }
