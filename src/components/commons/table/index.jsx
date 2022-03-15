@@ -75,7 +75,7 @@ export default function MyTable(
                     {
                       Object.values(headers).map((header, index) =>
                         <TableCell
-                          sx={{textAlign: 'center'}}
+                          sx={{textAlign: 'center', fontWeight: 'bold'}}
                           key={index}>
                           {header}
                         </TableCell>)
@@ -83,7 +83,7 @@ export default function MyTable(
                     {
                       actions.map((action, index) =>
                         <TableCell
-                          sx={{textAlign: 'center'}}
+                          sx={{textAlign: 'center', fontWeight: 'bold'}}
                           key={index}>
                           {action.title}
                         </TableCell>)

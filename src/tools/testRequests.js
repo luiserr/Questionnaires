@@ -1,8 +1,8 @@
-import {api, get, local, post} from '../utils/ajax';
+import {api, get, post} from '../utils/ajax';
 import {toast} from "../utils/alerts";
 
 export const general = async (payload) => {
-  const response = await post(`${api}/tests`, payload, 'POST', true);
+  const response = await post(`${api}/tests`, payload, 'POST', true, true);
   return response?.success ? response.data : null;
 };
 
@@ -32,17 +32,23 @@ export const handleSave = async (step, test, payload, setTest, setStep, navigati
     if (validate(payload)) {
       if (payload.wasEdit) {
         result = await general(payload);
+      }
+      if (payload.id) {
+        toast('Encuesta actualizada con éxito', true);
+      } else {
         toast('Encuesta creada en borrador', true);
       }
-      if (result) {
-        if (test.id) {
-          await setTest(result);
-          await setStep(1);
+      setTimeout(async () => {
+        if (result) {
+          if (test.id) {
+            await setTest(result);
+            await setStep(1);
+            return true;
+          }
+          await navigation(`/admin/surveys/test/${result.id}`, {state: {step: 1, test: result}});
           return true;
         }
-        await navigation(`/admin/surveys/test/${result.id}`, {state: {step: 1, test: result}});
-        return true;
-      }
+      }, 3000);
     }
   }
   if (step === 1) {

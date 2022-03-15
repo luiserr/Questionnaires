@@ -127,13 +127,13 @@ export default function Home() {
           >
             <MenuIcon/>
           </IconButton>
-          <img width={32} height={32} src={logoSenaNaranja} alt={'Logo SENA'} title={'Logo SENA'}/>
+          <img width={45} height={45} src={logoSenaNaranja} alt={'Logo SENA'} title={'Logo SENA'}/>
           <Typography sx={{ml: 2}} variant="h6" noWrap component="div">
             SENA - Encuestas
           </Typography>
           <Box sx={{flexGrow: 1}}/>
           <Box sx={{display: {xs: 'none', md: 'flex'}}}>
-            <Typography sx={{float: 'right'}}>{user.name}</Typography>
+            <Typography sx={{float: 'right'}}><b>{user.name}</b></Typography>
           </Box>
         </Toolbar>
       </AppBar>

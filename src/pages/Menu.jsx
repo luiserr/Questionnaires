@@ -3,10 +3,13 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import List from "@mui/material/List";
 import * as React from "react";
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import menus from '../const/menu';
 
 export default function Menu() {
+
+  const navigate = useNavigate();
+
   return (
     <List>
       {menus.map((menu, index) => (
@@ -16,7 +19,10 @@ export default function Menu() {
           // compoment={AdapterLink}
           // to={menu.route}
         >
-          <ListItemIcon>
+          <ListItemIcon
+            sx={{cursor: 'pointer'}}
+            onClick={()=>navigate(menu.route)}
+          >
             {menu.icon}
           </ListItemIcon>
           <Link to={menu.route}>

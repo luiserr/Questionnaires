@@ -16,6 +16,7 @@ import Button from "@mui/material/Button";
 import {useNavigate} from "react-router-dom";
 import {deleteSection, getSections} from "../../../tools/testRequests";
 import Alert from "@mui/material/Alert";
+import {bold} from "../../../const/styles";
 
 
 export default function SectionList({test}) {
@@ -66,11 +67,11 @@ export default function SectionList({test}) {
             <Table sx={{minWidth: 650}} aria-label="simple table">
               <TableHead>
                 <TableRow>
-                  <TableCell align="right">Titulo</TableCell>
-                  <TableCell align="right">Cantidad de preguntas</TableCell>
-                  <TableCell align="right">Cantidad de preguntas configuradas</TableCell>
-                  <TableCell align="right">Ver / Editar</TableCell>
-                  <TableCell align="right">Eliminar</TableCell>
+                  <TableCell {...bold} align="right">Titulo</TableCell>
+                  <TableCell {...bold} align="right">Cantidad de preguntas</TableCell>
+                  <TableCell {...bold} align="right">Cantidad de preguntas configuradas</TableCell>
+                  <TableCell {...bold} align="right">Ver / Editar</TableCell>
+                  <TableCell {...bold} align="right">Eliminar</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>

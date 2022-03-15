@@ -19,7 +19,7 @@ const headers = {
   statusDescription: 'Estado',
   ownerName: 'Creador',
   createdAt: 'Fecha de creación',
-  presentations: 'Numero de asignaciones'
+  presentations: 'Número de asignaciones'
 };
 
 export default function TestList() {
@@ -113,18 +113,20 @@ export default function TestList() {
 
   return (
     <Grid container>
-      <h4>Listado de encuestas</h4>
+      <h3>Listado de encuestas</h3>
       <Grid item xs={12}>
         <Button
           disabled={!user?.actions?.create}
           color="primary"
+          alt={'Nueva encuestas'}
+          title={'Nueva encuestas'}
           startIcon={<AddIcon/>}
           variant={'contained'}
           aria-label="add"
           sx={{float: 'right', mt: 2, mb: 2}}
           onClick={() => handleEdit('_')}
         >
-          Crear encuesta
+          Nueva encuesta
         </Button>
         <MyTable
           handleSearch={handleSearch}

@@ -18,6 +18,7 @@ import {deleteQuestion, getQuestions} from "../../../tools/testRequests";
 import Alert from "@mui/material/Alert";
 import Divider from "@mui/material/Divider";
 import AddLinkIcon from '@mui/icons-material/AddLink';
+import {bold} from "../../../const/styles";
 
 
 export default function QuestionList({test, section}) {
@@ -66,14 +67,14 @@ export default function QuestionList({test, section}) {
               <Table sx={{minWidth: 650}} aria-label="simple table">
                 <TableHead>
                   <TableRow>
-                    <TableCell>Pregunta</TableCell>
-                    <TableCell>Tipo</TableCell>
-                    <TableCell>Respuestas configuradas</TableCell>
-                    <TableCell>Es condición</TableCell>
-                    <TableCell>Depende de:</TableCell>
-                    <TableCell>Añadir dependencia</TableCell>
-                    <TableCell>Ver / Editar</TableCell>
-                    <TableCell>Eliminar</TableCell>
+                    <TableCell {...bold}>Pregunta</TableCell>
+                    <TableCell {...bold}>Tipo</TableCell>
+                    <TableCell {...bold}>Respuestas configuradas</TableCell>
+                    <TableCell {...bold}>Es condición</TableCell>
+                    <TableCell {...bold}>Depende de:</TableCell>
+                    <TableCell {...bold}>Añadir dependencia</TableCell>
+                    <TableCell {...bold}>Ver / Editar</TableCell>
+                    <TableCell {...bold}>Eliminar</TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>

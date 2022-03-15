@@ -49,7 +49,7 @@ export default function Wizard(props) {
 
   return (
     <Box sx={{width: '100%'}}>
-      <h4>Configuración de encuesta</h4>
+      <h4>Configuración de encuesta: {test.title}</h4>
       <Card>
         <CardContent>
           <Button
