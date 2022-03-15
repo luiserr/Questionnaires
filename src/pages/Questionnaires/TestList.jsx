@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {useEffect, useState} from 'react';
+import {useContext, useEffect, useState} from 'react';
 import Grid from "@mui/material/Grid";
 import EditIcon from "@mui/icons-material/Edit";
 import IconButton from "@mui/material/IconButton";
@@ -11,6 +11,7 @@ import {Button} from "@mui/material";
 import AddIcon from '@mui/icons-material/Add';
 import MyTable from "../../components/commons/table";
 import AddTaskIcon from '@mui/icons-material/AddTask';
+import userContext from "../../context/userContext";
 
 const headers = {
   title: 'Título',
@@ -29,6 +30,8 @@ export default function TestList() {
   });
 
   const navigate = useNavigate();
+
+  const user = useContext(userContext);
 
   useEffect(async () => {
     await handleSearch(pagination.page, pagination.perPage);
@@ -74,7 +77,7 @@ export default function TestList() {
       component: (row) =>
         <IconButton
           onClick={() => navigate(`/admin/surveys/test/${row.id}/presentation/_`)}
-          disabled={row.statusDescription !== 'Completado'}
+          disabled={row.statusDescription !== 'Completado' || !user?.actions?.publish}
           alt={'Añadir asignación'}
           title={'Añadir asignación'}
           aria-label="Añadir asignación">
@@ -96,7 +99,7 @@ export default function TestList() {
       title: 'Eliminar',
       component: (row) =>
         <IconButton
-          disabled={parseInt(row.presentations) > 0}
+          disabled={parseInt(row.presentations) > 0 || !user?.actions?.delete}
           aria-label="Eliminar"
           alt={'Eliminar'}
           title={'Eliminar'}
@@ -113,6 +116,7 @@ export default function TestList() {
       <h4>Listado de encuestas</h4>
       <Grid item xs={12}>
         <Button
+          disabled={!user?.actions?.create}
           color="primary"
           startIcon={<AddIcon/>}
           variant={'contained'}

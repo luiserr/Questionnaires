@@ -10,7 +10,7 @@ import Matrix from "../Questionnaires/Answer/Matrix";
 import Open from "../Questionnaires/Answer/Open";
 import GoodBye from "../Questionnaires/Answer/Goodbye";
 
-export const useTest = (testId, currentTest) => {
+export const useTest = (testId, currentTest, user) => {
   const [test, setTest] = useState(null);
   useEffect(async () => {
     if (testId !== '_' && !currentTest) {
@@ -23,7 +23,7 @@ export const useTest = (testId, currentTest) => {
     }
   }, [testId]);
 
-  const disabled = parseInt(test?.presentations) > 0 ?? true;
+  const disabled = (parseInt(test?.presentations) > 0 || !user?.actions?.create) ?? true;
 
   return {
     test,

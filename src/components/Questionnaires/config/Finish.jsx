@@ -1,15 +1,18 @@
 import {Button, Grid} from "@mui/material";
 import JoditEditor from "jodit-react";
-import React, {useState} from "react";
+import React, {useContext, useState} from "react";
 import {finishTest, general, preview} from "../../../tools/testRequests";
 import {useNavigate} from "react-router-dom";
 import {toast} from "../../../utils/alerts";
+import userContext from "../../../context/userContext";
 
 export default function Finish({test}) {
 
   const [goodbye, setGoodbye] = useState(test?.goodbye ?? '');
 
   const navigate = useNavigate();
+
+  const user = useContext(userContext);
 
   const handleUpdate = async () => {
     const response = await general({
@@ -57,7 +60,7 @@ export default function Finish({test}) {
           onClick={handlePreview}
           sx={{float: 'right'}}
           color={'info'}
-          disabled={test?.presentations > 0}
+          disabled={test?.presentations > 0 || !user?.actions?.create}
         >
           Previsualizar encuesta
         </Button>

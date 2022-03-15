@@ -3,7 +3,7 @@ import CardContent from "@mui/material/CardContent";
 import Grid from "@mui/material/Grid";
 import TextField from "@mui/material/TextField";
 import JoditEditor from "jodit-react";
-import React, {useEffect, useState} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import {useLocation, useNavigate, useParams} from "react-router-dom";
 import Button from "@mui/material/Button";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
@@ -16,6 +16,7 @@ import {useTest} from "../../components/hooks/testHook";
 import Breadcrumbs from "@mui/material/Breadcrumbs";
 import Link from "@mui/material/Link";
 import {toast} from "../../utils/alerts";
+import userContext from "../../context/userContext";
 
 export default function Section() {
 
@@ -24,7 +25,8 @@ export default function Section() {
 
   const currentTest = location?.state?.test;
   let currentSection = location?.state?.section || null;
-  const {test, disabled} = useTest(testId, currentTest);
+  const user = useContext(userContext);
+  const {test, disabled} = useTest(testId, currentTest, user);
 
   const navigate = useNavigate();
 

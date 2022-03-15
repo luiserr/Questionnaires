@@ -2,7 +2,7 @@ import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Grid from "@mui/material/Grid";
 import JoditEditor from "jodit-react";
-import React, {useEffect, useState} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import {useLocation, useNavigate, useParams} from "react-router-dom";
 import Button from "@mui/material/Button";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
@@ -22,6 +22,7 @@ import Link from "@mui/material/Link";
 import {FormControl, FormControlLabel, Switch} from "@mui/material";
 import {v4} from "uuid";
 import {validations} from "../../const/validations";
+import userContext from "../../context/userContext";
 
 
 export default function Question() {
@@ -32,7 +33,8 @@ export default function Question() {
   const currentQuestion = location?.state?.question;
 
   const {sectionId, testId, questionId} = useParams();
-  const {test, disabled} = useTest(testId, currentTest);
+  const user = useContext(userContext);
+  const {test, disabled} = useTest(testId, currentTest, user);
 
   const config = {
     readonly: disabled

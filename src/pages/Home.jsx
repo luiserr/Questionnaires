@@ -1,4 +1,5 @@
 import * as React from 'react';
+import {useContext, useEffect} from 'react';
 import {styled, useTheme} from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import MuiDrawer from '@mui/material/Drawer';
@@ -13,8 +14,9 @@ import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import {Outlet, useNavigate} from 'react-router-dom'
 import Menu from "./Menu";
-import {useEffect} from "react";
 import {$_get} from "../utils/tools";
+import userContext from "../context/userContext";
+import {logoSenaNaranja} from "../utils/images";
 
 const drawerWidth = 300;
 
@@ -53,7 +55,7 @@ const AppBar = styled(MuiAppBar, {
 })(({theme, open}) => ({
   zIndex: 10, //theme.zIndex.drawer + 1,
   // zIndex: theme.zIndex.drawer + 1,
-  background: '#FC7323',
+  background: '-webkit-gradient(linear,left bottom,left top,from(#EDEDED),to(#ffffff))',
   transition: theme.transitions.create(['width', 'margin'], {
     easing: theme.transitions.easing.sharp,
     duration: theme.transitions.duration.leavingScreen,
@@ -89,6 +91,8 @@ export default function Home() {
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
 
+  const user = useContext(userContext);
+
   const handleDrawerOpen = () => {
     setOpen(true);
   };
@@ -106,11 +110,10 @@ export default function Home() {
     }
   }, []);
 
-
   return (
     <Box sx={{display: 'flex'}}>
       <CssBaseline/>
-      <AppBar position="fixed" open={open}>
+      <AppBar position="fixed" open={open} sx={{color: '#006496'}}>
         <Toolbar>
           <IconButton
             color="inherit"
@@ -124,9 +127,14 @@ export default function Home() {
           >
             <MenuIcon/>
           </IconButton>
-          <Typography variant="h6" noWrap component="div">
+          <img width={32} height={32} src={logoSenaNaranja} alt={'Logo SENA'} title={'Logo SENA'}/>
+          <Typography sx={{ml: 2}} variant="h6" noWrap component="div">
             SENA - Encuestas
           </Typography>
+          <Box sx={{flexGrow: 1}}/>
+          <Box sx={{display: {xs: 'none', md: 'flex'}}}>
+            <Typography sx={{float: 'right'}}>{user.name}</Typography>
+          </Box>
         </Toolbar>
       </AppBar>
       <Drawer variant="permanent" open={open} sx={{zIndex: 9}}>
