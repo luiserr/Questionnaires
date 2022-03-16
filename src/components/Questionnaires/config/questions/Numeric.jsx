@@ -30,14 +30,14 @@ export default function Numeric({question, answers: range = [], setAnswer: setRa
 
 
   const handleMin = (value) => {
-    if (!value || value > max) {
+    if (!value || value > (max -1)) {
       return toast('El número inicial no puede ser vacío ó mayor al final', false);
     }
     setMin(value);
   }
 
   const handleMax = (value) => {
-    if (!value || value < min) {
+    if (!value || value < (min + 1)) {
       return toast('El número final no puede ser vacío ó menor al inicial', false);
     }
     setMax(value);
@@ -78,7 +78,8 @@ export default function Numeric({question, answers: range = [], setAnswer: setRa
           type={'number'}
           disabled={disabled}
           inputProps={{
-            min: 1
+            min: 1,
+            max: 9
           }}
           onChange={(e) => handleMin(e.target.value)}
           fullWidth
@@ -91,7 +92,8 @@ export default function Numeric({question, answers: range = [], setAnswer: setRa
           type={'number'}
           disabled={disabled}
           inputProps={{
-            min: 2
+            min: 2,
+            max: 10
           }}
           onChange={(e) => handleMax(e.target.value)}
           fullWidth

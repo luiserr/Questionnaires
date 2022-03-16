@@ -21,32 +21,32 @@ export default function EnhancedTableToolbar({numSelected, title}) {
         }),
       }}
     >
-      {numSelected > 0 ? (
-        <Typography
-          sx={{flex: '1 1 100%'}}
-          color="inherit"
-          variant="subtitle1"
-          component="div"
-        >
-          {numSelected} selected
-        </Typography>
-      ) : (
-        <span>{title}</span>
-      )}
-
-      {numSelected > 0 ? (
-        <Tooltip title="Delete">
-          <IconButton>
-            <DeleteIcon/>
-          </IconButton>
-        </Tooltip>
-      ) : (
-        <Tooltip title="Filter list">
-          <IconButton>
-            <FilterListIcon/>
-          </IconButton>
-        </Tooltip>
-      )}
+      {/*{numSelected > 0 ? (*/}
+      {/*  <Typography*/}
+      {/*    sx={{flex: '1 1 100%'}}*/}
+      {/*    color="inherit"*/}
+      {/*    variant="subtitle1"*/}
+      {/*    component="div"*/}
+      {/*  >*/}
+      {/*    {numSelected} Seleccionado*/}
+      {/*  </Typography>*/}
+      {/*) : (*/}
+      {/*  <span>{title}</span>*/}
+      {/*)}*/}
+      <span>{title}</span>
+      {/*{numSelected > 0 ? (*/}
+      {/*  <Tooltip title="Delete">*/}
+      {/*    <IconButton>*/}
+      {/*      <DeleteIcon/>*/}
+      {/*    </IconButton>*/}
+      {/*  </Tooltip>*/}
+      {/*) : (*/}
+      {/*  <Tooltip title="Filter list">*/}
+      {/*    <IconButton>*/}
+      {/*      <FilterListIcon/>*/}
+      {/*    </IconButton>*/}
+      {/*  </Tooltip>*/}
+      {/*)}*/}
     </Toolbar>
   );
 };

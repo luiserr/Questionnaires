@@ -21,6 +21,8 @@ export default function Menu() {
         >
           <ListItemIcon
             sx={{cursor: 'pointer'}}
+            alt={menu.label}
+            title={menu.label}
             onClick={()=>navigate(menu.route)}
           >
             {menu.icon}

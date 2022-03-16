@@ -74,7 +74,7 @@ export default function BasicTabs() {
           <Box sx={{borderBottom: 1, borderColor: 'divider'}}>
             <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
               <Tab label="Presentación" {...a11yProps(0)} />
-              <Tab label="Cuestionario" {...a11yProps(1)} disabled={!presentation?.sections}/>
+              <Tab label="Preguntas" {...a11yProps(1)} disabled={!presentation?.sections}/>
               <Tab label="Despedida" {...a11yProps(2)} />
             </Tabs>
           </Box>

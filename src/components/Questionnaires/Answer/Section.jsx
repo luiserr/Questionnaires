@@ -101,7 +101,7 @@ export default function Section({presentation, section, setSection, activeSectio
             aria-label="Vertical tabs example"
             sx={{borderRight: 1, borderColor: 'divider'}}
           >
-            <Tab label="Presentación" {...a11yProps(0)} />
+            <Tab label="Descripción" {...a11yProps(0)} />
             <Tab label="Preguntas" {...a11yProps(1)} />
           </Tabs>
           <Box sx={{width: '85%', margin: '0 auto'}}>

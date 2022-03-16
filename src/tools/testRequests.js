@@ -32,23 +32,24 @@ export const handleSave = async (step, test, payload, setTest, setStep, navigati
     if (validate(payload)) {
       if (payload.wasEdit) {
         result = await general(payload);
-      }
-      if (payload.id) {
-        toast('Encuesta actualizada con éxito', true);
-      } else {
-        toast('Encuesta creada en borrador', true);
-      }
-      setTimeout(async () => {
         if (result) {
-          if (test.id) {
-            await setTest(result);
-            await setStep(1);
-            return true;
+          if (payload.id) {
+            toast('Encuesta actualizada con éxito', true);
+            setTimeout(() => {
+              setStep(1);
+              setTest(result);
+            }, 3000);
+          } else {
+            toast('Encuesta creada en borrador', true);
+            setTimeout(() => {
+              navigation(`/admin/surveys/test/${result.id}`, {state: {step: 1, test: result}});
+            }, 3000);
           }
-          await navigation(`/admin/surveys/test/${result.id}`, {state: {step: 1, test: result}});
-          return true;
         }
-      }, 3000);
+      } else {
+        await setStep(1);
+        await setTest(result);
+      }
     }
   }
   if (step === 1) {

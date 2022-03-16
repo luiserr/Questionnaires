@@ -15,6 +15,7 @@ import EnhancedTableToolbar from "./EnhancedTableToolbar";
 import EnhancedTableHead from "./EnhancedTableHead";
 import {v4} from "uuid";
 import {Alert} from "@mui/lab";
+import {Grid, TextField} from "@mui/material";
 
 export const createHeader = (id, label) => {
   return {id, label}
@@ -50,9 +51,37 @@ function stableSort(array, comparator) {
   return stabilizedThis.map((el) => el[0]);
 }
 
+function getHeaderId(headers = []) {
+  return headers.map((item) => {
+    return item.id
+  })
+}
+
+function filter(array, term = '', headers = []) {
+  const ids = getHeaderId(headers);
+  if (term !== '') {
+    return array.filter((item) => {
+      for (let i = 0; i < ids.length; i++) {
+        if (item[ids[i]]
+          && String(item[ids[i]])
+            .toLowerCase()
+            .indexOf(term.toLowerCase()) > -1
+        ) {
+          return true
+        }
+      }
+      return false;
+    });
+  }
+  return array;
+}
+
 const center = {
   sx: {textAlign: 'center'}
 };
+
+
+//Componente TABLA
 export default function TableFront(
   {
     headers,
@@ -69,6 +98,7 @@ export default function TableFront(
   const [page, setPage] = useState(0);
   const [dense, setDense] = useState(true);
   const [rowsPerPage, setRowsPerPage] = useState(5);
+  const [term, setTerm] = useState('');
 
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === 'asc';
@@ -130,7 +160,20 @@ export default function TableFront(
     <Box sx={{width: '100%'}}>
       {rows?.length ? <>
           <Paper sx={{width: '100%', mb: 2}}>
-            <EnhancedTableToolbar title={title} numSelected={selected.length}/>
+            <Grid container spacing={2}>
+              <Grid item xs={7}>
+                <EnhancedTableToolbar title={title} numSelected={selected.length}/>
+              </Grid>
+              <Grid item xs={4}>
+                <TextField
+                  fullWidth
+                  size={'small'}
+                  value={term}
+                  onChange={(e) => setTerm(e.target.value)}
+                  placeholder={'Buscar en la tabla'}
+                />
+              </Grid>
+            </Grid>
             <TableContainer>
               <Table
                 sx={{minWidth: 750}}
@@ -147,10 +190,11 @@ export default function TableFront(
                   rowCount={rows.length}
                   headCells={headers}
                 />
+
                 <TableBody>
                   {/* if you don't need to support IE11, you can replace the `stableSort` call with:
                  rows.slice().sort(getComparator(order, orderBy)) */}
-                  {stableSort(rows, getComparator(order, orderBy))
+                  {stableSort(filter(rows, term, headers), getComparator(order, orderBy))
                     .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                     .map((row, index) => {
                       const isItemSelected = isSelected(row.id);
