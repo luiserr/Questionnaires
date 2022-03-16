@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import {Box, Button, Card, CardContent} from "@mui/material";
+import {Box, Button, Card, CardContent, IconButton} from "@mui/material";
 import CategoriesList from "../../components/categoriesList";
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -43,23 +43,25 @@ export default function Categories() {
     {
       title: 'Editar',
       component: (row) =>
-        <Button
+        <IconButton
           alt={'Editar'}
           title={'Editar'}
           onClick={() => handleForm(row)}
-          startIcon={<EditIcon/>}
-        />
+        >
+          <EditIcon/>
+        </IconButton>
     },
     {
       title: 'Eliminar',
       component: (row) =>
-        <Button
+        <IconButton
           disabled={row.tests > 0}
           alt={'Eliminar'}
           title={'Eliminar'}
-          startIcon={<DeleteIcon/>}
           onClick={() => handleDelete(row)}
-        />
+        >
+          <DeleteIcon/>
+        </IconButton>
     }
   ];
 

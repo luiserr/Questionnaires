@@ -41,11 +41,23 @@ export default function QuestionList({test, section}) {
   };
 
   const handleEditQuestion = (question) => {
-    navigate(`/admin/surveys/test/${test.id}/section/${section.id}/question/${question.id}`, {state: {test, section, question}});
+    navigate(`/admin/surveys/test/${test.id}/section/${section.id}/question/${question.id}`, {
+      state: {
+        test,
+        section,
+        question
+      }
+    });
   }
 
   const handleDependency = (question) => {
-    navigate(`/admin/surveys/test/${test.id}/section/${section.id}/question/${question.id}/dependency`, {state: {test, section, question}});
+    navigate(`/admin/surveys/test/${test.id}/section/${section.id}/question/${question.id}/dependency`, {
+      state: {
+        test,
+        section,
+        question
+      }
+    });
   };
 
   const handleBank = () => {
@@ -53,8 +65,11 @@ export default function QuestionList({test, section}) {
   };
 
   const handleDelete = async (questionId) => {
-    await deleteQuestion(test.id, section.id, questionId);
-    await handleSearch();
+    // eslint-disable-next-line no-restricted-globals
+    if (confirm('¿Esta seguro de eliminar esta pregunta?')) {
+      await deleteQuestion(test.id, section.id, questionId);
+      await handleSearch();
+    }
   }
 
   return (
@@ -67,14 +82,14 @@ export default function QuestionList({test, section}) {
               <Table sx={{minWidth: 650}} aria-label="simple table">
                 <TableHead>
                   <TableRow>
-                    <TableCell {...bold}>Pregunta</TableCell>
-                    <TableCell {...bold}>Tipo</TableCell>
-                    <TableCell {...bold}>Respuestas configuradas</TableCell>
-                    <TableCell {...bold}>Es condición</TableCell>
-                    <TableCell {...bold}>Depende de:</TableCell>
-                    <TableCell {...bold}>Añadir dependencia</TableCell>
-                    <TableCell {...bold}>Ver / Editar</TableCell>
-                    <TableCell {...bold}>Eliminar</TableCell>
+                    <TableCell align={'center'} {...bold}><b>Pregunta</b></TableCell>
+                    <TableCell align={'center'} {...bold}><b>Tipo</b></TableCell>
+                    <TableCell align={'center'} {...bold}><b>Respuestas configuradas</b></TableCell>
+                    <TableCell align={'center'} {...bold}><b>Es condición</b></TableCell>
+                    <TableCell align={'center'} {...bold}><b>Depende de:</b></TableCell>
+                    <TableCell align={'center'} {...bold}><b>Añadir dependencia</b></TableCell>
+                    <TableCell align={'center'} {...bold}><b>Ver / Editar</b></TableCell>
+                    <TableCell align={'center'} {...bold}><b>Eliminar</b></TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
@@ -83,16 +98,16 @@ export default function QuestionList({test, section}) {
                       key={question.id}
                       sx={{'&:last-child td, &:last-child th': {border: 0}}}
                     >
-                      <TableCell alt={question?.title} title={question?.title}>
+                      <TableCell align={'center'} alt={question?.title} title={question?.title}>
                         {question?.title.length > 50 ? `${question?.title?.substring(0, 50)}...` : question?.title}
                       </TableCell>
-                      <TableCell scope="row">
+                      <TableCell align={'center'} scope="row">
                         {question.typeDescription}
                       </TableCell>
-                      <TableCell>{question.totalAnswers}</TableCell>
-                      <TableCell>{question.conditional ? 'Si' : 'No'}</TableCell>
-                      <TableCell>{question.dependency ? question.dependency : 'No tiene dependencias'}</TableCell>
-                      <TableCell>
+                      <TableCell align={'center'}>{question.totalAnswers}</TableCell>
+                      <TableCell align={'center'}>{question.conditional ? 'Si' : 'No'}</TableCell>
+                      <TableCell align={'center'}>{question.dependency ? question.dependency : 'No tiene dependencias'}</TableCell>
+                      <TableCell align={'center'}>
                         <IconButton
                           disabled={test.presentations > 0}
                           alt={'Añadir dependencia'}
@@ -102,7 +117,7 @@ export default function QuestionList({test, section}) {
                           <AddLinkIcon/>
                         </IconButton>
                       </TableCell>
-                      <TableCell>
+                      <TableCell align={'center'}>
                         <IconButton
                           alt={'Ver / Editar'}
                           title={'Ver / Editar'}
@@ -111,13 +126,13 @@ export default function QuestionList({test, section}) {
                           <EditIcon/>
                         </IconButton>
                       </TableCell>
-                      <TableCell>
+                      <TableCell align={'center'}>
                         <IconButton
                           disabled={test.presentations > 0}
                           aria-label="Eliminar"
                           alt={'Eliminar'}
                           title={'Eliminar'}
-                          onClick={()=> handleDelete(question.id)}
+                          onClick={() => handleDelete(question.id)}
                         >
                           <DeleteIcon/>
                         </IconButton>

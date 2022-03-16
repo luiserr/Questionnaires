@@ -58,8 +58,13 @@ export default function Section() {
   };
 
   const handleSave = async () => {
+    if(section.title === '') {
+      toast('Título requerido', false);
+      return false;
+    }
     if(description === '' || description === '<p></p>') {
       toast('Descripción requerida', false);
+      return false;
     }
     const newSection = await saveSection(testId, section.id, section.title, description, 0);
     if (newSection) {
@@ -112,7 +117,7 @@ export default function Section() {
                   fullWidth
                   id="title"
                   disabled={disabled}
-                  label="Título"
+                  label="Título*"
                   value={section.title}
                   onChange={(e) => setData('title', e.target.value)}
                   variant="outlined"

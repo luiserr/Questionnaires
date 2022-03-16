@@ -45,8 +45,11 @@ export default function SectionList({test}) {
   };
 
   const handleDelete = async (sectionId) => {
-    await deleteSection(test.id, sectionId);
-    await handleSearch();
+    // eslint-disable-next-line no-restricted-globals
+    if (confirm('¿Esta seguro de eliminar esta sección?')) {
+      await deleteSection(test.id, sectionId);
+      await handleSearch();
+    }
   }
 
   return (
@@ -62,16 +65,16 @@ export default function SectionList({test}) {
       {
         sections.length > 0 ?
 
-          <TableContainer component={Paper}>
+          <TableContainer component={Paper} sx={{p: 2}}>
             <h4>Listado de secciones</h4>
             <Table sx={{minWidth: 650}} aria-label="simple table">
               <TableHead>
                 <TableRow>
-                  <TableCell {...bold} align="right">Titulo</TableCell>
-                  <TableCell {...bold} align="right">Cantidad de preguntas</TableCell>
-                  <TableCell {...bold} align="right">Cantidad de preguntas configuradas</TableCell>
-                  <TableCell {...bold} align="right">Ver / Editar</TableCell>
-                  <TableCell {...bold} align="right">Eliminar</TableCell>
+                  <TableCell {...bold} align="center"><b>Titulo</b></TableCell>
+                  <TableCell {...bold} align="center"><b>Cantidad de preguntas</b></TableCell>
+                  <TableCell {...bold} align="center"><b>Cantidad de preguntas configuradas</b></TableCell>
+                  <TableCell {...bold} align="center"><b>Ver / Editar</b></TableCell>
+                  <TableCell {...bold} align="center"><b>Eliminar</b></TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
@@ -80,12 +83,12 @@ export default function SectionList({test}) {
                     key={section.id}
                     sx={{'&:last-child td, &:last-child th': {border: 0}}}
                   >
-                    <TableCell alt={section?.title} title={section?.title}>
+                    <TableCell align={'center'} alt={section?.title} title={section?.title}>
                       {section?.title.length > 50 ? `${section?.title?.substring(0, 50)}...` : section?.title}
                     </TableCell>
-                    <TableCell align="right">{section.numberQuestions}</TableCell>
-                    <TableCell align="right">{section.savedQuestions}</TableCell>
-                    <TableCell align="right">
+                    <TableCell align="center">{section.numberQuestions}</TableCell>
+                    <TableCell align="center">{section.savedQuestions}</TableCell>
+                    <TableCell align="center">
                       <IconButton
                         aria-label="Modificar sección"
                         alt={'Editar'}
@@ -94,7 +97,7 @@ export default function SectionList({test}) {
                         <EditIcon/>
                       </IconButton>
                     </TableCell>
-                    <TableCell align="right">
+                    <TableCell align="center">
                       <IconButton
                         disabled={test.presentations > 0}
                         alt={'Eliminar'}
