@@ -20,6 +20,7 @@ const headers = {
   'id': 'ID',
   'typeDescription': 'Tipo',
   'title': 'Título',
+  'timesUsed': 'Número de veces usada',
   'createdAt': 'Fecha de creación'
 };
 

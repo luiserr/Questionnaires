@@ -44,10 +44,7 @@ export default function TestList() {
   const handleSearch = async (page, perPage) => {
     const response = await searchTest(page, perPage);
     const {data: myTests, pagination} = response;
-    await setTests(myTests?.map(test => {
-      test['title'] = test.title.length > 50 ? `${test.title?.substring(0, 50)} ...` : test.title;
-      return test;
-    }));
+    await setTests(myTests);
     await setPagination(pagination);
   };
 

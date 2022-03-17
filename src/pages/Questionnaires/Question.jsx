@@ -45,7 +45,7 @@ export default function Question() {
     title: '',
     description: '',
     questionType: '',
-    private: false,
+    private: true,
     answers: [],
     conditional: false,
     validation: 'none',
@@ -144,7 +144,7 @@ export default function Question() {
             </Grid>
             <Grid item xs={10}>
               <FormControlLabel control={<Switch
-                checked={question?.private === 1 || question?.private}
+                checked={question?.private === 0 || !question?.private}
                 onChange={() => setQuestion({
                   ...question,
                   private: !question.private

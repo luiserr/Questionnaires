@@ -40,10 +40,12 @@ export default function MyTable(
         {
           Object.keys(headers).map(header =>
             <TableCell
+              alt={row[header]}
+              title={row[header]}
               key={uid()}
               sx={{textAlign: 'center'}}
             >
-              {row[header]}
+              {String(row[header]).length > 50 ? `${String(row[header])?.substring(0, 50)} ...` : String(row[header])}
             </TableCell>
           )
         }

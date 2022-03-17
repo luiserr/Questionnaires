@@ -4,8 +4,7 @@ import MyTable from "./commons/table";
 
 const headers = {
   id: 'ID',
-  name: 'Nombre',
-  tests: 'Número de veces usada'
+  name: 'Nombre'
 }
 
 export default function CategoriesList({actions}) {
