@@ -118,8 +118,8 @@ export default function TestList() {
         <Button
           disabled={!user?.actions?.create}
           color="primary"
-          alt={'Nueva encuestas'}
-          title={'Nueva encuestas'}
+          alt={'Nueva encuesta'}
+          title={'Nueva encuesta'}
           startIcon={<AddIcon/>}
           variant={'contained'}
           aria-label="add"
