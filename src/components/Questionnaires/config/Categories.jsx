@@ -14,6 +14,9 @@ export default function Categories({test}) {
   const navigation = useNavigate();
 
   const handleAttach = async (attach, currentCategory) => {
+    const message = attach ? '¿Desea asociar esta categoria?' : '¿Desea desasociar esta categoria?';
+    // eslint-disable-next-line no-restricted-globals
+    if(confirm(message)) {
     const response = await attachCategory(test.id, currentCategory.id, attach);
     if (response) {
       if (!attach) {
@@ -26,6 +29,7 @@ export default function Categories({test}) {
           ...currentCategory
         })
       }
+    }
     }
   };
 
@@ -45,10 +49,17 @@ export default function Categories({test}) {
     <Grid item xs={12}>
       {
         category.id ?
-          <Alert
-            onClose={() => handleAttach(false, category)}
-          >
-            Categoría de la encuesta: {category.name}
+          <Alert>
+            Categoría de la encuesta: <strong>{category.name}</strong>
+            <br/>
+            <Button
+              sx={{mt: 2}}
+              color={'error'}
+              variant={"outlined"}
+              onClick={() => handleAttach(false, category)}
+              >
+              Desasociar
+            </Button>
           </Alert> :
           <>
             <Button

@@ -71,7 +71,6 @@ export default function SectionList({test}) {
               <TableHead>
                 <TableRow>
                   <TableCell {...bold} align="center"><b>Titulo</b></TableCell>
-                  <TableCell {...bold} align="center"><b>Cantidad de preguntas</b></TableCell>
                   <TableCell {...bold} align="center"><b>Cantidad de preguntas configuradas</b></TableCell>
                   <TableCell {...bold} align="center"><b>Ver / Editar</b></TableCell>
                   <TableCell {...bold} align="center"><b>Eliminar</b></TableCell>
@@ -86,7 +85,6 @@ export default function SectionList({test}) {
                     <TableCell align={'center'} alt={section?.title} title={section?.title}>
                       {section?.title.length > 50 ? `${section?.title?.substring(0, 50)}...` : section?.title}
                     </TableCell>
-                    <TableCell align="center">{section.numberQuestions}</TableCell>
                     <TableCell align="center">{section.savedQuestions}</TableCell>
                     <TableCell align="center">
                       <IconButton

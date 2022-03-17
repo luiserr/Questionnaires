@@ -71,8 +71,10 @@ export default function Question() {
   };
 
   const handleChange = (questionType) => {
+    setAnswers([]);
     setQuestion({
       ...question,
+      answers: [],
       questionType
     });
   };
@@ -105,7 +107,7 @@ export default function Question() {
         </Link>
       </Breadcrumbs>
       <h4>
-        Configuración de preguntas
+        Configuración de pregunta
       </h4>
       <Card>
         <CardContent>

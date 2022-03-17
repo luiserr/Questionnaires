@@ -95,7 +95,7 @@ export default function Section() {
         </Link>
       </Breadcrumbs>
       <h4>
-        Configuración de secciones
+        Configuración de sección
       </h4>
       <Card>
         <CardContent>

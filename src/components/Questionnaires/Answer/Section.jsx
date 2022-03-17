@@ -81,7 +81,7 @@ export default function Section({presentation, section, setSection, activeSectio
         setQuestion(newQuestion, lastIndex);
       }
     }
-    if (canPass(hasAnswer, lastQuestion)) {
+    if (canPass(hasAnswer, lastQuestion, preview)) {
       setPage(newPage);
       setCurrentQuestion(questions[currentIndex]);
     }

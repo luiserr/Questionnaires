@@ -84,10 +84,12 @@ export default function CreateAssign() {
   const handleSave = async () => {
     if (validatePayload(payload)) {
       const response = await saveAssign(test.id, buildPayload(test, presentationId, payload));
-      myAlert('Operación exitosa', 'success');
-      setTimeout(() => {
-        navigate('/admin/surveys/test');
-      }, 3000);
+      if (response) {
+        myAlert('Operación exitosa', 'success');
+        setTimeout(() => {
+          navigate('/admin/surveys/test');
+        }, 3000);
+      }
     }
   }
 

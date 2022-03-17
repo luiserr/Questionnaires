@@ -38,13 +38,15 @@ export function validateAnswer(question) {
   }
 }
 
-export function canPass(hasAnswer, question) {
-  if (!hasAnswer) {
-    if (question.validation === 'required') {
-      toast('Esta pregunta es requerida', false);
-      return false;
-    } else if (question.validation === 'warning') {
-      toast('No ha escogido ninguna respuesta', false, 'warning');
+export function canPass(hasAnswer, question, preview) {
+  if (!preview) {
+    if (!hasAnswer) {
+      if (question.validation === 'required') {
+        toast('Esta pregunta es requerida', false);
+        return false;
+      } else if (question.validation === 'warning') {
+        toast('No ha escogido ninguna respuesta', false, 'warning');
+      }
     }
   }
   return true;

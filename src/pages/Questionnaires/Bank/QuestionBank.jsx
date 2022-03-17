@@ -101,10 +101,11 @@ export default function QuestionBank() {
                   </Grid>
                   <Grid item xs={3}>
                     <FormControl fullWidth>
-                      <InputLabel>Tipo de pregunta</InputLabel>
+                      <InputLabel id={'questionType'}>Tipo de pregunta</InputLabel>
                       <Select
+                        labelId={'questionType'}
                         value={questionType}
-                        label="Age"
+                        label="Tipo de pregunta"
                         onChange={(e) => setQuestionType(e.target.value)}
                       >
                         {

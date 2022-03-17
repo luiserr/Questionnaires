@@ -34,7 +34,6 @@ export default function Roles({data, setData, payload, setPayload}) {
 
   const isChecked = (id) => {
     const x = typeof  payload?.roles?.find(rol => rol.id === id) !== 'undefined';
-    console.log(x);
     return x;
   };
 

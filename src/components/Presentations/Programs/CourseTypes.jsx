@@ -16,7 +16,7 @@ export default function CourseTypes({data, setData, setPayload, payload}) {
     let myCourseTypes = payload?.programs?.courseTypes ?? [];
     if (checked) {
       if (!myCourseTypes.find(type => type.id === row.id)) {
-        myCourseTypes.push(row.id);
+        myCourseTypes.push(row);
       }
     } else {
       myCourseTypes.filter(rol => rol.id !== row.id);

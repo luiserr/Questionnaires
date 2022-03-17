@@ -56,6 +56,19 @@ export const getGroups = async (codes) => {
   return []
 }
 
+export const getManualGroups = async (id, groupId, name) => {
+  const payload = {
+    id,
+    groupId,
+    name
+  };
+  const response = await post(`${api}/assignQuestionnaires/groups`, payload);
+  if (response.success) {
+    return response.data;
+  }
+  return []
+}
+
 export async function saveAssign(testId, payload) {
   const response = await post(`${api}/tests/${testId}/presentation`, payload, null, true, true);
   if (response && response?.success) {

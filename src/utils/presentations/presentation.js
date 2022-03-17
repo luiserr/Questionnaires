@@ -48,7 +48,14 @@ export function validatePayload(payload) {
     }
   }
 
-  if (!keys.hasRoles && !keys.hasRegionals && !keys.hasCenters && !keys.hasPrograms && !keys.hasEmails) {
+  if (
+    !keys.hasRoles
+    && !keys.hasRegionals
+    && !keys.hasCenters
+    && !keys.hasPrograms
+    && !keys.hasEmails
+    && !keys.hasGroups
+  ) {
     toast('Debe seleccionar al menos un metodo de asignación');
     return false;
   }
@@ -62,6 +69,7 @@ function hasKeys(payload) {
     hasCenters: payload?.regionals?.centers !== null && payload?.regionals?.centers?.length > 0,
     hasPrograms: payload?.programs?.programs !== null && payload?.programs?.programs?.length > 0,
     hasEmails: payload?.emails?.length > 0,
+    hasGroups: payload?.groups?.groups !== null && payload?.groups?.groups?.length > 0
   }
 }
 
@@ -90,6 +98,9 @@ export function buildPayload(test, presentationId, payload) {
   }
   if (keys.hasEmails) {
     data.assignments['emails'] = payload.emails;
+  }
+  if (keys.hasGroups) {
+    data.assignments['groups'] = payload.groups;
   }
   return data;
 }
