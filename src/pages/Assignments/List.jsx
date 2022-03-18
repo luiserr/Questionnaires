@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {Box, Button, Card, CardContent, Chip, Grid, Link} from "@mui/material";
+import {Box, Button, Card, CardContent, Chip, Grid, IconButton, Link} from "@mui/material";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import MyTable from "../../components/commons/table";
 import EditIcon from '@mui/icons-material/Edit';
@@ -8,7 +8,7 @@ import {deleteAssign, getPresentations} from "../../tools/assignRequests";
 import SaveAsIcon from '@mui/icons-material/SaveAs';
 import AvTimerIcon from '@mui/icons-material/AvTimer';
 import DeleteIcon from '@mui/icons-material/Delete';
-import SummarizeIcon from '@mui/icons-material/Summarize';
+import AssessmentIcon from '@mui/icons-material/Assessment';
 import {getDomain} from '../../utils/tools';
 
 const headers = {
@@ -74,44 +74,44 @@ export default function List() {
     {
       title: 'Editar',
       component: (row) =>
-        <Button
-          color={'secondary'}
+        <IconButton
           alt={'Editar'}
           title={'Editar'}
-          startIcon={<EditIcon/>}
           disabled={row.status !== 'inProgress'}
           onClick={() => navigate(`/admin/surveys/test/${testId}/presentation/${row.id}`)}
-        />
+        >
+          <EditIcon/>
+        </IconButton>
     },
     {
       title: 'Cancelar',
       component: (row) =>
-        <Button
+        <IconButton
           alt={'Cancelar'}
           title={'Cancelar'}
-          startIcon={<DeleteIcon/>}
-          color={'error'}
           disabled={row.status !== 'inProgress'}
           onClick={() => handleDelete(row.id)}
-        />
+        >
+          <DeleteIcon/>
+        </IconButton>
     },
     {
       title: 'Reporte',
       component: (row) =>
-        <Button
+        <IconButton
           alt={'Reporte'}
           title={'Reporte'}
-          startIcon={<SummarizeIcon/>}
-          color={'error'}
           disabled={row.status !== 'inProgress'}
           onClick={() => navigate(`/admin/surveys/test/${testId}/presentation/${row.id}/report`)}
-        />
+        >
+          <AssessmentIcon/>
+        </IconButton>
     },
     {
       title: 'Descargar',
       component: (row) =>
-        <Link 
-        href={url}
+        <Link
+          href={url}
         >Link</Link>
     }
   ];
