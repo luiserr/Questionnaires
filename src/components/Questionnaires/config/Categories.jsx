@@ -14,7 +14,7 @@ export default function Categories({test}) {
   const navigation = useNavigate();
 
   const handleAttach = async (attach, currentCategory) => {
-    const message = attach ? '¿Desea asociar esta categoria?' : '¿Desea desasociar esta categoria?';
+    const message = attach ? '¿Desea asociar esta categoría?' : '¿Desea desasociar esta categoría?';
     // eslint-disable-next-line no-restricted-globals
     if(confirm(message)) {
     const response = await attachCategory(test.id, currentCategory.id, attach);

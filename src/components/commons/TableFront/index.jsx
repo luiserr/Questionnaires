@@ -235,7 +235,7 @@ export default function TableFront(
                 </TableBody>
               </Table>
             </TableContainer>
-            {rowsPerPage <= rows.length && <TablePagination
+            <TablePagination
               rowsPerPageOptions={[5, 10, 25, rows.length && rows.length > 25 ? rows.length : 30]}
               component="div"
               count={rows.length}
@@ -243,7 +243,7 @@ export default function TableFront(
               page={page}
               onPageChange={handleChangePage}
               onRowsPerPageChange={handleChangeRowsPerPage}
-            />}
+            />
           </Paper>
           <FormControlLabel
             control={<Switch checked={dense} onChange={handleChangeDense}/>}

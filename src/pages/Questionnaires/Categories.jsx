@@ -74,7 +74,7 @@ export default function Categories() {
       >
         Regresar
       </Button>
-      <h4>Categorias de encuestas</h4>
+      <h4>Categorías de encuestas</h4>
       <Card elevation={2} sx={{mt: 1}}>
         <CardContent>
           {
