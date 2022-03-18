@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {Box, Button, Card, CardContent, Chip, Grid} from "@mui/material";
+import {Box, Button, Card, CardContent, Chip, Grid, Link} from "@mui/material";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import MyTable from "../../components/commons/table";
 import EditIcon from '@mui/icons-material/Edit';
@@ -8,6 +8,8 @@ import {deleteAssign, getPresentations} from "../../tools/assignRequests";
 import SaveAsIcon from '@mui/icons-material/SaveAs';
 import AvTimerIcon from '@mui/icons-material/AvTimer';
 import DeleteIcon from '@mui/icons-material/Delete';
+import SummarizeIcon from '@mui/icons-material/Summarize';
+import {getDomain} from '../../utils/tools';
 
 const headers = {
   id: 'ID',
@@ -92,12 +94,34 @@ export default function List() {
           disabled={row.status !== 'inProgress'}
           onClick={() => handleDelete(row.id)}
         />
+    },
+    {
+      title: 'Reporte',
+      component: (row) =>
+        <Button
+          alt={'Reporte'}
+          title={'Reporte'}
+          startIcon={<SummarizeIcon/>}
+          color={'error'}
+          disabled={row.status !== 'inProgress'}
+          onClick={() => navigate(`/admin/surveys/test/${testId}/presentation/${row.id}/report`)}
+        />
+    },
+    {
+      title: 'Descargar',
+      component: (row) =>
+        <Link 
+        href={url}
+        >Link</Link>
     }
   ];
 
   const handleBack = () => {
     navigate('/admin/surveys/');
   };
+
+  const domain = getDomain();
+  const url = `${domain}`;
 
   return (
     <Box sx={{width: '100%'}}>
