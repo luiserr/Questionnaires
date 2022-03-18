@@ -21,7 +21,7 @@ export default function AssigmentType({data, setData, payload, setPayload}) {
           <Tab label="Regionales y centros"/>
           <Tab label="Programas de formación"/>
           <Tab label="Correo electroníco"/>
-          <Tab label="Fichas manuales"/>
+          <Tab label="Fichas"/>
           {/*<Tab label="Tipo de programa"/>*/}
           {/*<Tab label="Modalidad"/>*/}
         </Tabs>

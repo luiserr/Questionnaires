@@ -26,20 +26,21 @@ export default function BasicTabs() {
 
   const navigate = useNavigate();
 
-  const handleToken = (decodeToken) => {
+  const handleToken = (encodeToken) => {
     // const decodeToken = atob(token);
-    sessionStorage.setItem('_token', decodeToken);
+    sessionStorage.setItem('_token', encodeToken);
   }
 
   useEffect(async () => {
     if (!presentation) {
-      const myPresentation = await getPresentation(token);
+      const encodeToken = encodeURIComponent(token);
+      const myPresentation = await getPresentation(encodeToken);
       if (!myPresentation) {
         setTimeout(() => {
           myAlert('Error al mostrar la información de la encuesta');
         }, 3000);
       } else {
-        handleToken(token);
+        handleToken(encodeToken);
         setPresentation(myPresentation);
       }
     }

@@ -65,6 +65,8 @@ export default function QuestionBank() {
       component: (row) =>
         <Button
           key={v4()}
+          alt={'Agregar a la sección actual'}
+          title={'Agregar a la sección actual'}
           startIcon={<AddTaskIcon/>}
           onClick={() => handleAssign(row)}
           size={"small"}

@@ -7,8 +7,8 @@ export function $_get() {
       .replace(/#.*$/, '')
       .split('&');
     for (let i = 0, l = query.length; i < l; i++) {
-      let aux = decodeURIComponent(query[i]).split('=');
-      params[aux[0]] = aux[1];
+      let aux = query[i].split('=', 2);
+      params[aux[0]] = decodeURIComponent(aux[1]);
     }
   }
   return params;

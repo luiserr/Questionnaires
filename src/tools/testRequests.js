@@ -174,7 +174,7 @@ export async function getQuestionBank(title, type, page = 1, perPage = 10) {
     page,
     perPage
   };
-  const response = await post(`${local}/tests/question/bank`, payload, null, true);
+  const response = await post(`${api}/tests/question/bank`, payload, null, true);
   if (response && response?.success) {
     return response.data;
   }

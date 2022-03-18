@@ -38,7 +38,7 @@ export default function Question(
       canRender ?
         <>
           <Box sx={{marginTop: '2em'}}>
-            <div dangerouslySetInnerHTML={{__html: question.description}}/>
+            <div dangerouslySetInnerHTML={{__html: question?.description}}/>
           </Box>
           <Box sx={{marginTop: '2em'}}>
             {Question}

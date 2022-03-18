@@ -43,8 +43,8 @@ export default function Roles({data, setData, payload, setPayload}) {
         <Table sx={{minWidth: 650}} aria-label="simple table">
           <TableHead>
             <TableRow>
-              <TableCell>Rol</TableCell>
-              <TableCell align="right">Seleccionar</TableCell>
+              <TableCell align="center">Rol</TableCell>
+              <TableCell align="center">Seleccionar</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -52,10 +52,10 @@ export default function Roles({data, setData, payload, setPayload}) {
               <TableRow
                 key={rol.id}
               >
-                <TableCell component="th" scope="row">
+                <TableCell align={'center'} scope="row">
                   {rol.name}
                 </TableCell>
-                <TableCell component="th" scope="row">
+                <TableCell align={'center'} scope="row">
                   <Switch
                     checked={isChecked(rol.id)}
                     onChange={(e) => handleCheck(e.target.checked, rol)}
