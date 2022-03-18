@@ -27,7 +27,10 @@ export default function General({test, setPayload}) {
   const disabled = test?.presentations > 0 ?? true;
 
   const config = {
-    readonly: disabled
+    readonly: disabled,
+    uploader: {
+      insertImageAsBase64URI: true
+    }
   };
 
   return (

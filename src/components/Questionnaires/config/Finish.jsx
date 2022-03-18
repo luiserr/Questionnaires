@@ -40,10 +40,20 @@ export default function Finish({test}) {
     toast('No se pudo generar el token de validación', true);
   };
 
+  const disabled = test?.presentations > 0 ?? true;
+
+  const config = {
+    readonly: disabled,
+    uploader: {
+      insertImageAsBase64URI: true
+    }
+  };
+
   return (
     <Grid item xs={12}>
       <label>Escriba una breve despedida:</label>
       <JoditEditor
+        config={config}
         value={goodbye}
         onBlur={(text) => setGoodbye(text)}
       />

@@ -37,7 +37,10 @@ export default function Question() {
   const {test, disabled} = useTest(testId, currentTest, user);
 
   const config = {
-    readonly: disabled
+    readonly: disabled,
+    uploader: {
+      insertImageAsBase64URI: true
+    }
   };
 
   const [question, setQuestion] = useState({

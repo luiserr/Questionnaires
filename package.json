@@ -23,6 +23,7 @@
     "draft-js": "^0.11.7",
     "express": "^4.17.1",
     "formik": "^2.2.9",
+    "jodit": "^3.16.1",
     "jodit-react": "^1.1.17",
     "jquery": "^3.6.0",
     "lodash": "^4.17.21",
@@ -70,6 +71,5 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  },
-  "devDependencies": {}
+  }
 }
