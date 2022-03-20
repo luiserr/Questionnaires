@@ -9,6 +9,7 @@ import Answer from '../pages/answer/';
 import QuestionBank from "../pages/Questionnaires/Bank/QuestionBank";
 import CreateAssign from "../pages/Assignments/create";
 import CreateReport from "../pages/Reports/create";
+import ListReports from "../pages/Reports/list";
 import List from "../pages/Assignments/List";
 import NotFound from "../pages/NotFound";
 import Categories from "../pages/Questionnaires/Categories";
@@ -42,6 +43,7 @@ export default function routes() {
           name="create"
           path="/admin/surveys/test/:testId/presentation/:presentationId/report"
           element={<CreateReport/>}/>
+        <Route exact name="create" path="/admin/surveys/reports" element={<ListReports/>}/>
         <Route exact
                name="create"
                path="/admin/surveys/test/:testId/presentations" element={<List/>}/>
