@@ -9,7 +9,6 @@ import SaveAsIcon from '@mui/icons-material/SaveAs';
 import AvTimerIcon from '@mui/icons-material/AvTimer';
 import DeleteIcon from '@mui/icons-material/Delete';
 import AssessmentIcon from '@mui/icons-material/Assessment';
-import {getDomain} from '../../utils/tools';
 
 const headers = {
   id: 'ID',
@@ -96,32 +95,22 @@ export default function List() {
         </IconButton>
     },
     {
-      title: 'Reporte',
+      title: 'Crear reporte',
       component: (row) =>
         <IconButton
-          alt={'Reporte'}
-          title={'Reporte'}
+          alt={'Crear reporte'}
+          title={'Crear reporte'}
           disabled={row.status !== 'inProgress'}
           onClick={() => navigate(`/admin/surveys/test/${testId}/presentation/${row.id}/report`)}
         >
           <AssessmentIcon/>
         </IconButton>
-    },
-    {
-      title: 'Descargar',
-      component: (row) =>
-        <Link
-          href={url}
-        >Link</Link>
     }
   ];
 
   const handleBack = () => {
     navigate('/admin/surveys/');
   };
-
-  const domain = getDomain();
-  const url = `${domain}`;
 
   return (
     <Box sx={{width: '100%'}}>

@@ -15,3 +15,11 @@ export async function createReport(payload) {
   }
   return false;
 }
+
+export const getReports = async () => {
+  const response = await get(`${api}/tests/reports`, true);
+  if (response.success) {
+    return response.data;
+  }
+  return {}
+};
