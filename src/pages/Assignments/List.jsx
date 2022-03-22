@@ -100,7 +100,7 @@ export default function List() {
         <IconButton
           alt={'Crear reporte'}
           title={'Crear reporte'}
-          disabled={row.status !== 'inProgress'}
+          disabled={row.status !== 'assigned'}
           onClick={() => navigate(`/admin/surveys/test/${testId}/presentation/${row.id}/report`)}
         >
           <AssessmentIcon/>
