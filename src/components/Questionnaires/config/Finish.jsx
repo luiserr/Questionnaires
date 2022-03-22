@@ -10,7 +10,7 @@ export default function Finish({test}) {
 
   const location = useLocation();
 
-  const [goodbye, setGoodbye] = useState(test?.goodbye ?? location.state.test ?? '');
+  const [goodbye, setGoodbye] = useState(test?.goodbye ?? location?.state?.test ?? '');
 
   const navigate = useNavigate();
 
