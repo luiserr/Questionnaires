@@ -5,7 +5,7 @@ import Header from './Header';
 import Grid from "@mui/material/Grid";
 import {usePresentation} from "../../components/hooks/testHook";
 import React, {useEffect, useState} from "react";
-import {useNavigate, useParams} from "react-router-dom";
+import {useLocation, useNavigate, useParams} from "react-router-dom";
 import {getPresentation} from "../../tools/presentationRequest";
 import {myAlert} from "../../utils/alerts";
 import {Button} from "@mui/material";
@@ -23,6 +23,10 @@ export default function BasicTabs() {
   const [presentation, setPresentation] = useState(null);
 
   const {token} = useParams();
+
+  const location = useLocation();
+
+  console.log(location);
 
   const navigate = useNavigate();
 
@@ -55,7 +59,7 @@ export default function BasicTabs() {
   }
 
   const handleBack = () => {
-    navigate(`/admin/surveys/test/${presentation?.id}`, {state: {step: 3}});
+    navigate(`/admin/surveys/test/${presentation?.id}`, {state: {step: 3, test: location?.state?.test}});
   }
 
   const TabPanel = usePresentation(presentation, setPresentation, value, handleTab, presentation?.preview);

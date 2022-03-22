@@ -66,14 +66,14 @@ export default function FormGroup({data, setData, payload, setPayload}) {
   return (
     <Grid container>
       <Grid container spacing={2} item xs={12}>
-        <Grid item xs={2}>
-          <TextField
-            fullWidth
-            label={'Id de la ficha'}
-            value={groupId}
-            onChange={(e) => setGroupId(e.target.value)}
-          />
-        </Grid>
+        {/*<Grid item xs={2}>*/}
+        {/*  <TextField*/}
+        {/*    fullWidth*/}
+        {/*    label={'Id de la ficha'}*/}
+        {/*    value={groupId}*/}
+        {/*    onChange={(e) => setGroupId(e.target.value)}*/}
+        {/*  />*/}
+        {/*</Grid>*/}
         <Grid item xs={4}>
           <TextField
             fullWidth
@@ -82,14 +82,14 @@ export default function FormGroup({data, setData, payload, setPayload}) {
             onChange={(e) => setName(e.target.value)}
           />
         </Grid>
-        <Grid item xs={2}>
-          <TextField
-            fullWidth
-            label={'Id del grupo'}
-            value={id}
-            onChange={(e) => setId(e.target.value)}
-          />
-        </Grid>
+        {/*<Grid item xs={2}>*/}
+        {/*  <TextField*/}
+        {/*    fullWidth*/}
+        {/*    label={'Id del grupo'}*/}
+        {/*    value={id}*/}
+        {/*    onChange={(e) => setId(e.target.value)}*/}
+        {/*  />*/}
+        {/*</Grid>*/}
         <Grid item xs={2}>
           <Button
             variant={'contained'}

@@ -139,7 +139,7 @@ export default function CreateAssign() {
                 control={<Switch
                   checked={payload?.anonymous}
                   onChange={(e, checked) => handleChange('anonymous', checked)}/>}
-                label={'Encuesta anonima'}
+                label={'Encuesta anónima'}
               />
             </Grid>
           </Grid>
@@ -188,6 +188,10 @@ export default function CreateAssign() {
                 value={payload?.abilityDays}
                 onChange={(e) => handleChange('abilityDays', e.target.value)}
                 type={"number"}
+                inputProps={{
+                  min: 0,
+                  max: 365
+                }}
                 variant="outlined"/>
             </Grid>
             <Grid item xs={5}>
@@ -197,7 +201,12 @@ export default function CreateAssign() {
                 value={payload?.complementaryDays}
                 onChange={(e) => handleChange('complementaryDays', e.target.value)}
                 type={"number"}
-                variant="outlined"/>
+                variant="outlined"
+                inputProps={{
+                  min: 0,
+                  max: 365
+                }}
+              />
             </Grid>
           </Grid>
           <Paper elevation={2} spacing={2} sx={{m: 2, p: 2, backgroundColor: '#efefef'}}>

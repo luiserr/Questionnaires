@@ -12,5 +12,5 @@ export default [
   {key: SINGLE, label: 'Opción unica'},
   {key: BOOLEAN, label: 'Falso y verdadero'},
   {key: MATRIX, label: 'Tabla Matriz'},
-  {key: NUMERIC, label: 'Númerica'}
+  {key: NUMERIC, label: 'Numérica'}
 ];

@@ -14,11 +14,11 @@ import AddTaskIcon from '@mui/icons-material/AddTask';
 import userContext from "../../context/userContext";
 
 const headers = {
-  title: 'Título',
+  title: 'Título de encuesta',
   id: 'Id',
   statusDescription: 'Estado',
   ownerName: 'Creador',
-  createdAt: 'Fecha de creación',
+  createdAt: 'Fecha de creación de encuesta',
   presentations: 'Número de asignaciones'
 };
 
@@ -70,7 +70,7 @@ export default function TestList() {
         </IconButton>,
     },
     {
-      title: 'Añadir asignación',
+      title: 'Asignar / Reasignar',
       component: (row) =>
         <IconButton
           onClick={() => navigate(`/admin/surveys/test/${row.id}/presentation/_`)}
@@ -93,7 +93,7 @@ export default function TestList() {
         </IconButton>
     },
     {
-      title: 'Eliminar',
+      title: 'Eliminar encuesta',
       component: (row) =>
         <IconButton
           disabled={parseInt(row.presentations) > 0 || !user?.actions?.delete}

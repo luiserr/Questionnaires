@@ -152,7 +152,7 @@ export default function Question() {
                   ...question,
                   private: !question.private
                 })}
-              />} label="¿pertenece al banco de preguntas?"/>
+              />} label="Seleccione esta opción si desea que esta pregunta haga parte del banco de preguntas"/>
             </Grid>
             {![OPEN, MULTIPLE, MATRIX].includes(question.questionType) &&
               <Grid item xs={10}>

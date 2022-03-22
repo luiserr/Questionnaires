@@ -2,13 +2,15 @@ import {Button, Grid} from "@mui/material";
 import JoditEditor from "jodit-react";
 import React, {useContext, useState} from "react";
 import {finishTest, general, preview} from "../../../tools/testRequests";
-import {useNavigate} from "react-router-dom";
+import {useLocation, useNavigate} from "react-router-dom";
 import {toast} from "../../../utils/alerts";
 import userContext from "../../../context/userContext";
 
 export default function Finish({test}) {
 
-  const [goodbye, setGoodbye] = useState(test?.goodbye ?? '');
+  const location = useLocation();
+
+  const [goodbye, setGoodbye] = useState(test?.goodbye ?? location.state.test ?? '');
 
   const navigate = useNavigate();
 
@@ -33,9 +35,15 @@ export default function Finish({test}) {
   };
 
   const handlePreview = async () => {
-    const token = await preview(test.id);
-    if (token) {
-      return navigate(`/admin/surveys/answer/${token}`);
+    const response = await general({
+      ...test,
+      goodbye
+    });
+    if (response) {
+      const token = await preview(test.id);
+      if (token) {
+        return navigate(`/admin/surveys/answer/${token}`, {state: {test: response}});
+      }
     }
     toast('No se pudo generar el token de validación', true);
   };
@@ -54,7 +62,7 @@ export default function Finish({test}) {
       <label>Escriba una breve despedida:</label>
       <JoditEditor
         config={config}
-        value={goodbye}
+        value={goodbye ?? test?.goodbye}
         onBlur={(text) => setGoodbye(text)}
       />
       <div style={{marginTop: '2em'}}>

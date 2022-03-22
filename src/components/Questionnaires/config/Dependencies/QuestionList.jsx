@@ -31,11 +31,14 @@ export default function QuestionList(
   }
 
   const handleDelete = async () => {
-    const response = await deleteDependency(currentQuestion.id, currentSection, testId);
-    if (response) {
-      setTimeout(() => {
-        navigate(-1);
-      }, 3000);
+    // eslint-disable-next-line no-restricted-globals
+    if (confirm('¿Esta seguro que desea eliminar la dependencia?')) {
+      const response = await deleteDependency(currentQuestion.id, currentSection, testId);
+      if (response) {
+        setTimeout(() => {
+          navigate(-1);
+        }, 3000);
+      }
     }
   };
 
@@ -45,10 +48,10 @@ export default function QuestionList(
         <Table sx={{minWidth: 650}} aria-label="simple table">
           <TableHead>
             <TableRow>
-              <TableCell align={'center'}>Id</TableCell>
-              <TableCell align="center">Título</TableCell>
-              <TableCell align="center">Tipo</TableCell>
-              <TableCell align="center">Gestionar dependencia</TableCell>
+              <TableCell align={'center'}><b>Id</b></TableCell>
+              <TableCell align="center"><b>Título</b></TableCell>
+              <TableCell align="center"><b>Tipo</b></TableCell>
+              <TableCell align="center"><b>Gestionar dependencia</b></TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
