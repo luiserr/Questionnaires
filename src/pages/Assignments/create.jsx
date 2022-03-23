@@ -14,6 +14,7 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import {buildPayload, validatePayload} from "../../utils/presentations/presentation";
 import {getPresentation, saveAssign} from "../../tools/assignRequests";
 import {myAlert} from "../../utils/alerts";
+import {es}  from 'date-fns/locale'
 
 export default function CreateAssign() {
 
@@ -36,10 +37,11 @@ export default function CreateAssign() {
     regionals: {},
     programs: {},
     emails: [],
+    dates: {},
     complementaryDays: 7,
     abilityDays: 5,
+    notify: true
   });
-
 
   const {testId, presentationId} = useParams();
 
@@ -73,12 +75,14 @@ export default function CreateAssign() {
   };
 
   function getFormattedDate(date) {
-    const year = date.getFullYear();
-    let month = (1 + date.getMonth()).toString();
-    month = month.length > 1 ? month : '0' + month;
-    let day = date.getDate().toString();
-    day = day.length > 1 ? day : '0' + day;
-    return month + '/' + day + '/' + year;
+    if (date) {
+      const year = date.getFullYear();
+      let month = (1 + date.getMonth()).toString();
+      month = month.length > 1 ? month : '0' + month;
+      let day = date.getDate().toString();
+      day = day.length > 1 ? day : '0' + day;
+      return month + '/' + day + '/' + year;
+    }
   }
 
   const handleSave = async () => {
@@ -96,6 +100,12 @@ export default function CreateAssign() {
   const handleBack = () => {
     navigate('/admin/surveys/test');
   };
+
+  const tomorrow = () => {
+    const toDay = new Date();
+    toDay.setDate(toDay.getDate() + 1);
+    return toDay;
+  }
 
   return (
     <Box sx={{width: '100%'}}>
@@ -115,6 +125,7 @@ export default function CreateAssign() {
             <Grid item xs={6}>
               <TextField
                 label="Título"
+                required
                 fullWidth
                 inputProps={{
                   maxLength: 150
@@ -127,6 +138,7 @@ export default function CreateAssign() {
             <Grid item xs={2}>
               <TextField
                 label="Número de intentos"
+                required
                 fullWidth
                 type={"number"}
                 variant="outlined"
@@ -142,14 +154,23 @@ export default function CreateAssign() {
                 label={'Encuesta anónima'}
               />
             </Grid>
+            <Grid item xs={2}>
+              <FormControlLabel
+                control={<Switch
+                  checked={payload?.notify}
+                  onChange={(e, checked) => handleChange('notify', checked)}/>}
+                label={'Activar notificación'}
+              />
+            </Grid>
           </Grid>
           <Grid container sx={{mt: 2}} spacing={2}>
             <Grid item xs={6}>
-              <LocalizationProvider dateAdapter={AdapterDateFns}>
+              <LocalizationProvider locale={es} dateAdapter={AdapterDateFns}>
                 <DatePicker
-                  label="Fecha inicio"
+                  label="Fecha inicio *"
+                  required
                   size={"small"}
-                  minDate={new Date()}
+                  minDate={tomorrow()}
                   onChange={(e) => {
                     setPayload({
                       ...payload,
@@ -163,10 +184,12 @@ export default function CreateAssign() {
               </LocalizationProvider>
             </Grid>
             <Grid item xs={6}>
-              <LocalizationProvider dateAdapter={AdapterDateFns}>
+              <LocalizationProvider locale={es} dateAdapter={AdapterDateFns}>
                 <DatePicker
-                  label="Fecha fin"
+                  label="Fecha fin *"
                   size={"small"}
+                  minDate={tomorrow()}
+                  required
                   onChange={(e) => {
                     setPayload({
                       ...payload,
@@ -183,7 +206,8 @@ export default function CreateAssign() {
           <Grid container sx={{mt: 2}} spacing={2}>
             <Grid item xs={4}>
               <TextField
-                label="Dias de habilitación pos fecha de finalización"
+                label="Días de habilitación pos fecha de finalización"
+                required
                 fullWidth
                 value={payload?.abilityDays}
                 onChange={(e) => handleChange('abilityDays', e.target.value)}
@@ -196,8 +220,9 @@ export default function CreateAssign() {
             </Grid>
             <Grid item xs={5}>
               <TextField
-                label="Dias de activación antes de finalizacion de ficha (Solo formación complementaria)"
+                label="Días de activación antes de finalización de ficha (Solo formación complementaria)"
                 fullWidth
+                required
                 value={payload?.complementaryDays}
                 onChange={(e) => handleChange('complementaryDays', e.target.value)}
                 type={"number"}

@@ -82,7 +82,11 @@ export default function Wizard(props) {
           ) : (
             <>
               <Box sx={{flexGrow: 1}}>
-                <Grid container spacing={2} sx={{paddingTop: '3em'}}>
+                <Grid
+                  container
+                  spacing={2}
+                  sx={{mt: 2, paddingTop: '3em', height: '500px', overflowY: 'scroll'}}
+                >
                   {Component}
                 </Grid>
               </Box>

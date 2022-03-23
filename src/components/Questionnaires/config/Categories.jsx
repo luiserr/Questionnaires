@@ -56,6 +56,7 @@ export default function Categories({test}) {
               sx={{mt: 2}}
               color={'error'}
               variant={"outlined"}
+              disabled={test?.presentations > 0}
               onClick={() => handleAttach(false, category)}
               >
               Desasociar

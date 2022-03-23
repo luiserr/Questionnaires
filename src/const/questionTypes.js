@@ -9,7 +9,7 @@ export const NUMERIC = 'numeric';
 export default [
   {key: OPEN, label: 'Abierta'},
   {key: MULTIPLE, label: 'Opción multiple'},
-  {key: SINGLE, label: 'Opción unica'},
+  {key: SINGLE, label: 'Opción única'},
   {key: BOOLEAN, label: 'Falso y verdadero'},
   {key: MATRIX, label: 'Tabla Matriz'},
   {key: NUMERIC, label: 'Numérica'}

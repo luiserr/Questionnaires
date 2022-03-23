@@ -6,6 +6,7 @@ import {getAssets} from "../../tools/assignRequests";
 import Programs from "../Presentations/Programs/index";
 import Email from "../Presentations/Email";
 import Groups from "../Presentations/Groups/index";
+import Dates from "../Presentations/Dates/Dates";
 
 
 export const useManualAssign = (index, data, setData, payload, setPayload) => {
@@ -40,6 +41,13 @@ export const useManualAssign = (index, data, setData, payload, setPayload) => {
       />
     case 4:
       return <Groups
+        data={data}
+        setData={setData}
+        payload={payload}
+        setPayload={setPayload}
+      />
+    case 5:
+      return <Dates
         data={data}
         setData={setData}
         payload={payload}

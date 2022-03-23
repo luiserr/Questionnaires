@@ -1,4 +1,4 @@
-import {NUMERIC} from "../const/questionTypes";
+import {MATRIX, NUMERIC} from "../const/questionTypes";
 
 export function hasDependency(sections, question = {}, dependencies = []) {
   const dependency = searchDependency(question.id, dependencies);
@@ -8,12 +8,13 @@ export function hasDependency(sections, question = {}, dependencies = []) {
       dependsOfQuestion: questionId,
       dependsOfSection: sectionId,
       questionType,
+      parentId,
       answerId
     } = dependency;
-    const tryUser = searchAttempt(sections, sectionId, questionId);
+    const tryUser = searchAttempt(sections, sectionId, questionId, questionType, parentId);
     if (tryUser) {
       const {attempt, answers} = tryUser;
-      const questionValue = getDependencyAnswer(questionType, answers, attempt[0]);
+      const questionValue = getDependencyAnswer(questionType, answers, attempt);
       const dependencyValue = getDependencyAnswer(questionType, answers, answerId);
       if (dependencyValue && questionValue) {
         return compareAnswer(questionValue, operator, dependencyValue);
@@ -28,15 +29,29 @@ function searchDependency(questionId, dependencies = []) {
   return dependencies.find(dependency => parseInt(dependency.questionId) === parseInt(questionId));
 }
 
-function searchAttempt(sections = [], sectionId, questionId) {
+function searchAttempt(sections = [], sectionId, questionId, dependencyType, parentId) {
   const section = sections.find(item => item.id === sectionId);
   if (section) {
-    const question = section.questions?.find(item => item.id === questionId);
-    if (question) {
-      return {
-        attempt: question.attempts?.answers ?? [],
-        answers: question.answers ?? []
-      };
+    let question = null;
+    switch (dependencyType) {
+      case MATRIX:
+        question = section.questions?.find(item => item.id === parentId);
+        if(question) {
+            const subQuestion = question.answers?.find((item) => questionId === item.id);
+            const attempt = question.attempts?.answers.find((item) => questionId === item.questionId)
+          return {
+            attempt: attempt.answerId ?? null,
+            answers: subQuestion?.answers ?? []
+          }
+        }
+      default:
+        question = section.questions?.find(item => item.id === questionId);
+        if (question) {
+          return {
+            attempt: question.attempts?.answers[0] ?? null,
+            answers: question.answers ?? []
+          };
+        }
     }
   }
   return false;

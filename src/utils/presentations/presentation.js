@@ -42,7 +42,7 @@ export function validatePayload(payload) {
   if (keys.hasEmails) {
     for (let i = 0; i < payload.emails.length; i++) {
       if (payload.emails[i].name === '' || payload.emails[i].email === '') {
-        toast('Los campos en la asignacion por correo electronico son requeridos');
+        toast('Los campos en la asignación por correo electrónico son requeridos');
         return false;
       }
     }
@@ -55,6 +55,7 @@ export function validatePayload(payload) {
     && !keys.hasPrograms
     && !keys.hasEmails
     && !keys.hasGroups
+    && !keys.hasDate
   ) {
     toast('Debe seleccionar al menos un metodo de asignación');
     return false;
@@ -69,7 +70,8 @@ function hasKeys(payload) {
     hasCenters: payload?.regionals?.centers !== null && payload?.regionals?.centers?.length > 0,
     hasPrograms: payload?.programs?.programs !== null && payload?.programs?.programs?.length > 0,
     hasEmails: payload?.emails?.length > 0,
-    hasGroups: payload?.groups?.groups !== null && payload?.groups?.groups?.length > 0
+    hasGroups: payload?.groups?.groups !== null && payload?.groups?.groups?.length > 0,
+    hasDate: payload?.dates?.startDate && payload?.dates?.finishDate
   }
 }
 
@@ -85,7 +87,8 @@ export function buildPayload(test, presentationId, payload) {
     complementaryDays: payload.complementaryDays,
     abilityDays: payload.abilityDays,
     presentationType: 'survey',
-    assignments: {}
+    assignments: {},
+    notify: payload.notify
   }
   if (keys.hasRoles) {
     data.assignments['roles'] = payload.roles;
@@ -101,6 +104,9 @@ export function buildPayload(test, presentationId, payload) {
   }
   if (keys.hasGroups) {
     data.assignments['groups'] = payload.groups;
+  }
+  if (keys.hasDate) {
+    data.assignments['dates'] = payload.dates;
   }
   return data;
 }

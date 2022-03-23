@@ -70,7 +70,7 @@ export default function SectionList({test}) {
             <Table sx={{minWidth: 650}} aria-label="simple table">
               <TableHead>
                 <TableRow>
-                  <TableCell {...bold} align="center"><b>Titulo</b></TableCell>
+                  <TableCell {...bold} align="center"><b>Título</b></TableCell>
                   <TableCell {...bold} align="center"><b>Cantidad de preguntas configuradas</b></TableCell>
                   <TableCell {...bold} align="center"><b>Ver / Editar</b></TableCell>
                   <TableCell {...bold} align="center"><b>Eliminar</b></TableCell>
