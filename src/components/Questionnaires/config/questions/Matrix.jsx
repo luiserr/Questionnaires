@@ -13,12 +13,17 @@ export default function Matrix({question, answers = [], setAnswer, disabled}) {
   useEffect(() => {
     const formattedAnswer = formatQuestion(answers);
     setAnswer(formattedAnswer);
-  }, []);
+  }, [question.answers]);
 
   useEffect(() => {
+    console.log('joder', min);
     let secondColumn = [];
     for (let i = min; i <= max; i++) {
-      const oldValue = answers?.secondColumn?.find(item => parseInt(item.value) === i);
+      const oldValue = answers?.secondColumn?.find(item => {
+        console.log(item, i);
+        return parseInt(item.value) === parseInt(i)
+      });
+      console.log(oldValue);
       secondColumn = [...secondColumn, {
         id: oldValue?.id ?? v4(),
         value: parseInt(oldValue?.value ?? i),
@@ -34,6 +39,7 @@ export default function Matrix({question, answers = [], setAnswer, disabled}) {
   const formatQuestion = (answers) => {
     let firstColumn = [];
     let secondColumn = [];
+    console.log(answers)
     if (answers.length) {
       const firstSubQuestion = answers[0];
       const answerSubQuestions = firstSubQuestion['answers'];
@@ -44,10 +50,10 @@ export default function Matrix({question, answers = [], setAnswer, disabled}) {
       secondColumn = answerSubQuestions.map(({id, description, value}) => ({
         id,
         description,
-        value
+        value: parseInt(value)
       }));
-      setMax(answerSubQuestions[0]?.value);
-      setMax(answerSubQuestions[answerSubQuestions.length - 1]?.value);
+      setMin(parseInt(answerSubQuestions[0]?.value));
+      setMax(parseInt(answerSubQuestions[answerSubQuestions.length - 1]?.value));
     }
     return {
       firstColumn,

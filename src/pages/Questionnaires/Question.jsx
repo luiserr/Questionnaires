@@ -14,7 +14,7 @@ import MenuItem from "@mui/material/MenuItem";
 
 import {useTest} from "../../components/hooks/testHook";
 import {findQuestion, saveQuestion} from "../../tools/testRequests";
-import questionTypes, {MATRIX, MULTIPLE, OPEN} from "../../const/questionTypes";
+import questionTypes, {MULTIPLE, OPEN} from "../../const/questionTypes";
 import useQuestion from "../../components/hooks/questionHook";
 import validate from "../../tools/validateQuestion";
 import Breadcrumbs from "@mui/material/Breadcrumbs";
@@ -157,7 +157,7 @@ export default function Question() {
             {![OPEN, MULTIPLE].includes(question.questionType) &&
               <Grid item xs={10}>
                 <FormControlLabel control={<Switch
-                  checked={question?.conditional === 1 || question?.conditional}
+                  checked={(question?.conditional === 1 || question?.conditional)}
                   onChange={() => setQuestion({
                     ...question,
                     conditional: !question.conditional

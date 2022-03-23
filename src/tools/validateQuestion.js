@@ -25,6 +25,7 @@ const multiple = (answers = []) => {
 };
 
 const matrix = (answers) => {
+  console.log(answers);
   if (!answers.firstColumn || !answers.secondColumn) {
     toast('Respuestas mal configuradas', false);
     return false;
@@ -33,15 +34,14 @@ const matrix = (answers) => {
     toast('Respuestas mal configuradas', false);
     return false;
   }
-  if (answers.firstColumn.length != answers.secondColumn.length) {
-    toast('Respuestas mal configuradas', false);
-    return false;
-  }
   for (let i = 0; i < answers.firstColumn.length; i++) {
     if (answers.firstColumn[i]['title'] === '') {
       toast(`La fila ${i + 1} no tiene titulo`, false);
       return false
     }
+  }
+  for (let i = 0; i < answers.secondColumn.length; i++) {
+
     if (answers.secondColumn[i]['description'] === '') {
       toast(`La respuesta ${i + 1} no tiene descripción`, false);
       return false
