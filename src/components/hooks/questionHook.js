@@ -1,5 +1,6 @@
 import Multiple from "../Questionnaires/config/questions/Multiple";
 import Boolean from "../Questionnaires/config/questions/Boolean";
+import _Matrix from "../Questionnaires/config/questions/_Matrix";
 import Matrix from "../Questionnaires/config/questions/Matrix";
 import React from "react";
 import {BOOLEAN, MATRIX, MULTIPLE, NUMERIC, SINGLE} from "../../const/questionTypes";

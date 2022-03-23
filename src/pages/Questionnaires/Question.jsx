@@ -154,7 +154,7 @@ export default function Question() {
                 })}
               />} label="Seleccione esta opción si desea que esta pregunta haga parte del banco de preguntas"/>
             </Grid>
-            {![OPEN, MULTIPLE, MATRIX].includes(question.questionType) &&
+            {![OPEN, MULTIPLE].includes(question.questionType) &&
               <Grid item xs={10}>
                 <FormControlLabel control={<Switch
                   checked={question?.conditional === 1 || question?.conditional}

@@ -1,149 +1,220 @@
-import React, {useEffect} from "react";
-import {v4 as uuid} from "uuid";
-import Box from "@mui/material/Box";
-import {Paper} from "@mui/material";
-import Grid from "@mui/material/Grid";
-import Divider from "@mui/material/Divider";
-import TextField from "@mui/material/TextField";
-import Button from "@mui/material/Button";
-import DeleteIcon from '@mui/icons-material/Delete';
-import * as PropTypes from 'prop-types';
+import React, {useEffect, useState} from "react";
+import {Button, Divider, Grid, TextField, Typography} from "@mui/material";
+import PropTypes from 'prop-types';
+import {toast} from "../../../../utils/alerts";
+import {v4} from "uuid";
+import DeleteIcon from "@mui/icons-material/Delete";
 
+export default function Matrix({question, answers = [], setAnswer, disabled}) {
 
-export default function Matrix({answers, question, setAnswer, disabled}) {
+  const [min, setMin] = useState(1);
+  const [max, setMax] = useState(3);
 
   useEffect(() => {
-    const formate = formatAnswers();
-    setAnswer(formate);
-  }, [question.answers]);
+    const formattedAnswer = formatQuestion(answers);
+    setAnswer(formattedAnswer);
+  }, []);
 
-  const {firstColumn = [], secondColumn = []} = answers;
+  useEffect(() => {
+    let secondColumn = [];
+    for (let i = min; i <= max; i++) {
+      const oldValue = answers?.secondColumn?.find(item => parseInt(item.value) === i);
+      secondColumn = [...secondColumn, {
+        id: oldValue?.id ?? v4(),
+        value: parseInt(oldValue?.value ?? i),
+        description: oldValue?.description ?? ''
+      }];
+    }
+    setAnswer({
+      ...answers,
+      secondColumn
+    });
+  }, [min, max]);
 
-  const formatAnswers = () => {
-    let myFirstColumn = [];
-    let mySecondColumn = [];
-    if (answers.length > 0) {
-      myFirstColumn = answers.map((answer) => {
-        return {
-          'id': answer.id,
-          title: answer.title
-        }
-      });
-      mySecondColumn = (answers[0]['answers'] ?? []).map((answer) => {
-        return {
-          'id': answer.id,
-          'description': answer.description
-        }
-      });
+  const formatQuestion = (answers) => {
+    let firstColumn = [];
+    let secondColumn = [];
+    if (answers.length) {
+      const firstSubQuestion = answers[0];
+      const answerSubQuestions = firstSubQuestion['answers'];
+      firstColumn = answers.map(({id, title}) => ({
+        id,
+        title
+      }));
+      secondColumn = answerSubQuestions.map(({id, description, value}) => ({
+        id,
+        description,
+        value
+      }));
+      setMax(answerSubQuestions[0]?.value);
+      setMax(answerSubQuestions[answerSubQuestions.length - 1]?.value);
     }
     return {
-      firstColumn: myFirstColumn,
-      secondColumn: mySecondColumn
+      firstColumn,
+      secondColumn
+    };
+  }
+
+  const handleMin = (value) => {
+    if (!value || value > (max - 1)) {
+      return toast('El número inicial no puede ser vacío ó mayor al final', false);
     }
-  };
+    setMin(value);
+  }
 
+  const handleMax = (value) => {
+    if (!value || value < (min + 1)) {
+      return toast('El número final no puede ser vacío ó menor al inicial', false);
+    }
+    setMax(value);
+  }
 
-  const handleNewAnswer = ({answers}) => {
-    const newAnswer = {
-      description: '',
-      id: uuid()
-    };
-    const newQuestion = {
-      title: '',
-      id: uuid()
-    };
-    setAnswer({
-      firstColumn: [...firstColumn, newQuestion],
-      secondColumn: [...secondColumn, newAnswer]
-    });
-  };
-
-  const handleChange = (column, index, key, e) => {
-    const newValue = {
-      ...answers,
-      [column]: answers[column].map((answer, i) => {
-        if (index === i) {
-          return {
-            ...answer,
-            [key]: e.target.value
-          }
+  const changeValue = (index, value) => {
+    const secondColumn = answers?.secondColumn?.map((item) => {
+      if (item.value === index) {
+        item = {
+          ...item,
+          description: value
         }
-        return answer;
-      })
-    }
-    setAnswer(newValue);
-    e.target.focus();
-  };
-
-  const deleteAnswer = (index) => {
-    const newFirstColumn = [...firstColumn.slice(0, index), ...firstColumn.slice(index + 1, firstColumn.length)];
-    const newSecondColumn = [...secondColumn.slice(0, index), ...secondColumn.slice(index + 1, secondColumn.length)];
+      }
+      return item;
+    });
     setAnswer({
-      firstColumn: newFirstColumn,
-      secondColumn: newSecondColumn
+      ...answers,
+      secondColumn
+    });
+  }
+
+  const handleNewElement = () => {
+    let firstColumn = answers.firstColumn ?? [];
+    firstColumn = [...firstColumn, {id: v4(), title: ''}];
+    setAnswer({
+      ...answers,
+      firstColumn
     });
   };
 
+  const handleChangeElement = (id, title) => {
+    const firstColumn = answers?.firstColumn?.map((item) => {
+      if (item.id === id) {
+        item = {
+          ...item,
+          title
+        }
+      }
+      return item;
+    });
+    setAnswer({
+      ...answers,
+      firstColumn
+    });
+  }
+
+  const paintInputs = () => {
+    return answers?.secondColumn?.map((item) =>
+      <Grid key={item.value} item xs={2}>
+        <TextField
+          fullWidth
+          label={`Número ${item.value}`}
+          value={item.description}
+          disabled={disabled}
+          onChange={(e) => changeValue(item.value, e.target.value)}
+        />
+      </Grid>
+    )
+  };
+
+  const paintElement = () => {
+    return answers?.firstColumn?.map((item, index) =>
+      <Grid item xs={12} key={item?.id}>
+        <TextField
+          fullWidth
+          label={`Elemento ${index + 1}`}
+          value={item.title}
+          disabled={disabled}
+          InputProps={{
+            endAdornment: !disabled &&
+              <DeleteIcon onClick={() => deleteAnswer(item.id)} sx={{cursor: 'pointer'}}/>
+          }}
+          onChange={(e) => handleChangeElement(item.id, e.target.value)}
+        />
+      </Grid>
+    );
+  };
+
+  const deleteAnswer = (id) => {
+    const firstColumn = answers.firstColumn.filter((item) => item.id !== id);
+    setAnswer({
+      ...answers,
+      firstColumn
+    });
+  };
 
   return (
-    <Box component={Paper}>
-      <Grid item xs={12} sx={{marginTop: '2em', padding: '10px'}}>
-        <h4>Configurar respuestas</h4>
-        <Divider/>
-        <br/>
-        <Grid item xs={6}>
-          {firstColumn?.map((question, index) => {
-            return (
-              <div key={index}>
-                <Grid container sx={{marginTop: '1em'}}>
-                  <Grid sx={{marginLeft: '1em'}} key={question.id} item xs={4}>
-                    <TextField
-                      disabled={disabled}
-                      label={`Fila: ${index + 1}:`}
-                      onChange={e => handleChange('firstColumn', index, 'title', e)}
-                      variant="outlined"
-                      value={question?.title || ''}
-                      fullWidth
-                    />
-                  </Grid>
-                  <Grid sx={{marginLeft: '1em'}} item xs={4}>
-                    <TextField
-                      disabled={disabled}
-                      label={`Respuesta ${index + 1}:`}
-                      onChange={e => handleChange('secondColumn', index, 'description', e)}
-                      variant="outlined"
-                      value={secondColumn[index]?.description || ''}
-                      fullWidth
-                    />
-                  </Grid>
-                  <Grid sx={{marginLeft: '1em'}} item xs={2}>
-                    <Button
-                      startIcon={<DeleteIcon/>}
-                      onClick={() => deleteAnswer(index)}
-                    >
-                    </Button>
-                  </Grid>
-                </Grid>
-              </div>
-            );
-          })
-          }
-        </Grid>
+    <Grid container spacing={2} sx={{mt: 2}}>
+      <Grid item xs={12}>
+        <Typography>
+          Escala de valoración
+        </Typography>
+        <Divider />
+      </Grid>
+      <Grid item xs={3}>
+        <TextField
+          label={'Número inicial'}
+          value={min}
+          type={'number'}
+          disabled={disabled}
+          inputProps={{
+            min: 1,
+            max: 9
+          }}
+          onChange={(e) => handleMin(e.target.value)}
+          fullWidth
+        />
+      </Grid>
+      <Grid item xs={3}>
+        <TextField
+          label={'Número final'}
+          value={max}
+          type={'number'}
+          disabled={disabled}
+          inputProps={{
+            min: 2,
+            max: 10
+          }}
+          onChange={(e) => handleMax(e.target.value)}
+          fullWidth
+        />
+      </Grid>
+      <Grid container item xs={12} spacing={1}>
+        {
+          paintInputs()
+        }
+      </Grid>
+      <Grid item xs={12} sx={{mt: 2}}>
+        <Typography>
+          Elementos asociados
+        </Typography>
+        <Divider />
+      </Grid>
+      <Grid item xs={10} container spacing={1}>
+        {
+          paintElement()
+        }
+      </Grid>
+      <Grid item xs={10}>
         <Button
           disabled={disabled}
-          sx={{marginTop: '1.5em'}}
-          variant="outlined"
-          onClick={handleNewAnswer}>
-          Nueva respuesta
+          onClick={handleNewElement}
+        >
+          Añadir elemento
         </Button>
       </Grid>
-    </Box>
+    </Grid>
   );
-};
+}
 
 Matrix.propTypes = {
-  answers: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
-  question: PropTypes.object,
-  setAnswer: PropTypes.func,
-  disabled: PropTypes.bool,
+  answers: PropTypes.oneOfType([PropTypes.array, PropTypes.object]),
+  setAnswer: PropTypes.func.isRequired,
 };
