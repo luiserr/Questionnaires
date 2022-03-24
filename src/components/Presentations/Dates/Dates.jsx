@@ -9,32 +9,35 @@ import LocalizationProvider from "@mui/lab/LocalizationProvider";
 import {es} from "date-fns/locale";
 import AdapterDateFns from "@mui/lab/AdapterDateFns";
 import DatePicker from "@mui/lab/DatePicker";
+import {getFormattedDate} from "../../../tools/dates";
+import InputLabel from "@mui/material/InputLabel";
+import Select from "@mui/material/Select";
+import MenuItem from "@mui/material/MenuItem";
 
 
 export default function Dates({data, setData, payload, setPayload}) {
 
   useEffect(() => {
-    setPayload({
-      ...payload,
-      date: {
-        ...payload?.dates,
-        startDateInput: new Date(payload?.dates?.startDate),
-        finishDateInput: new Date(payload?.dates?.finishDate)
-      }
-    });
+    if (Object.keys(payload?.dates).length) {
+      setPayload({
+        ...payload,
+        dates: {
+          dateType: 'finish',
+          ...payload?.dates,
+          startDateInput: new Date(payload?.dates?.startDate),
+          finishDateInput: new Date(payload?.dates?.finishDate)
+        }
+      });
+    } else {
+      setPayload({
+        ...payload,
+        dates: {
+          dateType: 'finish',
+        }
+      });
+    }
   }, []);
 
-
-  function getFormattedDate(date) {
-    if (date) {
-      const year = date.getFullYear();
-      let month = (1 + date.getMonth()).toString();
-      month = month.length > 1 ? month : '0' + month;
-      let day = date.getDate().toString();
-      day = day.length > 1 ? day : '0' + day;
-      return month + '/' + day + '/' + year;
-    }
-  }
 
   const tomorrow = () => {
     const toDay = new Date();
@@ -105,7 +108,7 @@ export default function Dates({data, setData, payload, setPayload}) {
             <Typography>4. Selección de fechas</Typography>
           </AccordionSummary>
           <AccordionDetails>
-            <Grid container xs={12} spacing={12}>
+            <Grid container xs={12} spacing={3}>
               <Grid item xs={10}>
                 <Alert color={'info'}>Tenga en cuenta:<br/>
                   El campo <b>Días de activación antes de finalización de ficha (Solo formación complementaria).</b>
@@ -113,11 +116,30 @@ export default function Dates({data, setData, payload, setPayload}) {
                   especifico menos los días que se estipulen en este campo.
                 </Alert>
               </Grid>
+              <Grid item xs={10}>
+                <InputLabel id="dateType">Aplicar la fecha para:</InputLabel>
+                <Select
+                  labelId="dateType"
+                  label="Aplicar la fecha para:"
+                  sx={{width: '50%'}}
+                  value={payload?.dates?.dateType ?? 'finish'}
+                  onChange={e => setPayload({
+                    ...payload,
+                    dates: {
+                      ...payload.dates,
+                      dateType: e.target.value
+                    }
+                  })}
+                  size="small"
+                >
+                  <MenuItem value={'finish'}> Finalización de fichas </MenuItem>
+                  <MenuItem value={'start'}> Inicio de fichas </MenuItem>
+                </Select>
+              </Grid>
               <Grid item xs={6}>
                 <LocalizationProvider locale={es} dateAdapter={AdapterDateFns}>
                   <DatePicker
-                    label="Fecha inicio *"
-                    required
+                    label="Fecha inicio"
                     size={"small"}
                     minDate={tomorrow()}
                     onChange={(e) => {
@@ -131,17 +153,16 @@ export default function Dates({data, setData, payload, setPayload}) {
                       })
                     }}
                     renderInput={(params) => <TextField {...params} fullWidth/>}
-                    value={payload?.dates?.startDateInput}
+                    value={payload?.dates?.startDateInput ?? ''}
                   />
                 </LocalizationProvider>
               </Grid>
               <Grid item xs={6}>
                 <LocalizationProvider locale={es} dateAdapter={AdapterDateFns}>
                   <DatePicker
-                    label="Fecha fin *"
+                    label="Fecha fin"
                     size={"small"}
                     minDate={tomorrow()}
-                    required
                     onChange={(e) => {
                       setPayload({
                         ...payload,
@@ -153,7 +174,7 @@ export default function Dates({data, setData, payload, setPayload}) {
                       })
                     }}
                     renderInput={(params) => <TextField {...params} fullWidth/>}
-                    value={payload?.dates?.finishDateInput}
+                    value={payload?.dates?.finishDateInput ?? ''}
                   />
                 </LocalizationProvider>
               </Grid>
