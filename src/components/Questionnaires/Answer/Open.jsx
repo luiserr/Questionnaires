@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import {Grid, TextField} from "@mui/material";
 
-export default function Open({question, setQuestion, indexQuestion, preview}) {
+export default function Open({question, setQuestion, indexQuestion, preview, readOnly}) {
 
   const [answer, setAnswer] = useState(question?.attempts?.answers ?? '');
 
@@ -25,7 +25,7 @@ export default function Open({question, setQuestion, indexQuestion, preview}) {
           multiline
           rows={3}
           fullWidth
-          disabled={preview}
+          disabled={preview || readOnly}
           onChange={(e) => handleChange(e.target.value)}
         />
       </Grid>

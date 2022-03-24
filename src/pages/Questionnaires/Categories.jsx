@@ -22,12 +22,15 @@ export default function Categories() {
   };
 
   const handleDelete = async (row) => {
-    const response = await deleteCategory(row.id);
-    if (response) {
-      setLoading(true);
-      setTimeout(() => {
-        setLoading(false);
-      }, 2000);
+    // eslint-disable-next-line no-restricted-globals
+    if (confirm('¿Esta seguro que desea eliminar esta categoria?')) {
+      const response = await deleteCategory(row.id);
+      if (response) {
+        setLoading(true);
+        setTimeout(() => {
+          setLoading(false);
+        }, 2000);
+      }
     }
   };
 

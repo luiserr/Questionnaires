@@ -37,27 +37,59 @@ export function usePresentation(presentation, setPresentation, index, handleTab,
     case 0:
       return <Info presentation={presentation} setPresentation={setPresentation}/>;
     case 1:
-      return <Sections presentation={presentation} setPresentation={setPresentation} handleTab={handleTab} preview={preview}/>;
+      return <Sections presentation={presentation} setPresentation={setPresentation} handleTab={handleTab}
+                       preview={preview}/>;
     case 2:
-      return <GoodBye presentation={presentation} setPresentation={setPresentation} handleTab={handleTab} preview={preview}/>;
+      return <GoodBye presentation={presentation} setPresentation={setPresentation} handleTab={handleTab}
+                      preview={preview}/>;
     default:
       return <h1>Hola mundo</h1>
   }
 }
 
-export function useQuestion(question, setQuestion, indexQuestion, preview) {
+export function useQuestion(question, setQuestion, indexQuestion, preview, readOnly) {
   switch (question?.questionType) {
     case MULTIPLE:
-      return <Multiple question={question} setQuestion={setQuestion} indexQuestion={indexQuestion} preview={preview}/>;
+      return <Multiple
+        question={question}
+        setQuestion={setQuestion}
+        indexQuestion={indexQuestion}
+        preview={preview}
+        readOnly={readOnly}
+      />;
     case BOOLEAN:
-      return <Boolean question={question} setQuestion={setQuestion} indexQuestion={indexQuestion} preview={preview}/>;
+      return <Boolean
+        question={question}
+        setQuestion={setQuestion}
+        indexQuestion={indexQuestion}
+        preview={preview}
+        readOnly={readOnly}
+      />;
     case SINGLE:
     case NUMERIC:
-      return <Single question={question} setQuestion={setQuestion} indexQuestion={indexQuestion} preview={preview}/>;
+      return <Single
+        question={question}
+        setQuestion={setQuestion}
+        indexQuestion={indexQuestion}
+        preview={preview}
+        readOnly={readOnly}
+      />;
     case MATRIX:
-      return <Matrix question={question} setQuestion={setQuestion} indexQuestion={indexQuestion} preview={preview}/>;
+      return <Matrix
+        question={question}
+        setQuestion={setQuestion}
+        indexQuestion={indexQuestion}
+        preview={preview}
+        readOnly={readOnly}
+      />;
     case OPEN:
-      return <Open question={question} setQuestion={setQuestion} indexQuestion={indexQuestion} preview={preview}/>;
+      return <Open
+        question={question}
+        setQuestion={setQuestion}
+        indexQuestion={indexQuestion}
+        preview={preview}
+        readOnly={readOnly}
+      />;
     default:
       return '';
   }

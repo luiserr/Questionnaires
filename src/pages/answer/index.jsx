@@ -26,8 +26,6 @@ export default function BasicTabs() {
 
   const location = useLocation();
 
-  console.log(location);
-
   const navigate = useNavigate();
 
   const handleToken = (encodeToken) => {

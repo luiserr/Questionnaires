@@ -19,7 +19,7 @@ export default function Question(
     presentation
   }) {
 
-  const Question = useQuestion(question, setQuestion, indexQuestion, preview);
+  const Question = useQuestion(question, setQuestion, indexQuestion, preview, readOnly);
 
   const handleNextSection = async () => {
     await handleSave(indexQuestion);

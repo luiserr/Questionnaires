@@ -9,7 +9,7 @@ import TableBody from "@mui/material/TableBody";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 
-export default function Matrix({question, setQuestion, indexQuestion, preview}) {
+export default function Matrix({question, setQuestion, indexQuestion, preview, readOnly}) {
 
   const handleChange = (questionId, answerId) => {
     let answers = question?.attempts?.answers ?? [];
@@ -62,7 +62,7 @@ export default function Matrix({question, setQuestion, indexQuestion, preview}) 
                     id="demo-simple-select"
                     onChange={(e) => handleChange(row.id, e.target.value)}
                     value={getSelected(row.id)}
-                    disabled={preview}
+                    disabled={preview || readOnly}
                   >
                     {
                       row?.answers?.map((answer) => {

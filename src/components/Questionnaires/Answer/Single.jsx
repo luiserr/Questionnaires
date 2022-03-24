@@ -4,7 +4,7 @@ import React from "react";
 import FormControl from "@mui/material/FormControl";
 import {FormControlLabel, Radio, RadioGroup} from "@mui/material";
 
-export default function Single({question, setQuestion, indexQuestion, preview}) {
+export default function Single({question, setQuestion, indexQuestion, preview, readOnly}) {
 
   const change = (id) => {
     let answers = [id];
@@ -36,8 +36,10 @@ export default function Single({question, setQuestion, indexQuestion, preview}) 
               return (
                 <FormControlLabel
                   key={answer.id}
-                  disabled={preview}
-                  control={<Radio disabled={preview} checked={isChecked(answer.id)} onChange={(e, checked) => change(answer.id)}/>}
+                  disabled={preview || readOnly}
+                  control={<Radio
+                    disabled={preview || readOnly}
+                    checked={isChecked(answer.id)} onChange={(e, checked) => change(answer.id)}/>}
                   label={answer?.description}/>
               )
             })

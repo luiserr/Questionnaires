@@ -3,7 +3,7 @@ import React from 'react';
 import {finishPresentation} from "../../../tools/presentationRequest";
 import {IN_PROGRESS} from "../../../const/statuses";
 
-export default function GoodBye({presentation, setPresentation}) {
+export default function GoodBye({presentation, setPresentation, preview}) {
 
   const handleFinish = async () => {
     const response = await finishPresentation();
@@ -23,6 +23,7 @@ export default function GoodBye({presentation, setPresentation}) {
           {presentation?.statusTry === IN_PROGRESS &&
             <Button
               sx={{mt: 2}}
+              disabled={preview}
               variant={'contained'}
               color={'info'}
               onClick={handleFinish}
