@@ -70,7 +70,7 @@ export const getManualGroups = async (id, groupId, name) => {
 }
 
 export async function saveAssign(testId, payload) {
-  const response = await post(`${local}/tests/${testId}/presentation`, payload, null, true, true);
+  const response = await post(`${api}/tests/${testId}/presentation`, payload, null, true, true);
   if (response && response?.success) {
     return response.data;
   }
