@@ -31,9 +31,9 @@ export default function Info({presentation, setPresentation}) {
   return (
     <>
       <Paper elevation={2} sx={{p: 3}}>
-        <Typography variant={"h4"}>Titulo: {presentation?.title}</Typography>
+        <Typography variant={"h4"}>Encuesta: {presentation?.title}</Typography>
         <Divider/>
-        <Box sx={{minHeight: '200px', marginTop: '2em', padding: '2em'}}>
+        <Box sx={{height: '350px', marginTop: '2em', padding: '2em', overflowY: 'scroll'}}>
           <div dangerouslySetInnerHTML={{__html: presentation?.description}}/>
         </Box>
         <div style={{marginTop: '2em'}}>

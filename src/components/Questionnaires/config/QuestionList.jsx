@@ -83,7 +83,7 @@ export default function QuestionList({test, section}) {
                 <TableHead>
                   <TableRow>
                     <TableCell align={'center'} {...bold}><b>Pregunta</b></TableCell>
-                    <TableCell align={'center'} {...bold}><b>Tipo</b></TableCell>
+                    <TableCell align={'center'} {...bold}><b>Tipo de pregunta</b></TableCell>
                     <TableCell align={'center'} {...bold}><b>Respuestas configuradas</b></TableCell>
                     <TableCell align={'center'} {...bold}><b>Es condición</b></TableCell>
                     <TableCell align={'center'} {...bold}><b>Depende de:</b></TableCell>

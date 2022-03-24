@@ -35,7 +35,7 @@ export default function Question(
 
   return (
     <>{
-      canRender ?
+      (canRender || preview) ?
         <>
           <Box sx={{marginTop: '2em'}}>
             <div dangerouslySetInnerHTML={{__html: question?.description}}/>
@@ -61,12 +61,13 @@ export default function Question(
                 variant={'outlined'}
               >Siguiente sección</Button>}
             {(lastSection && !readOnly && !preview) &&
-              <Button variant={'outlined'} onClick={handleAnswer} sx={{float: 'right'}}>Guardar respuesta y
-                finalizar</Button>}
+              <Button variant={'outlined'} onClick={handleAnswer} sx={{float: 'right'}}>Guardar respuesta e ir
+                a finalizar</Button>}
           </Box>
         </> :
         <Alert color={'info'}>
-          Puede saltar esta pregunta
+          Esta pregunta depende de una respuesta seleccionada anteriormente, por favor puede continuar con la encuesta,
+          no es necesario responder esta pregunta
         </Alert>
     }
     </>
