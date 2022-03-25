@@ -35,18 +35,27 @@ export default function Finish({test}) {
   };
 
   const handlePreview = async () => {
+    if (test?.presentations > 0) {
+      return redirectPreview(test)
+    }
     const response = await general({
       ...test,
       goodbye
     });
     if (response) {
-      const token = await preview(test.id);
-      if (token) {
-        return navigate(`/admin/surveys/answer/${token}`, {state: {test: response}});
-      }
+      await redirectPreview(response)
+    } else {
+      toast('Error al generar la previsualización')
     }
-    toast('No se pudo generar el token de validación', true);
   };
+
+  const redirectPreview = async (currentTest) => {
+    const token = await preview(currentTest.id);
+    if (token) {
+      return navigate(`/admin/surveys/answer/${token}`, {state: {test: currentTest}});
+    }
+    toast('Error al generar la previsualización', true);
+  }
 
   const disabled = test?.presentations > 0 ?? true;
 
@@ -78,7 +87,7 @@ export default function Finish({test}) {
           onClick={handlePreview}
           sx={{float: 'right'}}
           color={'info'}
-          disabled={test?.presentations > 0 || !user?.actions?.create}
+          disabled={!user?.actions?.create}
         >
           Previsualizar encuesta
         </Button>
