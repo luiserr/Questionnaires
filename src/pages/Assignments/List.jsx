@@ -15,7 +15,9 @@ const headers = {
   title: 'Título',
   tries: 'Número de intentos',
   startDate: 'Fecha de inicio',
-  finishDate: 'Fecha de finalización'
+  finishDate: 'Fecha de finalización',
+  affectedUsers: 'Usuarios asignados',
+  responseUsers: 'Usuarios que presentaron'
 };
 
 export default function List() {
