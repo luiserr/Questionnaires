@@ -38,7 +38,6 @@ import {getDomain} from '../../utils/tools';
 const headers = {
   id: 'Id',
   presentationId: 'Presentación',
-  userId: 'Creador',
   createdAt: 'Fecha de creación',
   finishedAt: 'Fecha de finalización'
 };
