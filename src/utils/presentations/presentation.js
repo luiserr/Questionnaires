@@ -89,7 +89,8 @@ export function buildPayload(test, presentationId, payload) {
     presentationType: 'survey',
     assignments: {},
     notify: payload.notify,
-    anonymous: payload.anonymous
+    anonymous: payload.anonymous,
+    notifyUncompleted: payload.notifyUncompleted
   }
   if (keys.hasRoles) {
     data.assignments['roles'] = payload.roles;

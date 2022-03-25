@@ -41,7 +41,8 @@ export default function CreateAssign() {
     dates: {},
     complementaryDays: 7,
     abilityDays: 5,
-    notify: true
+    notify: true,
+    notifyUncompleted: 5
   });
 
   const {testId, presentationId} = useParams();
@@ -208,13 +209,28 @@ export default function CreateAssign() {
                 }}
                 variant="outlined"/>
             </Grid>
-            <Grid item xs={5}>
+            <Grid item xs={4}>
               <TextField
                 label="Días de activación antes de finalización de ficha (Solo formación complementaria)"
                 fullWidth
                 required
                 value={payload?.complementaryDays}
                 onChange={(e) => handleChange('complementaryDays', e.target.value)}
+                type={"number"}
+                variant="outlined"
+                inputProps={{
+                  min: 0,
+                  max: 30
+                }}
+              />
+            </Grid>
+            <Grid item xs={4}>
+              <TextField
+                label="Días de notificación, sí no se ha contestado la encuesta"
+                fullWidth
+                required
+                value={payload?.notifyUncompleted}
+                onChange={(e) => handleChange('notifyUncompleted', e.target.value)}
                 type={"number"}
                 variant="outlined"
                 inputProps={{
