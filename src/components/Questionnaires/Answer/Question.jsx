@@ -60,7 +60,7 @@ export default function Question(
                 color={'info'}
                 variant={'outlined'}
               >Siguiente sección</Button>}
-            {(lastSection && !readOnly && !preview) &&
+            {(isLast && lastSection && !readOnly && !preview) &&
               <Button variant={'outlined'} onClick={handleAnswer} sx={{float: 'right'}}>Guardar respuesta e ir
                 a finalizar</Button>}
           </Box>

@@ -1,13 +1,18 @@
 import {Button, Grid, Paper} from "@mui/material";
 import React from 'react';
-import {finishPresentation} from "../../../tools/presentationRequest";
+import {finishPresentation, getPresentation} from "../../../tools/presentationRequest";
 import {IN_PROGRESS} from "../../../const/statuses";
+import {myAlert} from "../../../utils/alerts";
 
 export default function GoodBye({presentation, setPresentation, preview}) {
 
   const handleFinish = async () => {
     const response = await finishPresentation();
-    setPresentation(response);
+    const myPresentation = await getPresentation(sessionStorage.getItem('_token'));
+    if (myPresentation) {
+      return setPresentation(myPresentation);
+    }
+    myAlert('Error al actualizar los datos de la encuesta');
   };
 
   return (

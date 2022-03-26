@@ -35,13 +35,23 @@ export const useTest = (testId, currentTest, user) => {
 export function usePresentation(presentation, setPresentation, index, handleTab, preview) {
   switch (index) {
     case 0:
-      return <Info presentation={presentation} setPresentation={setPresentation}/>;
+      return <Info
+        presentation={presentation}
+        setPresentation={setPresentation}
+        preview={preview}
+      />;
     case 1:
-      return <Sections presentation={presentation} setPresentation={setPresentation} handleTab={handleTab}
-                       preview={preview}/>;
+      return <Sections
+        presentation={presentation}
+        setPresentation={setPresentation}
+        handleTab={handleTab}
+        preview={preview}/>;
     case 2:
-      return <GoodBye presentation={presentation} setPresentation={setPresentation} handleTab={handleTab}
-                      preview={preview}/>;
+      return <GoodBye
+        presentation={presentation}
+        setPresentation={setPresentation}
+        handleTab={handleTab}
+        preview={preview}/>;
     default:
       return <h1>Hola mundo</h1>
   }
