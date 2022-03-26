@@ -15,7 +15,7 @@ export default function Dependencies({dependencies, testId, currentSection, curr
             id="panel1a-header"
             sx={{backgroundColor: currentQuestion.dependsOfSection === dependency.id ? '#C9E9F5' : 'inherit'}}
           >
-            <Typography sx={{width: '33%'}}>{dependency.title}</Typography>
+            <Typography sx={{width: '33%'}}>Sección: {dependency.title}</Typography>
             {/*{*/}
             {/*  currentQuestion.dependsOfSection === dependency.id &&*/}
             {/*  <Typography sx={{color: 'text.secondary'}}>Dependencia esta en esta sección</Typography>*/}

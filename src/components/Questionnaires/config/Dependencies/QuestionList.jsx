@@ -49,8 +49,8 @@ export default function QuestionList(
           <TableHead>
             <TableRow>
               <TableCell align={'center'}><b>Id</b></TableCell>
-              <TableCell align="center"><b>Título</b></TableCell>
-              <TableCell align="center"><b>Tipo</b></TableCell>
+              <TableCell align="center"><b>Título de pregunta</b></TableCell>
+              <TableCell align="center"><b>Tipo de pregunta</b></TableCell>
               <TableCell align="center"><b>Gestionar dependencia</b></TableCell>
             </TableRow>
           </TableHead>
