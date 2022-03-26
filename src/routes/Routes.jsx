@@ -15,10 +15,10 @@ import NotFound from "../pages/NotFound";
 import Categories from "../pages/Questionnaires/Categories";
 import Dependency from "../pages/Questionnaires/Dependency";
 
-export default function routes() {
+export default function routes({token}) {
   return (
     <Routes>
-      <Route exact name="list" path="/admin/surveys/" element={<Home/>}>
+      <Route exact name="list" path="/admin/surveys/" element={<Home token={token}/>}>
         <Route exact name="create" path="/admin/surveys/" element={<TestList/>}/>
         <Route
           exact

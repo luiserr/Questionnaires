@@ -87,7 +87,7 @@ const Drawer = styled(MuiDrawer, {shouldForwardProp: (prop) => prop !== 'open'})
   }),
 );
 
-export default function Home() {
+export default function Home({token}) {
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
 
@@ -104,9 +104,8 @@ export default function Home() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const params = $_get();
-    if (params.token) {
-      navigate(`/admin/surveys/answer/${params.token}`);
+    if (token) {
+      navigate(`/admin/surveys/answer/${token}`);
     }
   }, []);
 
@@ -133,7 +132,7 @@ export default function Home() {
           </Typography>
           <Box sx={{flexGrow: 1}}/>
           <Box sx={{display: {xs: 'none', md: 'flex'}}}>
-            <Typography sx={{float: 'right'}}><b>{user.name}</b></Typography>
+            <Typography sx={{float: 'right'}}><b>{user?.name}</b></Typography>
           </Box>
         </Toolbar>
       </AppBar>

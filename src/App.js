@@ -5,17 +5,25 @@ import Routes from './routes/Routes';
 import {getUser} from "./tools/generalRequest";
 import './styles/app.css';
 import {myAlert} from "./utils/alerts";
+import {$_get} from "./utils/tools";
 
 
 function App() {
   const [user, setUser] = useState(null);
+  const [token, setToken] = useState(null);
 
   useEffect(async () => {
-    const user = await getUser();
-    if (user) {
-      setUser(user);
-    }else {
-      myAlert('Usted no tiene permisos para ingresar a este módulo');
+    const params = $_get();
+    if (!params.token) {
+      const user = await getUser();
+      if (user) {
+        setUser(user);
+      } else {
+        myAlert('Usted no tiene permisos para ingresar a este módulo');
+      }
+    } else {
+      setUser({});
+      setToken(params.token)
     }
   }, []);
 
@@ -25,7 +33,7 @@ function App() {
       {
         user !== null ?
           <UserContext.Provider value={{...user}}>
-            <Routes/>
+            <Routes token={token}/>
           </UserContext.Provider>
           :
           <Box sx={{width: '100%'}}>
