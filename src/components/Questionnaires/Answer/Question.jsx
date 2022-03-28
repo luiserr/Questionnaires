@@ -22,13 +22,17 @@ export default function Question(
   const Question = useQuestion(question, setQuestion, indexQuestion, preview, readOnly);
 
   const handleNextSection = async () => {
-    await handleSave(indexQuestion);
-    handleNext();
+    const save = await handleSave(indexQuestion);
+    if (save) {
+      handleNext();
+    }
   };
 
   const handleAnswer = async () => {
-    await handleSave(indexQuestion);
-    handleTab()
+    const save = await handleSave(indexQuestion);
+    if (save) {
+      handleTab()
+    }
   };
 
   const canRender = hasDependency(presentation?.sections, question, presentation?.dependencies);

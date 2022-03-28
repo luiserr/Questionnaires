@@ -65,6 +65,7 @@ export default function Section({presentation, section, setSection, activeSectio
     if (readOnly) {
       setPage(newPage);
       setCurrentQuestion(questions[currentIndex]);
+      return true;
     } else {
       const hasAnswer = validateAnswer(lastQuestion);
       if (
@@ -88,7 +89,9 @@ export default function Section({presentation, section, setSection, activeSectio
       if (canPass(hasAnswer, lastQuestion, preview)) {
         setPage(newPage);
         setCurrentQuestion(questions[currentIndex]);
+        return true;
       }
+      return false;
     }
   };
 

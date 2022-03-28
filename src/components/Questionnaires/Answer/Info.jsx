@@ -40,9 +40,9 @@ export default function Info({presentation, setPresentation, preview, setValue})
         <Divider/>
         <Box sx={{m:2}}>
         {!preview && <Typography>Número de intentos: {presentation?.tries}</Typography>}
-        {!preview && <Typography>Número de intentos tomados: {presentation?.takeTries}</Typography>}
+        {!preview && <Typography>Número de intentos realizados: {presentation?.takeTries}</Typography>}
         </Box>
-        <Typography variant={"h6"}>Decripción:</Typography>
+        <Typography variant={"h6"}>Descripción:</Typography>
         <Divider/>
         <Box sx={{height: '350px', marginTop: 3, padding: '2em', overflowY: 'scroll'}}>
           <div dangerouslySetInnerHTML={{__html: presentation?.description}}/>

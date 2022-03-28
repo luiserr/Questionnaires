@@ -103,20 +103,20 @@ export default function Sections({presentation, setPresentation, handleTab, prev
         steps={maxSteps}
         position="static"
         activeStep={activeSection}
-        nextButton={
-          <Button
-            size="small"
-            onClick={handleNext}
-            disabled={activeSection === maxSteps - 1}
-          >
-            Siguiente sección
-            {theme.direction === 'rtl' ? (
-              <KeyboardArrowLeft/>
-            ) : (
-              <KeyboardArrowRight/>
-            )}
-          </Button>
-        }
+        // nextButton={
+        //   <Button
+        //     size="small"
+        //     onClick={handleNext}
+        //     disabled={activeSection === maxSteps - 1}
+        //   >
+        //     Siguiente sección
+        //     {theme.direction === 'rtl' ? (
+        //       <KeyboardArrowLeft/>
+        //     ) : (
+        //       <KeyboardArrowRight/>
+        //     )}
+        //   </Button>
+        // }
         backButton={
           <Button size="small" onClick={handleBack} disabled={activeSection === 0}>
             {theme.direction === 'rtl' ? (

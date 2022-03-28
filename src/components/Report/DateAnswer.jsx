@@ -6,6 +6,7 @@ import {
 import AdapterDateFns from '@mui/lab/AdapterDateFns'
 import LocalizationProvider from '@mui/lab/LocalizationProvider'
 import DatePicker from '@mui/lab/DatePicker'
+import {es} from "date-fns/locale";
 
 export default function DateAnswer({info, setInfo, payload, setPayload}) {
 
@@ -21,7 +22,7 @@ export default function DateAnswer({info, setInfo, payload, setPayload}) {
   return (
     <Grid container sx={{mt: 2}} spacing={2}>
       <Grid item xs={6}>
-        <LocalizationProvider dateAdapter={AdapterDateFns}>
+        <LocalizationProvider locale={es} dateAdapter={AdapterDateFns}>
           <DatePicker
             label="Fecha inicio"
             size={"small"}
@@ -38,7 +39,7 @@ export default function DateAnswer({info, setInfo, payload, setPayload}) {
         </LocalizationProvider>
       </Grid>
       <Grid item xs={6}>
-        <LocalizationProvider dateAdapter={AdapterDateFns}>
+        <LocalizationProvider locale={es} dateAdapter={AdapterDateFns}>
           <DatePicker
             label="Fecha fin"
             size={"small"}

@@ -141,7 +141,6 @@ export default function Dates({data, setData, payload, setPayload}) {
                   <DatePicker
                     label="Fecha inicio"
                     size={"small"}
-                    minDate={tomorrow()}
                     onChange={(e) => {
                       setPayload({
                         ...payload,
@@ -162,7 +161,6 @@ export default function Dates({data, setData, payload, setPayload}) {
                   <DatePicker
                     label="Fecha fin"
                     size={"small"}
-                    minDate={tomorrow()}
                     onChange={(e) => {
                       setPayload({
                         ...payload,
