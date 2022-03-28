@@ -2,7 +2,7 @@ import {toast} from "../alerts";
 
 export function validatePayload(payload) {
   const today = new Date();
-  if (payload.title === '') {
+  if (payload.presentationTitle === '') {
     toast('Titulo requerido', false)
     return false;
   }
@@ -80,7 +80,7 @@ export function buildPayload(test, presentationId, payload) {
   const data = {
     id: presentationId !== '_' ? presentationId : null,
     testId: test.id,
-    title: payload.title,
+    title: payload.presentationTitle,
     tries: payload.tries,
     startDate: payload.startDate,
     finishDate: payload.finishDate,

@@ -28,6 +28,7 @@ export default function CreateAssign() {
 
   const [payload, setPayload] = useState({
     title: '',
+    presentationTitle: '',
     startDateInput: null,
     finishDateInput: null,
     startDate: null,
@@ -122,8 +123,8 @@ export default function CreateAssign() {
                   maxLength: 150
                 }}
                 variant="outlined"
-                value={payload?.title}
-                onChange={(e) => handleChange('title', e.target.value)}
+                value={payload?.presentationTitle}
+                onChange={(e) => handleChange('presentationTitle', e.target.value)}
               />
             </Grid>
             <Grid item xs={2}>

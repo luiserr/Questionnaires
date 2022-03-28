@@ -44,7 +44,7 @@ export default function Question(
             {Question}
           </Box>
           <Box sx={{mt: 1}}>
-            {(!lastSection && !readOnly && !preview) &&
+            {(!readOnly && !preview) &&
               <Button
                 sx={{float: 'left'}}
                 onClick={() => handleSave(indexQuestion + 1)}

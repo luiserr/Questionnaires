@@ -1,7 +1,7 @@
 import {Button, Grid, Paper} from "@mui/material";
 import React from 'react';
 import {finishPresentation, getPresentation} from "../../../tools/presentationRequest";
-import {IN_PROGRESS} from "../../../const/statuses";
+import {FINISHED, IN_PROGRESS} from "../../../const/statuses";
 import {myAlert} from "../../../utils/alerts";
 
 export default function GoodBye({presentation, setPresentation, preview}) {
@@ -10,6 +10,7 @@ export default function GoodBye({presentation, setPresentation, preview}) {
     const response = await finishPresentation();
     const myPresentation = await getPresentation(sessionStorage.getItem('_token'));
     if (myPresentation) {
+      myAlert('Encuesta finalizada con éxito', 'success');
       return setPresentation(myPresentation);
     }
     myAlert('Error al actualizar los datos de la encuesta');
@@ -25,7 +26,7 @@ export default function GoodBye({presentation, setPresentation, preview}) {
               :
               <h4>Usted ha terminado esta encuesta!</h4>
           }
-          {presentation?.statusTry === IN_PROGRESS &&
+          {(presentation?.statusTry !== FINISHED && presentation?.tryId) &&
             <Button
               sx={{mt: 2}}
               disabled={preview}

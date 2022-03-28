@@ -36,6 +36,7 @@ export function validateAnswer(question) {
       toast('Tipo de pregunta invalido', false);
       return false;
   }
+  return false;
 }
 
 export function canPass(hasAnswer, question, preview) {

@@ -10,6 +10,7 @@ import {getPresentation} from "../../tools/presentationRequest";
 import {myAlert} from "../../utils/alerts";
 import {Button} from "@mui/material";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import {IN_PROGRESS} from "../../const/statuses";
 
 function a11yProps(index) {
   return {
@@ -18,7 +19,7 @@ function a11yProps(index) {
   };
 }
 
-export default function BasicTabs() {
+export default function Answer() {
   const [value, setValue] = React.useState(0);
   const [presentation, setPresentation] = useState(null);
 
@@ -44,6 +45,9 @@ export default function BasicTabs() {
       } else {
         handleToken(encodeToken);
         setPresentation(myPresentation);
+        if (myPresentation?.tryId && myPresentation?.statusTry === IN_PROGRESS) {
+          setValue(1);
+        }
       }
     }
   }, [presentation]);
@@ -60,7 +64,7 @@ export default function BasicTabs() {
     navigate(`/admin/surveys/test/${presentation?.id}`, {state: {step: 3, test: location?.state?.test}});
   }
 
-  const TabPanel = usePresentation(presentation, setPresentation, value, handleTab, presentation?.preview);
+  const TabPanel = usePresentation(presentation, setPresentation, value, handleTab, presentation?.preview, setValue);
 
   return (
     <>

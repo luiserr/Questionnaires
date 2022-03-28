@@ -40,6 +40,10 @@ export default function CSVReader({handleReader}) {
   }
 
   return (
-    <input type={'file'} onChange={readFile}/>
+    <input
+      id={'file'}
+      type={'file'}
+      onChange={readFile}
+      accept=".csv"/>
   );
 }

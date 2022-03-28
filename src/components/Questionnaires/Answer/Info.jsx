@@ -2,12 +2,13 @@ import {Box, Divider, Paper} from "@mui/material";
 import React from "react";
 import Button from "@mui/material/Button";
 import * as PropTypes from 'prop-types';
-import {initPresentation, resetPresentation} from "../../../tools/presentationRequest";
+import {getPresentation, initPresentation, resetPresentation} from "../../../tools/presentationRequest";
 import Typography from "@mui/material/Typography";
 import PlayCircleFilledWhiteIcon from '@mui/icons-material/PlayCircleFilledWhite';
 import RestartAltIcon from '@mui/icons-material/RestartAlt';
+import {myAlert} from "../../../utils/alerts";
 
-export default function Info({presentation, setPresentation, preview}) {
+export default function Info({presentation, setPresentation, preview, setValue}) {
 
   const handleInit = async () => {
     const payload = {
@@ -18,13 +19,17 @@ export default function Info({presentation, setPresentation, preview}) {
     const myPresentation = await initPresentation(payload);
     if (myPresentation) {
       setPresentation(myPresentation);
+      setValue(1);
     }
   };
 
   const handleReset = async () => {
-    const myPresentation = await resetPresentation();
+    await resetPresentation();
+    const myPresentation = await getPresentation(sessionStorage.getItem('_token'));
     if (myPresentation) {
+      myAlert('Encuesta reiniciada con éxito', 'success');
       setPresentation(myPresentation);
+      return setValue(1);
     }
   }
 
@@ -33,9 +38,13 @@ export default function Info({presentation, setPresentation, preview}) {
       <Paper elevation={2} sx={{p: 3}}>
         <Typography variant={"h6"}>Encuesta: {presentation?.title}</Typography>
         <Divider/>
+        <Box sx={{m:2}}>
         {!preview && <Typography>Número de intentos: {presentation?.tries}</Typography>}
         {!preview && <Typography>Número de intentos tomados: {presentation?.takeTries}</Typography>}
-        <Box sx={{height: '350px', marginTop: '2em', padding: '2em', overflowY: 'scroll'}}>
+        </Box>
+        <Typography variant={"h6"}>Decripción:</Typography>
+        <Divider/>
+        <Box sx={{height: '350px', marginTop: 3, padding: '2em', overflowY: 'scroll'}}>
           <div dangerouslySetInnerHTML={{__html: presentation?.description}}/>
         </Box>
         <div style={{marginTop: '2em'}}>
@@ -44,16 +53,16 @@ export default function Info({presentation, setPresentation, preview}) {
               variant="contained"
               color={'success'}
               onClick={() => handleInit()}
-              startIcon={<PlayCircleFilledWhiteIcon />}
+              startIcon={<PlayCircleFilledWhiteIcon/>}
             >
               Iniciar encuesta
             </Button>}
-          {presentation?.actions?.reset &&
+          {presentation?.actions?.reset && presentation?.tryId &&
             <Button
               color={'warning'}
               variant="contained"
               onClick={() => handleReset()}
-              startIcon={<RestartAltIcon />}
+              startIcon={<RestartAltIcon/>}
             >
               Reiniciar encuesta
             </Button>}

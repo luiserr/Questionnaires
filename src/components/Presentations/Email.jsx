@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react';
 import * as PropTypes from 'prop-types';
-import {Button, Grid, TextField} from "@mui/material";
+import {Alert, Button, Grid, TextField} from "@mui/material";
 import InputAdornment from '@mui/material/InputAdornment';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import EmailIcon from '@mui/icons-material/Email';
@@ -122,7 +122,11 @@ export default function Email({payload, setPayload}) {
             Agregar a otra persona
           </Button>
         </Grid>
-        <Grid item xs={3} sx={{padding: '30px'}}>
+        <Grid item xs={6} sx={{padding: '30px'}}>
+          <Alert color={'info'} sx={{mb: 2}}>
+            Seleccione un archivo CSV, el archivo debe tener dos columnas separadas por coma (,), la primera debe
+            contener el nombre de las personas a la cual se les asignará la encuesta y la segunda columna su correo electrónico
+          </Alert>
           <CSVReader handleReader={handleCSV}/>
         </Grid>
       </Grid>

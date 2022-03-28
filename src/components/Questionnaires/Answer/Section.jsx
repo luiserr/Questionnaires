@@ -62,28 +62,33 @@ export default function Section({presentation, section, setSection, activeSectio
     const lastIndex = page - 1;
     const questions = section?.questions;
     const lastQuestion = questions[lastIndex];
-    const hasAnswer = validateAnswer(lastQuestion);
-    if (
-      !preview
-      && !lastQuestion?.attempts?.save
-      && hasAnswer
-      && !readOnly
-    ) {
-      const newQuestion = await saveAnswer(
-        presentation.testId,
-        presentation.id,
-        presentation.tryId,
-        lastQuestion?.id,
-        section.id,
-        lastQuestion?.attempts?.answers
-      )
-      if (newQuestion) {
-        setQuestion(newQuestion, lastIndex);
-      }
-    }
-    if (canPass(hasAnswer, lastQuestion, preview)) {
+    if (readOnly) {
       setPage(newPage);
       setCurrentQuestion(questions[currentIndex]);
+    } else {
+      const hasAnswer = validateAnswer(lastQuestion);
+      if (
+        !preview
+        && !lastQuestion?.attempts?.save
+        && hasAnswer
+        && !readOnly
+      ) {
+        const newQuestion = await saveAnswer(
+          presentation.testId,
+          presentation.id,
+          presentation.tryId,
+          lastQuestion?.id,
+          section.id,
+          lastQuestion?.attempts?.answers
+        )
+        if (newQuestion) {
+          setQuestion(newQuestion, lastIndex);
+        }
+      }
+      if (canPass(hasAnswer, lastQuestion, preview)) {
+        setPage(newPage);
+        setCurrentQuestion(questions[currentIndex]);
+      }
     }
   };
 
