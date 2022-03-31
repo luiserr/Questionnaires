@@ -16,6 +16,7 @@ export default function Question(
     handleTab,
     readOnly,
     preview,
+    canRender,
     presentation
   }) {
 
@@ -35,7 +36,7 @@ export default function Question(
     }
   };
 
-  const canRender = hasDependency(presentation?.sections, question, presentation?.dependencies);
+  // const canRender = hasDependency(presentation?.sections, question, presentation?.dependencies);
 
   return (
     <>{

@@ -11,6 +11,7 @@ import {saveAnswer} from "../../../tools/presentationRequest";
 import {canPass, validateAnswer} from '../../../tools/validateAnswer';
 import {CircularProgress} from "@mui/material";
 import {FINISHED} from "../../../const/statuses";
+import {hasDependency} from "../../../tools/dependencyValidator";
 
 const SectionInfo = ({title, description}) => {
   return (
@@ -43,6 +44,8 @@ export default function Section({presentation, section, setSection, activeSectio
     setTimeout(() => setLoading(false), 300);
   }, [page]);
 
+  const canRender = hasDependency(presentation?.sections, currentQuestion, presentation?.dependencies);
+
   const handleTabs = (e, value) => {
     setTab(value);
   };
@@ -62,9 +65,10 @@ export default function Section({presentation, section, setSection, activeSectio
     const lastIndex = page - 1;
     const questions = section?.questions;
     const lastQuestion = questions[lastIndex];
+    const myCurrentQuestion = questions[currentIndex];
     if (readOnly) {
       setPage(newPage);
-      setCurrentQuestion(questions[currentIndex]);
+      setCurrentQuestion(myCurrentQuestion);
       return true;
     } else {
       const hasAnswer = validateAnswer(lastQuestion);
@@ -86,9 +90,9 @@ export default function Section({presentation, section, setSection, activeSectio
           setQuestion(newQuestion, lastIndex);
         }
       }
-      if (canPass(hasAnswer, lastQuestion, preview)) {
+      if (canPass(hasAnswer, lastQuestion, preview, canRender)) {
         setPage(newPage);
-        setCurrentQuestion(questions[currentIndex]);
+        setCurrentQuestion({...myCurrentQuestion});
         return true;
       }
       return false;
@@ -134,6 +138,7 @@ export default function Section({presentation, section, setSection, activeSectio
                       handleNext={handleNext}
                       handleTab={handleTab}
                       preview={preview}
+                      canRender={canRender}
                       presentation={presentation}
                     />
                 }

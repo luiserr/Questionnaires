@@ -100,6 +100,7 @@ export default function Centers({data, setData, setPayload, payload, selectedReg
       } else {
         currentRegionals = currentRegionals.map((regional) => {
           regional['centers'] = [];
+          return regional;
         });
       }
 

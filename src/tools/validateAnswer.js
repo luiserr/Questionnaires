@@ -39,8 +39,8 @@ export function validateAnswer(question) {
   return false;
 }
 
-export function canPass(hasAnswer, question, preview) {
-  if (!preview) {
+export function canPass(hasAnswer, question, preview, canRender) {
+  if (!preview && canRender) {
     if (!hasAnswer) {
       if (question.validation === 'required') {
         toast('Esta pregunta es requerida', false);

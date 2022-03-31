@@ -61,7 +61,7 @@ export default function Regionals({data, setData, setPayload, payload}) {
 
   const selectedRegionals = () => {
     const myRegionals = payload?.regionals.regionals ?? [];
-    return myRegionals.map(regional => regional.id);
+    return myRegionals.map(regional => regional?.id);
   };
 
   const mySelectedRegionals = selectedRegionals();
