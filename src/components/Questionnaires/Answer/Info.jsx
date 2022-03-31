@@ -16,8 +16,10 @@ export default function Info({presentation, setPresentation, preview, setValue})
       testId: presentation.testId,
       _token: sessionStorage.getItem('_token')
     };
-    const myPresentation = await initPresentation(payload);
+    await initPresentation(payload);
+    const myPresentation = await getPresentation(sessionStorage.getItem('_token'));
     if (myPresentation) {
+      myAlert('Encuesta iniciada con éxito', 'success');
       setPresentation(myPresentation);
       setValue(1);
     }
