@@ -6,10 +6,12 @@ export const useReport = (data) => {
     const roles = data.find(e => e.typeAssigment === 'roles');
     const regionals = data.find(e => e.typeAssigment === 'regionals');
     const programs = data.find(e => e.typeAssigment === 'programs');
+    const groups = data.find(e => e.typeAssigment === 'groups');
     
     const myConfigurationRoles = getConfiguration(roles);
     const myConfigurationRegionals = getConfiguration(regionals);
     const myConfigurationPrograms = getConfiguration(programs);
+    const myConfigurationGroups = getConfiguration(groups);
 
     const allRoles = getRoles(
         myConfigurationRoles,
@@ -40,6 +42,7 @@ export const useReport = (data) => {
     );
 
     const allGroups = getGroups(
+        myConfigurationGroups,
         myConfigurationPrograms
     );
 
@@ -191,16 +194,19 @@ const getPrograms = (
 }
 
 const getGroups = (
+    myConfigurationGroups,
     myConfigurationPrograms
 ) => {
 
-    const listElement = [];
+    const listElement = myConfigurationGroups?.length > 0 
+        ? [].concat(myConfigurationGroups) 
+        : [];
 
     if(myConfigurationPrograms?.programs?.length > 0) {
         myConfigurationPrograms.programs.forEach(program => {
-            const groups = program.groups;
+            const groups = program?.groups;
 
-            if(groups.length > 0) {
+            if(groups?.length > 0) {
                 groups.forEach(group => { 
                     if(!listElement.find(e => e.id === group.id)) {
                         listElement.push(group);
