@@ -5,8 +5,6 @@ import * as PropTypes from 'prop-types';
 const headers = [
   createHeader('id', 'Id'),
   createHeader('groupId', 'Id Ficha'),
-  createHeader('groupCode', 'Código de grupo'),
-  createHeader('programCode', 'Código de programa'),
   createHeader('name', 'Nombre')
 ];
 
