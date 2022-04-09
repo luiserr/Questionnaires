@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {Box, Button, Card, CardContent, Chip, Grid, IconButton, Link} from "@mui/material";
+import {Box, Button, Card, CardContent, Chip, Grid, IconButton} from "@mui/material";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import MyTable from "../../components/commons/table";
 import EditIcon from '@mui/icons-material/Edit';
@@ -30,7 +30,7 @@ export default function List() {
   useEffect(async () => {
     const response = await getPresentations(testId);
     setPresentations(response?.map(presentation => {
-      presentation['title'] = presentation?.title?.length > 50 ? `${presentation.title?.substring(0, 50)} ...` : presentation?.title;
+      // presentation['title'] = presentation?.title?.length > 50 ? `${presentation.title?.substring(0, 50)} ...` : presentation?.title;
       return presentation;
     }));
   }, []);
@@ -68,7 +68,9 @@ export default function List() {
             <Chip
               label={'Pendiente por asignar'}
               color={'info'}
-              onDelete={() => navigate(`/admin/surveys/test/${testId}/presentation/${row.id}`)}
+              onDelete={() => {
+              }}
+              // onDelete={() => navigate(`/admin/surveys/test/${testId}/presentation/${row.id}`)}
               deleteIcon={<SaveAsIcon/>}
             />
     },

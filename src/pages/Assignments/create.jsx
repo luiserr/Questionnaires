@@ -135,6 +135,10 @@ export default function CreateAssign() {
                 type={"number"}
                 variant="outlined"
                 value={payload?.tries}
+                inputProps={{
+                  min: 0,
+                  max: 100
+                }}
                 onChange={(e) => handleChange('tries', e.target.value)}
               />
             </Grid>
@@ -198,7 +202,7 @@ export default function CreateAssign() {
           <Grid container sx={{mt: 2}} spacing={2}>
             <Grid item xs={4}>
               <TextField
-                label="Días de habilitación pos fecha de finalización"
+                label="Días de habilitación pos fecha de finalización de la asignación"
                 required
                 fullWidth
                 value={payload?.abilityDays}
@@ -215,6 +219,8 @@ export default function CreateAssign() {
                 label="Días de activación antes de finalización de ficha (Solo formación complementaria)"
                 fullWidth
                 required
+                alt={'Días de activación antes de finalización de ficha (Solo formación complementaria)'}
+                title={'Días de activación antes de finalización de ficha (Solo formación complementaria)'}
                 value={payload?.complementaryDays}
                 onChange={(e) => handleChange('complementaryDays', e.target.value)}
                 type={"number"}

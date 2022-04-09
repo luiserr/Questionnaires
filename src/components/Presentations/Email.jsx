@@ -6,6 +6,7 @@ import AccountCircle from '@mui/icons-material/AccountCircle';
 import EmailIcon from '@mui/icons-material/Email';
 import DeleteIcon from '@mui/icons-material/Delete';
 import CSVReader from "../commons/CSVReader";
+import {CSVExample} from "../../utils/images";
 
 export default function Email({payload, setPayload}) {
 
