@@ -30,7 +30,8 @@ export default function List() {
   useEffect(async () => {
     const response = await getPresentations(testId);
     setPresentations(response?.map(presentation => {
-      // presentation['title'] = presentation?.title?.length > 50 ? `${presentation.title?.substring(0, 50)} ...` : presentation?.title;
+      presentation['title-long'] = presentation['title'];
+      presentation['title'] = presentation?.title?.length > 50 ? `${presentation.title?.substring(0, 50)} ...` : presentation?.title;
       return presentation;
     }));
   }, []);

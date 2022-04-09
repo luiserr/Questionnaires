@@ -49,15 +49,15 @@ export default function Question(
             {Question}
           </Box>
           <Box sx={{mt: 1}}>
-            {(!readOnly && !preview) &&
-              <Button
-                sx={{float: 'left'}}
-                onClick={() => handleSave(indexQuestion + 1)}
-                variant={"outlined"}
-                color={'success'}
-              >Guardar respuesta
-              </Button>
-            }
+            {/*{(!readOnly && !preview) &&*/}
+            {/*  <Button*/}
+            {/*    sx={{float: 'left'}}*/}
+            {/*    onClick={() => handleSave(indexQuestion + 1)}*/}
+            {/*    variant={"outlined"}*/}
+            {/*    color={'success'}*/}
+            {/*  >Guardar respuesta*/}
+            {/*  </Button>*/}
+            {/*}*/}
             {(isLast && !lastSection) &&
               <Button
                 sx={{float: 'right'}}

@@ -35,18 +35,21 @@ export default function MyTable(
   }, [data]);
 
   const drawBody = (row) => {
+
     return (
       <>
         {
-          Object.keys(headers).map(header =>
-            <TableCell
-              alt={row[header]}
-              title={row[header]}
-              key={uid()}
-              sx={{textAlign: 'center'}}
-            >
-              {String(row[header]).length > 50 ? `${String(row[header])?.substring(0, 50)} ...` : String(row[header])}
-            </TableCell>
+          Object.keys(headers).map(header => {
+              const alt = row[`${header}-long`] ? row[`${header}-long`] : row['header'];
+              return <TableCell
+                alt={alt}
+                title={alt}
+                key={uid()}
+                sx={{textAlign: 'center'}}
+              >
+                {String(row[header]).length > 50 ? `${String(row[header])?.substring(0, 50)} ...` : String(row[header])}
+              </TableCell>
+            }
           )
         }
         {

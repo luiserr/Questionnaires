@@ -19,6 +19,11 @@ export default function GoodBye({presentation, setPresentation, preview}) {
     myAlert('No se pudo finalizar la encuesta');
   };
 
+  function closeWindow() {
+    window.open('', '_self').close();
+    return false;
+  }
+
   return (
     <Paper elevation={2} sx={{p: 3}}>
       <Grid container sx={{mt: 2}}>

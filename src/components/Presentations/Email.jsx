@@ -6,7 +6,7 @@ import AccountCircle from '@mui/icons-material/AccountCircle';
 import EmailIcon from '@mui/icons-material/Email';
 import DeleteIcon from '@mui/icons-material/Delete';
 import CSVReader from "../commons/CSVReader";
-import {CSVExample} from "../../utils/images";
+import {getDomain} from "../../utils/tools";
 
 export default function Email({payload, setPayload}) {
 
@@ -67,6 +67,8 @@ export default function Email({payload, setPayload}) {
     })
   };
 
+  const csvExample = ()=> getDomain('admin') + 'admin/surveys/examples/emails.csv';
+
   return (
     <>
       {
@@ -126,7 +128,8 @@ export default function Email({payload, setPayload}) {
         <Grid item xs={6} sx={{padding: '30px'}}>
           <Alert color={'info'} sx={{mb: 2}}>
             Seleccione un archivo CSV, el archivo debe tener dos columnas separadas por coma (,), la primera debe
-            contener el nombre de las personas a la cual se les asignará la encuesta y la segunda columna su correo electrónico
+            contener el nombre de las personas a la cual se les asignará la encuesta y la segunda columna su correo electrónico,
+            clic <a href={csvExample()}>aquí</a> para descargar un ejemplo del archivo a subir
           </Alert>
           <CSVReader handleReader={handleCSV}/>
         </Grid>
