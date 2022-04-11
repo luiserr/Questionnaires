@@ -3,6 +3,7 @@ import React from 'react';
 import {finishPresentation, getPresentation} from "../../../tools/presentationRequest";
 import {FINISHED} from "../../../const/statuses";
 import {myAlert} from "../../../utils/alerts";
+import {getDomain} from "../../../utils/tools";
 
 export default function GoodBye({presentation, setPresentation, preview}) {
 
@@ -12,6 +13,9 @@ export default function GoodBye({presentation, setPresentation, preview}) {
       const myPresentation = await getPresentation(sessionStorage.getItem('_token'));
       if (myPresentation) {
         myAlert('Encuesta finalizada con éxito', 'success');
+        setTimeout(() => {
+          window.location.href = getDomain('admin');
+        }, 3000);
         return setPresentation(myPresentation);
       }
       myAlert('Error al actualizar los datos de la encuesta');

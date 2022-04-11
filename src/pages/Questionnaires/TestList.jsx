@@ -74,7 +74,7 @@ export default function TestList() {
       component: (row) =>
         <IconButton
           onClick={() => navigate(`/admin/surveys/test/${row.id}/presentation/_`)}
-          disabled={row.statusDescription !== 'Completado' || !user?.actions?.publish}
+          disabled={row.statusDescription !== 'Publicado' || !user?.actions?.publish}
           alt={'Añadir asignación'}
           title={'Añadir asignación'}
           aria-label="Añadir asignación">

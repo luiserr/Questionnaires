@@ -7,6 +7,7 @@ import Programs from "../Presentations/Programs/index";
 import Email from "../Presentations/Email";
 import Groups from "../Presentations/Groups/index";
 import Dates from "../Presentations/Dates/Dates";
+import Users from "../Presentations/Users/index";
 
 
 export const useManualAssign = (index, data, setData, payload, setPayload, disabled) => {
@@ -53,6 +54,14 @@ export const useManualAssign = (index, data, setData, payload, setPayload, disab
       />
     case 5:
       return <Dates
+        data={data}
+        disabled={disabled}
+        setData={setData}
+        payload={payload}
+        setPayload={setPayload}
+      />
+    case 6:
+      return <Users
         data={data}
         disabled={disabled}
         setData={setData}

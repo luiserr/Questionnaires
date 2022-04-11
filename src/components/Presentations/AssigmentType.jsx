@@ -23,6 +23,7 @@ export default function AssigmentType({data, setData, payload, setPayload, disab
           <Tab label="Correo electrónico"/>
           <Tab label="Fichas"/>
           <Tab label="Rango de fechas"/>
+          <Tab label="Usuarios"/>
           {/*<Tab label="Tipo de programa"/>*/}
         </Tabs>
       </Box>

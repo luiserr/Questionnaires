@@ -10,7 +10,7 @@ import {getPresentation} from "../../tools/presentationRequest";
 import {myAlert} from "../../utils/alerts";
 import {Alert, Button} from "@mui/material";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import {ANSWERED, IN_PROGRESS} from "../../const/statuses";
+import {ANSWERED, EXPIRED, IN_PROGRESS} from "../../const/statuses";
 
 function a11yProps(index) {
   return {
@@ -70,34 +70,37 @@ export default function Answer() {
     <>
       <Header/>
       {
-        presentation?.statusTry === ANSWERED ?
-          <Alert color={'info'}>
-            <h4>Usted ya respondió esta encuesta... y no cuenta con mas intentos</h4>
+        presentation?.statusTry === EXPIRED ?
+          <Alert color={'warning'}>
+            Esta encuesta no está disponible
           </Alert> :
-
-          <Grid container>
-            <Box sx={{width: '90%', margin: '0 auto', marginTop: '2em'}}>
-              {presentation?.preview && <Button
-                startIcon={<ArrowBackIcon/>}
-                sx={{float: 'right'}}
-                onClick={handleBack}
-              >
-                Regresar
-              </Button>}
-              <Box sx={{borderBottom: 1, borderColor: 'divider'}}>
-                <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
-                  <Tab label="Presentación" {...a11yProps(0)} />
-                  <Tab label="Preguntas" {...a11yProps(1)} disabled={!presentation?.sections}/>
-                  <Tab label="Despedida" {...a11yProps(2)} />
-                </Tabs>
+          presentation?.statusTry === ANSWERED ?
+            <Alert color={'info'}>
+              <h4>Usted ya respondió esta encuesta... y no cuenta con mas intentos</h4>
+            </Alert> :
+            <Grid container>
+              <Box sx={{width: '90%', margin: '0 auto', marginTop: '2em'}}>
+                {presentation?.preview && <Button
+                  startIcon={<ArrowBackIcon/>}
+                  sx={{float: 'right'}}
+                  onClick={handleBack}
+                >
+                  Regresar
+                </Button>}
+                <Box sx={{borderBottom: 1, borderColor: 'divider'}}>
+                  <Tabs value={value} onChange={handleChange} aria-label="Pasos para encuestas">
+                    <Tab label="Presentación" {...a11yProps(0)} />
+                    <Tab label="Preguntas" {...a11yProps(1)} disabled={!presentation?.sections}/>
+                    <Tab label="Despedida" {...a11yProps(2)} />
+                  </Tabs>
+                </Box>
+                <Grid item xs={12}>
+                  <div style={{marginTop: '2em'}}>
+                    {TabPanel}
+                  </div>
+                </Grid>
               </Box>
-              <Grid item xs={12}>
-                <div style={{marginTop: '2em'}}>
-                  {TabPanel}
-                </div>
-              </Grid>
-            </Box>
-          </Grid>
+            </Grid>
       }
     </>
   )

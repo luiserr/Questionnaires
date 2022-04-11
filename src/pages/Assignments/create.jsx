@@ -39,6 +39,7 @@ export default function CreateAssign() {
     regionals: {},
     programs: {},
     emails: [],
+    users: [],
     dates: {},
     complementaryDays: 7,
     abilityDays: 5,

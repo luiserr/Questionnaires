@@ -10,7 +10,7 @@ export const test = 'https://sena.pruebas.territorio.la/api';
 export const local = 'https://sena.pruebas.local/api';
 //comentar para hacer pruebas en local
 // export const api =  `${domain}api`;
-export const api = dev;
+export const api = test;
 
 const myHeaders = new Headers();
 

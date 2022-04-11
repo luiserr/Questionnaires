@@ -92,6 +92,7 @@ export default function FormGroup({data, setData, payload, setPayload, disabled}
         {/*</Grid>*/}
         <Grid item xs={2}>
           <Button
+            disabled={disabled || name.length < 2}
             variant={'contained'}
             onClick={handleSearch}
           >

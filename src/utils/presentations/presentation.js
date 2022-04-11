@@ -56,6 +56,7 @@ export function validatePayload(payload) {
     && !keys.hasEmails
     && !keys.hasGroups
     && !keys.hasDate
+    && !keys.hasUsers
   ) {
     toast('Debe seleccionar al menos un metodo de asignación');
     return false;
@@ -71,7 +72,8 @@ function hasKeys(payload) {
     hasPrograms: payload?.programs?.programs !== null && payload?.programs?.programs?.length > 0,
     hasEmails: payload?.emails?.length > 0,
     hasGroups: payload?.groups?.groups !== null && payload?.groups?.groups?.length > 0,
-    hasDate: payload?.dates?.startDate && payload?.dates?.finishDate
+    hasDate: payload?.dates?.startDate && payload?.dates?.finishDate,
+    hasUsers: payload?.users?.length > 0
   }
 }
 
@@ -109,6 +111,9 @@ export function buildPayload(test, presentationId, payload) {
   }
   if (keys.hasDate) {
     data.assignments['dates'] = payload.dates;
+  }
+  if (keys.hasUsers) {
+    data.assignments['users'] = payload.users;
   }
   return data;
 }
