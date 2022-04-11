@@ -141,7 +141,7 @@ export default function CreateAssign() {
                 variant="outlined"
                 value={payload?.tries}
                 inputProps={{
-                  min: 0,
+                  min: 1,
                   max: 100
                 }}
                 onChange={(e) => handleChange('tries', e.target.value)}

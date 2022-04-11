@@ -16,6 +16,7 @@ const headers = {
   tries: 'Número de intentos',
   startDate: 'Fecha de inicio',
   finishDate: 'Fecha de finalización',
+  affectedGroups: 'Fichas asignadas',
   affectedUsers: 'Usuarios asignados',
   responseUsers: 'Usuarios que presentaron'
 };
@@ -68,6 +69,7 @@ export default function List() {
             :
             <Chip
               label={'Pendiente por asignar'}
+              disabled
               color={'info'}
               onDelete={() => {
               }}
@@ -132,7 +134,6 @@ export default function List() {
           </Button>
           <Grid container spacing={2}>
             <Grid item xs={12}>
-
               <MyTable
                 headers={headers}
                 data={presentations}

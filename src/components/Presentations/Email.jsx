@@ -95,7 +95,7 @@ export default function Email({payload, setPayload, disabled}) {
               <TextField
                 fullWidth
                 disabled={disabled}
-                label={'Correo electronico'}
+                label={'Correo electrónico'}
                 value={email.email}
                 onChange={(e) => handleChange(index, 'email', e.target.value)}
                 InputProps={{

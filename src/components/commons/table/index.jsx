@@ -40,7 +40,7 @@ export default function MyTable(
       <>
         {
           Object.keys(headers).map(header => {
-              const alt = row[`${header}-long`] ? row[`${header}-long`] : row['header'];
+              const alt = row[`${header}-long`] ? row[`${header}-long`] : row[header];
               return <TableCell
                 alt={alt}
                 title={alt}
