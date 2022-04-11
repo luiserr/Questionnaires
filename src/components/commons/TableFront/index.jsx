@@ -90,7 +90,8 @@ export default function TableFront(
     handleSelect,
     selectAll = true,
     rowSelected = [],
-    handleSelectAll
+    handleSelectAll,
+    disabled
   }) {
   const [order, setOrder] = useState('asc');
   const [orderBy, setOrderBy] = useState('calories');
@@ -181,6 +182,7 @@ export default function TableFront(
                 size={dense ? 'small' : 'medium'}
               >
                 <EnhancedTableHead
+                  disabled={disabled}
                   numSelected={selected.length}
                   selectAll={selectAll}
                   order={order}
@@ -212,6 +214,7 @@ export default function TableFront(
                         >
                           <TableCell padding="checkbox">
                             <Checkbox
+                              disabled={disabled}
                               color="primary"
                               checked={isItemSelected}
                               inputProps={{

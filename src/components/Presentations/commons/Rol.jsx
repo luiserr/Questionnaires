@@ -7,7 +7,7 @@ const headers = [
   createHeader('name', 'Nombre')
 ];
 
-export default function Roles({data, setData, setPayload, payload, entity}) {
+export default function Roles({data, setData, setPayload, payload, entity, disabled}) {
 
   const {resources: roles} = useData('roles', data, setData)
 
@@ -44,6 +44,7 @@ export default function Roles({data, setData, setPayload, payload, entity}) {
   };
 
   return <TableFront
+    disabled={disabled}
     headers={headers}
     handleSelect={handleCheck}
     handleSelectAll={handleCheckAll}

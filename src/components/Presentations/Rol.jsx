@@ -4,7 +4,7 @@ import {Switch, Table, TableBody, TableCell, TableContainer, TableHead, TableRow
 import {getRoles} from "../../tools/assignRequests";
 import * as PropTypes from 'prop-types';
 
-export default function Roles({data, setData, payload, setPayload}) {
+export default function Roles({data, setData, payload, setPayload, disabled}) {
   const [roles, setRoles] = useState(data.roles ?? []);
 
   useEffect(async () => {
@@ -20,7 +20,6 @@ export default function Roles({data, setData, payload, setPayload}) {
 
   const handleCheck = (checked, row) => {
     let myRoles = [...payload?.roles];
-    console.log(myRoles);
     if (checked) {
       myRoles.push(row);
     } else {
@@ -57,6 +56,7 @@ export default function Roles({data, setData, payload, setPayload}) {
                 </TableCell>
                 <TableCell align={'center'} scope="row">
                   <Switch
+                    disabled={disabled}
                     checked={isChecked(rol.id)}
                     onChange={(e) => handleCheck(e.target.checked, rol)}
                   />

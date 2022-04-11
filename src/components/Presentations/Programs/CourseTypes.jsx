@@ -8,7 +8,7 @@ const headers = [
   createHeader('type', 'Tipo de programa'),
 ];
 
-export default function CourseTypes({data, setData, setPayload, payload}) {
+export default function CourseTypes({data, setData, setPayload, payload, disabled}) {
 
   const {resources: courseTypes} = useData('courseTypes', data, setData)
 
@@ -45,6 +45,7 @@ export default function CourseTypes({data, setData, setPayload, payload}) {
   };
 
   return <TableFront
+    disabled={disabled}
     headers={headers}
     handleSelect={handleCheck}
     handleSelectAll={handleCheckAll}

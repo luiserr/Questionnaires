@@ -8,7 +8,7 @@ import Modalities from "./Modalities";
 import CourseTypes from "./CourseTypes";
 import Regionals from "./Regionals";
 
-export default function Index({data, setData, payload, setPayload}) {
+export default function Index({data, setData, payload, setPayload, disabled}) {
 
   const [regionals, setRegionals] = useState(data?.regionals ?? []);
 
@@ -35,6 +35,7 @@ export default function Index({data, setData, payload, setPayload}) {
           </AccordionSummary>
           <AccordionDetails>
             <Roles
+              disabled={disabled}
               data={data}
               setPayload={setPayload}
               setData={setData}
@@ -52,6 +53,7 @@ export default function Index({data, setData, payload, setPayload}) {
           <AccordionDetails>
 
             <Modalities
+              disabled={disabled}
               data={data}
               setPayload={setPayload}
               setData={setData}
@@ -68,6 +70,7 @@ export default function Index({data, setData, payload, setPayload}) {
           </AccordionSummary>
           <AccordionDetails>
             <CourseTypes
+              disabled={disabled}
               data={data}
               setPayload={setPayload}
               setData={setData}
@@ -84,6 +87,7 @@ export default function Index({data, setData, payload, setPayload}) {
           </AccordionSummary>
           <AccordionDetails>
             <Regionals
+              disabled={disabled}
               data={data}
               setPayload={setPayload}
               setData={setData}

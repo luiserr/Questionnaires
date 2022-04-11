@@ -9,7 +9,7 @@ const headers = [
   createHeader('name', 'Nombre'),
 ];
 
-export default function Regionals({data, setData, setPayload, payload}) {
+export default function Regionals({data, setData, setPayload, payload, disabled}) {
 
   const {resources: regionals} = useData('regionals', data, setData)
 
@@ -69,6 +69,7 @@ export default function Regionals({data, setData, setPayload, payload}) {
   return (<>
     <Box>
       <TableFront
+        disabled={disabled}
         headers={headers}
         handleSelect={handleCheck}
         handleSelectAll={handleCheckAll}
@@ -78,6 +79,7 @@ export default function Regionals({data, setData, setPayload, payload}) {
     </Box>
     <Box>
       <Centers
+        disabled={disabled}
         payload={payload}
         setPayload={setPayload}
         setData={setData}

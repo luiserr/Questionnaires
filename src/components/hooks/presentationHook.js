@@ -9,10 +9,11 @@ import Groups from "../Presentations/Groups/index";
 import Dates from "../Presentations/Dates/Dates";
 
 
-export const useManualAssign = (index, data, setData, payload, setPayload) => {
+export const useManualAssign = (index, data, setData, payload, setPayload, disabled) => {
   switch (index) {
     case 0:
       return <Roles
+        disabled={disabled}
         data={data}
         setData={setData}
         payload={payload}
@@ -21,6 +22,7 @@ export const useManualAssign = (index, data, setData, payload, setPayload) => {
     case 1:
       return <Regionals
         data={data}
+        disabled={disabled}
         setData={setData}
         payload={payload}
         setPayload={setPayload}
@@ -28,6 +30,7 @@ export const useManualAssign = (index, data, setData, payload, setPayload) => {
     case 2:
       return <Programs
         data={data}
+        disabled={disabled}
         setData={setData}
         payload={payload}
         setPayload={setPayload}
@@ -35,6 +38,7 @@ export const useManualAssign = (index, data, setData, payload, setPayload) => {
     case 3:
       return <Email
         data={data}
+        disabled={disabled}
         setData={setData}
         payload={payload}
         setPayload={setPayload}
@@ -42,6 +46,7 @@ export const useManualAssign = (index, data, setData, payload, setPayload) => {
     case 4:
       return <Groups
         data={data}
+        disabled={disabled}
         setData={setData}
         payload={payload}
         setPayload={setPayload}
@@ -49,6 +54,7 @@ export const useManualAssign = (index, data, setData, payload, setPayload) => {
     case 5:
       return <Dates
         data={data}
+        disabled={disabled}
         setData={setData}
         payload={payload}
         setPayload={setPayload}

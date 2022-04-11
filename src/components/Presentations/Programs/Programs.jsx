@@ -10,7 +10,7 @@ const headers = [
   createHeader('name', 'Nombre')
 ];
 
-export default function Programs({data, setData, setPayload, payload}) {
+export default function Programs({data, setData, setPayload, payload, disabled}) {
 
   const {resources: programs} = useData('programs', data, setData);
   const [codes, setCodes] = useState([]);
@@ -70,6 +70,7 @@ export default function Programs({data, setData, setPayload, payload}) {
   return (<>
     <Box>
       <TableFront
+        disabled={disabled}
         selectAll={false}
         headers={headers}
         handleSelect={handleCheck}
@@ -80,6 +81,7 @@ export default function Programs({data, setData, setPayload, payload}) {
     </Box>
     <Box>
       <Groups
+        disabled={disabled}
         payload={payload}
         setPayload={setPayload}
         selectedPrograms={myCodes}

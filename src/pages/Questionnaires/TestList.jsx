@@ -62,7 +62,7 @@ export default function TestList() {
       component: (row) =>
         <IconButton
           onClick={() => navigate(`/admin/surveys/test/${row.id}/presentations`)}
-          disabled={row.statusDescription !== 'Completado'}
+          disabled={row.statusDescription !== 'Publicado'}
           alt={'Ver asignaciones'}
           title={'Ver asignaciones'}
           aria-label="ver">

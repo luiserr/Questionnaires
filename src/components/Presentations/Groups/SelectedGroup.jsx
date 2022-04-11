@@ -3,7 +3,7 @@ import FolderIcon from '@mui/icons-material/Folder';
 import DeleteIcon from '@mui/icons-material/Delete';
 import {Avatar, IconButton, ListItem, ListItemAvatar, ListItemText} from "@mui/material";
 
-export default function SelectedGroup({payload, setPayload}) {
+export default function SelectedGroup({payload, setPayload, disabled}) {
 
   const handleDelete = (id) => {
     const myGroups = payload?.groups?.groups?.filter((group) => group.id !== id) ?? [];
@@ -24,6 +24,7 @@ export default function SelectedGroup({payload, setPayload}) {
             key={group.id}
             secondaryAction={
               <IconButton
+                disabled={disabled}
                 onClick={() => handleDelete(group.id)}
                 edge="end"
                 aria-label="delete">

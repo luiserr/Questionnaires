@@ -8,7 +8,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import CSVReader from "../commons/CSVReader";
 import {getDomain} from "../../utils/tools";
 
-export default function Email({payload, setPayload}) {
+export default function Email({payload, setPayload, disabled}) {
 
   useEffect(() => {
     const emails = payload?.emails ?? [];
@@ -67,7 +67,7 @@ export default function Email({payload, setPayload}) {
     })
   };
 
-  const csvExample = ()=> getDomain('admin') + 'admin/surveys/examples/emails.csv';
+  const csvExample = ()=> getDomain('admin') + 'admin/surveys/example/emails.csv';
 
   return (
     <>
@@ -77,6 +77,7 @@ export default function Email({payload, setPayload}) {
             <Grid item xs={4}>
               <TextField
                 fullWidth
+                disabled={disabled}
                 label={'Nombre'}
                 value={email.name}
                 onChange={(e) => handleChange(index, 'name', e.target.value)}
@@ -93,6 +94,7 @@ export default function Email({payload, setPayload}) {
             <Grid item xs={4}>
               <TextField
                 fullWidth
+                disabled={disabled}
                 label={'Correo electronico'}
                 value={email.email}
                 onChange={(e) => handleChange(index, 'email', e.target.value)}
@@ -108,6 +110,7 @@ export default function Email({payload, setPayload}) {
             </Grid>
             <Grid item xs={1}>
               <Button
+                disabled={disabled}
                 startIcon={<DeleteIcon/>}
                 onClick={() => handleRemove(index)}
               />
@@ -120,6 +123,7 @@ export default function Email({payload, setPayload}) {
           <Button
             sx={{mt: 1, ml: 2}}
             variant={'outlined'}
+            disabled={disabled}
             onClick={() => handleNewPerson()}
           >
             Agregar a otra persona
@@ -131,7 +135,7 @@ export default function Email({payload, setPayload}) {
             contener el nombre de las personas a la cual se les asignará la encuesta y la segunda columna su correo electrónico,
             clic <a href={csvExample()}>aquí</a> para descargar un ejemplo del archivo a subir
           </Alert>
-          <CSVReader handleReader={handleCSV}/>
+          <CSVReader disabled={disabled} handleReader={handleCSV}/>
         </Grid>
       </Grid>
     </>

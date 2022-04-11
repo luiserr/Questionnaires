@@ -11,7 +11,7 @@ const headers = [
   createHeader('name', 'Nombre')
 ];
 
-export default function Groups({selectedPrograms, payload, setPayload}) {
+export default function Groups({selectedPrograms, payload, setPayload, disabled}) {
 
   const [groups, setGroups] = useState([]);
 
@@ -82,6 +82,7 @@ export default function Groups({selectedPrograms, payload, setPayload}) {
 
   return (
     <TableFront
+      disabled={disabled}
       headers={headers}
       rows={groups}
       rowSelected={selectedGroups()}

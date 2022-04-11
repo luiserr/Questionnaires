@@ -76,12 +76,11 @@ export default function List() {
             />
     },
     {
-      title: 'Editar',
+      title: 'Ver/Editar',
       component: (row) =>
         <IconButton
-          alt={'Editar'}
-          title={'Editar'}
-          disabled={row.status !== 'inProgress'}
+          alt={'Ver/Editar'}
+          title={'Ver/Editar'}
           onClick={() => navigate(`/admin/surveys/test/${testId}/presentation/${row.id}`)}
         >
           <EditIcon/>

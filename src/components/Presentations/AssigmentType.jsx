@@ -3,7 +3,7 @@ import React from 'react';
 import {useManualAssign} from "../hooks/presentationHook";
 import * as PropTypes from 'prop-types';
 
-export default function AssigmentType({data, setData, payload, setPayload}) {
+export default function AssigmentType({data, setData, payload, setPayload, disabled}) {
 
   const [value, setValue] = React.useState(0);
 
@@ -11,7 +11,7 @@ export default function AssigmentType({data, setData, payload, setPayload}) {
     setValue(newValue);
   };
 
-  const Component = useManualAssign(value, data, setData, payload, setPayload);
+  const Component = useManualAssign(value, data, setData, payload, setPayload, disabled);
 
   return (
     <Grid item xs={12}>

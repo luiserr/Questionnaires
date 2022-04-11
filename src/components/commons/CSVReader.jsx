@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default function CSVReader({handleReader}) {
+export default function CSVReader({handleReader, disabled}) {
   function parseCSV(text) {
     // Obtenemos las lineas del texto
     let lines = text.replace(/\r/g, '').split('\n');
@@ -41,6 +41,7 @@ export default function CSVReader({handleReader}) {
 
   return (
     <input
+      disabled={disabled}
       id={'file'}
       type={'file'}
       onChange={readFile}

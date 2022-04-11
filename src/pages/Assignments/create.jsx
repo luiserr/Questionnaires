@@ -99,6 +99,8 @@ export default function CreateAssign() {
     return toDay;
   }
 
+  const disabled = payload?.statusPresentation === 'assigned';
+
   return (
     <Box sx={{width: '100%'}}>
       <h4>Creación de asignación encuesta: {test?.title}</h4>
@@ -117,6 +119,7 @@ export default function CreateAssign() {
             <Grid item xs={6}>
               <TextField
                 label="Título"
+                disabled={disabled}
                 required
                 fullWidth
                 inputProps={{
@@ -130,6 +133,7 @@ export default function CreateAssign() {
             <Grid item xs={2}>
               <TextField
                 label="Número de intentos"
+                disabled={disabled}
                 required
                 fullWidth
                 type={"number"}
@@ -145,6 +149,7 @@ export default function CreateAssign() {
             <Grid item xs={2}>
               <FormControlLabel
                 control={<Switch
+                  disabled={disabled}
                   checked={payload?.anonymous}
                   onChange={(e, checked) => handleChange('anonymous', checked)}/>}
                 label={'Encuesta anónima'}
@@ -153,6 +158,7 @@ export default function CreateAssign() {
             <Grid item xs={2}>
               <FormControlLabel
                 control={<Switch
+                  disabled={disabled}
                   checked={payload?.notify}
                   onChange={(e, checked) => handleChange('notify', checked)}/>}
                 label={'Activar notificación'}
@@ -165,6 +171,7 @@ export default function CreateAssign() {
                 <DatePicker
                   label="Fecha inicio *"
                   required
+                  disabled={disabled}
                   size={"small"}
                   minDate={tomorrow()}
                   onChange={(e) => {
@@ -186,6 +193,7 @@ export default function CreateAssign() {
                   size={"small"}
                   minDate={tomorrow()}
                   required
+                  disabled={disabled}
                   onChange={(e) => {
                     setPayload({
                       ...payload,
@@ -205,6 +213,7 @@ export default function CreateAssign() {
                 label="Días de habilitación pos fecha de finalización de la asignación"
                 required
                 fullWidth
+                disabled={disabled}
                 value={payload?.abilityDays}
                 onChange={(e) => handleChange('abilityDays', e.target.value)}
                 type={"number"}
@@ -219,6 +228,7 @@ export default function CreateAssign() {
                 label="Días de activación antes de finalización de ficha (Solo formación complementaria)"
                 fullWidth
                 required
+                disabled={disabled}
                 alt={'Días de activación antes de finalización de ficha (Solo formación complementaria)'}
                 title={'Días de activación antes de finalización de ficha (Solo formación complementaria)'}
                 value={payload?.complementaryDays}
@@ -236,6 +246,7 @@ export default function CreateAssign() {
                 label="Días de notificación, sí no se ha contestado la encuesta"
                 fullWidth
                 required
+                disabled={disabled}
                 value={payload?.notifyUncompleted}
                 onChange={(e) => handleChange('notifyUncompleted', e.target.value)}
                 type={"number"}
@@ -253,6 +264,7 @@ export default function CreateAssign() {
               <Divider sx={{mb: 2}}/>
               <AssigmentType
                 data={data}
+                disabled={disabled}
                 setData={setData}
                 payload={payload}
                 setPayload={setPayload}

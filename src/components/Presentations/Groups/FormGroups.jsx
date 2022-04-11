@@ -10,7 +10,7 @@ const headers = [
   createHeader('name', 'Nombre de la ficha')
 ];
 
-export default function FormGroup({data, setData, payload, setPayload}) {
+export default function FormGroup({data, setData, payload, setPayload, disabled}) {
 
   const [id, setId] = useState('');
   const [name, setName] = useState('');
@@ -59,7 +59,6 @@ export default function FormGroup({data, setData, payload, setPayload}) {
   };
 
   const rowSelected = () => {
-    console.log(payload);
     return payload?.groups?.groups?.map(group => group.id);
   }
 
@@ -76,6 +75,7 @@ export default function FormGroup({data, setData, payload, setPayload}) {
         {/*</Grid>*/}
         <Grid item xs={4}>
           <TextField
+            disabled={disabled}
             fullWidth
             label={'Nombre de la ficha'}
             value={name}
@@ -102,6 +102,7 @@ export default function FormGroup({data, setData, payload, setPayload}) {
       <Grid container xs={12} sx={{mt: 2}}>
         <Grid item xs={12} sx={{mt: 2}}>
           <TableFront
+            disabled={disabled}
             headers={headers}
             rows={data?.groups ?? payload?.groups?.groups ?? []}
             handleSelect={handleCheck}
@@ -112,7 +113,7 @@ export default function FormGroup({data, setData, payload, setPayload}) {
         </Grid>
         <Grid item xs={12} sx={{mt: 2}}>
           <Typography>Fichas seleccionadas: </Typography>
-          <SelectedGroup payload={payload} setPayload={setPayload}/>
+          <SelectedGroup payload={payload} setPayload={setPayload} disabled={disabled}/>
         </Grid>
       </Grid>
     </Grid>

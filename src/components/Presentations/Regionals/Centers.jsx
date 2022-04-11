@@ -8,7 +8,7 @@ const headers = [
   createHeader('regionalName', 'Regional')
 ];
 
-export default function Centers({data, setData, setPayload, payload, selectedRegionals = []}) {
+export default function Centers({data, setData, setPayload, payload, selectedRegionals = [], disabled}) {
 
   const {resources: centers} = useData('trainingCenters', data, setData);
   const [trainingCenters, setTrainingCenters] = useState(centers);
@@ -134,6 +134,7 @@ export default function Centers({data, setData, setPayload, payload, selectedReg
   }
 
   return <TableFront
+    disabled={disabled}
     headers={headers}
     handleSelect={handleCheck}
     handleSelectAll={handleCheckAll}

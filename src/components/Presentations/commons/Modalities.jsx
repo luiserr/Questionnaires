@@ -7,7 +7,7 @@ const headers = [
   createHeader('name', 'Nombre')
 ];
 
-export default function Modalities({data, setData, setPayload, payload, entity}) {
+export default function Modalities({data, setData, setPayload, payload, entity, disabled}) {
 
   const {resources: modalities} = useData('modalities', data, setData)
 
@@ -44,6 +44,7 @@ export default function Modalities({data, setData, setPayload, payload, entity})
   }
 
   return <TableFront
+    disabled={disabled}
     headers={headers}
     handleSelect={handleCheck}
     handleSelectAll={handleCheckAll}

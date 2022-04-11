@@ -15,7 +15,7 @@ import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
 
 
-export default function Dates({data, setData, payload, setPayload}) {
+export default function Dates({data, setData, payload, setPayload, disabled}) {
 
   useEffect(() => {
     if (Object.keys(payload?.dates).length) {
@@ -58,6 +58,7 @@ export default function Dates({data, setData, payload, setPayload}) {
           </AccordionSummary>
           <AccordionDetails>
             <Roles
+              disabled={disabled}
               entity={'dates'}
               data={data}
               setPayload={setPayload}
@@ -75,6 +76,7 @@ export default function Dates({data, setData, payload, setPayload}) {
           </AccordionSummary>
           <AccordionDetails>
             <Modalities
+              disabled={disabled}
               entity={'dates'}
               data={data}
               setPayload={setPayload}
@@ -92,6 +94,7 @@ export default function Dates({data, setData, payload, setPayload}) {
           </AccordionSummary>
           <AccordionDetails>
             <CourseTypes
+              disabled={disabled}
               entity={'dates'}
               data={data}
               setPayload={setPayload}
@@ -119,6 +122,7 @@ export default function Dates({data, setData, payload, setPayload}) {
               <Grid item xs={10}>
                 <InputLabel id="dateType">Aplicar la fecha para:</InputLabel>
                 <Select
+                  disabled={disabled}
                   labelId="dateType"
                   label="Aplicar la fecha para:"
                   sx={{width: '50%'}}
@@ -139,6 +143,7 @@ export default function Dates({data, setData, payload, setPayload}) {
               <Grid item xs={6}>
                 <LocalizationProvider locale={es} dateAdapter={AdapterDateFns}>
                   <DatePicker
+                    disabled={disabled}
                     label="Fecha inicio"
                     size={"small"}
                     onChange={(e) => {
@@ -159,6 +164,7 @@ export default function Dates({data, setData, payload, setPayload}) {
               <Grid item xs={6}>
                 <LocalizationProvider locale={es} dateAdapter={AdapterDateFns}>
                   <DatePicker
+                    disabled={disabled}
                     label="Fecha fin"
                     size={"small"}
                     onChange={(e) => {

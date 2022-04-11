@@ -7,7 +7,7 @@ import Roles from "../commons/Rol";
 import FormGroup from "./FormGroups";
 
 
-export default function Index({data, setData, payload, setPayload}) {
+export default function Index({data, setData, payload, setPayload, disabled}) {
 
   return (
     <>
@@ -38,6 +38,7 @@ export default function Index({data, setData, payload, setPayload}) {
           </AccordionSummary>
           <AccordionDetails>
             <FormGroup
+              disabled={disabled}
               data={data}
               setPayload={setPayload}
               setData={setData}

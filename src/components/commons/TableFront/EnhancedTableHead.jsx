@@ -9,7 +9,7 @@ import PropTypes from "prop-types";
 import * as React from "react";
 
 export default function EnhancedTableHead(props) {
-  const {onSelectAllClick, order, orderBy, numSelected, rowCount, onRequestSort, headCells, selectAll = true} =
+  const {onSelectAllClick, order, orderBy, numSelected, rowCount, onRequestSort, headCells, selectAll = true, disabled} =
     props;
   const createSortHandler = (property) => (event) => {
     onRequestSort(event, property);
@@ -21,7 +21,7 @@ export default function EnhancedTableHead(props) {
         <TableCell padding="checkbox">
           <Checkbox
             color="primary"
-            disabled={!selectAll}
+            disabled={!selectAll || disabled}
             indeterminate={numSelected > 0 && numSelected < rowCount}
             checked={rowCount > 0 && numSelected === rowCount}
             onChange={onSelectAllClick}
