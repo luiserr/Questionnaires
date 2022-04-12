@@ -9,6 +9,8 @@ import SaveAsIcon from '@mui/icons-material/SaveAs';
 import AvTimerIcon from '@mui/icons-material/AvTimer';
 import DeleteIcon from '@mui/icons-material/Delete';
 import AssessmentIcon from '@mui/icons-material/Assessment';
+import DownloadForOfflineIcon from '@mui/icons-material/DownloadForOffline';
+import {api} from "../../utils/ajax";
 
 const headers = {
   id: 'ID',
@@ -76,6 +78,15 @@ export default function List() {
               // onDelete={() => navigate(`/admin/surveys/test/${testId}/presentation/${row.id}`)}
               deleteIcon={<SaveAsIcon/>}
             />
+    },
+    {
+      title: 'Descargar fichas afectadas',
+      component: (row) =>
+        <a
+          href={`${api}/tests/presentation/${row.id}/groups/report`}
+        >
+          <DownloadForOfflineIcon sx={{color: '#5e636e'}} alt={'Descargar fichas afectadas'} title={'Descargar fichas afectadas'}/>
+        </a>
     },
     {
       title: 'Ver/Editar',
