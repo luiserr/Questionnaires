@@ -1,5 +1,5 @@
 import React from 'react';
-import FolderIcon from '@mui/icons-material/Folder';
+import EmailIcon from '@mui/icons-material/Email';
 import DeleteIcon from '@mui/icons-material/Delete';
 import {Avatar, IconButton, ListItem, ListItemAvatar, ListItemText} from "@mui/material";
 
@@ -31,7 +31,7 @@ export default function SelectedUsers({payload, setPayload, disabled}) {
           >
             <ListItemAvatar>
               <Avatar>
-                <FolderIcon/>
+                <EmailIcon/>
               </Avatar>
             </ListItemAvatar>
             <ListItemText
