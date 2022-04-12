@@ -83,9 +83,11 @@ export default function List() {
       title: 'Descargar fichas afectadas',
       component: (row) =>
         <a
+          alt={'Descargar fichas afectadas'}
+          title={'Descargar fichas afectadas'}
           href={`${api}/tests/presentation/${row.id}/groups/report`}
         >
-          <DownloadForOfflineIcon sx={{color: '#5e636e'}} alt={'Descargar fichas afectadas'} title={'Descargar fichas afectadas'}/>
+          <DownloadForOfflineIcon sx={{color: '#5e636e'}}/>
         </a>
     },
     {
