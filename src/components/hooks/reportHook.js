@@ -16,7 +16,8 @@ export const useReport = (data) => {
     const allRoles = getRoles(
         myConfigurationRoles,
         myConfigurationRegionals,
-        myConfigurationPrograms
+        myConfigurationPrograms,
+        myConfigurationGroups
     );
 
     const allModalities = getModalities(
@@ -60,7 +61,8 @@ export const useReport = (data) => {
 const getRoles = (
     myConfigurationRoles,
     myConfigurationRegionals,
-    myConfigurationPrograms
+    myConfigurationPrograms,
+    myConfigurationGroups
 ) => {
     const listRoles = myConfigurationRoles?.length > 0 
         ? [].concat(myConfigurationRoles) 
@@ -76,6 +78,14 @@ const getRoles = (
 
     if(myConfigurationPrograms?.roles?.length > 0) {
         myConfigurationPrograms.roles.forEach(rol => {
+            if(!listRoles.find(e => e.id === rol.id)) {
+                listRoles.push(rol);
+            }
+        });
+    }
+
+    if(myConfigurationGroups?.roles?.length > 0) {
+        myConfigurationGroups.roles.forEach(rol => {
             if(!listRoles.find(e => e.id === rol.id)) {
                 listRoles.push(rol);
             }
@@ -198,8 +208,8 @@ const getGroups = (
     myConfigurationPrograms
 ) => {
 
-    const listElement = myConfigurationGroups?.length > 0 
-        ? [].concat(myConfigurationGroups) 
+    const listElement = myConfigurationGroups?.groups?.length > 0 
+        ? [].concat(myConfigurationGroups.groups) 
         : [];
 
     if(myConfigurationPrograms?.programs?.length > 0) {

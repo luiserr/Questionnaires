@@ -15,7 +15,7 @@ export function validatePayload(payload) {
     !keys.hasDateAssigment && 
     !keys.hasDateAnswer 
   ) {
-    toast('Error en las opciones de filtro');
+    toast('Debe selecconar alguna de las opciones de filtro');
     return false;
   }
   return true
