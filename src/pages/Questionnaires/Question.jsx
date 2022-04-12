@@ -2,7 +2,7 @@ import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Grid from "@mui/material/Grid";
 import JoditEditor from "jodit-react";
-import React, {useContext, useEffect, useState} from "react";
+import React, {useContext, useEffect, useRef, useState} from "react";
 import {useLocation, useNavigate, useParams} from "react-router-dom";
 import Button from "@mui/material/Button";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
@@ -35,6 +35,9 @@ export default function Question() {
   const {sectionId, testId, questionId} = useParams();
   const user = useContext(userContext);
   const {test, disabled} = useTest(testId, currentTest, user);
+  const editor = useRef(null);
+
+  let description = '';
 
   const config = {
     readonly: disabled,
@@ -54,16 +57,16 @@ export default function Question() {
     validation: 'none',
     ...currentQuestion
   });
-  const [description, setDescription] = useState(question.description);
+  // const [description, setDescription] = useState(question.description);
   const [answers, setAnswers] = useState(question.answers);
   const navigate = useNavigate();
 
   useEffect(async () => {
     if (test && questionId !== '_') {
       const myQuestion = await findQuestion(testId, sectionId, questionId);
+      editor.current.value = myQuestion.description;
       setAnswers(myQuestion.answers);
       setQuestion(myQuestion);
-      setDescription(myQuestion.description);
     }
   }, [test]);
 
@@ -85,7 +88,7 @@ export default function Question() {
   const handleSave = async () => {
     const payload = {
       ...question,
-      description,
+      description: editor?.current?.value,
       answers
     };
     if (validate(payload)) {
@@ -188,9 +191,10 @@ export default function Question() {
             <Grid item xs={10} sx={{marginTop: '1em'}}>
               <label>Descripción *</label>
               <JoditEditor
+                ref={editor}
                 config={config}
-                value={description}
-                onBlur={(text) => setDescription(text)}
+                value={editor?.current?.value ?? question?.description ?? ''}
+                onBlur={(text) => editor.current.value = text}
               />
             </Grid>
             <Grid item xs={12}>

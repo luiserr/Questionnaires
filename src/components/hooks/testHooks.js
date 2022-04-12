@@ -19,6 +19,7 @@ export const useTest = () => {
       const myTest = await findTest(testId);
       await setPayload(myTest);
       await setTest(myTest);
+      window.description = myTest?.description;
     } else {
       if (testNavigation) {
         setTest({...testNavigation});

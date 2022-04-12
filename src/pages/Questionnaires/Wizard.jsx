@@ -29,7 +29,7 @@ export default function Wizard(props) {
 
   const navigation = useNavigate();
 
-  const Component = useStepper(activeStep, test, payload, setPayload);
+  const Component = useStepper(activeStep, test, payload, setPayload, setTest);
 
   const handleBackHistory = () => {
     navigation('/admin/surveys/test');

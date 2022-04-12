@@ -1,11 +1,13 @@
 import TextField from "@mui/material/TextField";
 import Grid from "@mui/material/Grid";
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import * as PropTypes from 'prop-types';
 import FormControl from "@mui/material/FormControl";
 import JoditEditor from "jodit-react";
 
 export default function General({test, setPayload}) {
+
+  console.log(test);
 
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
@@ -20,17 +22,22 @@ export default function General({test, setPayload}) {
       id: test?.id || null,
       description,
       title,
-      wasEdit: test.title !== title || test.description !== description
+      wasEdit: test.title !== title || test.description !== description || window.description !== test?.description
     });
   }, [title, description]);
 
   const disabled = test?.presentations > 0 ?? true;
 
   const config = {
-    readonly: disabled,
-    uploader: {
-      insertImageAsBase64URI: true
-    }
+    "uploader": {
+      "insertImageAsBase64URI": true
+    },
+    "language": "es",
+    "defaultMode": "1",
+    "toolbarStickyOffset": -1,
+    "askBeforePasteHTML": false,
+    disablePlugins: "print",
+    "askBeforePasteFromWord": false
   };
 
   return (
@@ -56,13 +63,18 @@ export default function General({test, setPayload}) {
           <label>Descripción*</label>
           <JoditEditor
             config={config}
-            value={description}
+            value={window.description}
+            onChange={(text) => {
+              window.description = text;
+            }}
             onBlur={(text) => {
-              if (!disabled) {
-                setDescription(text)
-              }else {
-                setDescription(description)
-              }
+              // setTimeout(() => {
+              //   if (!disabled) {
+              //     setDescription(editor.current.value)
+              //   } else {
+              //     setDescription(description)
+              //   }
+              // }, 100);
             }}
           />
         </Grid>
@@ -73,6 +85,6 @@ export default function General({test, setPayload}) {
 }
 
 General.propTypes = {
-  test: PropTypes.object.isRequired,
+  test: PropTypes.object,
   setPayload: PropTypes.func.isRequired,
 };

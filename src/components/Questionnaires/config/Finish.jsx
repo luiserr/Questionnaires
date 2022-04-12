@@ -1,16 +1,18 @@
 import {Button, Grid} from "@mui/material";
 import JoditEditor from "jodit-react";
-import React, {useContext, useState} from "react";
+import React, {useContext, useRef, useState} from "react";
 import {finishTest, general, preview} from "../../../tools/testRequests";
 import {useLocation, useNavigate} from "react-router-dom";
 import {toast} from "../../../utils/alerts";
 import userContext from "../../../context/userContext";
 
-export default function Finish({test}) {
+export default function Finish({test, setTest}) {
 
   const location = useLocation();
 
-  const [goodbye, setGoodbye] = useState(test?.goodbye ?? location?.state?.test ?? '');
+  let goodbye = test?.goodbye ?? location?.state?.test ?? '';
+
+  const editor = useRef(null);
 
   const navigate = useNavigate();
 
@@ -22,6 +24,7 @@ export default function Finish({test}) {
       goodbye
     });
     if (response) {
+      setTest(response);
       if (await handleFinish()) {
         setTimeout(() => {
           navigate('/admin/surveys/test');
@@ -43,6 +46,7 @@ export default function Finish({test}) {
       goodbye
     });
     if (response) {
+      setTest(response);
       await redirectPreview(response)
     } else {
       toast('Error al generar la previsualización')
@@ -70,9 +74,10 @@ export default function Finish({test}) {
     <Grid item xs={12}>
       <label>Escriba una breve despedida:</label>
       <JoditEditor
+        ref={editor}
         config={config}
         value={goodbye ?? test?.goodbye}
-        onBlur={(text) => setGoodbye(text)}
+        onChange={(text) => goodbye = text}
       />
       <div style={{marginTop: '2em'}}>
         <Button

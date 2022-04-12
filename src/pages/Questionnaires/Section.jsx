@@ -3,7 +3,7 @@ import CardContent from "@mui/material/CardContent";
 import Grid from "@mui/material/Grid";
 import TextField from "@mui/material/TextField";
 import JoditEditor from "jodit-react";
-import React, {useContext, useEffect, useState} from "react";
+import React, {useContext, useEffect, useRef, useState} from "react";
 import {useLocation, useNavigate, useParams} from "react-router-dom";
 import Button from "@mui/material/Button";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
@@ -22,6 +22,7 @@ export default function Section() {
 
   const location = useLocation();
   const {testId, sectionId} = useParams();
+  const editor = useRef(null);
 
   const currentTest = location?.state?.test;
   let currentSection = location?.state?.section || null;
@@ -38,13 +39,15 @@ export default function Section() {
     ...currentSection
   });
 
-  const [description, setDescription] = useState(currentSection?.description || '');
+  let description = currentSection?.description || '';
+
+  // const [description, setDescription] = useState(currentSection?.description || '');
 
   useEffect(async () => {
     if (test && sectionId !== '_' && !currentSection) {
       const mySection = await findSection(test.id, sectionId);
-      setSection(mySection);
-      setDescription(mySection.description);
+      editor.current.value = mySection.description;
+      await setSection(mySection);
     } else {
       if (currentSection) {
         setSection(currentSection);
@@ -62,11 +65,11 @@ export default function Section() {
       toast('Título requerido', false);
       return false;
     }
-    if(description === '' || description === '<p></p>') {
+    if(editor?.current?.value === '' || editor?.current?.value === '<p></p>') {
       toast('Descripción requerida', false);
       return false;
     }
-    const newSection = await saveSection(testId, section.id, section.title, description, 0);
+    const newSection = await saveSection(testId, section.id, section.title, editor?.current?.value, 0);
     if (newSection) {
       navigate(`/admin/surveys/test/${testId}/section/${newSection.id}`, {state: {section: newSection}});
     }
@@ -147,9 +150,10 @@ export default function Section() {
             <Grid item xs={10} sx={{marginTop: '1em'}}>
               <label>Descripción *</label>
               <JoditEditor
+                ref={editor}
                 config={config}
-                value={description}
-                onBlur={(text) => setDescription(text)}
+                value={editor?.current?.value ?? currentSection?.description ?? ''}
+                onBlur={(text) => editor.current.value = text}
               />
             </Grid>
             <Grid item xs={12}>

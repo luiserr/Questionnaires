@@ -1,8 +1,11 @@
-import {api, get, post, local} from '../utils/ajax';
+import {api, get, post} from '../utils/ajax';
 import {toast} from "../utils/alerts";
 
 export const general = async (payload) => {
-  const response = await post(`${api}/tests`, payload, 'POST', true, true);
+  const response = await post(`${api}/tests`, {
+    ...payload,
+    description: payload?.description ? payload?.description : window.description,
+  }, 'POST', true, true);
   return response?.success ? response.data : null;
 };
 
@@ -11,7 +14,7 @@ const validate = (payload) => {
     toast('Título requerido', false);
     return false;
   }
-  if (payload.description === '' || payload.description === '<p></p>') {
+  if (window.description === '' || window.description === '<p></p>') {
     toast('Descripción requerida', false);
     return false;
   }
@@ -30,9 +33,10 @@ export const handleSave = async (step, test, payload, setTest, setStep, navigati
   let result = test;
   if (step === 0) {
     if (validate(payload)) {
-      if (payload.wasEdit) {
+      if (payload.wasEdit || window.description !== test.description) {
         result = await general(payload);
         if (result) {
+          window.description = '';
           if (payload.id) {
             toast('Encuesta actualizada con éxito', true);
             setTimeout(() => {
