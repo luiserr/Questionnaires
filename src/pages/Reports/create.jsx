@@ -6,7 +6,10 @@ import {
   Grid, 
   Divider, 
   Button, 
-  Link
+  Link,
+  Select,
+  InputLabel,
+  MenuItem
 } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
@@ -53,7 +56,8 @@ export default function CreateReport() {
     startDateAnswer: null,
     finishDateAnswer: null,
     startDateAnswerInput: null,
-    finishDateAnswerInput: null
+    finishDateAnswerInput: null,
+    formatType: 'XLSX'
   });
 
   useEffect(async () => {
@@ -109,6 +113,30 @@ export default function CreateReport() {
               </Paper>
             </Grid>
           </Grid>
+          <Grid container spacing={2}>
+            <Grid item xs={12}>
+              <Paper elevation={2} spacing={2} sx={{m: 2, p: 2, backgroundColor: '#efefef'}}>
+                <Grid item xs={6}>
+                  <InputLabel id="formatType">Seleccione el formato del reporte:</InputLabel>
+                  <Select
+                    labelId="formatType"
+                    label="Tipo de formato del reporte:"
+                    sx={{width: '50%'}}
+                    value={payload?.formatType ?? 'XLSX'}
+                    onChange={e => setPayload({
+                      ...payload,
+                      formatType: e.target.value
+                    })}
+                    size="small"
+                  >
+                    <MenuItem value={'XLSX'}> Excel </MenuItem>
+                    <MenuItem value={'CSV'}> Csv </MenuItem>
+                  </Select>                
+                </Grid>
+              </Paper>
+            </Grid>
+          </Grid>
+          
         </CardContent>
         <Button
           sx={{float: 'right', mb: 2, mr: 3}}
