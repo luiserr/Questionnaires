@@ -56,8 +56,8 @@ export default function Answer() {
     setValue(newValue);
   };
 
-  const handleTab = () => {
-    handleChange(null, 2);
+  const handleTab = (tab = 2) => {
+    handleChange(null, tab);
   }
 
   const handleBack = () => {

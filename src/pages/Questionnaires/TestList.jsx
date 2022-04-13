@@ -23,6 +23,9 @@ const headers = {
 };
 
 export default function TestList() {
+
+  window.description = '';
+
   const [tests, setTests] = useState([]);
   const [pagination, setPagination] = useState({
     page: 1,

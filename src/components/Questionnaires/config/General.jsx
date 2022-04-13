@@ -7,8 +7,6 @@ import JoditEditor from "jodit-react";
 
 export default function General({test, setPayload}) {
 
-  console.log(test);
-
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
 

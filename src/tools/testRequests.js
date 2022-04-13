@@ -4,7 +4,7 @@ import {toast} from "../utils/alerts";
 export const general = async (payload) => {
   const response = await post(`${api}/tests`, {
     ...payload,
-    description: payload?.description ? payload?.description : window.description,
+    description: window.description,
   }, 'POST', true, true);
   return response?.success ? response.data : null;
 };
@@ -36,7 +36,6 @@ export const handleSave = async (step, test, payload, setTest, setStep, navigati
       if (payload.wasEdit || window.description !== test.description) {
         result = await general(payload);
         if (result) {
-          window.description = '';
           if (payload.id) {
             toast('Encuesta actualizada con éxito', true);
             setTimeout(() => {
