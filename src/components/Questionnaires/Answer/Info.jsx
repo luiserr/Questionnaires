@@ -31,7 +31,7 @@ export default function Info({presentation, setPresentation, preview, setValue})
     if (myPresentation) {
       myAlert('Encuesta reiniciada con éxito', 'success');
       setPresentation(myPresentation);
-      return setValue(1);
+      return setValue(0);
     }
   }
 

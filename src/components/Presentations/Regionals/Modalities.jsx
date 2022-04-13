@@ -43,12 +43,16 @@ export default function Modalities({data, setData, setPayload, payload, disabled
     });
   }
 
+  const rowsSelected = ()=> {
+    return payload?.regionals?.modalities?.map(item => item.id)
+  }
+
   return <TableFront
     disabled={disabled}
     headers={headers}
     handleSelect={handleCheck}
     handleSelectAll={handleCheckAll}
     title={'Modalidades'}
-    rowSelected={payload?.regionals?.modalities}
+    rowSelected={rowsSelected()}
     rows={modalities}/>
 }

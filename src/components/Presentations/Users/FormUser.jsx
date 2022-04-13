@@ -7,6 +7,7 @@ import TableFront, {createHeader} from "../../commons/TableFront";
 
 const headers = [
   createHeader('id', 'ID'),
+  createHeader('uid', 'Número de documento'),
   createHeader('name', 'Nombre'),
   createHeader('email', 'Correo electrónico'),
 ];
@@ -58,11 +59,11 @@ export default function FormUser({data, setData, payload, setPayload, disabled})
   return (
     <Grid container>
       <Grid container spacing={2} item xs={12}>
-        <Grid item xs={4}>
+        <Grid item xs={7}>
           <TextField
             disabled={disabled}
             fullWidth
-            label={'Busqueda de usuario por nombre / e-mail '}
+            label={'Busqueda de usuario por nombre / e-mail / Número de documento'}
             value={term}
             onChange={(e) => setTerm(e.target.value)}
           />

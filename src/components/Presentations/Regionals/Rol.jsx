@@ -43,13 +43,17 @@ export default function Roles({data, setData, setPayload, payload, disabled}) {
     });
   };
 
+  const rowsSelected = ()=> {
+    return payload?.regionals?.roles?.map(rol => rol.id)
+  }
+
   return <TableFront
     disabled={disabled}
     headers={headers}
     handleSelect={handleCheck}
     handleSelectAll={handleSelectAll}
     title={'Roles del sistema'}
-    rowSelected={payload?.regionals?.roles}
+    rowSelected={rowsSelected()}
     rows={roles}
   />
 }

@@ -205,7 +205,7 @@ export default function TableFront(
                       return (
                         <TableRow
                           hover
-                          onClick={(event) => handleClick(event, row.id, row)}
+                          // onClick={(event) => handleClick(event, row.id, row)}
                           role="checkbox"
                           aria-checked={isItemSelected}
                           tabIndex={-1}
@@ -214,6 +214,7 @@ export default function TableFront(
                         >
                           <TableCell padding="checkbox">
                             <Checkbox
+                              onClick={(event) => handleClick(event, row.id, row)}
                               disabled={disabled}
                               color="primary"
                               checked={isItemSelected}

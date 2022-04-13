@@ -44,12 +44,16 @@ export default function CourseTypes({data, setData, setPayload, payload, entity,
     });
   };
 
+  const rowsSelected = ()=> {
+    return payload[entity]?.courseTypes?.map(item => item.id)
+  }
+
   return <TableFront
     disabled={disabled}
     headers={headers}
     handleSelect={handleCheck}
     handleSelectAll={handleCheckAll}
     title={'Tipos de cursos'}
-    rowSelected={payload[entity]?.courseTypes}
+    rowSelected={rowsSelected()}
     rows={courseTypes}/>
 }

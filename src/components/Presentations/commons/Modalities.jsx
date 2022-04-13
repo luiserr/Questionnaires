@@ -43,6 +43,10 @@ export default function Modalities({data, setData, setPayload, payload, entity, 
     });
   }
 
+  const rowsSelected = ()=> {
+    return payload[entity]?.modalities?.map(item => item.id)
+  }
+
   return <TableFront
     disabled={disabled}
     headers={headers}

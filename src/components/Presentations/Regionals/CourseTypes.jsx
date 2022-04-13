@@ -16,7 +16,7 @@ export default function CourseTypes({data, setData, setPayload, payload, disable
     let myCourseTypes = payload?.regionals?.courseTypes ?? [];
     if (checked) {
       if (!myCourseTypes.find(type => type.id === row.id)) {
-        myCourseTypes.push(row.id);
+        myCourseTypes.push(row);
       }
     } else {
       myCourseTypes.filter(rol => rol.id !== row.id);
@@ -44,12 +44,16 @@ export default function CourseTypes({data, setData, setPayload, payload, disable
     });
   };
 
+  const rowsSelected = ()=> {
+    return payload?.regionals?.courseTypes?.map(item => item.id)
+  }
+
   return <TableFront
     disabled={disabled}
     headers={headers}
     handleSelect={handleCheck}
     handleSelectAll={handleCheckAll}
     title={'Tipos de cursos'}
-    rowSelected={payload?.regionals?.courseTypes}
+    rowSelected={rowsSelected()}
     rows={courseTypes}/>
 }

@@ -43,12 +43,16 @@ export default function Roles({data, setData, setPayload, payload, disabled}) {
     });
   };
 
+  const rowsSelected = ()=> {
+    return payload?.programs?.roles?.map(item => item.id)
+  }
+
   return <TableFront
     disabled={disabled}
     headers={headers}
     handleSelect={handleCheck}
     handleSelectAll={handleCheckAll}
     title={'Roles del sistema'}
-    rowSelected={payload?.programs?.roles}
+    rowSelected={rowsSelected()}
     rows={roles}/>
 }

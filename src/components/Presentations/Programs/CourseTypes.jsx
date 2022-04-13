@@ -44,12 +44,16 @@ export default function CourseTypes({data, setData, setPayload, payload, disable
     });
   };
 
+  const rowsSelected = ()=> {
+    return payload?.programs?.courseTypes?.map(item => item.id)
+  }
+
   return <TableFront
     disabled={disabled}
     headers={headers}
     handleSelect={handleCheck}
     handleSelectAll={handleCheckAll}
     title={'Tipos de cursos'}
-    rowSelected={payload?.programs?.courseTypes}
+    rowSelected={rowsSelected()}
     rows={courseTypes}/>
 }
