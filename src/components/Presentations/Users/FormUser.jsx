@@ -63,7 +63,7 @@ export default function FormUser({data, setData, payload, setPayload, disabled})
           <TextField
             disabled={disabled}
             fullWidth
-            label={'Busqueda de usuario por nombre / e-mail / Número de documento'}
+            label={'Búsqueda de usuario por nombre / e-mail / Número de documento'}
             value={term}
             onChange={(e) => setTerm(e.target.value)}
           />

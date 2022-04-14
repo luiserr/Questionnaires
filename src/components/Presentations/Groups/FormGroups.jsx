@@ -108,7 +108,7 @@ export default function FormGroup({data, setData, payload, setPayload, disabled}
             rows={data?.groups ?? payload?.groups?.groups ?? []}
             handleSelect={handleCheck}
             handleSelectAll={handleCheckAll}
-            title={'Busqueda de fichas'}
+            title={'Búsqueda de fichas'}
             rowSelected={rowSelected()}
           />
         </Grid>
