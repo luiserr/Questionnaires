@@ -7,7 +7,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import {deleteTest, searchTest} from '../../tools/testRequests';
 import {useNavigate} from "react-router-dom";
-import {Button} from "@mui/material";
+import {Button, Tooltip} from "@mui/material";
 import AddIcon from '@mui/icons-material/Add';
 import MyTable from "../../components/commons/table";
 import AddTaskIcon from '@mui/icons-material/AddTask';
@@ -18,6 +18,7 @@ const headers = {
   id: 'Id',
   statusDescription: 'Estado',
   ownerName: 'Creador',
+  categoryName: 'Categoría',
   createdAt: 'Fecha de creación de encuesta',
   presentations: 'Número de asignaciones'
 };
@@ -97,9 +98,20 @@ export default function TestList() {
     },
     {
       title: 'Eliminar encuesta',
-      component: (row) =>
-        <IconButton
-          disabled={parseInt(row.presentations) > 0 || !user?.actions?.delete}
+      component: (row) => {
+        if (parseInt(row.presentations) > 0 || !user?.actions?.delete) {
+          return <div title="La encuesta no puede ser eliminada, porque se encuentra publicada" style={{padding: '1px'}}>
+            <IconButton
+              disabled
+              aria-label="Eliminar"
+              alt={'Eliminar'}
+              title={'Eliminar'}
+            >
+              <DeleteIcon/>
+            </IconButton>
+          </div>
+        }
+        return <IconButton
           aria-label="Eliminar"
           alt={'Eliminar'}
           title={'Eliminar'}
@@ -107,6 +119,7 @@ export default function TestList() {
         >
           <DeleteIcon/>
         </IconButton>
+      }
     }
   ]
 

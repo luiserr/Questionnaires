@@ -52,7 +52,7 @@ export default function Roles({data, setData, setPayload, payload, entity, disab
     headers={headers}
     handleSelect={handleCheck}
     handleSelectAll={handleCheckAll}
-    title={'Roles del sistema'}
+    title={'Roles del curso'}
     rowSelected={rowsSelected()}
     rows={roles}/>
 }

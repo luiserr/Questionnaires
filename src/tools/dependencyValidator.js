@@ -1,4 +1,4 @@
-import {MATRIX, NUMERIC} from "../const/questionTypes";
+import {MATRIX, MULTIPLE, NUMERIC} from "../const/questionTypes";
 
 export function hasDependency(sections, question = {}, dependencies = []) {
   const dependency = searchDependency(question.id, dependencies);
@@ -14,10 +14,14 @@ export function hasDependency(sections, question = {}, dependencies = []) {
     const tryUser = searchAttempt(sections, sectionId, questionId, questionType, parentId);
     if (tryUser) {
       const {attempt, answers} = tryUser;
-      const questionValue = getDependencyAnswer(questionType, answers, attempt);
-      const dependencyValue = getDependencyAnswer(questionType, answers, answerId);
-      if (dependencyValue && questionValue) {
-        return compareAnswer(questionValue, operator, dependencyValue);
+      if (questionType !== MULTIPLE) {
+        const questionValue = getDependencyAnswer(questionType, answers, attempt);
+        const dependencyValue = getDependencyAnswer(questionType, answers, answerId);
+        if (dependencyValue && questionValue) {
+          return compareAnswer(questionValue, operator, dependencyValue);
+        }
+      } else {
+        return compareAnswerFromMultiple(attempt, answers)
       }
     }
     return false;
@@ -36,14 +40,24 @@ function searchAttempt(sections = [], sectionId, questionId, dependencyType, par
     switch (dependencyType) {
       case MATRIX:
         question = section.questions?.find(item => item.id === parentId);
-        if(question) {
-            const subQuestion = question.answers?.find((item) => questionId === item.id);
-            const attempt = question.attempts?.answers.find((item) => questionId === item.questionId)
+        if (question) {
+          const subQuestion = question.answers?.find((item) => questionId === item.id);
+          const attempt = question.attempts?.answers.find((item) => questionId === item.questionId)
           return {
             attempt: attempt.answerId ?? null,
             answers: subQuestion?.answers ?? []
           }
         }
+        break;
+      case MULTIPLE:
+        question = section.questions?.find(item => item.id === questionId);
+        if (question) {
+          return {
+            attempt: question.attempts?.answers ?? null,
+            answers: question.answers ?? []
+          };
+        }
+        break;
       default:
         question = section.questions?.find(item => item.id === questionId);
         if (question) {
@@ -68,6 +82,22 @@ function getDependencyAnswer(type, answers = [], id) {
     }
   }
   return false;
+}
+
+
+/**
+ *
+ * @param attempts <array>
+ * @param answers
+ */
+function compareAnswerFromMultiple(attempts = [], answers = []) {
+  let hasAnswerConditional = false;
+  answers.map((answer) => {
+    if (attempts.includes(answer.id)) {
+      hasAnswerConditional = true;
+    }
+  });
+  return hasAnswerConditional;
 }
 
 function compareAnswer(valueAnswer, operator, valueDependency) {
