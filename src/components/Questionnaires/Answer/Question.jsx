@@ -3,6 +3,8 @@ import {useQuestion} from "../../hooks/testHook";
 import * as PropTypes from 'prop-types';
 import {Alert, Box, Button} from "@mui/material";
 import {hasDependency} from "../../../tools/dependencyValidator";
+import {finishPresentation, getPresentation} from "../../../tools/presentationRequest";
+import {myAlert} from "../../../utils/alerts";
 
 export default function Question(
   {
@@ -17,7 +19,8 @@ export default function Question(
     readOnly,
     preview,
     canRender,
-    presentation
+    presentation,
+    setPresentation
   }) {
 
   const Question = useQuestion(question, setQuestion, indexQuestion, preview, readOnly);
@@ -32,8 +35,22 @@ export default function Question(
   const handleAnswer = async () => {
     const save = await handleSave(indexQuestion);
     if (save) {
-      handleTab()
+      await handleFinish();
     }
+  };
+
+  const handleFinish = async () => {
+    const response = await finishPresentation();
+    if (response) {
+      const myPresentation = await getPresentation(sessionStorage.getItem('_token'));
+      if (myPresentation) {
+        myAlert('Encuesta finalizada con éxito', 'success');
+        handleTab(2);
+        return setPresentation(myPresentation);
+      }
+      myAlert('Error al actualizar los datos de la encuesta');
+    }
+    myAlert('No se pudo finalizar la encuesta');
   };
 
   // const canRender = hasDependency(presentation?.sections, question, presentation?.dependencies);
@@ -66,8 +83,7 @@ export default function Question(
                 variant={'outlined'}
               >Siguiente sección</Button>}
             {(isLast && lastSection && !readOnly && !preview) &&
-              <Button variant={'outlined'} onClick={handleAnswer} sx={{float: 'right'}}>Guardar respuesta e ir
-                a finalizar</Button>}
+              <Button variant={'outlined'} onClick={handleAnswer} sx={{float: 'right'}}>Guardar respuesta y finalizar</Button>}
           </Box>
         </> :
         <Alert color={'info'}>

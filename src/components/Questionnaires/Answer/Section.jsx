@@ -30,7 +30,16 @@ function a11yProps(index) {
   };
 }
 
-export default function Section({presentation, section, setSection, activeSection, handleNext, handleTab, preview}) {
+export default function Section(
+  {
+    presentation,
+    setPresentation,
+    section, setSection,
+    activeSection,
+    handleNext,
+    handleTab,
+    preview
+  }) {
 
   const [tab, setTab] = useState(0);
   const [page, setPage] = useState(1);
@@ -140,6 +149,7 @@ export default function Section({presentation, section, setSection, activeSectio
                       preview={preview}
                       canRender={canRender}
                       presentation={presentation}
+                      setPresentation={setPresentation}
                     />
                 }
               </>

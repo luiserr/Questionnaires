@@ -39,16 +39,16 @@ export default function GoodBye({presentation, setPresentation, preview, handleT
               :
               <h4>Usted ha terminado esta encuesta!</h4>
           }
-          {(presentation?.statusTry !== FINISHED && presentation?.tryId) &&
-            <Button
-              sx={{mt: 2}}
-              disabled={preview}
-              variant={'contained'}
-              color={'info'}
-              onClick={handleFinish}
-            >
-              Clic para finalizar la encuesta
-            </Button>}
+          {/*{(presentation?.statusTry !== FINISHED && presentation?.tryId) &&*/}
+          {/*  <Button*/}
+          {/*    sx={{mt: 2}}*/}
+          {/*    disabled={preview}*/}
+          {/*    variant={'contained'}*/}
+          {/*    color={'info'}*/}
+          {/*    onClick={handleFinish}*/}
+          {/*  >*/}
+          {/*    Clic para finalizar la encuesta*/}
+          {/*  </Button>}*/}
         </Grid>
       </Grid>
     </Paper>

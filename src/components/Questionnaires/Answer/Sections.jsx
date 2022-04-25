@@ -91,6 +91,7 @@ export default function Sections({presentation, setPresentation, handleTab, prev
                 section={currentSection}
                 setSection={changeSection}
                 presentation={presentation}
+                setPresentation={setPresentation}
                 handleNext={nextSection}
                 activeSection={activeSection}
                 handleTab={handleTab}
