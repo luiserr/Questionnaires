@@ -7,6 +7,7 @@ import EmailIcon from '@mui/icons-material/Email';
 import DeleteIcon from '@mui/icons-material/Delete';
 import CSVReader from "../commons/CSVReader";
 import {getDomain} from "../../utils/tools";
+import {myAlert} from "../../utils/alerts";
 
 export default function Email({payload, setPayload, disabled}) {
 
@@ -55,11 +56,16 @@ export default function Email({payload, setPayload, disabled}) {
 
   const handleCSV = (rows = []) => {
     const emails = [];
+    if (rows[0].length > 1000) {
+      return myAlert('Ha excedido el límite máximo de correos. El límite es 1000 correos')
+    }
     for (let i = 0; i < rows[0].length; i++) {
-      emails.push({
-        name: rows[0][i],
-        email: rows[1][i]
-      });
+      if (!emails.find(email => email.email === rows[1][i])) {
+        emails.push({
+          name: rows[0][i],
+          email: rows[1][i]
+        });
+      }
     }
     setPayload({
       ...payload,
@@ -67,7 +73,7 @@ export default function Email({payload, setPayload, disabled}) {
     })
   };
 
-  const csvExample = ()=> getDomain('admin') + 'admin/surveys/example/emails.csv';
+  const csvExample = () => getDomain('admin') + 'admin/surveys/example/emails.csv';
 
   return (
     <>
@@ -132,7 +138,8 @@ export default function Email({payload, setPayload, disabled}) {
         <Grid item xs={8} sx={{padding: '30px'}}>
           <Alert color={'info'} sx={{mb: 2}}>
             Seleccione un archivo CSV, el archivo debe tener dos columnas separadas por coma (,), la primera debe
-            contener el nombre de las personas a la cual se les asignará la encuesta y la segunda columna su correo electrónico,
+            contener el nombre de las personas a la cual se les asignará la encuesta y la segunda columna su correo
+            electrónico,
             clic <a href={csvExample()}>aquí</a> para descargar un ejemplo del archivo a subir
           </Alert>
           <CSVReader disabled={disabled} handleReader={handleCSV}/>
