@@ -21,7 +21,7 @@ export function hasDependency(sections, question = {}, dependencies = []) {
           return compareAnswer(questionValue, operator, dependencyValue);
         }
       } else {
-        return compareAnswerFromMultiple(attempt, answers)
+        return compareAnswerFromMultiple(attempt, answerId)
       }
     }
     return false;
@@ -88,16 +88,10 @@ function getDependencyAnswer(type, answers = [], id) {
 /**
  *
  * @param attempts <array>
- * @param answers
+ * @param answerId
  */
-function compareAnswerFromMultiple(attempts = [], answers = []) {
-  let hasAnswerConditional = false;
-  answers.map((answer) => {
-    if (attempts.includes(answer.id)) {
-      hasAnswerConditional = true;
-    }
-  });
-  return hasAnswerConditional;
+function compareAnswerFromMultiple(attempts = [], answerId) {
+  return attempts.includes(answerId);
 }
 
 function compareAnswer(valueAnswer, operator, valueDependency) {

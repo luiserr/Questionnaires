@@ -5,6 +5,7 @@ import {Alert, Box, Button} from "@mui/material";
 import {hasDependency} from "../../../tools/dependencyValidator";
 import {finishPresentation, getPresentation} from "../../../tools/presentationRequest";
 import {myAlert} from "../../../utils/alerts";
+import {FINISHED} from "../../../const/statuses";
 
 export default function Question(
   {
@@ -46,7 +47,7 @@ export default function Question(
       if (myPresentation) {
         myAlert('Encuesta finalizada con éxito', 'success');
         handleTab(2);
-        return setPresentation(myPresentation);
+        setPresentation(myPresentation);
       }
       myAlert('Error al actualizar los datos de la encuesta');
     }
@@ -82,8 +83,6 @@ export default function Question(
                 color={'info'}
                 variant={'outlined'}
               >Siguiente sección</Button>}
-            {(isLast && lastSection && !readOnly && !preview) &&
-              <Button variant={'outlined'} onClick={handleAnswer} sx={{float: 'right'}}>Guardar respuesta y finalizar</Button>}
           </Box>
         </> :
         <Alert color={'info'}>
@@ -91,6 +90,11 @@ export default function Question(
           no es necesario responder esta pregunta
         </Alert>
     }
+      {
+        (isLast && lastSection && !readOnly && !preview) &&
+        <Button variant={'outlined'} onClick={handleAnswer} sx={{float: 'right', mt: 2}}>Guardar respuesta y
+          finalizar</Button>
+      }
     </>
   );
 }

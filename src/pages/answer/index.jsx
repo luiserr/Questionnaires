@@ -75,9 +75,17 @@ export default function Answer() {
             Esta encuesta no está disponible
           </Alert> :
           presentation?.statusTry === ANSWERED ?
-            <Alert color={'info'}>
-              <h4>Usted ya respondió esta encuesta... y no cuenta con mas intentos</h4>
-            </Alert> :
+            <>
+              <Alert color={'info'}>
+                <h4>Usted ya respondió esta encuesta... y no cuenta con mas intentos</h4>
+              </Alert>
+              <div style={{margin: '8px auto', display: 'block', width: '60%'}}>
+                <div style={{marginTop: '8px'}} dangerouslySetInnerHTML={{__html: presentation?.goodbye ?? ''}}>
+
+                </div>
+              </div>
+            </>
+            :
             <Grid container>
               <Box sx={{width: '90%', margin: '0 auto', marginTop: '2em'}}>
                 {presentation?.preview && <Button
