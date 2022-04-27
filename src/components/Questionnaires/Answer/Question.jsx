@@ -47,7 +47,7 @@ export default function Question(
       if (myPresentation) {
         myAlert('Encuesta finalizada con éxito', 'success');
         handleTab(2);
-        setPresentation(myPresentation);
+        return setPresentation(myPresentation);
       }
       myAlert('Error al actualizar los datos de la encuesta');
     }
