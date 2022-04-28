@@ -7,6 +7,8 @@ import Roles from "./Rol";
 import Modalities from "./Modalities";
 import CourseTypes from "./CourseTypes";
 import Regionals from "./Regionals";
+import Dates from "../commons/Dates";
+import Programs from "../commons/Programs";
 
 export default function Index({data, setData, payload, setPayload, disabled}) {
 
@@ -78,12 +80,41 @@ export default function Index({data, setData, payload, setPayload, disabled}) {
             />
           </AccordionDetails>
         </Accordion>
+        <Accordion>
+          <AccordionSummary
+            expandIcon={<ExpandMoreIcon/>}
+            aria-controls="panel1a-content"
+          >
+            <Typography>4. Selección de programas de formación</Typography>
+          </AccordionSummary>
+          <AccordionDetails>
+            <Programs
+              payload={payload}
+              setPayload={setPayload}
+              data={data}
+              setData={setData}
+              disabled={disabled}
+              entity={'regionals'}
+              />
+          </AccordionDetails>
+        </Accordion>
+        <Accordion>
+          <AccordionSummary
+            expandIcon={<ExpandMoreIcon/>}
+            aria-controls="panel1a-content"
+          >
+            <Typography>5. Selección de fechas</Typography>
+          </AccordionSummary>
+          <AccordionDetails>
+            <Dates entity={'regionals'} setPayload={setPayload} payload={payload} disabled={disabled}/>
+          </AccordionDetails>
+        </Accordion>
         <Accordion expanded>
           <AccordionSummary
             expandIcon={<ExpandMoreIcon/>}
             aria-controls="panel1a-content"
           >
-            <Typography>4. Selección de regionales</Typography>
+            <Typography>6. Selección de regionales</Typography>
           </AccordionSummary>
           <AccordionDetails>
             <Regionals
