@@ -14,6 +14,7 @@ import List from "../pages/Assignments/List";
 import NotFound from "../pages/NotFound";
 import Categories from "../pages/Questionnaires/Categories";
 import Dependency from "../pages/Questionnaires/Dependency";
+import QuestionAverage from "../pages/Reports/QuestionAverage";
 
 export default function routes({token}) {
   return (
@@ -72,11 +73,19 @@ export default function routes({token}) {
         exact
         name="answer"
         path="/admin/surveys/answer/:token"
-        element={<Answer/>}/>
+        element={<Answer/>}
+      />
+      <Route
+        exact
+        name="QuestionAverage"
+        path="/admin/surveys/test/:testId/presentation/:presentationId/average"
+        element={<QuestionAverage/>}
+      />
       <Route
         exact
         path="*"
-        element={<NotFound/>}/>
+        element={<NotFound/>}
+      />
     </Routes>
   );
 }

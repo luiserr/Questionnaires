@@ -56,3 +56,13 @@ export async function resetPresentation() {
   }
   return null;
 }
+
+export async function getAverage(testId, presentationId) {
+  const response = await get(
+    `${api}/tests/${testId}/presentation/${presentationId}/average/report`,
+    true);
+  if (response && response?.success) {
+    return response.data;
+  }
+  return [];
+}
