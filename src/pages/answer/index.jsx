@@ -11,6 +11,7 @@ import {myAlert} from "../../utils/alerts";
 import {Alert, Button} from "@mui/material";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import {ANSWERED, EXPIRED, IN_PROGRESS} from "../../const/statuses";
+import QueryStatsIcon from "@mui/icons-material/QueryStats";
 
 function a11yProps(index) {
   return {
@@ -69,6 +70,27 @@ export default function Answer() {
   return (
     <>
       <Header/>
+      {
+        !presentation?.preview &&
+        <Box sx={{width: '90%', margin: 'auto'}}>
+          <Grid sx={{
+            display: 'block',
+            float: 'right',
+            width: '400px',
+            mt: 2,
+            marginRight: '-100px',
+          }}>
+            <Button
+              alt={'Ver consolidado de resultados'}
+              title={'Ver consolidado de resultados'}
+              onClick={() => navigate(`/admin/surveys/test/${presentation?.testId}/presentation/${presentation?.id}/average`)}
+              startIcon={<QueryStatsIcon/>}
+            >
+              Ver consolidado de resultados
+            </Button>
+          </Grid>
+        </Box>
+      }
       {
         presentation?.statusTry === EXPIRED ?
           <Alert color={'warning'}>

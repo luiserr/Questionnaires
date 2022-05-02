@@ -10,6 +10,7 @@ import AvTimerIcon from '@mui/icons-material/AvTimer';
 import DeleteIcon from '@mui/icons-material/Delete';
 import AssessmentIcon from '@mui/icons-material/Assessment';
 import DownloadForOfflineIcon from '@mui/icons-material/DownloadForOffline';
+import QueryStatsIcon from '@mui/icons-material/QueryStats';
 import {api} from "../../utils/ajax";
 
 const headers = {
@@ -89,6 +90,18 @@ export default function List() {
         >
           <DownloadForOfflineIcon sx={{color: '#5e636e'}}/>
         </a>
+    },
+    ///admin/surveys/test/:testId/presentation/:presentationId/average
+    {
+      title: 'Ver consolidado de resultados',
+      component: (row) =>
+        <IconButton
+          alt={'Ver consolidado de resultados'}
+          title={'Ver consolidado de resultados'}
+          onClick={() => navigate(`/admin/surveys/test/${testId}/presentation/${row.id}/average`)}
+        >
+          <QueryStatsIcon/>
+        </IconButton>
     },
     {
       title: 'Ver/Editar',

@@ -4,6 +4,7 @@ import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import {logoSenaBlanco, logoSenaNaranja} from "../../utils/images";
+import {Button} from "@mui/material";
 
 export default function DenseAppBar() {
   return (
