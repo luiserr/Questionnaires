@@ -23,3 +23,11 @@ export const getReports = async () => {
   }
   return {}
 };
+
+export const searchReports = async (page, perPage) => {
+  const response = await post(`${api}/tests/reports`, {page, perPage}, 'POST', true);
+  if (response && response?.success) {
+    return response.data;
+  }
+  return {}
+};

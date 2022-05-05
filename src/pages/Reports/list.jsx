@@ -22,7 +22,7 @@ import MyTable from "../../components/commons/table";
 import TableFront, {createHeader} from "../../components/commons/TableFront";
 
 import {useNavigate, useParams} from "react-router-dom";
-import {getReports} from "../../tools/reportRequests";
+import {searchReports} from "../../tools/reportRequests";
 import DownloadIcon from '@mui/icons-material/Download';
 import {getDomain} from '../../utils/tools';
 
@@ -37,6 +37,8 @@ import {getDomain} from '../../utils/tools';
 
 const headers = {
   id: 'Id',
+  titleTest: 'Nombre de encuesta',
+  titlePresentation: 'Nombre de asignación',
   ownerName: 'Creador',
   createdAt: 'Fecha de creación',
   finishedAt: 'Fecha de finalización'
@@ -45,11 +47,26 @@ const headers = {
 export default function ListReports() {
 
   const [reports, setReports] = useState([]);
+  const [pagination, setPagination] = useState({
+    page: 1,
+    perPage: 5
+  });
 
   useEffect(async () => {
+    await handleSearch(pagination.page, pagination.perPage);
+  }, []);
+
+  /*useEffect(async () => {
     const response = await getReports();
     await setReports(response);
-  }, []);
+  }, []);*/
+
+  const handleSearch = async (page, perPage) => {
+    const response = await searchReports(page, perPage);
+    const {data: myReports, pagination} = response;
+    await setReports(myReports);
+    await setPagination(pagination);
+  };
 
   const actions = [
     {
@@ -86,9 +103,10 @@ export default function ListReports() {
             <Grid item xs={12}>
 
             <MyTable
+                handleSearch={handleSearch} 
                 headers={headers}
                 data={reports}
-                pagination={{}} 
+                pagination={pagination}
                 actions={actions}
               />
             </Grid>

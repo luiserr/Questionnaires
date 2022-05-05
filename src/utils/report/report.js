@@ -15,7 +15,7 @@ export function validatePayload(payload) {
     !keys.hasDateAssigment && 
     !keys.hasDateAnswer 
   ) {
-    toast('Debe selecconar alguna de las opciones de filtro');
+    toast('Debe seleccionar alguna de las opciones de filtro', false);
     return false;
   }
   return true
