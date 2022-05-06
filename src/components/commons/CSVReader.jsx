@@ -1,6 +1,7 @@
 import React from 'react';
 
 export default function CSVReader({handleReader, disabled}) {
+
   function parseCSV(text) {
     // Obtenemos las lineas del texto
     let lines = text.replace(/\r/g, '').split('\n');
@@ -32,7 +33,6 @@ export default function CSVReader({handleReader, disabled}) {
       // Cuando el archivo se terminó de cargar
       let lines = parseCSV(e.target.result);
       let output = reverseMatrix(lines);
-      console.log(output);
       handleReader(output);
     };
     // Leemos el contenido del archivo seleccionado

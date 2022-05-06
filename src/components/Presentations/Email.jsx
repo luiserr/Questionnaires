@@ -6,7 +6,7 @@ import AccountCircle from '@mui/icons-material/AccountCircle';
 import EmailIcon from '@mui/icons-material/Email';
 import DeleteIcon from '@mui/icons-material/Delete';
 import CSVReader from "../commons/CSVReader";
-import {getDomain} from "../../utils/tools";
+import {getDomain, utf8Decode} from "../../utils/tools";
 import {myAlert} from "../../utils/alerts";
 
 export default function Email({payload, setPayload, disabled}) {
@@ -61,10 +61,14 @@ export default function Email({payload, setPayload, disabled}) {
     }
     for (let i = 0; i < rows[0].length; i++) {
       if (!emails.find(email => email.email === rows[1][i])) {
-        emails.push({
-          name: rows[0][i],
-          email: rows[1][i]
-        });
+        const name = rows[0][i];
+        const email = rows[1][i];
+        if (name !== '' && email !== '') {
+          emails.push({
+            name: utf8Decode(name),
+            email
+          });
+        }
       }
     }
     setPayload({
@@ -137,7 +141,8 @@ export default function Email({payload, setPayload, disabled}) {
         </Grid>
         <Grid item xs={8} sx={{padding: '30px'}}>
           <Alert color={'info'} sx={{mb: 2}}>
-            Seleccione un archivo CSV, el archivo debe tener dos columnas separadas por coma (,), la primera debe
+            Seleccione un archivo CSV, el archivo debe tener, Máximo mil registros, dos columnas separadas por coma (,),
+            la primera debe
             contener el nombre de las personas a la cual se les asignará la encuesta y la segunda columna su correo
             electrónico,
             clic <a href={csvExample()}>aquí</a> para descargar un ejemplo del archivo a subir
