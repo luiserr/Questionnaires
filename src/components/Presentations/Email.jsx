@@ -141,11 +141,11 @@ export default function Email({payload, setPayload, disabled}) {
         </Grid>
         <Grid item xs={8} sx={{padding: '30px'}}>
           <Alert color={'info'} sx={{mb: 2}}>
-            Seleccione un archivo CSV, el archivo debe tener, Máximo mil registros, dos columnas separadas por coma (,),
+            Seleccione un archivo CSV, el archivo debe tener, máximo mil registros, dos columnas separadas por coma (,),
             la primera debe
             contener el nombre de las personas a la cual se les asignará la encuesta y la segunda columna su correo
             electrónico,
-            clic <a href={csvExample()}>aquí</a> para descargar un ejemplo del archivo a subir
+            clic <a href={csvExample()}>aquí</a> para descargar un ejemplo del archivo a subir.
           </Alert>
           <CSVReader disabled={disabled} handleReader={handleCSV}/>
         </Grid>

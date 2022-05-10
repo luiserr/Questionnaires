@@ -100,7 +100,7 @@ export default function Answer() {
             <>
               <Alert color={'info'}>
                 <h4>Estimado usuario, usted ya respondió esta encuesta, no cuenta con más intentos. Gracias por su
-                  participación</h4>
+                  participación.</h4>
               </Alert>
               <div style={{margin: '8px auto', display: 'block', width: '60%'}}>
                 <div style={{marginTop: '8px'}} dangerouslySetInnerHTML={{__html: presentation?.goodbye ?? ''}}>
