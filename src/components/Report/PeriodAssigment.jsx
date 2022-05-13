@@ -7,17 +7,9 @@ import AdapterDateFns from '@mui/lab/AdapterDateFns'
 import LocalizationProvider from '@mui/lab/LocalizationProvider'
 import DatePicker from '@mui/lab/DatePicker'
 import {es} from "date-fns/locale";
+import {getFormattedDate} from "../../tools/dates";
 
 export default function PeriodAssigment({info, setInfo, payload, setPayload}) {
-
-  function getFormattedDate(date) {
-    const year = date.getFullYear();
-    let month = (1 + date.getMonth()).toString();
-    month = month.length > 1 ? month : '0' + month;
-    let day = date.getDate().toString();
-    day = day.length > 1 ? day : '0' + day;
-    return month + '/' + day + '/' + year;
-  }
 
   return (
     <Grid container sx={{mt: 2}} spacing={2}>
