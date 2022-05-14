@@ -2,10 +2,8 @@ import React from "react";
 import {useQuestion} from "../../hooks/testHook";
 import * as PropTypes from 'prop-types';
 import {Alert, Box, Button} from "@mui/material";
-import {hasDependency} from "../../../tools/dependencyValidator";
 import {finishPresentation, getPresentation} from "../../../tools/presentationRequest";
 import {myAlert} from "../../../utils/alerts";
-import {FINISHED} from "../../../const/statuses";
 
 export default function Question(
   {
@@ -57,44 +55,39 @@ export default function Question(
   // const canRender = hasDependency(presentation?.sections, question, presentation?.dependencies);
 
   return (
-    <>{
-      (canRender || preview) ?
-        <>
-          <Box sx={{marginTop: '2em'}}>
-            <div dangerouslySetInnerHTML={{__html: question?.description}}/>
-          </Box>
-          <Box sx={{marginTop: '2em'}}>
-            {Question}
-          </Box>
-          <Box sx={{mt: 1}}>
-            {/*{(!readOnly && !preview) &&*/}
-            {/*  <Button*/}
-            {/*    sx={{float: 'left'}}*/}
-            {/*    onClick={() => handleSave(indexQuestion + 1)}*/}
-            {/*    variant={"outlined"}*/}
-            {/*    color={'success'}*/}
-            {/*  >Guardar respuesta*/}
-            {/*  </Button>*/}
-            {/*}*/}
-            {(isLast && !lastSection) &&
-              <Button
-                sx={{float: 'right'}}
-                onClick={handleNextSection}
-                color={'info'}
-                variant={'outlined'}
-              >Siguiente sección</Button>}
-          </Box>
-        </> :
-        <Alert color={'info'}>
-          Esta pregunta depende de una respuesta seleccionada anteriormente, por favor puede continuar con la encuesta,
-          no es necesario responder esta pregunta
-        </Alert>
-    }
+    <>
       {
-        (isLast && lastSection && !readOnly && !preview) &&
-        <Button variant={'outlined'} onClick={handleAnswer} sx={{float: 'right', mt: 2}}>Guardar respuesta y
-          finalizar</Button>
+        (canRender || preview) ?
+          <>
+            <Box sx={{marginTop: '2em'}}>
+              <div dangerouslySetInnerHTML={{__html: question?.description}}/>
+            </Box>
+            <Box sx={{marginTop: '2em'}}>
+              {Question}
+            </Box>
+          </> :
+          <Alert color={'info'}>
+            Esta pregunta depende de una respuesta seleccionada anteriormente, por favor puede continuar con la
+            encuesta,
+            no es necesario responder esta pregunta
+          </Alert>
       }
+      <Box sx={{mt: 1}}>
+        {(isLast && !lastSection) &&
+          <Button
+            sx={{float: 'right'}}
+            onClick={handleNextSection}
+            color={'info'}
+            variant={'outlined'}
+          >Siguiente sección</Button>
+        }
+        {
+          (isLast && lastSection && !readOnly && !preview) &&
+          <Button variant={'outlined'} onClick={handleAnswer} sx={{float: 'right', mt: 2}}>Guardar respuesta y
+            finalizar
+          </Button>
+        }
+      </Box>
     </>
   );
 }
