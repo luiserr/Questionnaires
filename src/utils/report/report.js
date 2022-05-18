@@ -2,6 +2,44 @@ import {toast} from "../alerts";
 
 export function validatePayload(payload) {
 
+  if(payload?.startDateAssigmentInput){
+    if(!payload?.finishDateAssigmentInput) {
+      toast('Debe ingresar la fecha fin del periodo de asignación', false);
+      return false;
+    }
+  }
+
+  if(payload?.finishDateAssigmentInput){
+    if(!payload?.startDateAssigmentInput) {
+      toast('Debe ingresar la fecha inicio del periodo de asignación', false);
+      return false;
+    }
+  }
+
+  if(payload?.startDateAssigmentInput > payload?.finishDateAssigmentInput) {
+    toast('La fecha inicio del periodo de asignación no puede ser mayor a la fecha fin', false);
+    return false;
+  }
+
+  if(payload?.startDateAnswerInput){
+    if(!payload?.finishDateAnswerInput) {
+      toast('Debe ingresar la fecha fin de respuestas', false);
+      return false;
+    }
+  }
+
+  if(payload?.finishDateAnswerInput){
+    if(!payload?.startDateAnswerInput) {
+      toast('Debe ingresar la fecha inicio de respuestas', false);
+      return false;
+    }
+  }
+  
+  if(payload?.startDateAnswerInput > payload?.finishDateAnswerInput) {
+    toast('La fecha inicio de respuestas no puede ser mayor a la fecha fin', false);
+    return false;
+  }
+
   const keys = hasKeys(payload);
 
   if (
