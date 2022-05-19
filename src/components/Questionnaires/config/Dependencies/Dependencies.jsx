@@ -4,7 +4,7 @@ import {Accordion, AccordionDetails, AccordionSummary, Grid, Typography} from "@
 import {v4} from "uuid";
 import QuestionList from "./QuestionList";
 
-export default function Dependencies({dependencies, testId, currentSection, currentQuestion}) {
+export default function Dependencies({dependencies, testId, currentSection, currentQuestion, disabled}) {
   return (
     <Grid item xs={12}>
       {dependencies.map((dependency) =>
@@ -23,6 +23,7 @@ export default function Dependencies({dependencies, testId, currentSection, curr
           </AccordionSummary>
           <AccordionDetails>
             <QuestionList
+              disabled={disabled}
               questions={dependency.questions}
               testId={testId}
               dependsOfSection={dependency.id}

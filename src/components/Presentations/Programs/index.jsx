@@ -82,7 +82,7 @@ export default function Index({data, setData, payload, setPayload, disabled}) {
             expandIcon={<ExpandMoreIcon/>}
             aria-controls="panel1a-content"
           >
-            <Typography>4. Selección de programa</Typography>
+            <Typography>4. Selección de programa *</Typography>
           </AccordionSummary>
           <AccordionDetails>
             <Programs

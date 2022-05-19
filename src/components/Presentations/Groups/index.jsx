@@ -34,7 +34,7 @@ export default function Index({data, setData, payload, setPayload, disabled}) {
             expandIcon={<ExpandMoreIcon/>}
             aria-controls="panel1a-content"
           >
-            <Typography>2. Selección de fichas</Typography>
+            <Typography>2. Selección de fichas *</Typography>
           </AccordionSummary>
           <AccordionDetails>
             <FormGroup

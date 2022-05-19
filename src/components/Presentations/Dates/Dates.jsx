@@ -108,7 +108,7 @@ export default function Dates({data, setData, payload, setPayload, disabled}) {
             expandIcon={<ExpandMoreIcon/>}
             aria-controls="panel1a-content"
           >
-            <Typography>4. Selección de fechas</Typography>
+            <Typography>4. Selección de fechas *</Typography>
           </AccordionSummary>
           <AccordionDetails>
             <Grid container xs={12} spacing={3}>

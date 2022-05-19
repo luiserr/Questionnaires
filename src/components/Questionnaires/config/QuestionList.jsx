@@ -109,7 +109,6 @@ export default function QuestionList({test, section}) {
                       <TableCell align={'center'}>{question.dependency ? question.dependency : 'No tiene dependencias'}</TableCell>
                       <TableCell align={'center'}>
                         <IconButton
-                          disabled={test.presentations > 0}
                           alt={'Añadir dependencia'}
                           title={'Añadir dependencia'}
                           onClick={() => handleDependency(question)}

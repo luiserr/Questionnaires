@@ -80,14 +80,14 @@ export default function Answer() {
             mt: 2,
             marginRight: '-100px',
           }}>
-            <Button
-              alt={'Ver consolidado de resultados'}
-              title={'Ver consolidado de resultados'}
-              onClick={() => navigate(`/admin/surveys/test/${presentation?.testId}/presentation/${presentation?.id}/average`)}
-              startIcon={<QueryStatsIcon/>}
-            >
-              Ver consolidado de resultados
-            </Button>
+            {/*<Button*/}
+            {/*  alt={'Ver consolidado de resultados'}*/}
+            {/*  title={'Ver consolidado de resultados'}*/}
+            {/*  onClick={() => navigate(`/admin/surveys/test/${presentation?.testId}/presentation/${presentation?.id}/average`)}*/}
+            {/*  startIcon={<QueryStatsIcon/>}*/}
+            {/*>*/}
+            {/*  Ver consolidado de resultados*/}
+            {/*</Button>*/}
           </Grid>
         </Box>
       }

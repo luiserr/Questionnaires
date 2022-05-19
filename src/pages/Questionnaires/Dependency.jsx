@@ -5,15 +5,19 @@ import {Alert, Box, Card, CardContent, Grid} from "@mui/material";
 import {getDependencies} from "../../tools/testRequests";
 import {useLocation, useNavigate, useParams} from "react-router-dom";
 import Dependencies from "../../components/Questionnaires/config/Dependencies/Dependencies";
+import {useTest} from "../../components/hooks/testHook";
 
 export default function Dependency() {
   const [dependencies, setDependencies] = useState([]);
+
 
   const location = useLocation();
 
   const navigation = useNavigate();
 
   const question = location.state.question;
+
+  const test = location.state.test;
 
   const {testId, sectionId, questionId} = useParams();
 
@@ -25,6 +29,8 @@ export default function Dependency() {
   const handleBack = () => {
     navigation(-1);
   };
+
+  const disabled = test.presentations > 0;
 
   return (
     <Box sx={{width: '100%'}}>
@@ -44,6 +50,7 @@ export default function Dependency() {
             {
               dependencies.length ?
                 <Dependencies
+                  disabled={disabled}
                   dependencies={dependencies}
                   testId={testId}
                   currentSection={sectionId}

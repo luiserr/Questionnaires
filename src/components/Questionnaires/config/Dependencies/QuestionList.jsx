@@ -18,7 +18,8 @@ export default function QuestionList(
     testId,
     currentSection,
     currentQuestion,
-    dependsOfSection
+    dependsOfSection,
+    disabled
   }) {
 
   const [visible, setVisible] = useState(false);
@@ -73,6 +74,7 @@ export default function QuestionList(
                       title={'Eliminar dependencia'}
                       startIcon={<DeleteIcon/>}
                       onClick={handleDelete}
+                      disabled={disabled}
                     />
                     :
                     <Button
@@ -80,6 +82,7 @@ export default function QuestionList(
                       title={'Añadir como dependencia'}
                       startIcon={<AddLinkIcon/>}
                       onClick={() => handleClick(question)}
+                      disabled={disabled}
                     />}
                 </TableCell>
               </TableRow>
