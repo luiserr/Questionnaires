@@ -6,11 +6,12 @@ import {Accordion, AccordionDetails, AccordionSummary, Box, Typography} from "@m
 import Roles from "./Rol";
 import Modalities from "./Modalities";
 import CourseTypes from "./CourseTypes";
+import Dates from "../commons/Dates";
 import Programs from "./Programs";
 
 export default function Index({data, setData, payload, setPayload, disabled}) {
 
-  const [regionals, setRegionals] = useState(data?.regionals ?? []);
+  /*const [regionals, setRegionals] = useState(data?.regionals ?? []);
 
   useEffect(async () => {
     if (regionals.length === 0) {
@@ -21,7 +22,7 @@ export default function Index({data, setData, payload, setPayload, disabled}) {
       });
       setRegionals(response);
     }
-  }, []);
+  }, []);*/
 
   return (
     <>
@@ -77,12 +78,23 @@ export default function Index({data, setData, payload, setPayload, disabled}) {
             />
           </AccordionDetails>
         </Accordion>
+        <Accordion>
+          <AccordionSummary
+            expandIcon={<ExpandMoreIcon/>}
+            aria-controls="panel1a-content"
+          >
+            <Typography>4. Selección de fechas</Typography>
+          </AccordionSummary>
+          <AccordionDetails>
+            <Dates entity={'programs'} setPayload={setPayload} payload={payload} disabled={disabled}/>
+          </AccordionDetails>
+        </Accordion>
         <Accordion expanded>
           <AccordionSummary
             expandIcon={<ExpandMoreIcon/>}
             aria-controls="panel1a-content"
           >
-            <Typography>4. Selección de programa *</Typography>
+            <Typography>5. Selección de programa *</Typography>
           </AccordionSummary>
           <AccordionDetails>
             <Programs

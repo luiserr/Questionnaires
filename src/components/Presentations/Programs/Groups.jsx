@@ -6,7 +6,7 @@ import {getGroups} from "../../../tools/assignRequests";
 const headers = [
   createHeader('id', 'Id'),
   createHeader('groupId', 'Id Ficha'),
-  createHeader('groupCode', 'Código de grupo'),
+  createHeader('idsecundario', 'Id secundario'),
   createHeader('programCode', 'Código de programa'),
   createHeader('name', 'Nombre')
 ];
