@@ -77,7 +77,7 @@ export default function FormGroup({data, setData, payload, setPayload, disabled}
           <TextField
             disabled={disabled}
             fullWidth
-            label={'Nombre de la ficha'}
+            label={'Nombre de la ficha / Id de la ficha'}
             value={name}
             onChange={(e) => setName(e.target.value)}
           />

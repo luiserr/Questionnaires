@@ -85,7 +85,7 @@ export default function Index({data, setData, payload, setPayload, disabled}) {
             expandIcon={<ExpandMoreIcon/>}
             aria-controls="panel1a-content"
           >
-            <Typography>4. Selección de programas de formación *</Typography>
+            <Typography>4. Selección de programas de formación</Typography>
           </AccordionSummary>
           <AccordionDetails>
             <Programs
@@ -103,7 +103,7 @@ export default function Index({data, setData, payload, setPayload, disabled}) {
             expandIcon={<ExpandMoreIcon/>}
             aria-controls="panel1a-content"
           >
-            <Typography>5. Selección de fechas *</Typography>
+            <Typography>5. Selección de fechas</Typography>
           </AccordionSummary>
           <AccordionDetails>
             <Dates entity={'regionals'} setPayload={setPayload} payload={payload} disabled={disabled}/>
