@@ -72,9 +72,18 @@ export default function ListReports() {
     {
       title: 'Estado',
       component: (row) =>
+        row.status === 'inProgress' ?
+        <Chip
+          label={'En progreso'}
+          color={'warning'}
+          onDelete={() => {
+          }}
+          disabled
+          deleteIcon={<AvTimerIcon/>}
+        /> : 
         <Chip
           label={'Finalizado'}
-          color={'warning'}
+          color={'info'}
           onDelete={() => {
           }}
           disabled
@@ -84,7 +93,8 @@ export default function ListReports() {
     {
       title: 'Descargar',
       component: (row) =>
-        <IconButton
+        <IconButton 
+          disabled={row.status === 'inProgress'}
           onClick={() => {window.location = `${row.link}`}}
           alt={'Descargar reporte'}
           title={'Descargar reporte'}

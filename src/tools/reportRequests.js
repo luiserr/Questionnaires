@@ -9,7 +9,8 @@ export const getSurveyAssigment = async (testId, presentationId) => {
 };
 
 export async function createReport(payload) {
-  const response = await post(`${api}/tests/report`, payload, null, true, true);
+  //const response = await post(`${api}/tests/report`, payload, null, true, true);
+  const response = await post(`${api}/tests/cronreport`, payload, null, true, true);
   if (response && response?.success) {
     return response.data;
   }
