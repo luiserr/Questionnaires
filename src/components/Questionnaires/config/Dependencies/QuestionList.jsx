@@ -5,6 +5,7 @@ import CustomModal from "../../../commons/Modal";
 import Dependency from "./Dependency";
 import AddLinkIcon from '@mui/icons-material/AddLink';
 import DeleteIcon from '@mui/icons-material/Delete';
+import VisibilityIcon from '@mui/icons-material/Visibility';
 import {deleteDependency} from "../../../../tools/testRequests";
 import {useNavigate} from "react-router-dom";
 
@@ -27,6 +28,11 @@ export default function QuestionList(
   const navigate = useNavigate();
 
   const handleClick = (currentQuestion) => {
+    setQuestion(currentQuestion);
+    setVisible(true);
+  }
+
+  const handleView = (currentQuestion) => {
     setQuestion(currentQuestion);
     setVisible(true);
   }
@@ -68,8 +74,17 @@ export default function QuestionList(
                 <TableCell {...center} component="th" scope="row">{question.title}</TableCell>
                 <TableCell {...center} component="th" scope="row">{question.typeDescription}</TableCell>
                 <TableCell {...center} component="th" scope="row">
-                  {currentQuestion.dependsOfQuestion === question.id ?
-                    <Button
+                  {
+                    currentQuestion.dependsOfQuestion === question.id ?
+                    disabled ?
+                      <Button
+                        alt={'consultar dependencia'}
+                        title={'Consultar dependencia'}
+                        startIcon={<VisibilityIcon/>}
+                        onClick={()=> handleView(question)}
+                      />
+                      :
+                      <Button
                       alt={'Eliminar dependencia'}
                       title={'Eliminar dependencia'}
                       startIcon={<DeleteIcon/>}
@@ -92,12 +107,14 @@ export default function QuestionList(
       </TableContainer>
       <CustomModal setVisible={setVisible} visible={visible} title={'Añadir dependencia de pregunta'}>
         <Dependency
+          disabled={disabled}
           question={question}
           testId={testId}
           currentSection={currentSection}
           currentQuestion={currentQuestion}
           dependsOfSection={dependsOfSection}
           setVisible={setVisible}
+
         />
       </CustomModal>
     </Grid>

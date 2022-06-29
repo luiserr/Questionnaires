@@ -6,12 +6,20 @@ import {addDependency} from "../../../../tools/testRequests";
 import {toast} from "../../../../utils/alerts";
 import {useNavigate} from "react-router-dom";
 
-export default function Dependency({question, testId, dependsOfSection, currentSection, currentQuestion, setVisible}) {
-
+export default function Dependency(
+  {
+    question,
+    testId,
+    dependsOfSection,
+    currentSection,
+    currentQuestion,
+    setVisible,
+    disabled
+  }) {
   const operators = useOperator(question.type);
 
-  const [operator, setOperator] = useState('');
-  const [answer, setAnswer] = useState(null);
+  const [operator, setOperator] = useState(currentQuestion?.dependsOperator ?? '');
+  const [answer, setAnswer] = useState(currentQuestion?.dependsOfAnswer ?? null);
 
   const navigate = useNavigate();
 
@@ -44,6 +52,7 @@ export default function Dependency({question, testId, dependsOfSection, currentS
             label="Sí la respuesta es"
             fullWidth
             value={operator}
+            disabled={disabled}
             onChange={(e) => setOperator(e.target.value)}
           >
             {
@@ -63,6 +72,7 @@ export default function Dependency({question, testId, dependsOfSection, currentS
             labelId="answer"
             label="Seleccione la respuesta"
             fullWidth
+            disabled={disabled}
             value={answer}
             onChange={(e) => setAnswer(e.target.value)}
           >
@@ -76,9 +86,9 @@ export default function Dependency({question, testId, dependsOfSection, currentS
         </FormControl>
       </Grid>
       <Grid item xs={12}>
-        <Button variant={'contained'} onClick={handleSave}>
+        {!disabled && <Button variant={'contained'} onClick={handleSave}>
           Guardar
-        </Button>
+        </Button>}
       </Grid>
     </Grid>
   );
