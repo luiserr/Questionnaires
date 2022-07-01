@@ -1,15 +1,24 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Alert, Button, Grid} from "@mui/material";
 import {attachCategory} from "../../../tools/categoryRequest";
 import CategoriesList from "../../categoriesList";
 import AddTaskIcon from '@mui/icons-material/AddTask';
 import {useNavigate} from "react-router-dom";
+import {SignalCellularNull} from "@mui/icons-material";
 
-export default function Categories({test}) {
+export default function Categories({test, setTest}) {
   const [category, setCategory] = useState({
     id: test?.categoryId ?? null,
     name: test?.categoryName ?? ''
   });
+
+  useEffect(() => {
+    setCategory({
+      id: test?.categoryId ?? null,
+      name: test?.categoryName ?? ''
+    })
+  }, [test.categoryId]);
+
 
   const navigation = useNavigate();
 
@@ -20,14 +29,20 @@ export default function Categories({test}) {
     const response = await attachCategory(test.id, currentCategory.id, attach);
     if (response) {
       if (!attach) {
-        setCategory({
-          id: null,
-          name: ''
-        })
+        setTest({
+          ...test,
+          categoryId: null,
+          categoryName: ''
+        });
       } else {
-        setCategory({
-          ...currentCategory
-        })
+        setTest({
+          ...test,
+          categoryId: currentCategory?.id,
+          categoryName: currentCategory?.name
+        });
+        // setCategory({
+        //   ...currentCategory
+        // });
       }
     }
     }
@@ -48,7 +63,7 @@ export default function Categories({test}) {
   return (
     <Grid item xs={12}>
       {
-        category.id ?
+        test?.categoryId ?
           <Alert>
             Categoría de la encuesta: <strong>{category.name}</strong>
             <br/>

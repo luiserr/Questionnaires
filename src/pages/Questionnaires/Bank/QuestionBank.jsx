@@ -88,7 +88,7 @@ export default function QuestionBank() {
           >
             Regresar
           </Button>
-          <h4>Seccion: {section?.title}</h4>
+          <h4>Sección: {section?.title}</h4>
           <Grid container spacing={2} sx={{marginTop: '2em'}}>
             {
               section ? (
