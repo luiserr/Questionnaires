@@ -10,7 +10,7 @@ export default function Finish({test, setTest}) {
 
   const location = useLocation();
 
-  let goodbye = test?.goodbye ?? location?.state?.test ?? '';
+  let goodbye = test?.goodbye ?? location?.state?.test?.goodbye ?? '';
 
   const editor = useRef(null);
 
@@ -70,13 +70,18 @@ export default function Finish({test, setTest}) {
     }
   };
 
+  const value = goodbye || test?.goodbye || '';
+
+  console.log(value, 'Este es el valor');
+
+
   return (
     <Grid item xs={12}>
       <label>Escriba una breve despedida:</label>
       <JoditEditor
         ref={editor}
         config={config}
-        value={goodbye ?? test?.goodbye}
+        value={value}
         onChange={(text) => goodbye = text}
       />
       <div style={{marginTop: '2em'}}>
