@@ -39,7 +39,8 @@ export const useReport = (data) => {
     );
 
     const allPrograms = getPrograms(
-        myConfigurationPrograms
+        myConfigurationPrograms,
+        myConfigurationRegionals
     );
 
     const allGroups = getGroups(
@@ -188,12 +189,21 @@ const getCenters = (
 }
 
 const getPrograms = (
-    myConfigurationPrograms
+    myConfigurationPrograms,
+    myConfigurationRegionals
 ) => {
     const listElement = [];
 
     if(myConfigurationPrograms?.programs?.length > 0) {
         myConfigurationPrograms.programs.forEach(element => {
+            if(!listElement.find(e => e.id === element.id)) {
+                listElement.push(element);
+            }
+        });
+    }
+
+    if(myConfigurationRegionals?.programs?.length > 0) {
+        myConfigurationRegionals.programs.forEach(element => {
             if(!listElement.find(e => e.id === element.id)) {
                 listElement.push(element);
             }
