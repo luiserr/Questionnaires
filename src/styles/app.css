@@ -143,7 +143,7 @@ p, span, h1, h2, h3, h4, label {
     border-top: 1px solid #ccc;
     margin-top: 10px;
 }
-
+/*Estilos de pagina de estadisticas*/
 .showQuestions {
     display: flex;
     align-items: center;
