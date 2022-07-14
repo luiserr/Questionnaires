@@ -1,7 +1,7 @@
 import {getDomain} from './tools';
 import {loading, toast} from './alerts';
 
-const domain = getDomain('tests');
+const domain = getDomain('admin');
 const prefixGradeCenter = 'gradeCenter';
 export const dev = 'https://sena.dev.tests.mx/api';
 export const test = 'https://sena.pruebas.territorio.la/api';
@@ -12,8 +12,9 @@ export const prod = 'https://sena.territorio.la/api';
 export const local = 'https://sena.pruebas.local/api';
 //comentar para hacer pruebas en local
 // export const api =  `${domain}api`;
-export const api = staging;
+export const api = `${domain}api`;
 
+//Se crea headers
 const myHeaders = new Headers();
 
 myHeaders.append("Content-Type", "application/json");
