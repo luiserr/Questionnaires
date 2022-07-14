@@ -44,7 +44,7 @@ function searchAttempt(sections = [], sectionId, questionId, dependencyType, par
           const subQuestion = question.answers?.find((item) => questionId === item.id);
           const attempt = question.attempts?.answers.find((item) => questionId === item.questionId)
           return {
-            attempt: attempt.answerId ?? null,
+            attempt: attempt?.answerId ?? null,
             answers: subQuestion?.answers ?? []
           }
         }
@@ -53,8 +53,8 @@ function searchAttempt(sections = [], sectionId, questionId, dependencyType, par
         question = section.questions?.find(item => item.id === questionId);
         if (question) {
           return {
-            attempt: question.attempts?.answers ?? null,
-            answers: question.answers ?? []
+            attempt: question?.attempts?.answers ?? null,
+            answers: question?.answers ?? []
           };
         }
         break;
@@ -62,8 +62,8 @@ function searchAttempt(sections = [], sectionId, questionId, dependencyType, par
         question = section.questions?.find(item => item.id === questionId);
         if (question) {
           return {
-            attempt: question.attempts?.answers[0] ?? null,
-            answers: question.answers ?? []
+            attempt: question?.attempts?.answers[0] ?? null,
+            answers: question?.answers ?? []
           };
         }
     }

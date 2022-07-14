@@ -35,7 +35,8 @@ export default function General({test, setPayload}) {
     "toolbarStickyOffset": -1,
     "askBeforePasteHTML": false,
     disablePlugins: "print",
-    "askBeforePasteFromWord": false
+    "askBeforePasteFromWord": false,
+    readonly: disabled,
   };
 
   return (
