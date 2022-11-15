@@ -9,8 +9,11 @@ const open = (answers) => {
   return answers !== '';
 };
 
-const matrix = (answers) => {
+const matrix = (answers, subQuestions = []) => {
   if (answers.length === 0) {
+    return false;
+  }
+  if(answers.length !== subQuestions.length) {
     return false;
   }
   for (let i = 0; i < answers.length; i++) {
@@ -31,7 +34,7 @@ export function validateAnswer(question) {
     case OPEN:
       return open(question.attempts.answers ?? '');
     case MATRIX:
-      return matrix(question.attempts.answers ?? []);
+      return matrix(question.attempts.answers ?? [], question.answers);
     default:
       toast('Tipo de pregunta invalido', false);
       return false;

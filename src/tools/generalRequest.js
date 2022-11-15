@@ -5,5 +5,5 @@ export const getUser = async () => {
   if (response.success) {
     return response.data;
   }
-  return []
+  return null
 }
