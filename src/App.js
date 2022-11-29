@@ -20,6 +20,9 @@ function App() {
         setUser(user);
       } else {
         myAlert('Usted no tiene permisos para ingresar a este módulo');
+        setTimeout(()=> {
+          window.location.href = '/admin';
+        }, 4000);
       }
     } else {
       setUser({});

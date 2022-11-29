@@ -11,6 +11,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import AssessmentIcon from '@mui/icons-material/Assessment';
 import DownloadForOfflineIcon from '@mui/icons-material/DownloadForOffline';
 import QueryStatsIcon from '@mui/icons-material/QueryStats';
+import EventAvailableIcon from '@mui/icons-material/EventAvailable';
 import {api} from "../../utils/ajax";
 
 const headers = {
@@ -50,35 +51,47 @@ export default function List() {
   const actions = [
     {
       title: 'Estado',
-      component: (row) =>
-        row.status === 'assigned' ?
-          <Chip
+      component: (row) => {
+        if(row.statusPresentation === 'assigned') {
+          return <Chip
             label={'Asignado/En ejecución'}
             color={'warning'}
             onDelete={() => {
             }}
             disabled
             deleteIcon={<AvTimerIcon/>}
-          /> :
-          row.status === 'canceled' ?
-            <Chip
-              label={'Cancelada'}
-              color={'error'}
-              disabled
-              deleteIcon={<DeleteIcon/>}
-              onDelete={() => {
-              }}
-            />
-            :
-            <Chip
-              label={'Pendiente por asignar'}
-              disabled
-              color={'info'}
-              onDelete={() => {
-              }}
-              // onDelete={() => navigate(`/admin/surveys/test/${testId}/presentation/${row.id}`)}
-              deleteIcon={<SaveAsIcon/>}
-            />
+          />;
+        }
+        if(row.statusPresentation === 'canceled') {
+          return <Chip
+            label={'Cancelada'}
+            color={'error'}
+            disabled
+            deleteIcon={<DeleteIcon/>}
+            onDelete={() => {
+            }}
+          />
+        }
+        if(row.statusPresentation === 'expired') {
+          return <Chip
+            label={'Finalizada'}
+            color={'default'}
+            disabled
+            onDelete={() => {
+            }}
+            deleteIcon={<EventAvailableIcon/>}
+          />
+        }
+        return <Chip
+          label={'Pendiente por asignar'}
+          disabled
+          color={'info'}
+          onDelete={() => {
+          }}
+          // onDelete={() => navigate(`/admin/surveys/test/${testId}/presentation/${row.id}`)}
+          deleteIcon={<SaveAsIcon/>}
+        />
+      }
     },
     {
       title: 'Descargar fichas afectadas',
