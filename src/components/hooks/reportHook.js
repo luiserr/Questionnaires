@@ -174,7 +174,7 @@ const getCenters = (
         myConfigurationRegionals.regionals.forEach(regional => {
             const centers = regional.centers;
 
-            if(centers.length > 0) {
+            if(centers?.length > 0) {
                 centers.forEach(center => { 
                     if(!listElement.find(e => e.id === center.id)) {
                         listElement.push(center);
