@@ -16,7 +16,7 @@ import {Outlet, useNavigate} from 'react-router-dom'
 import Menu from "./Menu";
 import {$_get} from "../utils/tools";
 import userContext from "../context/userContext";
-import {logoSenaNaranja} from "../utils/images";
+import {logoSenaNaranja, logoSenaVerde} from "../utils/images";
 
 const drawerWidth = 300;
 
@@ -126,7 +126,7 @@ export default function Home({token}) {
           >
             <MenuIcon/>
           </IconButton>
-          <img width={45} height={45} src={logoSenaNaranja} alt={'Logo SENA'} title={'Logo SENA'}/>
+          <img width={70} height={70} src={logoSenaVerde} alt={'Logo SENA'} title={'Logo SENA'}/>
           <Typography sx={{ml: 2}} variant="h6" noWrap component="div">
             SENA - Encuestas
           </Typography>
