@@ -5,7 +5,7 @@ import Box from "@mui/material/Box";
 
 const headers = [
   createHeader('id', 'Id'),
-  createHeader('code', 'Codigo'),
+  createHeader('code', 'Código'),
   createHeader('name', 'Nombre')
 ];
 

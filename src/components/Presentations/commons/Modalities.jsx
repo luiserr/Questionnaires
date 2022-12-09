@@ -53,6 +53,6 @@ export default function Modalities({data, setData, setPayload, payload, entity, 
     handleSelect={handleCheck}
     handleSelectAll={handleCheckAll}
     title={'Modalidades'}
-    rowSelected={payload[entity].modalities}
+    rowSelected={rowsSelected()}
     rows={modalities}/>
 }
