@@ -72,6 +72,16 @@ export default function List() {
             }}
           />
         }
+        if(row.statusPresentation === 'executing') {
+          return <Chip
+            label={'En asignación'}
+            color={'secondary'}
+            disabled
+            deleteIcon={<DeleteIcon/>}
+            onDelete={() => {
+            }}
+          />
+        }
         if(row.statusPresentation === 'expired') {
           return <Chip
             label={'Finalizada'}

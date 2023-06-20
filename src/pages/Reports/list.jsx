@@ -1,30 +1,13 @@
 import React, {useEffect, useState} from 'react';
 
-import {
-  Box, 
-  Button, 
-  Card, 
-  CardContent, 
-  Chip, 
-  Grid, 
-  IconButton, 
-  Link
-} from "@mui/material";
-
-import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-import SaveAsIcon from '@mui/icons-material/SaveAs';
+import {Box, Card, CardContent, Chip, Grid, IconButton} from "@mui/material";
 import AvTimerIcon from '@mui/icons-material/AvTimer';
-import DeleteIcon from '@mui/icons-material/Delete';
-import AssessmentIcon from '@mui/icons-material/Assessment';
-import EditIcon from '@mui/icons-material/Edit';
+import HourglassBottomIcon from '@mui/icons-material/HourglassBottom';
+import DownloadIcon from '@mui/icons-material/Download';
+import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 
 import MyTable from "../../components/commons/table";
-import TableFront, {createHeader} from "../../components/commons/TableFront";
-
-import {useNavigate, useParams} from "react-router-dom";
 import {searchReports} from "../../tools/reportRequests";
-import DownloadIcon from '@mui/icons-material/Download';
-import {getDomain} from '../../utils/tools';
 
 /*const headers = {
   id: 'ID',
@@ -72,18 +55,23 @@ export default function ListReports() {
     {
       title: 'Estado',
       component: (row) =>
-        row.status === 'inProgress' ?
-        <Chip
-          label={'En progreso'}
-          color={'warning'}
+        row.status === 'inProgress' ? <Chip
+          label={'Pendiente por ejecutar'}
+          color={'default'}
           onDelete={() => {
           }}
           disabled
-          deleteIcon={<AvTimerIcon/>}
-        /> : 
-        <Chip
+          deleteIcon={<HourglassBottomIcon/>}
+        /> : row.status === 'finished' ? <Chip
           label={'Finalizado'}
           color={'info'}
+          onDelete={() => {
+          }}
+          disabled
+          deleteIcon={<CheckCircleOutlineIcon/>}
+        /> : <Chip
+          label={'En progreso'}
+          color={'warning'}
           onDelete={() => {
           }}
           disabled
@@ -93,9 +81,11 @@ export default function ListReports() {
     {
       title: 'Descargar',
       component: (row) =>
-        <IconButton 
+        <IconButton
           disabled={row.status === 'inProgress'}
-          onClick={() => {window.location = `${row.link}`}}
+          onClick={() => {
+            window.location = `${row.link}`
+          }}
           alt={'Descargar reporte'}
           title={'Descargar reporte'}
           aria-label="Descargar">
